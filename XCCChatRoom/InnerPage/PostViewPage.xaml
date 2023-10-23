@@ -172,7 +172,7 @@
                         BackgroundColor="#F0ECFE"
                         IsVisible="False"
                         Margin="0,0,5,10"
-                        HorizontalOptions="FillAndExpand"
+                        HorizontalOptions="Start"
                         VerticalOptions="Center">
                         <HorizontalStackLayout>
                             <Label
@@ -181,10 +181,11 @@
                                 FontSize="Caption"
                                 TextColor="#512BD4"
                                 MaxLines="3"
-                                HorizontalOptions="Fill"
+                                HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Center"/>
                             <ImageButton
                                 x:Name="QuoteCloseButton"
+                                Margin="0,0,5,0"
                                 Source="close"
                                 WidthRequest="15"
                                 HeightRequest="15"
