@@ -64,6 +64,7 @@
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\logoicon.png" />
+		<MauiImage Include="Resources\Images\Icon\close.svg" />
 		<MauiImage Include="Resources\Images\Icon\copy.svg" />
 		<MauiImage Include="Resources\Images\Icon\stop.svg" />
 		<MauiImage Include="Resources\Images\Icon\trash2.svg" />

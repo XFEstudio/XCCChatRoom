@@ -1,4 +1,5 @@
 using MauiPopup;
+using Microsoft.Maui.Controls;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
 using XFE∏˜¿‡Õÿ’π.ArrayExtension;
@@ -215,6 +216,7 @@ public partial class PostViewPage : ContentPage
                                 commentCard.Margin = new Thickness(0, 5);
                                 commentCard.LikeClick += CommentCard_LikeClick;
                                 commentCard.QuoteClick += CommentCard_QuoteClick;
+                                commentCard.CommentCardTapped += CommentCard_CommentCardTapped;
                                 if (UserInfo.IsLoginSuccessful && UserInfo.CurrentUser.LikedCommentID.Contains(commentData.CommentID))
                                 {
                                     commentCard.IsLike = true;
@@ -244,6 +246,15 @@ public partial class PostViewPage : ContentPage
             }
             RefreshingIsBusy = false;
         }).StartNewTask();
+    }
+
+    private void CommentCard_CommentCardTapped(object sender, EventArgs e)
+    {
+        if (sender is CommentCardView commentCard)
+        {
+            SwitchToQuoteStyle(commentCard.CommentID);
+            InputEditor.Focus();
+        }
     }
 
     private void CommentCard_QuoteClick(object sender, CommentCardQuoteClickEventArgs e)
@@ -357,29 +368,35 @@ public partial class PostViewPage : ContentPage
             SendButton.BackgroundColor = Color.FromArgb("#A491E8");
             InputEditor.IsEnabled = false;
             var tarCommentId = await IDGenerator.GetCorrectCommentId(XFEExecuter);
-            var result = await XFEExecuter.ExecuteAdd(new XFEChatRoom_CommunityComment
+            try
             {
-                CommentID = tarCommentId,
-                PostID = PostID,
-                CommentContent = InputEditor.Text,
-                UID = UserInfo.CurrentUser.ID,
-                UName = UserInfo.CurrentUser.Aname,
-                FloorCount = await AppAlgorithm.GetCommentFloor(PostID, XFEExecuter),
-                QuoteID = QuoteID
-            });
-            if (result == 0)
-            {
-                SendButton.BackgroundColor = Color.FromArgb("#512BD4");
-                InputEditor.IsEnabled = true;
-                SendButton.IsEnabled = true;
-                await PopupAction.DisplayPopup(new ErrorPopup("∆¿¬€ ß∞‹", "«ÎºÏ≤ÈÕ¯¬Á…Ë÷√"));
-                return;
+                var result = await XFEExecuter.ExecuteAdd(new XFEChatRoom_CommunityComment
+                {
+                    CommentID = tarCommentId,
+                    PostID = PostID,
+                    CommentContent = InputEditor.Text,
+                    UID = UserInfo.CurrentUser.ID,
+                    UName = UserInfo.CurrentUser.Aname,
+                    FloorCount = await AppAlgorithm.GetCommentFloor(PostID, XFEExecuter),
+                    QuoteID = QuoteID
+                });
+                if (result == 0)
+                {
+                    SendButton.BackgroundColor = Color.FromArgb("#512BD4");
+                    InputEditor.IsEnabled = true;
+                    SendButton.IsEnabled = true;
+                    await PopupAction.DisplayPopup(new ErrorPopup("∆¿¬€ ß∞‹", "«ÎºÏ≤ÈÕ¯¬Á…Ë÷√"));
+                    return;
+                }
             }
+            catch (Exception) { }
             XFEExecuter.RefreshExecuter();
             LoadComment();
             InputEditor.IsEnabled = true;
             InputEditor.Text = string.Empty;
-            await CommentScrollView.ScrollToAsync(0, 0, false);
+            CloseQuote();
+            await CommentScrollView.ScrollToAsync(CommentStack, ScrollToPosition.End, false);
+            await PopupAction.DisplayPopup(new LoadingPopup("∆¿¬€≥…π¶", 1));
         }
         catch (Exception ex)
         {
@@ -387,6 +404,7 @@ public partial class PostViewPage : ContentPage
             InputEditor.IsEnabled = true;
             SendButton.IsEnabled = true;
             await PopupAction.DisplayPopup(new ErrorPopup("∆¿¬€ ß∞‹", $"«ÎºÏ≤ÈÕ¯¬Á…Ë÷√\n{ex.Message}"));
+            await Console.Out.WriteLineAsync(ex.ToString());
             return;
         }
     }
@@ -513,12 +531,13 @@ public partial class PostViewPage : ContentPage
         }
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void QuoteCloseButton_Clicked(object sender, EventArgs e)
     {
-        if (sender is Border border)
-        {
-            QuoteID = string.Empty;
-            border.IsVisible = false;
-        }
+        CloseQuote();
+    }
+    private void CloseQuote()
+    {
+        QuoteID = string.Empty;
+        QuoteBorder.IsVisible = false;
     }
 }
