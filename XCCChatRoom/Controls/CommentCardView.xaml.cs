@@ -47,6 +47,7 @@ public partial class CommentCardView : ContentView
     public XFEChatRoom_CommunityComment CurrentCommentData { get; set; }
     public event EventHandler<CommentCardLikeClickEventArgs> LikeClick;
     public event EventHandler<CommentCardQuoteClickEventArgs> QuoteClick;
+    public event EventHandler CommentCardTapped;
     public CommentCardView(XFEChatRoom_CommunityComment commentEntity, XFEChatRoom_CommunityComment commentQuoteEntity)
     {
         InitializeComponent();
@@ -109,6 +110,11 @@ public partial class CommentCardView : ContentView
     private void QuoteButton_Clicked(object sender, EventArgs e)
     {
         QuoteClick?.Invoke(this, new CommentCardQuoteClickEventArgs(CommentID));
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        CommentCardTapped?.Invoke(this, EventArgs.Empty);
     }
 }
 public class CommentCardLikeClickEventArgs : EventArgs
