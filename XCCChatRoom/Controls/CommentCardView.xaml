@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
+             x:Class="XCCChatRoom.Controls.CommentCardView">
+    <Border
+        x:Name="mainBorder"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 5,5,5,5"
+        BackgroundColor="White"
+        Padding="10,10,10,10">
+        <StackLayout>
+            <Grid
+                Margin="10,5,10,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    Stroke="#512BD4"
+                    Fill="#F0ECFE"
+                    x:Name="ellipse"
+                    StrokeThickness="2"
+                    WidthRequest="30"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+                <Label
+                    x:Name="charLabel"
+                    Text="{Binding UserName[0]}"
+                    TextColor="#512BD4"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+                <Label
+                    Margin="5,0"
+                    Text="{Binding UserName}"
+                    Grid.Column="1"
+                    x:Name="AuthorLabel"
+                    FontSize="20"
+                    TextColor="#512BD4"/>
+            </Grid>
+            <Border
+                x:Name="quoteBorder"
+                StrokeThickness="0"
+                Margin="20,0"
+                StrokeShape="RoundRectangle 5,5,5,5"
+                BackgroundColor="#F0ECFE"
+                Padding="5">
+                <Label
+                    x:Name="QutoLabel"
+                    Text="{Binding QuoteContent}"
+                    FontSize="18"
+                    TextColor="#512BD4"/>
+            </Border>
+            <Label
+                x:Name="CommentLabel"
+                Text="{Binding CommentContent}"
+                Margin="20,0"
+                FontSize="18"
+                TextColor="Black"/>
+            <Label
+                x:Name="DateLabel"
+                Text="{Binding CommentTime}"
+                Margin="10,0"
+                FontSize="Caption"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                TextColor="Gray"/>
+            <BoxView
+                Margin="5,20"
+                HeightRequest="2"
+                CornerRadius="30"
+                Opacity="0.5"
+                Color="#512BD4"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ctr:LikeButton
+                    x:Name="LikeButton"
+                    Margin="10,0"
+                    TargetSize="23"
+                    Clicked="LikeButton_Clicked"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"/>
+                <Label
+                    Grid.Row="1"
+                    x:Name="LikeCountLabel"
+                    TextColor="Black"
+                    Text="{Binding LikeCount}"
+                    FontSize="Caption"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"/>
+                <ImageButton
+                    Grid.Column="1"
+                    x:Name="QuoteButton"
+                    HeightRequest="25"
+                    WidthRequest="25"
+                    Source="quote.svg"
+                    Margin="10,0"
+                    Clicked="QuoteButton_Clicked"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"/>
+            </Grid>
+        </StackLayout>
+    </Border>
+</ContentView>

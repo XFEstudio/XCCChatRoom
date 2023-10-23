@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XCCChatRoom.InnerPage.GPTAIChatPage"
+             Title="AI对话"
+             Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior x:Name="backButton" IsEnabled="True"/>
+    </Shell.BackButtonBehavior>
+    <StackLayout>
+        <AbsoluteLayout
+                VerticalOptions="FillAndExpand">
+            <ScrollView
+                VerticalOptions="FillAndExpand"
+                x:Name="ChatScrollView"
+                Scrolled="ChatScrollView_Scrolled"
+                BackgroundColor="#343541"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                AbsoluteLayout.LayoutFlags="All">
+                <StackLayout
+                    x:Name="ChatStack"
+                    VerticalOptions="StartAndExpand">
+                    <FlexLayout
+                        x:Name="SuggestionFlexLayout"
+                        Direction="Row"
+                        Padding="0,10"
+                        Wrap="Wrap"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Center"/>
+                </StackLayout>
+            </ScrollView>
+            <Border
+                x:Name="StopGenerateBorder"
+                Stroke="#D7D7D7"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 10"
+                IsVisible="False"
+                AbsoluteLayout.LayoutBounds="0.5, 0.95"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Background="#565865"
+                VerticalOptions="Center">
+                <Button
+                    x:Name="StopGenerateButton"
+                    Grid.ColumnSpan="2"
+                    ImageSource="stop"
+                    BackgroundColor="#565865"
+                    TextColor="White"
+                    Text="停止生成"
+                    Clicked="StopGenerateButton_Clicked"/>
+            </Border>
+            <Border
+                x:Name="RegenerateBorder"
+                Stroke="#D7D7D7"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 10"
+                IsVisible="False"
+                AbsoluteLayout.LayoutBounds="0.5, 0.95"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Background="#565865"
+                VerticalOptions="Center">
+                <Button
+                    x:Name="RegenerateButton"
+                    Grid.ColumnSpan="2"
+                    ImageSource="refresh"
+                    BackgroundColor="#565865"
+                    TextColor="White"
+                    Text="重新生成"
+                    Clicked="RegenerateButton_Clicked"/>
+            </Border>
+        </AbsoluteLayout>
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End"
+            Padding="5,5,5,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="45"/>
+            </Grid.ColumnDefinitions>
+            <Border
+                Stroke="#444654"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 10"
+                Background="#D7D7D7"
+                Margin="0,0,5,0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center">
+                <Editor
+                    x:Name="InputEditor"
+                    Placeholder="输入询问内容"
+                    HorizontalOptions="FillAndExpand"
+                    TextChanged="InputEditor_TextChanged"
+                    AutoSize="TextChanges"
+                    IsSpellCheckEnabled="False"
+                    MaximumHeightRequest="300"
+                    VerticalOptions="Center"/>
+            </Border>
+            <ImageButton
+                x:Name="SendButton"
+                Source="send"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                BackgroundColor="#A491E8"
+                Clicked="SendButton_Clicked"
+                Grid.Column="1"
+                CornerRadius="4"
+                Aspect="Center"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

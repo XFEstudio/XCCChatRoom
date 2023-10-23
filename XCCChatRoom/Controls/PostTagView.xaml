@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XCCChatRoom.Controls.PostTagView">
+    <Border
+        x:Name="mainBorder"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 30"
+        BackgroundColor="#F0ECFE"
+        Padding="10,5,10,5">
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer
+                Tapped="TapGestureRecognizer_Tapped"/>
+        </Border.GestureRecognizers>
+        <Label
+            Text="{Binding TagText}"
+            TextColor="#512BD4"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+    </Border>
+</ContentView>

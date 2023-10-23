@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mauiPopup:BasePopupPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mauiPopup="clr-namespace:MauiPopup.Views;assembly=MauiPopup"
+    x:Class="XCCChatRoom.Controls.GPTSettingPopup"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    IsCloseOnBackgroundClick="False"
+    ForegroundColor="Transparent"
+    BackgroundColor="Transparent">
+    <Border
+        Stroke="#1b1c22"
+        StrokeThickness="2"
+        StrokeShape="RoundRectangle 10"
+        BackgroundColor="#444654"
+        Margin="20"
+        Padding="0,10">
+        <Border.Shadow>
+            <Shadow
+                Opacity="0.8"
+                Radius="20"/>
+        </Border.Shadow>
+        <StackLayout>
+            <Label
+                Margin="20,5"
+                Text="标题"
+                TextColor="White"
+                FontSize="24"
+                FontAttributes="Bold"
+                CharacterSpacing="2"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <Entry
+                x:Name="TitleEditor"
+                TextColor="White"
+                FontSize="18"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+            <BoxView
+                HeightRequest="1"
+                Color="White"
+                CornerRadius="30"
+                Margin="20,10"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center" />
+            <Label
+                Margin="20,5"
+                Text="AI设定"
+                TextColor="White"
+                FontSize="24"
+                CharacterSpacing="2"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <Editor
+                x:Name="SystemEditor"
+                Margin="15,5"
+                AutoSize="TextChanges"
+                TextColor="White"
+                FontSize="16"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center" />
+            <BoxView
+                HeightRequest="1"
+                Color="White"
+                CornerRadius="30"
+                Margin="20,10"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center" />
+            <Label
+                Margin="20,5"
+                Text="GPT版本"
+                TextColor="White"
+                FontSize="24"
+                CharacterSpacing="2"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <Border
+                Margin="0,20"
+                x:Name="GPTVersionBorder"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 10"
+                BackgroundColor="White"
+                Padding="15,5"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Border.Shadow>
+                    <Shadow
+                        Opacity="0.8"
+                        Radius="20"
+                        Brush="White"/>
+                </Border.Shadow>
+                <Label
+                    x:Name="GPTVersionLabel"
+                    TextColor="#444654"
+                    FontSize="25"
+                    FontAttributes="Bold"
+                    CharacterSpacing="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label.Shadow>
+                        <Shadow
+                            Opacity="0.8"
+                            Radius="10"
+                            Brush="Black"/>
+                    </Label.Shadow>
+                </Label>
+            </Border>
+            <Button
+                Margin="30,20,30,5"
+                x:Name="ConfirmButton"
+                Text="确定"
+                TextColor="#444654"
+                FontAttributes="Bold"
+                BackgroundColor="White"
+                FontSize="20"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                Clicked="ConfirmButton_Clicked"/>
+        </StackLayout>
+    </Border>
+</mauiPopup:BasePopupPage>

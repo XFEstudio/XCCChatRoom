@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mauiPopup:BasePopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mauiPopup="clr-namespace:MauiPopup.Views;assembly=MauiPopup"
+             x:Class="XCCChatRoom.Controls.LoadingPopup"
+             IsCloseOnBackgroundClick="False"
+             HorizontalOptions="Center"
+             VerticalOptions="Center"
+             Title="LoadingPopup"
+             ForegroundColor="Transparent"
+             BackgroundColor="Transparent">
+    <Border
+        StrokeThickness="0"
+        Padding="15"
+        StrokeShape="RoundRectangle 20"
+        BackgroundColor="#F0ECFE">
+        <StackLayout>
+            <Label 
+                Margin="10"
+                x:Name="DisplayTitleLabel"
+                FontSize="20"
+                Text="加载"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                TextColor="#512BD4"/>
+            <Label 
+                Margin="10"
+                x:Name="DisplayContentLabel"
+                FontSize="16"
+                Text="加载内容"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                TextColor="#512BD4"/>
+        </StackLayout>
+    </Border>
+</mauiPopup:BasePopupPage>

@@ -1,0 +1,294 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-maccatalyst;net7.0-android33.0;net7.0-ios</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>XCCChatRoom</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>XCCChatRoom</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.xccchatroom</ApplicationId>
+		<ApplicationIdGuid>b60e80e3-a587-476f-8084-0f241ba57424</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidSigningStorePass>123qwe456rty</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>XFE聊天室</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>123qwe456rty</AndroidSigningKeyPass>
+	  <Debugger>Xamarin</Debugger>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+	  <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+	  <DebugSymbols>True</DebugSymbols>
+	  <RunAOTCompilation>False</RunAOTCompilation>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.22621.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidSigningStorePass>123qwe456rty</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>XFE聊天室</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>123qwe456rty</AndroidSigningKeyPass>
+	  <Debugger>Xamarin</Debugger>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+	  <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+	  <DebugSymbols>False</DebugSymbols>
+	  <RunAOTCompilation>False</RunAOTCompilation>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\logoicon.png" />
+		<MauiImage Include="Resources\Images\Icon\copy.svg" />
+		<MauiImage Include="Resources\Images\Icon\stop.svg" />
+		<MauiImage Include="Resources\Images\Icon\trash2.svg" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\biglogoicon.png" Color="#FFFFFF">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</MauiSplashScreen>
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\ai.svg" />
+	  <None Remove="Resources\Images\ai_draw_robot.svg" />
+	  <None Remove="Resources\Images\caution.png" />
+	  <None Remove="Resources\Images\copy.svg" />
+	  <None Remove="Resources\Images\designer_desk.svg" />
+	  <None Remove="Resources\Images\history.svg" />
+	  <None Remove="Resources\Images\Icon\higher_ai_robot.svg" />
+	  <None Remove="Resources\Images\Icon\likecircle.svg" />
+	  <None Remove="Resources\Images\Icon\starcircle.svg" />
+	  <None Remove="Resources\Images\Icon\stop.svg" />
+	  <None Remove="Resources\Images\Icon\trash2.svg" />
+	  <None Remove="Resources\Images\normal_ai_robot.svg" />
+	  <None Remove="Resources\Images\protect_privacy.svg" />
+	  <None Remove="Resources\Images\quote.svg" />
+	  <None Remove="Resources\Images\refresh.svg" />
+	  <None Remove="Resources\Images\smile.svg" />
+	  <None Remove="Resources\Images\unsmile.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\biglogoicon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
+		<PackageReference Include="Plugin.Maui.Popup" Version="1.0.5" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+		<PackageReference Include="TencentCloudSDK" Version="3.0.868" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Controls\ErrorPopup.xaml.cs">
+	    <DependentUpon>ErrorPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\StarButton.xaml.cs">
+	    <DependentUpon>StarButton.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="InnerPage\ChatPage.xaml.cs">
+	    <DependentUpon>ChatPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="InnerPage\UserLoginPage.xaml.cs">
+	    <DependentUpon>UserLoginPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="InnerPage\UserRegisterPage.xaml.cs">
+	    <DependentUpon>UserRegisterPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Controls\CommentCardView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\ErrorPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\GPTDialogListPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\GPTSettingPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\StarButton.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\LikeButton.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\LoadingPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\PostCardView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\AICenterPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\AIDrawPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\CommunityPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\GPTAIChatPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\IntroductionPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\PostEditPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\PostViewPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserPropertyEditor.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\GroupCardView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\WhiteChoiceButton.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\GroupContactPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserInfo.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserLoginPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserRegisterPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\XEAEncryptPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Background\designer_desk.svg" />
+	  <MauiImage Include="Resources\Images\Background\newsletter.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\amazed_face.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\anguished_face.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\anxious_face.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\backhand_index_pointing_right.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\backhand_index_pointing_up.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\clapping_hands.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\cloud.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\clown_face.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\confounded_face.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\confused_face.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\dog.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\dog_face.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\face_blowing_a_kiss.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\face_savoring_food.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\face_without_mouth.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\face_with_tongue.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\fire.svg" />
+	  <MauiImage Include="Resources\Images\Emoticon\full_moon_face.svg" />
+	  <MauiImage Include="Resources\Images\Icon\ai.svg" />
+	  <MauiImage Include="Resources\Images\Icon\ai_draw_robot.svg" />
+	  <MauiImage Include="Resources\Images\Icon\biglogoicon.png" />
+	  <MauiImage Include="Resources\Images\Icon\caution.png" />
+	  <MauiImage Include="Resources\Images\Icon\chevron_right.svg" />
+	  <MauiImage Include="Resources\Images\Icon\edit.svg" />
+	  <MauiImage Include="Resources\Images\Icon\gaussianblurlogoicon.png" />
+	  <MauiImage Include="Resources\Images\Icon\higher_ai_robot.svg" />
+	  <MauiImage Include="Resources\Images\Icon\history.svg" />
+	  <MauiImage Include="Resources\Images\Icon\home.svg" />
+	  <MauiImage Include="Resources\Images\Icon\initializelogo.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\Icon\like.svg" />
+	  <MauiImage Include="Resources\Images\Icon\likecircle.svg" />
+	  <MauiImage Include="Resources\Images\Icon\loader.svg" />
+	  <MauiImage Include="Resources\Images\Icon\lock.svg" />
+	  <MauiImage Include="Resources\Images\Icon\message.svg" />
+	  <MauiImage Include="Resources\Images\Icon\normal_ai_robot.svg" />
+	  <MauiImage Include="Resources\Images\Icon\phone.svg" />
+	  <MauiImage Include="Resources\Images\Icon\phone_call.svg" />
+	  <MauiImage Include="Resources\Images\Icon\plus.svg" />
+	  <MauiImage Include="Resources\Images\Icon\quote.svg" />
+	  <MauiImage Include="Resources\Images\Icon\refresh.svg" />
+	  <MauiImage Include="Resources\Images\Icon\send.svg" />
+	  <MauiImage Include="Resources\Images\Icon\server.svg" />
+	  <MauiImage Include="Resources\Images\Icon\settings.svg" />
+	  <MauiImage Include="Resources\Images\Icon\smile.svg" />
+	  <MauiImage Include="Resources\Images\Icon\star.svg" />
+	  <MauiImage Include="Resources\Images\Icon\starcircle.svg" />
+	  <MauiImage Include="Resources\Images\Icon\trash.svg" />
+	  <MauiImage Include="Resources\Images\Icon\unlike.svg" />
+	  <MauiImage Include="Resources\Images\Icon\unlock.svg" />
+	  <MauiImage Include="Resources\Images\Icon\unsmile.svg" />
+	  <MauiImage Include="Resources\Images\Icon\unstar.svg" />
+	  <MauiImage Include="Resources\Images\Icon\user.svg" />
+	  <MauiImage Include="Resources\Images\Icon\whiteloader.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\about_our_team.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\artificial_intelligence.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\being_creative.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\beta_testing.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\emoji_discuss.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\facetime_meeting.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\get_inspired.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\mars_rover.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\protect_privacy.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\startup.svg" />
+	  <MauiImage Include="Resources\Images\ShowImage\success.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="bin\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="XFE各类拓展">
+	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展\XFE各类拓展\bin\Debug\XFE各类拓展.dll</HintPath>
+	  </Reference>
+	  <Reference Include="XFE各类拓展.NetCore.XFEDataBase">
+	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展.NetCore.XFEDataBase\XFE各类拓展.NetCore.XFEDataBase\bin\Release\net7.0\publish\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionXCCChatRoomHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
+</Project>

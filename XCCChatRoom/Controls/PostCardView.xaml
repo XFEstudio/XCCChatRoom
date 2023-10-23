@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
+             x:Class="XCCChatRoom.Controls.PostCardView">
+    <Border
+        x:Name="mainBorder"
+        Stroke="#512BD4"
+        StrokeThickness="2"
+        StrokeShape="RoundRectangle 5,5,5,5"
+        BackgroundColor="White"
+        Padding="10,10,10,10">
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer
+                Tapped="TapGestureRecognizer_Tapped"/>
+        </Border.GestureRecognizers>
+        <Border.Shadow>
+            <Shadow
+                Offset="4,4"
+                Opacity="0.5"
+                Radius="5"/>
+        </Border.Shadow>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Label
+                x:Name="lblTitle"
+                Text="{Binding PostTitle}"
+                FontSize="Title"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Grid.ColumnSpan="2"
+                FontAttributes="Bold"/>
+            <Label
+                x:Name="lblContent"
+                Text="{Binding PostContent}"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                MaxLines="6"
+                LineBreakMode="WordWrap"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                FontSize="Body"/>
+            <Label
+                x:Name="lblTime"
+                Text="{Binding PostTime}"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Grid.Row="2"
+                FontSize="12"
+                TextColor="Gray"/>
+            <Label
+                x:Name="lblAuthor"
+                Text="{Binding PostAuthor}"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Caption"
+                TextColor="#512BD4"/>
+            <BoxView
+                Color="#512BD4"
+                Opacity="0.5"
+                WidthRequest="4"
+                MinimumHeightRequest="80"
+                CornerRadius="30"
+                Grid.RowSpan="5"
+                Grid.Column="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Fill"/>
+            <StackLayout
+                Grid.RowSpan="5"
+                Grid.Column="3"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                <ctr:LikeButton
+                    x:Name="btnLike"
+                    Clicked="btnLike_Clicked"/>
+                <Label
+                    x:Name="lblLikeCount"
+                    Text="{Binding LikeCount}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+            </StackLayout>
+            <BoxView
+                x:Name="tagBoxView"
+                Margin="0,5,0,5"
+                Color="Gray"
+                Opacity="0.5"
+                HeightRequest="2"
+                CornerRadius="30"
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"/>
+            <ScrollView
+                Orientation="Horizontal"
+                HorizontalScrollBarVisibility="Never"
+                Grid.Row="4"
+                Grid.ColumnSpan="2">
+                <HorizontalStackLayout
+                    x:Name="tagStackLayout">
+                </HorizontalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Border>
+</ContentView>
