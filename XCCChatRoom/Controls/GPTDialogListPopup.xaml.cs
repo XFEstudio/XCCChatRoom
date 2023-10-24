@@ -102,7 +102,7 @@ public partial class GPTDialogListPopup : BasePopupPage
                             currentChoseBorder = border;
                         }
                     }
-                    GPTAIChatPage.Current.LoadDialog(sender as string);
+                    GPTAIChatPage.Current.LoadDialog(((dynamic)sender).Id);
                 })
             });
             var deleteButton = new ImageButton
