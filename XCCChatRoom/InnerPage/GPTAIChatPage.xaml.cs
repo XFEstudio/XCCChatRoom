@@ -550,7 +550,7 @@ public partial class GPTAIChatPage : ContentPage
             lastQuestion = chatDialog[i];
             var responseLabel = new Label
             {
-                Text = chatDialog[i + 1],
+                Text = chatDialog.Length > i + 1 ? chatDialog[i + 1] : string.Empty,
                 TextColor = Color.FromArgb("#D1D5DB"),
                 FontSize = 18,
                 HorizontalOptions = LayoutOptions.Fill,
@@ -588,6 +588,7 @@ public partial class GPTAIChatPage : ContentPage
             lastAnswerGenerated = false;
             var currentDialogCollection = memorableXFEChatGPT.MemoryDialog[CurrentDialogId];
             currentDialogCollection.RemoveAt(currentDialogCollection.Count - 1);
+            currentDialogCollection.RemoveAt(currentDialogCollection.Count - 2);
             new Action(() => TextMouseUpdate(lastMessage)).StartNewTask();
             memorableXFEChatGPT.AskChatGPT(CurrentDialogId, lastMessage.messageId, lastQuestion);
         }
