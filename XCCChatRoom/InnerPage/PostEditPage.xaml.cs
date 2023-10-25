@@ -56,7 +56,7 @@ public partial class PostEditPage : ContentPage
                     if (await DisplayAlert("删除帖子", "确认删除吗？删除后的帖子不可恢复", "确认", "取消"))
                         try
                         {
-                            var task = PopupAction.DisplayPopup(new LoadingPopup("删除中...", 300));
+                            var task = PopupAction.DisplayPopup(new TipPopup("删除中...", 300));
                             var tarPost = await XFEExecuter.ExecuteGetFirst<XFEChatRoom_CommunityPost>(x => x.PostID == CurrentPostData.PostID);
                             var result = await XFEExecuter.ExecuteDelete(tarPost);
                             if (result == 0)
@@ -130,7 +130,7 @@ public partial class PostEditPage : ContentPage
                 }
                 BackTrigger = true;
                 Posting = true;
-                var task = PopupAction.DisplayPopup(new LoadingPopup("发布中...", 300));
+                var task = PopupAction.DisplayPopup(new TipPopup("发布中...", 300));
                 var timeSpend = new Action(async () =>
                 {
                     if (CurrentPostData is null)

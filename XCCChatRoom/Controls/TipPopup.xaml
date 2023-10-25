@@ -2,11 +2,11 @@
 <mauiPopup:BasePopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mauiPopup="clr-namespace:MauiPopup.Views;assembly=MauiPopup"
-             x:Class="XCCChatRoom.Controls.LoadingPopup"
+             x:Class="XCCChatRoom.Controls.TipPopup"
              IsCloseOnBackgroundClick="False"
              HorizontalOptions="Center"
              VerticalOptions="Center"
-             Title="LoadingPopup"
+             Title="TipPopup"
              ForegroundColor="Transparent"
              BackgroundColor="Transparent">
     <Border
@@ -19,7 +19,7 @@
                 Margin="10"
                 x:Name="DisplayTitleLabel"
                 FontSize="20"
-                Text="加载"
+                Text="标题"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" 
                 TextColor="#512BD4"/>
@@ -27,7 +27,7 @@
                 Margin="10"
                 x:Name="DisplayContentLabel"
                 FontSize="16"
-                Text="加载内容"
+                Text="提示内容"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" 
                 TextColor="#512BD4"/>

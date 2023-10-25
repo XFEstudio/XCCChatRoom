@@ -374,7 +374,7 @@ public partial class GPTAIChatPage : ContentPage
     private async void CopyButton_Clicked(object sender, EventArgs e)
     {
         await Clipboard.SetTextAsync((((sender as ImageButton).Parent as Grid).Children[0] as Label).Text);
-        await PopupAction.DisplayPopup(new LoadingPopup("复制成功", 2));
+        await PopupAction.DisplayPopup(new TipPopup("复制成功", 2));
     }
 
     private void ReceiveGPTResponse(object sender, XFEGPTMessageReceivedEventArgs e)

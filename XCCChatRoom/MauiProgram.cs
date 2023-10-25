@@ -9,6 +9,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+        AppSystemProfile.LoadSystemProfile();
         XCCDataBase.Initialize();
         TencentSms.Initialize();
         GPTAIDialogManager.LoadDialogs();

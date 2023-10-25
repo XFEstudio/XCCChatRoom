@@ -4,9 +4,9 @@ using Timer = System.Timers.Timer;
 
 namespace XCCChatRoom.Controls;
 
-public partial class LoadingPopup : BasePopupPage
+public partial class TipPopup : BasePopupPage
 {
-    public LoadingPopup(string title, int closeTime = 3)
+    public TipPopup(string title, int closeTime = 3)
     {
         InitializeComponent();
         this.Shadow = new Shadow
@@ -20,7 +20,7 @@ public partial class LoadingPopup : BasePopupPage
         DisplayContentLabel.IsVisible = false;
         CloseTimer(closeTime);
     }
-    public LoadingPopup(string title, string content, int closeTime = 3)
+    public TipPopup(string title, string content, int closeTime = 3)
     {
         InitializeComponent();
         this.Shadow = new Shadow
