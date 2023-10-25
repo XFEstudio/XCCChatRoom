@@ -1,4 +1,5 @@
 using XCCChatRoom.AllImpl;
+using XFE各类拓展.StringExtension;
 
 namespace XCCChatRoom.InnerPage;
 
@@ -9,40 +10,80 @@ public partial class UserPropertyEditor : ContentPage
         InitializeComponent();
     }
 
-    private async void UserNameEditorButton_Click(object sender, TappedEventArgs e)
+
+    private async void UserNameEditor()
     {
-        var checkParamName = e.Parameter as string;
-        var paramName = string.Empty;
-        switch (checkParamName)
+        string newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的昵称", "确定", "取消");
+        bool flag = newUserProperty.UserNameEditor();
+        if (flag)
         {
-            case "修改用户名":
-                paramName = "昵称";
-                break;
-            case "重置密码":
-                paramName = "密码";
-                break;
-            case "重新绑定邮箱":
-                paramName = "邮箱";
-                break;
-            case "重新绑定电话号码":
-                paramName = "电话号码";
-                break;
-        }
-        var newUserProperty = await DisplayPromptAsync($"修改{paramName}", $"请输入新的{paramName}", "确定", "取消");
-        if (newUserProperty is not null && newUserProperty != string.Empty)
-        {
-            if (newUserProperty.Contains(' ') && newUserProperty.VerifyString())
-            {
-                UserInfo.EditUserProperty(UserPropertyToEdit.UserName, newUserProperty, this);
-            }
-            else
-            {
-                await DisplayAlert("出错啦！", $"请输入不含空格的{paramName}", "明白了");
-            }
+            UserInfo.EditUserProperty(UserPropertyToEdit.UserName, newUserProperty, this);
         }
         else
         {
-            await DisplayAlert("出错啦！", $"{paramName}不能为空", "明白了");
+            await DisplayAlert("非法昵称", "请输入合法昵称", "明白了");
+        }
+    }
+
+    private async void PasswordEditor()
+    {
+        string newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的密码", "确定", "取消");
+        bool flag = newUserProperty.PasswordEditor();
+        if (flag)
+        {
+            UserInfo.EditUserProperty(UserPropertyToEdit.Password, newUserProperty, this);
+        }
+        else
+        {
+            await DisplayAlert("密码过短或过长", "请输入合适长度的密码", "明白了");
+        }
+    }
+
+    private async void MailEditor()
+    {
+        var newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的邮箱", "确定", "取消");
+        bool flag = XFE各类拓展.StringExtension.StringExtension.IsValidEmail(newUserProperty);
+        if (flag)
+        {
+            UserInfo.EditUserProperty(UserPropertyToEdit.Mail, newUserProperty, this);
+        }
+        else
+        {
+            await DisplayAlert("邮箱无效", "请输入有效的邮箱地址", "明白了");
+        }
+    }
+
+    private async void TelEditor()
+    {
+        var newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的手机号", "确定", "取消");
+        bool flag = newUserProperty.IsMobPhoneNumber();
+        if (flag)
+        {
+            UserInfo.EditUserProperty(UserPropertyToEdit.PhoneNum, newUserProperty, this);
+        }
+        else
+        {
+            await DisplayAlert("手机号无效", "请输入有效的手机号（目前仅支持中国大陆用户）", "明白了");
+        }
+    }
+    private void UserPropertyEditorButton_Click(object sender, EventArgs e)
+    {
+        Button button1 = (Button)sender;
+        string InformationToBeModified = button1.Text;
+        switch (InformationToBeModified)
+        {
+            case "修改用户名":
+                UserNameEditor();
+                break;
+            case "重置密码":
+                PasswordEditor();
+                break;
+            case "重新绑定邮箱":
+                MailEditor();
+                break;
+            case "重新绑定电话号码":
+                TelEditor();
+                break;
         }
     }
 }
