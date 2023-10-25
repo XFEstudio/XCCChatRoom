@@ -11,15 +11,17 @@ namespace XCCChatRoom.AllImpl
     public class AppSystemProfile
     {
         public static LoginMethod LoginMethod { get; set; }
+        public static string IgnoreVersion { get; set; }
         public static void SaveSystemProfile()
         {
             string saveString = new XFEDictionary(new string[]
             {
-                nameof(LoginMethod), LoginMethod.ToString()
+                nameof(LoginMethod), LoginMethod.ToString(),
+                nameof(IgnoreVersion), IgnoreVersion
             }).ToString();
             saveString.WriteIn(AppPath.SystemProfilePath);
         }
-        public static void LoadSystemProfile(Page page)
+        public static void LoadSystemProfile()
         {
             if (AppPath.SystemProfilePath.ReadOut(out string profileString))
             {
@@ -38,9 +40,12 @@ namespace XCCChatRoom.AllImpl
                                     LoginMethod = LoginMethod.VerifyCodeLogin;
                                     break;
                                 default:
-                                    page.DisplayAlert("错误", $"配置文件读取错误，未知的类型：{property.Content}", "我测");
+                                    try { Shell.Current?.DisplayAlert("错误", $"配置文件读取错误，未知的类型：{property.Content}", "我测"); } catch { }
                                     break;
                             }
+                            break;
+                        case nameof(IgnoreVersion):
+                            IgnoreVersion = property.Content;
                             break;
                     }
                 }

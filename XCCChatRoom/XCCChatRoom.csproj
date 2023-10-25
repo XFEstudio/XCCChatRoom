@@ -120,6 +120,9 @@
 	  <Compile Update="Controls\ErrorPopup.xaml.cs">
 	    <DependentUpon>ErrorPopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Controls\TipPopup.xaml.cs">
+	    <DependentUpon>TipPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Controls\StarButton.xaml.cs">
 	    <DependentUpon>StarButton.xaml</DependentUpon>
 	  </Compile>
@@ -153,10 +156,13 @@
 		<MauiXaml Update="Controls\LikeButton.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Controls\LoadingPopup.xaml">
+		<MauiXaml Update="Controls\TipPopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\PostCardView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\UpdatePopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\AICenterPage.xaml">

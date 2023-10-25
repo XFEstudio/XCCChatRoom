@@ -395,7 +395,7 @@ public partial class PostViewPage : ContentPage
             InputEditor.Text = string.Empty;
             CloseQuote();
             await CommentScrollView.ScrollToAsync(CommentStack, ScrollToPosition.End, false);
-            await PopupAction.DisplayPopup(new LoadingPopup("评论成功", 1));
+            await PopupAction.DisplayPopup(new TipPopup("评论成功", 1));
         }
         catch (Exception ex)
         {

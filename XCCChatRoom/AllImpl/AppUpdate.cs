@@ -25,9 +25,9 @@ namespace XCCChatRoom.AllImpl
                             string content = await response.Content.ReadAsStringAsync();
                             content.CW();
                             string[] versionInfo = content.Split('|');
-                            if (versionInfo.Length == 3 && versionInfo[0] != VersionTracking.CurrentVersion)
+                            if (versionInfo.Length == 3 && versionInfo[0] != VersionTracking.CurrentVersion && versionInfo[0] != AppSystemProfile.IgnoreVersion)
                             {
-                                //不强制更新
+                                //非强制更新
                                 if (versionInfo[1] == "0")
                                 {
                                     CurrentPage.Dispatcher.Dispatch(async () =>
