@@ -8,13 +8,21 @@
                          HorizontalOptions="Center"
                          VerticalOptions="Center"
                          Title="UpdatePopup"
+                         Margin="10,0"
                          ForegroundColor="Transparent"
                          BackgroundColor="Transparent">
     <Border
-        StrokeThickness="0"
+        StrokeThickness="3"
         Padding="15"
+        Stroke="#512BD4"
         StrokeShape="RoundRectangle 20"
         BackgroundColor="#F0ECFE">
+        <Border.Shadow>
+            <Shadow
+                Offset="10,10"
+                Opacity="0.5"
+                Radius="10"/>
+        </Border.Shadow>
         <StackLayout>
             <Label 
                 Margin="10"
@@ -29,7 +37,9 @@
                 Margin="10"
                 x:Name="DisplayVersionLabel"
                 FontSize="18"
+                CharacterSpacing="3"
                 Text="更新版本"
+                FontAttributes="Bold"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" 
                 TextColor="CornflowerBlue"/>
@@ -50,7 +60,7 @@
                 BackgroundColor="#512BD4"
                 CornerRadius="30"
                 VerticalOptions="Center" 
-                HorizontalOptions="Center" 
+                HorizontalOptions="Fill" 
                 Clicked="UpdateButton_Clicked"/>
             <Button
                 Margin="10"
@@ -62,7 +72,7 @@
                 BackgroundColor="White"
                 CornerRadius="30"
                 VerticalOptions="Center" 
-                HorizontalOptions="Center" 
+                HorizontalOptions="Fill" 
                 Clicked="CancelButton_Clicked"/>
             <ctr:SuperLinkLabel
                 Text="跳过此版本"

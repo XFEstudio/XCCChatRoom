@@ -1,4 +1,6 @@
-﻿using XFE各类拓展.StringExtension;
+﻿using MauiPopup;
+using XCCChatRoom.Controls;
+using XFE各类拓展.StringExtension;
 using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.AllImpl
@@ -32,10 +34,22 @@ namespace XCCChatRoom.AllImpl
                                 {
                                     CurrentPage.Dispatcher.Dispatch(async () =>
                                     {
-                                        if (await CurrentPage.DisplayAlert("更新", $"检测到新版本V{versionInfo[0]}，是否更新？\n更新内容：\n{versionInfo[2]}", "更新", "取消"))
+                                        var popup = new UpdatePopup("更新啦！", $"版本：{versionInfo[0]}", $"更新内容：\n{versionInfo[2]}");
+                                        popup.UpdateButtonClicked += async (sender, e) =>
                                         {
                                             await Launcher.OpenAsync(new Uri("https://www.xfegzs.com/com.xfegzs.xccchatroom.apk"));
-                                        }
+                                        };
+                                        popup.CancelButtonClicked += async (sender, e) =>
+                                        {
+                                            await PopupAction.ClosePopup();
+                                        };
+                                        popup.SkipButtonClicked += async (sender, e) =>
+                                        {
+                                            AppSystemProfile.IgnoreVersion = versionInfo[0];
+                                            AppSystemProfile.SaveSystemProfile();
+                                            await PopupAction.ClosePopup();
+                                        };
+                                        await PopupAction.DisplayPopup(popup);
                                     });
                                 }
                                 //强制更新
@@ -43,11 +57,13 @@ namespace XCCChatRoom.AllImpl
                                 {
                                     CurrentPage.Dispatcher.Dispatch(async () =>
                                     {
-                                        await CurrentPage.DisplayAlert("更新", $"检测到新版本V{versionInfo[0]}，请更新（该版本为强制更新）！\n更新内容：\n{versionInfo[2]}", "确定");
-                                        await Launcher.OpenAsync(new Uri("https://www.xfegzs.com/com.xfegzs.xccchatroom.apk"));
-#if ANDROID
+                                        var popup = new UpdatePopup("更新啦！", $"版本：{versionInfo[0]}（强制更新）", $"更新内容：\n{versionInfo[2]}", false);
+                                        popup.UpdateButtonClicked += async (sender, e) =>
+                                        {
+                                            await Launcher.OpenAsync(new Uri("https://www.xfegzs.com/com.xfegzs.xccchatroom.apk"));
+                                        };
+                                        await PopupAction.DisplayPopup(popup);
                                         System.Diagnostics.Process.GetCurrentProcess().Kill();
-#endif
                                     });
                                 }
                             }

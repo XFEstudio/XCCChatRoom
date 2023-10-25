@@ -14,6 +14,7 @@ public partial class UpdatePopup : BasePopupPage
         {
             CancelButton.IsVisible = false;
             SkipButton.IsVisible = false;
+            IsCloseOnBackgroundClick = false;
         }
         DisplayTitleLabel.Text = updateTitle;
         DisplayVersionLabel.Text = updateVersion;
