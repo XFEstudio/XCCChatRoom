@@ -1,7 +1,4 @@
-﻿using MauiPopup;
-using XCCChatRoom.Controls;
-using XFE各类拓展.ArrayExtension;
-using XFE各类拓展.ArrayExtension.AI;
+﻿using XFE各类拓展.ArrayExtension;
 using XFE各类拓展.FileExtension;
 using XFE各类拓展.FormatExtension;
 using XFE各类拓展.XFEChatGPT;

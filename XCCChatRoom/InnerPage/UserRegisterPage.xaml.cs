@@ -1,5 +1,4 @@
 using MauiPopup;
-using TencentCloud.Irp.V20220324.Models;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
 using XFE¸÷ÀàÍØÕ¹.NetCore.XFEDataBase;
