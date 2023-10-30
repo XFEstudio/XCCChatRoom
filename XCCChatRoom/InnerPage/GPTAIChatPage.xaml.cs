@@ -587,8 +587,10 @@ public partial class GPTAIChatPage : ContentPage
             StopGenerateBorder.IsVisible = true;
             lastAnswerGenerated = false;
             var currentDialogCollection = memorableXFEChatGPT.MemoryDialog[CurrentDialogId];
-            currentDialogCollection.RemoveAt(currentDialogCollection.Count - 1);
-            currentDialogCollection.RemoveAt(currentDialogCollection.Count - 2);
+            if (currentDialogCollection.Count > 1)
+                currentDialogCollection.RemoveAt(currentDialogCollection.Count - 1);
+            if (currentDialogCollection.Count > 1)
+                currentDialogCollection.RemoveAt(currentDialogCollection.Count - 1);
             new Action(() => TextMouseUpdate(lastMessage)).StartNewTask();
             memorableXFEChatGPT.AskChatGPT(CurrentDialogId, lastMessage.messageId, lastQuestion);
         }
