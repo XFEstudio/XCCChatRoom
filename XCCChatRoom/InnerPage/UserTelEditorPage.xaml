@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XCCChatRoom.InnerPage.UserTelEditorPage">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="原手机号:"
+                   FontSize="20"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center" 
+                   Grid.Row="1"/>
+            
+            <Label x:Name="OldTel"
+                   FontSize="20"
+                   VerticalOptions="Center" 
+                   Grid.Row="1"
+                   Grid.Column="1"/>
+
+            <Label Text="新手机号:"
+                   FontSize="20"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Grid.Row="2"/>
+
+            <Entry x:Name="NewTel"
+                   Unfocused="NewTel_Unfocused"
+                   WidthRequest="200"
+                   FontSize="20"
+                   Grid.Row="2"
+                   Grid.Column="1"/>
+
+            <Button x:Name="GetCode"
+                    Text="获取验证码"
+                    FontSize="15"
+                    Clicked="GetCode_Clicked"
+                    WidthRequest="60"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    CornerRadius="8"/>
+
+            <Button Text="确认"
+                    WidthRequest="80"
+                    Margin="0,10"
+                    FontSize="24"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="3"
+                    CornerRadius="10"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentView>

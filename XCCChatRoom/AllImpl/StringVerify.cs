@@ -2,13 +2,13 @@
 {
     public static class StringVerify
     {
-        public static string[] ContrabandVocabulary = new string[] { "傻逼","弱智","死妈","畜生" };
+        public static string[] ContrabandVocabulary = new string[] {  };
         public static bool VerifyString(this string verifyString)
         {
             int i = 1;
             foreach (string word in ContrabandVocabulary)
             {
-                if (verifyString != word)
+                if (verifyString == word)
                 {
                     i = -1;
                     break;
@@ -24,6 +24,7 @@
         {
             if (NewUserName is not null && NewUserName != string.Empty)
             {
+                
                 if (!NewUserName.Contains(' ') && NewUserName.VerifyString()) { return true; }
                 else { return false; }
             }
