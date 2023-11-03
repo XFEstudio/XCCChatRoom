@@ -8,5 +8,6 @@
             x:Name="textLabel"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        
     </VerticalStackLayout>
 </ContentPage>
