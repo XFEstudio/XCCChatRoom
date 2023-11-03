@@ -18,6 +18,7 @@ public partial class UserPropertyEditor : ContentPage
         if (flag)
         {
             UserInfo.EditUserProperty(UserPropertyToEdit.UserName, newUserProperty, this);
+            await DisplayAlert("修改成功", "内容合法", "明白了");
         }
         else
         {
@@ -32,6 +33,7 @@ public partial class UserPropertyEditor : ContentPage
         if (flag)
         {
             UserInfo.EditUserProperty(UserPropertyToEdit.Password, newUserProperty, this);
+            await DisplayAlert("修改成功", "内容合法", "明白了");
         }
         else
         {
@@ -46,6 +48,7 @@ public partial class UserPropertyEditor : ContentPage
         if (flag)
         {
             UserInfo.EditUserProperty(UserPropertyToEdit.Mail, newUserProperty, this);
+            await DisplayAlert("修改成功", "内容合法", "明白了");
         }
         else
         {
@@ -60,6 +63,7 @@ public partial class UserPropertyEditor : ContentPage
         if (flag)
         {
             UserInfo.EditUserProperty(UserPropertyToEdit.PhoneNum, newUserProperty, this);
+            await DisplayAlert("修改成功", "内容合法", "明白了");
         }
         else
         {
@@ -76,13 +80,16 @@ public partial class UserPropertyEditor : ContentPage
                 UserNameEditor();
                 break;
             case "重置密码":
-                PasswordEditor();
+                Shell.Current.GoToAsync(nameof(UserPasswordEditorPage));
+                /*PasswordEditor();*/
                 break;
             case "重新绑定邮箱":
                 MailEditor();
                 break;
             case "重新绑定电话号码":
                 TelEditor();
+                Shell.Current.GoToAsync(nameof(UserTelEditorPage));
+                
                 break;
         }
     }
