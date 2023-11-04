@@ -1,12 +1,12 @@
 ﻿using Microsoft.Maui.Controls.Shapes;
 #if ANDROID
 using Android.Media;
+using Plugin.LocalNotification;
 #endif
 using XFE各类拓展.CyberComm.XCCNetWork;
 using XFE各类拓展.TaskExtension;
 using Image = Microsoft.Maui.Controls.Image;
 using XFE各类拓展.FormatExtension;
-using Plugin.LocalNotification;
 using XCCChatRoom.AllImpl;
 using XFE各类拓展.StringExtension;
 
@@ -30,7 +30,7 @@ public partial class ChatPage : ContentPage
         {
             SetValue(GroupNameProperty, value);
             DisplayGroupName = $"群组|{value}";
-            StartGroupComm(value);
+            StartGroupComm(value, CurrentName);
         }
     }
     public static ChatPage CurrentInstance { get; private set; }
@@ -116,7 +116,8 @@ public partial class ChatPage : ContentPage
         xCCNetWork = new XCCNetWork();
         xCCNetWork.Connected += XCCNetWork_Connected;
         xCCNetWork.ConnectionClosed += XCCNetWork_ConnectionClosed;
-        xCCNetWork.MessageReceived += XCCGroup_MessageReceived;
+        xCCNetWork.BinaryMessageReceived += XCCNetWork_BinaryMessageReceived;
+        xCCNetWork.TextMessageReceived += XCCNetWork_TextMessageReceived;
 #if ANDROID
         LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
 #endif
@@ -300,9 +301,9 @@ public partial class ChatPage : ContentPage
         }
     }
 #endif
-    public async void StartGroupComm(string name)
+    public async void StartGroupComm(string groupName, string senderName)
     {
-        xCCGroup = xCCNetWork.CreateGroup(name);
+        xCCGroup = xCCNetWork.CreateGroup(groupName, senderName);
         try
         {
             xCCGroup.StartXCC(true, 50);
@@ -660,6 +661,7 @@ public partial class ChatPage : ContentPage
             }
         }
     }
+
     private void XCCNetWork_Connected(object sender, XCCConnectedEventArgs e)
     {
         if (firstConnect)
@@ -677,6 +679,7 @@ public partial class ChatPage : ContentPage
         }
         connected = true;
     }
+
     private void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
     {
         if (!e.ClosedNormally)
@@ -684,11 +687,12 @@ public partial class ChatPage : ContentPage
             ShowConnectingTip();
         }
     }
-    private async void XCCGroup_MessageReceived(object sender, XCCMessageReceivedEventArgs e)
+
+    private void XCCNetWork_TextMessageReceived(object sender, XCCTextMessageReceivedEventArgs e)
     {
         switch (e.MessageType)
         {
-            case XCCMessageType.Text:
+            case XCCTextMessageType.Text:
                 string message = e.TextMessage;
                 bool isHistory = false;
                 if (e.TextMessage.Contains("[XCCGetHistory]"))
@@ -806,15 +810,40 @@ public partial class ChatPage : ContentPage
                     });
                 }
                 break;
+            default:
+                break;
+        }
+    }
+
+    private void XCCNetWork_BinaryMessageReceived(object sender, XCCBinaryMessageReceivedEventArgs e)
+    {
+        switch (e.MessageType)
+        {
+            case XCCBinaryMessageType.Text:
+
+                break;
+            case XCCBinaryMessageType.Binary:
+                if(e.Signature)
+                break;
+            case XCCBinaryMessageType.Image:
+                break;
+            case XCCBinaryMessageType.Audio:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private async void XCCGroup_MessageReceived(object sender, XCCMessageReceivedEventArgs e)
+    {
+        switch (e.MessageType)
+        {
+            case XCCMessageType.Text:
+                
+                break;
 
             case XCCMessageType.Binary:
-                if (phoneCallEnabled)
-                {
-#if ANDROID
-                    PlayAudioData(e.BinaryMessage);
-#endif
-                }
-                break;
+
             case XCCMessageType.Error:
                 connected = false;
                 ChatStack.Dispatcher.Dispatch(() =>
