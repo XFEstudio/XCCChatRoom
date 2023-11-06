@@ -950,6 +950,7 @@ public partial class ChatPage : ContentPage
         var fileResult = await FilePicker.PickAsync();
         if (fileResult is not null)
             SendSelectedImage(fileResult);
+
         //PermissionStatus m_statusRequestStorageRead = await Permissions.RequestAsync<Permissions.StorageRead>();
         //switch (m_statusRequestStorageRead)
         //{
