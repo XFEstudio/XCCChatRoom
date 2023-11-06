@@ -6,7 +6,6 @@ using Plugin.LocalNotification;
 using XFE各类拓展.CyberComm.XCCNetWork;
 using XFE各类拓展.TaskExtension;
 using Image = Microsoft.Maui.Controls.Image;
-using XFE各类拓展.FormatExtension;
 using XCCChatRoom.AllImpl;
 using XFE各类拓展.StringExtension;
 
@@ -30,11 +29,19 @@ public partial class ChatPage : ContentPage
         {
             SetValue(GroupNameProperty, value);
             DisplayGroupName = $"群组|{value}";
-            StartGroupComm(value, CurrentName);
         }
     }
     public static ChatPage CurrentInstance { get; private set; }
-    public string CurrentName { get; set; }
+    private string currentName;
+    public string CurrentName
+    {
+        get => currentName;
+        set
+        {
+            currentName = value;
+            StartGroupComm(GroupName, value);
+        }
+    }
     #endregion
     #region 字段
     private List<ImageButton> emotionImageButtonList = new List<ImageButton>();
@@ -118,6 +125,7 @@ public partial class ChatPage : ContentPage
         xCCNetWork.ConnectionClosed += XCCNetWork_ConnectionClosed;
         xCCNetWork.BinaryMessageReceived += XCCNetWork_BinaryMessageReceived;
         xCCNetWork.TextMessageReceived += XCCNetWork_TextMessageReceived;
+        xCCNetWork.ExceptionMessageReceived += XCCNetWork_ExceptionMessageReceived;
 #if ANDROID
         LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
 #endif
@@ -210,11 +218,41 @@ public partial class ChatPage : ContentPage
         #endregion
     }
 
+    private async void XCCNetWork_ExceptionMessageReceived(object sender, XCCExceptionMessageReceivedEventArgs e)
+    {
+        connected = false;
+        ChatStack.Dispatcher.Dispatch(() =>
+        {
+            ChatStack.Dispatcher.Dispatch(() =>
+            {
+                var messageLabel = new Label
+                {
+                    Text = $"发生错误：{e.Exception.Message}",
+                    TextColor = Color.FromArgb("#F87171"),
+                    FontSize = 18,
+                    HorizontalOptions = LayoutOptions.Fill,
+                    VerticalOptions = LayoutOptions.Center,
+                    LineBreakMode = LineBreakMode.WordWrap
+
+                };
+                var messageGrid = new Grid
+                {
+                    BackgroundColor = Color.FromArgb("#444654"),
+                    Padding = new Thickness(20, 5, 5, 20),
+                    Children = { messageLabel }
+                };
+                ChatStack.Children.Add(messageGrid);
+            });
+            Console.WriteLine(e.Exception);
+        });
+        await DisplayAlert("网路错误", e.Exception.Message, "确定");
+    }
+
     private async void EmotionImageButtonButton_Clicked(object sender, EventArgs e)
     {
         try
         {
-            await xCCGroup.SendStandardTextMessage(CurrentName, $"[Emotion]{(sender as ImageButton).ClassId}");
+            await xCCGroup.SendTextMessage($"[Emotion]{(sender as ImageButton).ClassId}");
             await ShowMessage(CurrentName, string.Empty, (sender as ImageButton).ClassId);
         }
         catch (Exception ex)
@@ -306,7 +344,7 @@ public partial class ChatPage : ContentPage
         xCCGroup = xCCNetWork.CreateGroup(groupName, senderName);
         try
         {
-            xCCGroup.StartXCC(true, 50);
+            await xCCGroup.StartXCC(true, 50);
         }
         catch (Exception ex)
         {
@@ -688,127 +726,60 @@ public partial class ChatPage : ContentPage
         }
     }
 
-    private void XCCNetWork_TextMessageReceived(object sender, XCCTextMessageReceivedEventArgs e)
+    private async void XCCNetWork_TextMessageReceived(object sender, XCCTextMessageReceivedEventArgs e)
     {
         switch (e.MessageType)
         {
             case XCCTextMessageType.Text:
-                string message = e.TextMessage;
-                bool isHistory = false;
-                if (e.TextMessage.Contains("[XCCGetHistory]"))
+                if (e.IsHistory)
                 {
-                    message = e.TextMessage.Replace("[XCCGetHistory]", string.Empty);
-                    isHistory = true;
-                }
-                var dictionary = new XFEMultiDictionary(message);
-                if (dictionary.Count > 0)
-                {
-                    foreach (var entry in dictionary)
+                    if (e.TextMessage.Contains("[Emotion]"))
                     {
-                        if (isHistory)
-                        {
-                            if (entry.Content.Contains("[Emotion]"))
-                            {
-                                var image = entry.Content.Replace("[Emotion]", string.Empty);
-                                await ShowMessage(entry.Header, entry.Content, image, false);
-                            }
-                            else
-                            {
-                                await ShowMessage(entry.Header, entry.Content, null, false);
-                            }
-                        }
-                        else
-                        {
-#if ANDROID
-                            var iconImg = new NotificationImage();
-                            iconImg.ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png";
-                            var request = new NotificationRequest
-                            {
-                                Title = DisplayGroupName,
-                                Subtitle = $"新的群消息",
-                                Description = $"{entry.Header}：{entry.Content}",
-                                BadgeNumber = MessageCount++,
-                                Image = iconImg,
-
-                            };
-                            await LocalNotificationCenter.Current.Show(request);
-#endif
-                            if (e.TextMessage.Contains("[Emotion]"))
-                            {
-                                var image = entry.Content.Replace("[Emotion]", string.Empty);
-                                await ShowMessage(entry.Header, entry.Content, image);
-                            }
-                            else
-                            {
-                                await ShowMessage(entry.Header, entry.Content);
-                            }
-                        }
+                        var image = e.TextMessage.Replace("[Emotion]", string.Empty);
+                        await ShowMessage(e.Sender, e.TextMessage, image, false);
+                    }
+                    else
+                    {
+                        await ShowMessage(e.Sender, e.TextMessage, null, false);
                     }
                 }
                 else
                 {
-                    ChatStack.Dispatcher.Dispatch(() =>
+#if ANDROID
+                    var iconImg = new NotificationImage();
+                    iconImg.ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png";
+                    var request = new NotificationRequest
                     {
-                        var messageLabel = new Label
-                        {
-                            Text = message,
-                            TextColor = Color.FromArgb("#D1D5DB"),
-                            FontSize = 18,
-                            HorizontalOptions = LayoutOptions.Fill,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
+                        Title = DisplayGroupName,
+                        Subtitle = $"新的群消息",
+                        Description = $"{e.Sender}：{e.TextMessage}",
+                        BadgeNumber = MessageCount++,
+                        Image = iconImg,
 
-                        };
-                        var messageGrid = new Grid
-                        {
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            Padding = new Thickness(20, 20, 20, 20),
-                            Children = { messageLabel }
-                        };
-                        ChatStack.Children.Add(messageGrid);
-                    });
-                }
-                if (isHistory)
-                {
-                    ChatStack.Dispatcher.Dispatch(() =>
+                    };
+                    await LocalNotificationCenter.Current.Show(request);
+#endif
+                    if (e.TextMessage.Contains("[Emotion]"))
                     {
-                        var messageLabel = new Label
-                        {
-                            Text = "以上为历史消息",
-                            Opacity = 0.3,
-                            TextColor = Color.FromArgb("#D1D5DB"),
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            VerticalTextAlignment = TextAlignment.Center,
-                            FontSize = 18,
-                            HorizontalOptions = LayoutOptions.Fill,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-                        };
-                        if (dictionary.Count == 0)
-                        {
-                            messageLabel.Text = "暂无历史消息";
-                        }
-                        var messageGrid = new Grid
-                        {
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            Padding = new Thickness(20, 0, 20, 0),
-                            Margin = new Thickness(0, 5),
-                            Children = { messageLabel }
-                        };
-                        ChatStack.Children.Add(messageGrid);
-                        new Action(async () =>
-                        {
-                            while (!isScrolled)
-                            {
-                                try
-                                {
-                                    await ChatScrollView.ScrollToAsync(0, ChatStack.DesiredSize.Height, false);
-                                }
-                                catch { }
-                            }
-                        }).StartNewTask();
-                    });
+                        var image = e.TextMessage.Replace("[Emotion]", string.Empty);
+                        await ShowMessage(e.Sender, e.TextMessage, image);
+                    }
+                    else
+                    {
+                        await ShowMessage(e.Sender, e.TextMessage);
+                    }
                 }
+                //new Action(async () =>
+                //{
+                //    while (!isScrolled)
+                //    {
+                //        try
+                //        {
+                //            await ChatScrollView.ScrollToAsync(0, ChatStack.DesiredSize.Height, false);
+                //        }
+                //        catch { }
+                //    }
+                //}).StartNewTask();
                 break;
             default:
                 break;
@@ -820,60 +791,20 @@ public partial class ChatPage : ContentPage
         switch (e.MessageType)
         {
             case XCCBinaryMessageType.Text:
-
                 break;
             case XCCBinaryMessageType.Binary:
-                if(e.Signature)
                 break;
             case XCCBinaryMessageType.Image:
                 break;
             case XCCBinaryMessageType.Audio:
                 break;
-            default:
-                break;
-        }
-    }
-
-    private async void XCCGroup_MessageReceived(object sender, XCCMessageReceivedEventArgs e)
-    {
-        switch (e.MessageType)
-        {
-            case XCCMessageType.Text:
-                
-                break;
-
-            case XCCMessageType.Binary:
-
-            case XCCMessageType.Error:
-                connected = false;
-                ChatStack.Dispatcher.Dispatch(() =>
-                {
-                    ChatStack.Dispatcher.Dispatch(() =>
-                    {
-                        var messageLabel = new Label
-                        {
-                            Text = $"发生错误：{e.Exception.Message}",
-                            TextColor = Color.FromArgb("#F87171"),
-                            FontSize = 18,
-                            HorizontalOptions = LayoutOptions.Fill,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-
-                        };
-                        var messageGrid = new Grid
-                        {
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            Padding = new Thickness(20, 5, 5, 20),
-                            Children = { messageLabel }
-                        };
-                        ChatStack.Children.Add(messageGrid);
-                    });
-                    Console.WriteLine(e.Exception);
-                });
-                await DisplayAlert("网路错误", e.Exception.Message, "确定");
+            case XCCBinaryMessageType.AudioBuffer:
+#if ANDROID
+                if (phoneCallEnabled)
+                    PlayAudioData(e.BinaryMessage);
+#endif
                 break;
             default:
-                ProcessException.ShowEnumException();
                 break;
         }
     }
