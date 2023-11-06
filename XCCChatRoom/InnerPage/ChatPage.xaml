@@ -72,6 +72,13 @@
                         HeightRequest="30"
                         WidthRequest="30"
                         Clicked="ShowEmotionButton_Clicked"/>
+                    <ImageButton
+                        x:Name="ShowImageButton"
+                        Source="unimage"
+                        ClassId="unimage"
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Clicked="ShowImageButton_Clicked"/>
                 </HorizontalStackLayout>
                 <ScrollView
                     x:Name="ToolViewScrollView"

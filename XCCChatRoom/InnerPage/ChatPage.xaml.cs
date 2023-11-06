@@ -8,6 +8,8 @@ using XFE各类拓展.TaskExtension;
 using Image = Microsoft.Maui.Controls.Image;
 using XCCChatRoom.AllImpl;
 using XFE各类拓展.StringExtension;
+using MauiPopup;
+using XCCChatRoom.Controls;
 
 namespace XCCChatRoom.InnerPage;
 [QueryProperty(nameof(GroupName), nameof(GroupName))]
@@ -252,12 +254,46 @@ public partial class ChatPage : ContentPage
     {
         try
         {
-            await xCCGroup.SendTextMessage($"[Emotion]{(sender as ImageButton).ClassId}");
-            await ShowMessage(CurrentName, string.Empty, (sender as ImageButton).ClassId);
+            if (connected)
+            {
+                await xCCGroup.SendTextMessage($"[Emotion]{(sender as ImageButton).ClassId}");
+                await ShowMessage(CurrentName, string.Empty, (sender as ImageButton).ClassId);
+            }
+            else
+            {
+                await DisplayAlert("未连接到服务器", "请检查网络连接", "确定");
+            }
         }
         catch (Exception ex)
         {
             await DisplayAlert("发送消息失败", ex.Message, "确定");
+        }
+    }
+    private async void SendSelectedImage(FileResult fileResult)
+    {
+        if (connected)
+        {
+            var imageSource = ImageSource.FromFile(fileResult.FullPath);
+            ChatStack.Add(new Image
+            {
+                Source = imageSource,
+                MaximumHeightRequest = 800,
+                MaximumWidthRequest = ChatStack.DesiredSize.Width - ChatStack.DesiredSize.Width / 4,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center
+            });
+            if (await xCCGroup.SendImage(fileResult.FullPath))
+            {
+                await PopupAction.DisplayPopup(new TipPopup("图片发送成功"));
+            }
+            else
+            {
+                await PopupAction.DisplayPopup(new TipPopup("图片发送失败", "发送超时"));
+            }
+        }
+        else
+        {
+            await DisplayAlert("未连接到服务器", "请检查网络连接", "确定");
         }
     }
 
@@ -686,7 +722,7 @@ public partial class ChatPage : ContentPage
                     InputEditor.Text = string.Empty;
                     var task = ShowMessage(CurrentName, message);
                     if (!string.IsNullOrWhiteSpace(message))
-                        await xCCGroup.SendStandardTextMessage(CurrentName, message);
+                        await xCCGroup.SendTextMessage(message);
                 }
                 catch (Exception ex)
                 {
@@ -908,5 +944,30 @@ public partial class ChatPage : ContentPage
         ToolViewScrollView.IsVisible = false;
         ToolViewStackLayout.Children.Clear();
         UnFocusAllButtonInToolBar();
+    }
+    private async void ShowImageButton_Clicked(object sender, EventArgs e)
+    {
+        var fileResult = await FilePicker.PickAsync();
+        if (fileResult is not null)
+            SendSelectedImage(fileResult);
+        //PermissionStatus m_statusRequestStorageRead = await Permissions.RequestAsync<Permissions.StorageRead>();
+        //switch (m_statusRequestStorageRead)
+        //{
+        //    case PermissionStatus.Granted:
+        //        SendSelectedImage(await FilePicker.PickAsync());
+        //        break;
+        //    case PermissionStatus.Denied:
+        //        await DisplayAlert("请求拒绝", "无法读取图片，请前往手机设置打开读写", "啊这，行吧");
+        //        break;
+        //    case PermissionStatus.Disabled:
+        //        await DisplayAlert("暂无权限", "没权限当然读取不了图片了", "彳亍吧");
+        //        break;
+        //    case PermissionStatus.Unknown:
+        //        await DisplayAlert("我 氵则", "请求处于未知状态？？？？？？？？？", "啊这（截图和我反馈）");
+        //        break;
+        //    default:
+        //        await DisplayAlert("这位更是个寄吧", "出现错误", "我测");
+        //        break;
+        //}
     }
 }

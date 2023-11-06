@@ -76,8 +76,10 @@
 		<MauiImage Include="Resources\Images\Emoticon\sweat_droplets.svg" />
 		<MauiImage Include="Resources\Images\Icon\close.svg" />
 		<MauiImage Include="Resources\Images\Icon\copy.svg" />
+		<MauiImage Include="Resources\Images\Icon\image.svg" />
 		<MauiImage Include="Resources\Images\Icon\stop.svg" />
 		<MauiImage Include="Resources\Images\Icon\trash2.svg" />
+		<MauiImage Include="Resources\Images\Icon\unimage.svg" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\biglogoicon.png" Color="#FFFFFF">
@@ -123,6 +125,7 @@
 	  <None Remove="Resources\Images\Icon\starcircle.svg" />
 	  <None Remove="Resources\Images\Icon\stop.svg" />
 	  <None Remove="Resources\Images\Icon\trash2.svg" />
+	  <None Remove="Resources\Images\image.svg" />
 	  <None Remove="Resources\Images\normal_ai_robot.svg" />
 	  <None Remove="Resources\Images\pile_of_poo.svg" />
 	  <None Remove="Resources\Images\pouting_face.svg" />
@@ -132,6 +135,7 @@
 	  <None Remove="Resources\Images\rolling_on_the_floor_laughing.svg" />
 	  <None Remove="Resources\Images\smile.svg" />
 	  <None Remove="Resources\Images\sweat_droplets.svg" />
+	  <None Remove="Resources\Images\unimage.svg" />
 	  <None Remove="Resources\Images\unsmile.svg" />
 	</ItemGroup>
 
