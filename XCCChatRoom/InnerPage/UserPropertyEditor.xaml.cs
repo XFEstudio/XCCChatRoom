@@ -26,21 +26,6 @@ public partial class UserPropertyEditor : ContentPage
         }
     }
 
-    private async void PasswordEditor()
-    {
-        string newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的密码", "确定", "取消");
-        bool flag = newUserProperty.PasswordEditor();
-        if (flag)
-        {
-            UserInfo.EditUserProperty(UserPropertyToEdit.Password, newUserProperty, this);
-            await DisplayAlert("修改成功", "内容合法", "明白了");
-        }
-        else
-        {
-            await DisplayAlert("密码过短或过长", "请输入合适长度的密码", "明白了");
-        }
-    }
-
     private async void MailEditor()
     {
         var newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的邮箱", "确定", "取消");
@@ -56,23 +41,6 @@ public partial class UserPropertyEditor : ContentPage
         }
     }
 
-    private async void TelEditor()
-    {
-        var newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的手机号", "确定", "取消");
-        if (newUserProperty is not null)
-        {
-            bool flag = newUserProperty.IsMobPhoneNumber();
-            if (flag)
-            {
-                UserInfo.EditUserProperty(UserPropertyToEdit.PhoneNum, newUserProperty, this);
-                await DisplayAlert("修改成功", "内容合法", "明白了");
-            }
-            else
-            {
-                await DisplayAlert("手机号无效", "请输入有效的手机号（目前仅支持中国大陆用户）", "明白了");
-            }
-        }
-    }
     private async void UserPropertyEditorButton_Click(object sender, EventArgs e)
     {
         Button button1 = (Button)sender;
@@ -84,13 +52,11 @@ public partial class UserPropertyEditor : ContentPage
                 break;
             case "重置密码":
                 await Shell.Current.GoToAsync(nameof(UserPasswordEditorPage));
-                /*PasswordEditor();*/
                 break;
             case "重新绑定邮箱":
                 MailEditor();
                 break;
             case "重新绑定电话号码":
-                /*TelEditor();*/
                 await Shell.Current.GoToAsync(nameof(UserTelEditorPage));
                 break;
         }

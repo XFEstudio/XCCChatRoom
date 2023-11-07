@@ -186,6 +186,9 @@
 		<MauiXaml Update="InnerPage\IntroductionPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserMailEditorPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="InnerPage\UserPasswordEditorPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XCCChatRoom.InnerPage.UserTelEditorPage"
-             Title="UserTelEditorPage">
+             Title="修改手机号">
     <VerticalStackLayout>
         <Grid>
             <Grid.RowDefinitions>
@@ -57,10 +57,10 @@
            Grid.Column="1"
            WidthRequest="200"/>
 
-            <Button x:Name="GetCode"
+            <Button x:Name="GetTelCode"
            Text="获取验证码"
            FontSize="15"
-           Clicked="GetCode_Clicked"
+           Clicked="GetTelCode_Clicked"
            WidthRequest="60"
            Grid.Row="3"
            Grid.Column="2"
