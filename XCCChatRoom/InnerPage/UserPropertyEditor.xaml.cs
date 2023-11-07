@@ -59,18 +59,21 @@ public partial class UserPropertyEditor : ContentPage
     private async void TelEditor()
     {
         var newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的手机号", "确定", "取消");
-        bool flag = newUserProperty.IsMobPhoneNumber();
-        if (flag)
+        if (newUserProperty is not null)
         {
-            UserInfo.EditUserProperty(UserPropertyToEdit.PhoneNum, newUserProperty, this);
-            await DisplayAlert("修改成功", "内容合法", "明白了");
-        }
-        else
-        {
-            await DisplayAlert("手机号无效", "请输入有效的手机号（目前仅支持中国大陆用户）", "明白了");
+            bool flag = newUserProperty.IsMobPhoneNumber();
+            if (flag)
+            {
+                UserInfo.EditUserProperty(UserPropertyToEdit.PhoneNum, newUserProperty, this);
+                await DisplayAlert("修改成功", "内容合法", "明白了");
+            }
+            else
+            {
+                await DisplayAlert("手机号无效", "请输入有效的手机号（目前仅支持中国大陆用户）", "明白了");
+            }
         }
     }
-    private void UserPropertyEditorButton_Click(object sender, EventArgs e)
+    private async void UserPropertyEditorButton_Click(object sender, EventArgs e)
     {
         Button button1 = (Button)sender;
         string InformationToBeModified = button1.Text;
@@ -80,16 +83,15 @@ public partial class UserPropertyEditor : ContentPage
                 UserNameEditor();
                 break;
             case "重置密码":
-                Shell.Current.GoToAsync(nameof(UserPasswordEditorPage));
+                await Shell.Current.GoToAsync(nameof(UserPasswordEditorPage));
                 /*PasswordEditor();*/
                 break;
             case "重新绑定邮箱":
                 MailEditor();
                 break;
             case "重新绑定电话号码":
-                TelEditor();
-                Shell.Current.GoToAsync(nameof(UserTelEditorPage));
-                
+                /*TelEditor();*/
+                await Shell.Current.GoToAsync(nameof(UserTelEditorPage));
                 break;
         }
     }

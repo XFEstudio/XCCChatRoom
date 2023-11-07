@@ -27,7 +27,7 @@ namespace XCCChatRoom.AllImpl
                 _decodeKey = value.XEADecrypt("早期测试版Key")[..^2];
             }
         }
-        public static async Task<SendSmsResponse> SendVerifyCode(Page CurrentPage, string templateId, string phoneNum, string[] args)
+        public static async Task<SendSmsResponse> SendVerifyCode(Page currentPage, string templateId, string phoneNum, string[] args)
         {
             await new Action(() =>
             {
@@ -51,7 +51,7 @@ namespace XCCChatRoom.AllImpl
             }
             catch (Exception ex)
             {
-                await CurrentPage.DisplayAlert("错误", $"发送验证码失败！\n{ex.Message}", "确定");
+                await currentPage.DisplayAlert("错误", $"发送验证码失败！\n{ex.Message}", "确定");
                 return null;
             }
         }
