@@ -10,6 +10,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -23,9 +24,9 @@
                Grid.Row="1"/>
 
             <Label x:Name="OldMail"
-               FontSize="20"
-               VerticalOptions="Fill" 
-               WidthRequest="130"
+               FontSize="18"
+               VerticalOptions="End" 
+               WidthRequest="160"
                Grid.Row="1"
                Grid.Column="1"/>
 
@@ -37,8 +38,9 @@
 
             <Entry x:Name="NewMail"
                Unfocused="NewMail_Unfocused"
+               HorizontalOptions="Fill"
                WidthRequest="200"
-               FontSize="20"
+               FontSize="18"
                Grid.Row="2"
                Grid.Column="1"/>
 

@@ -29,7 +29,7 @@ public partial class UserMailEditorPage : ContentPage
         if (MailEditorCaptcha.Text == this.MailCaptcha) { flag2 = true; }
     }
 
-    private void GetMailCode_Clicked(object sender, EventArgs e)
+    private async void GetMailCode_Clicked(object sender, EventArgs e)
     {
         GetMailCode.IsEnabled = false;
         int countDown = 60;
@@ -48,8 +48,15 @@ public partial class UserMailEditorPage : ContentPage
         var randomCode = new Random().Next(0, 999999).ToString();
         this.MailCaptcha = randomCode;
         XFEMail xFEMail = new XFEMail();
-        xFEMail.SendEmail("验证邮箱", "您正在修改XCG聊天室的绑定邮箱\n验证码为:");
-
+        try
+        {
+            xFEMail.SendEmail("验证邮箱", $"您正在修改XCG聊天室的绑定邮箱\n验证码为:{randomCode}\n"
+            + "如果不是您本人的操作，请尽快修改密码");
+        }
+        catch(Exception ex) {
+            await DisplayAlert("无法发送邮件", "失败了失败了", "退出");
+        }
+        
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
