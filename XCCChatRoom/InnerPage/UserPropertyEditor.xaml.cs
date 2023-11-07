@@ -54,7 +54,7 @@ public partial class UserPropertyEditor : ContentPage
                 await Shell.Current.GoToAsync(nameof(UserPasswordEditorPage));
                 break;
             case "重新绑定邮箱":
-                MailEditor();
+                await Shell.Current.GoToAsync(nameof(UserMailEditorPage));
                 break;
             case "重新绑定电话号码":
                 await Shell.Current.GoToAsync(nameof(UserTelEditorPage));

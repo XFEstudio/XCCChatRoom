@@ -49,7 +49,7 @@ public partial class UserTelEditorPage : ContentPage
         await TencentSms.SendVerifyCode(this, "1922760", "+86" + NewTel.Text, new string[] { randomCode });
 
     }
-    private void TelEditorCaptcha_TextChange(object sender, EventArgs e)
+    private void TelEditorCaptcha_TextChange(object sender, TextChangedEventArgs e)
     {
         
         if (TelEditorCaptcha.Text == this.TelCaptcha) { flag2 = true; }

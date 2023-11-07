@@ -25,7 +25,7 @@ public partial class UserPasswordEditorPage : ContentPage
         else { await DisplayAlert("出错了", "密码不符合要求", "确定"); }
     }
 
-    private void NewPasswordConfirmation_TextChanged(object sender, EventArgs e)
+    private void NewPasswordConfirmation_TextChanged(object sender, TextChangedEventArgs e)
     {
         if(NewPassword.Text == NewPasswordConfirmation.Text) { flag3 = true; }
     }
