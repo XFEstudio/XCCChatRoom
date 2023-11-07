@@ -257,7 +257,7 @@ public partial class ChatPage : ContentPage
             if (connected)
             {
                 await xCCGroup.SendTextMessage($"[Emotion]{(sender as ImageButton).ClassId}");
-                await ShowMessage(CurrentName, string.Empty, (sender as ImageButton).ClassId);
+                await ShowEmotion(CurrentName, (sender as ImageButton).ClassId);
             }
             else
             {
@@ -424,110 +424,211 @@ public partial class ChatPage : ContentPage
         (InputEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
 #endif
     }
-    public async Task ShowMessage(string name, string message, string image = null, bool autoScroll = true)
+    public async Task ShowImagePlaceHolder(string name, string imageId, bool autoScroll = true)
+    {
+
+    }
+    public
+    public async Task ShowEmotion(string name, string image, bool autoScroll = true)
+    {
+        Image imageView = null;
+        if (name == CurrentName)
+        {
+            imageView = new Image
+            {
+                Source = image,
+                WidthRequest = 100,
+                HeightRequest = 100,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                ClassId = image
+            };
+        }
+        else
+        {
+            imageView = new Image
+            {
+                Source = image,
+                WidthRequest = 100,
+                HeightRequest = 100,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                ClassId = image
+            };
+        }
+        await AppendSenderAndShowMessage(name, imageView, autoScroll);
+    }
+    public async Task ShowTextMessage(string name, string message, bool autoScroll = true)
+    {
+        var URLs = message.GetUrl();
+        Label messageLabel = null;
+        Border messageBorder = null;
+        if (name == CurrentName)
+        {
+            messageLabel = new Label
+            {
+                Text = message,
+                TextColor = Color.FromArgb("#ECECF1"),
+                FontSize = 16,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+            messageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#343541"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                Content = messageLabel
+            };
+            if (URLs.Length > 0)
+            {
+                var urlFlexLayout = new FlexLayout
+                {
+                    Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
+                };
+                foreach (var url in URLs)
+                {
+                    var urlLabel = new Label
+                    {
+                        Text = url,
+                        TextColor = Color.FromArgb("#ECECF1"),
+                        FontSize = 16,
+                        HorizontalOptions = LayoutOptions.End,
+                        VerticalOptions = LayoutOptions.Center,
+                        LineBreakMode = LineBreakMode.WordWrap
+                    };
+                    var urlBorder = new Border
+                    {
+                        Stroke = Color.FromArgb("#202127"),
+                        StrokeThickness = 1,
+                        Padding = new Thickness(8, 5),
+                        BackgroundColor = Color.FromArgb("#343541"),
+                        StrokeShape = new RoundRectangle
+                        {
+                            CornerRadius = new CornerRadius(5, 5, 5, 5)
+                        },
+                        HorizontalOptions = LayoutOptions.End,
+                        VerticalOptions = LayoutOptions.Center,
+                        Content = urlLabel
+                    };
+                    urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
+                    {
+                        Command = new Command(async () =>
+                        {
+                            await Clipboard.SetTextAsync(url);
+                            await Launcher.OpenAsync(url);
+                        })
+                    });
+                    urlFlexLayout.Children.Add(urlBorder);
+                }
+                var inBorderStackLayout = new StackLayout
+                {
+                    Children = { messageLabel, urlFlexLayout }
+                };
+                messageBorder.Content = inBorderStackLayout;
+            }
+        }
+        else
+        {
+            messageLabel = new Label
+            {
+                Text = message,
+                TextColor = Color.FromArgb("#D1D5DB"),
+                FontSize = 16,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+            messageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                Margin = new Thickness(10, 0, 0, 0),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#444654"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                Content = messageLabel
+            };
+            if (URLs.Length > 0)
+            {
+                var urlFlexLayout = new FlexLayout
+                {
+                    Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
+                };
+                foreach (var url in URLs)
+                {
+                    var urlLabel = new Label
+                    {
+                        Text = url,
+                        TextColor = Color.FromArgb("#D1D5DB"),
+                        FontSize = 16,
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Center,
+                        LineBreakMode = LineBreakMode.WordWrap
+                    };
+                    var urlBorder = new Border
+                    {
+                        Stroke = Color.FromArgb("#202127"),
+                        StrokeThickness = 1,
+                        Padding = new Thickness(8, 5),
+                        BackgroundColor = Color.FromArgb("#444654"),
+                        StrokeShape = new RoundRectangle
+                        {
+                            CornerRadius = new CornerRadius(5, 5, 5, 5)
+                        },
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Center,
+                        Content = urlLabel
+                    };
+                    urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
+                    {
+                        Command = new Command(async () =>
+                        {
+                            await Clipboard.SetTextAsync(url);
+                            await Launcher.OpenAsync(url);
+                        })
+                    });
+                    urlFlexLayout.Children.Add(urlBorder);
+                }
+                var inBorderStackLayout = new StackLayout
+                {
+                    Children = { messageLabel, urlFlexLayout }
+                };
+                messageBorder.Content = inBorderStackLayout;
+            }
+        }
+        await AppendSenderAndShowMessage(name, messageBorder, autoScroll);
+    }
+    public async Task AppendSenderAndShowMessage(string name, View content, bool autoScroll)
     {
         ChatStack.Dispatcher.Dispatch(() =>
         {
             if (name == CurrentName)
             {
-                var URLs = message.GetUrl();
-                var messageLabel = new Label
-                {
-                    Text = message,
-                    TextColor = Color.FromArgb("#ECECF1"),
-                    FontSize = 16,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center,
-                    LineBreakMode = LineBreakMode.WordWrap
-                };
-                var messageBorder = new Border
-                {
-                    Stroke = Color.FromArgb("#202127"),
-                    StrokeThickness = 1,
-                    Padding = new Thickness(8, 5),
-                    BackgroundColor = Color.FromArgb("#343541"),
-                    StrokeShape = new RoundRectangle
-                    {
-                        CornerRadius = new CornerRadius(5, 5, 5, 5)
-                    },
-                    HorizontalOptions = LayoutOptions.End,
-                    VerticalOptions = LayoutOptions.Center,
-                    Content = messageLabel
-                };
-                if (URLs.Length > 0)
-                {
-                    var urlFlexLayout = new FlexLayout
-                    {
-                        Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
-                    };
-                    foreach (var url in URLs)
-                    {
-                        var urlLabel = new Label
-                        {
-                            Text = url,
-                            TextColor = Color.FromArgb("#ECECF1"),
-                            FontSize = 16,
-                            HorizontalOptions = LayoutOptions.End,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-                        };
-                        var urlBorder = new Border
-                        {
-                            Stroke = Color.FromArgb("#202127"),
-                            StrokeThickness = 1,
-                            Padding = new Thickness(8, 5),
-                            BackgroundColor = Color.FromArgb("#343541"),
-                            StrokeShape = new RoundRectangle
-                            {
-                                CornerRadius = new CornerRadius(5, 5, 5, 5)
-                            },
-                            HorizontalOptions = LayoutOptions.End,
-                            VerticalOptions = LayoutOptions.Center,
-                            Content = urlLabel
-                        };
-                        urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
-                        {
-                            Command = new Command(async () =>
-                            {
-                                await Clipboard.SetTextAsync(url);
-                                await Launcher.OpenAsync(url);
-                            })
-                        });
-                        urlFlexLayout.Children.Add(urlBorder);
-                    }
-                    var inBorderStackLayout = new StackLayout
-                    {
-                        Children = { messageLabel, urlFlexLayout }
-                    };
-                    messageBorder.Content = inBorderStackLayout;
-                }
                 var messageGrid = new Grid
                 {
                     Margin = new Thickness(20, 0, 20, 7),
                     Opacity = 0,
                     TranslationY = 50
                 };
-                if (image is not null)
-                {
-                    var imageView = new Image
-                    {
-                        Source = image,
-                        WidthRequest = 100,
-                        HeightRequest = 100,
-                        HorizontalOptions = LayoutOptions.End,
-                        VerticalOptions = LayoutOptions.Center,
-                        ClassId = image
-                    };
-                    messageGrid.Children.Add(imageView);
-                }
-                else
-                {
-                    messageGrid.Children.Add(messageBorder);
-                }
+                messageGrid.Children.Add(content);
                 if (lastSender == string.Empty || name != lastSender)
                 {
                     lastSender = name;
-                    messageBorder.Margin = new Thickness(0, 15, 0, 0);
+                    content.Margin = new Thickness(0, 15, 0, 0);
                     messageGrid.RowDefinitions = new RowDefinitionCollection
                     {
                         new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) },
@@ -566,78 +667,6 @@ public partial class ChatPage : ContentPage
             }
             else
             {
-                var URLs = message.GetUrl();
-                var messageLabel = new Label
-                {
-                    Text = message,
-                    TextColor = Color.FromArgb("#D1D5DB"),
-                    FontSize = 16,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center,
-                    LineBreakMode = LineBreakMode.WordWrap
-                };
-                var messageBorder = new Border
-                {
-                    Stroke = Color.FromArgb("#202127"),
-                    Margin = new Thickness(10, 0, 0, 0),
-                    StrokeThickness = 1,
-                    Padding = new Thickness(8, 5),
-                    BackgroundColor = Color.FromArgb("#444654"),
-                    StrokeShape = new RoundRectangle
-                    {
-                        CornerRadius = new CornerRadius(5, 5, 5, 5)
-                    },
-                    HorizontalOptions = LayoutOptions.Start,
-                    VerticalOptions = LayoutOptions.Center,
-                    Content = messageLabel
-                };
-                if (URLs.Length > 0)
-                {
-                    var urlFlexLayout = new FlexLayout
-                    {
-                        Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
-                    };
-                    foreach (var url in URLs)
-                    {
-                        var urlLabel = new Label
-                        {
-                            Text = url,
-                            TextColor = Color.FromArgb("#D1D5DB"),
-                            FontSize = 16,
-                            HorizontalOptions = LayoutOptions.Start,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-                        };
-                        var urlBorder = new Border
-                        {
-                            Stroke = Color.FromArgb("#202127"),
-                            StrokeThickness = 1,
-                            Padding = new Thickness(8, 5),
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            StrokeShape = new RoundRectangle
-                            {
-                                CornerRadius = new CornerRadius(5, 5, 5, 5)
-                            },
-                            HorizontalOptions = LayoutOptions.Start,
-                            VerticalOptions = LayoutOptions.Center,
-                            Content = urlLabel
-                        };
-                        urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
-                        {
-                            Command = new Command(async () =>
-                            {
-                                await Clipboard.SetTextAsync(url);
-                                await Launcher.OpenAsync(url);
-                            })
-                        });
-                        urlFlexLayout.Children.Add(urlBorder);
-                    }
-                    var inBorderStackLayout = new StackLayout
-                    {
-                        Children = { messageLabel, urlFlexLayout }
-                    };
-                    messageBorder.Content = inBorderStackLayout;
-                }
                 var messageGrid = new Grid
                 {
                     BackgroundColor = Color.FromArgb("#444654"),
@@ -645,27 +674,11 @@ public partial class ChatPage : ContentPage
                     Opacity = 0,
                     TranslationY = 50
                 };
-                if (image is not null)
-                {
-                    var imageView = new Image
-                    {
-                        Source = image,
-                        WidthRequest = 100,
-                        HeightRequest = 100,
-                        HorizontalOptions = LayoutOptions.Start,
-                        VerticalOptions = LayoutOptions.Center,
-                        ClassId = image
-                    };
-                    messageGrid.Children.Add(imageView);
-                }
-                else
-                {
-                    messageGrid.Children.Add(messageBorder);
-                }
+                messageGrid.Children.Add(content);
                 if (lastSender == string.Empty || name != lastSender)
                 {
                     lastSender = name;
-                    messageBorder.Margin = new Thickness(10, 5, 0, 0);
+                    content.Margin = new Thickness(10, 5, 0, 0);
                     messageGrid.RowDefinitions = new RowDefinitionCollection
                     {
                         new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) },
@@ -720,7 +733,7 @@ public partial class ChatPage : ContentPage
                 {
                     string message = InputEditor.Text;
                     InputEditor.Text = string.Empty;
-                    var task = ShowMessage(CurrentName, message);
+                    var task = ShowTextMessage(CurrentName, message);
                     if (!string.IsNullOrWhiteSpace(message))
                         await xCCGroup.SendTextMessage(message);
                 }
@@ -772,11 +785,11 @@ public partial class ChatPage : ContentPage
                     if (e.TextMessage.Contains("[Emotion]"))
                     {
                         var image = e.TextMessage.Replace("[Emotion]", string.Empty);
-                        await ShowMessage(e.Sender, e.TextMessage, image, false);
+                        await ShowEmotion(e.Sender, image, false);
                     }
                     else
                     {
-                        await ShowMessage(e.Sender, e.TextMessage, null, false);
+                        await ShowTextMessage(e.Sender, e.TextMessage, false);
                     }
                 }
                 else
@@ -798,11 +811,11 @@ public partial class ChatPage : ContentPage
                     if (e.TextMessage.Contains("[Emotion]"))
                     {
                         var image = e.TextMessage.Replace("[Emotion]", string.Empty);
-                        await ShowMessage(e.Sender, e.TextMessage, image);
+                        await ShowEmotion(e.Sender, image);
                     }
                     else
                     {
-                        await ShowMessage(e.Sender, e.TextMessage);
+                        await ShowTextMessage(e.Sender, e.TextMessage);
                     }
                 }
                 //new Action(async () =>
@@ -947,7 +960,7 @@ public partial class ChatPage : ContentPage
     }
     private async void ShowImageButton_Clicked(object sender, EventArgs e)
     {
-        var fileResult = await FilePicker.PickAsync();
+        var fileResult = await FilePicker.PickAsync(PickOptions.Images);
         if (fileResult is not null)
             SendSelectedImage(fileResult);
 
