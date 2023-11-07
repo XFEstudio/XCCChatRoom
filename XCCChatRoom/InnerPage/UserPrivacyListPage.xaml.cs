@@ -5,12 +5,8 @@ public partial class UserPrivacyListPage : ContentPage
 	public UserPrivacyListPage()
 	{
         InitializeComponent();
-        textLabel.Text =
-    """
-			隐私政策
-
-			生效日期：1970年1月1日
-
+		textLabel.Text =
+			"""
 			感谢您使用我们的软件！我们非常重视您的隐私，并致力于保护您的个人信息。为了让您更好地了解我们收集、使用和共享您的个人信息的方式，我们制定了本隐私政策。请在使用我们的服务之前详细阅读以下内容。
 
 			1. 收集的信息
@@ -61,5 +57,5 @@ public partial class UserPrivacyListPage : ContentPage
 
 			感谢您阅读我们的隐私政策！
 			""";
-    }
+	}
 }
