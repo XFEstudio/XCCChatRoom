@@ -16,17 +16,24 @@ public partial class UserMailEditorPage : ContentPage
         OldMail.Text = UserInfo.CurrentUser.Amail;
 	}
 
-    private void NewMail_Unfocused(object sender, FocusEventArgs e)
+    private async void NewMail_Unfocused(object sender, FocusEventArgs e)
     {
         if (NewMail.Text is not null)
         {
             if (NewMail.Text.IsValidEmail()) { flag1 = true; }
+            else
+            {
+                await DisplayAlert("邮箱错误", "请输入正确的邮箱", "确定");
+            }
         }
     }
 
     private void MailEditorCaptcha_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (MailEditorCaptcha.Text == this.MailCaptcha) { flag2 = true; }
+        if(flag1) 
+        {
+            if (MailEditorCaptcha.Text == this.MailCaptcha) { flag2 = true; }
+        }
     }
 
     private async void GetMailCode_Clicked(object sender, EventArgs e)
@@ -66,11 +73,11 @@ public partial class UserMailEditorPage : ContentPage
             UserInfo.EditUserProperty(UserPropertyToEdit.Mail, NewMail.Text, this);
             OldMail.Text = UserInfo.CurrentUser.Amail;
             await DisplayAlert("修改成功", "您的邮箱已修改成功", "确定");
+            Shell.Current.SendBackButtonPressed();
         }
         else
         {
             if (flag1) await DisplayAlert("验证码错误", "验证码不匹配", "确定");
-            else await DisplayAlert("邮箱错误", "请输入正确的邮箱", "确定");
         }
     }
 }

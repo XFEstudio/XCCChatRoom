@@ -14,15 +14,18 @@ public partial class UserPropertyEditor : ContentPage
     private async void UserNameEditor()
     {
         string newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的昵称", "确定", "取消");
-        bool flag = newUserProperty.UserNameEditor();
-        if (flag)
+        if(newUserProperty is not null && newUserProperty != string.Empty)
         {
-            UserInfo.EditUserProperty(UserPropertyToEdit.UserName, newUserProperty, this);
-            await DisplayAlert("修改成功", "内容合法", "明白了");
-        }
-        else
-        {
-            await DisplayAlert("非法昵称", "请输入合法昵称", "明白了");
+            bool flag = newUserProperty.UserNameEditor();
+            if (flag)
+            {
+                UserInfo.EditUserProperty(UserPropertyToEdit.UserName, newUserProperty, this);
+                await DisplayAlert("修改成功", "内容合法", "明白了");
+            }
+            else
+            {
+                await DisplayAlert("非法昵称", "请输入合法昵称", "明白了");
+            }
         }
     }
 
@@ -54,7 +57,8 @@ public partial class UserPropertyEditor : ContentPage
                 await Shell.Current.GoToAsync(nameof(UserPasswordEditorPage));
                 break;
             case "重新绑定邮箱":
-                await Shell.Current.GoToAsync(nameof(UserMailEditorPage));
+                /*await Shell.Current.GoToAsync(nameof(UserMailEditorPage));*/
+                await DisplayAlert("1", "2", "3");
                 break;
             case "重新绑定电话号码":
                 await Shell.Current.GoToAsync(nameof(UserTelEditorPage));

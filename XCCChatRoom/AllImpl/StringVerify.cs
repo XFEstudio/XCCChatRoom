@@ -22,13 +22,8 @@
 
         public static bool UserNameEditor(this string NewUserName)
         {
-            if (NewUserName is not null && NewUserName != string.Empty)
-            {
-                
                 if (!NewUserName.Contains(' ') && NewUserName.VerifyString()) { return true; }
                 else { return false; }
-            }
-            else { return false; }
         }
 
         public static bool PasswordEditor(this string NewPassword)

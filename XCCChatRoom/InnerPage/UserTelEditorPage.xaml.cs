@@ -17,7 +17,7 @@ public partial class UserTelEditorPage : ContentPage
 
     private async void NewTel_Unfocused(object sender, FocusEventArgs e)
     {
-        if (NewTel != null)
+        if (NewTel is not null)
         {
             if (NewTel.Text.IsMobPhoneNumber())
             {
@@ -25,7 +25,10 @@ public partial class UserTelEditorPage : ContentPage
             }
             else { await DisplayAlert("出错了捏", "输入手机号不合规哦", "知道啦"); }
         }
-        else { await DisplayAlert("手机号未输入", "手机号不能为空哦", "明白了"); }
+        else
+        {
+            await DisplayAlert("1", "1", "1");
+        }
     }
 
     private async void GetTelCode_Clicked(object sender, EventArgs e)
@@ -51,8 +54,10 @@ public partial class UserTelEditorPage : ContentPage
     }
     private void TelEditorCaptcha_TextChange(object sender, TextChangedEventArgs e)
     {
-        
-        if (TelEditorCaptcha.Text == this.TelCaptcha) { flag2 = true; }
+        if (flag1)
+        {
+            if (TelEditorCaptcha.Text == this.TelCaptcha) { flag2 = true; }
+        }
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
@@ -62,12 +67,11 @@ public partial class UserTelEditorPage : ContentPage
             UserInfo.EditUserProperty(UserPropertyToEdit.PhoneNum, NewTel.Text, this);
             OldTel.Text = UserInfo.CurrentUser.Atel;
             await DisplayAlert("修改成功", "您的手机号已修改成功", "确定");
-
+            Shell.Current.SendBackButtonPressed();
         }
         else {
             if (flag1)  await DisplayAlert("验证码错误", "验证码不匹配", "确定"); 
-            else await DisplayAlert("手机号错误", "请输入正确的手机号", "确定"); 
+            else await DisplayAlert("手机号错误", "请输入正确的手机号", "确定");
         }
-
     }
 }

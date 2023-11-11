@@ -187,6 +187,7 @@
                     x:Name="ForgotPasswordButton"
                     Margin="0,10,0,0"
                     Text="忘记密码"
+                    TextDecorations="None"
                     TextColor="#512BD4"
                     VerticalOptions="Center"
                     HorizontalOptions="End"

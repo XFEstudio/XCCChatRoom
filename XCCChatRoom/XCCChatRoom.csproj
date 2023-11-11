@@ -180,6 +180,9 @@
 		<MauiXaml Update="InnerPage\CommunityPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="InnerPage\ForgetPasswordPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="InnerPage\GPTAIChatPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
