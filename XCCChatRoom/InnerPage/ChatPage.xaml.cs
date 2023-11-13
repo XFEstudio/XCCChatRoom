@@ -10,6 +10,7 @@ using XCCChatRoom.AllImpl;
 using XFE各类拓展.StringExtension;
 using MauiPopup;
 using XCCChatRoom.Controls;
+using static Android.Webkit.ConsoleMessage;
 
 namespace XCCChatRoom.InnerPage;
 [QueryProperty(nameof(GroupName), nameof(GroupName))]
@@ -424,17 +425,74 @@ public partial class ChatPage : ContentPage
         (InputEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
 #endif
     }
-    public async Task ShowImagePlaceHolder(string name, string imageId, bool autoScroll = true)
+    public async Task ShowImagePlaceHolder(string name, byte[] buffer,, bool autoScroll = true)
     {
-
-    }
-    public
-    public async Task ShowEmotion(string name, string image, bool autoScroll = true)
-    {
-        Image imageView = null;
+        Border imageBorder = null;
         if (name == CurrentName)
         {
-            imageView = new Image
+            var imageView = new Image
+            {
+                Source = im,
+                WidthRequest = 100,
+                HeightRequest = 100,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                ClassId = image
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#343541"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                MinimumHeightRequest = 100,
+                MinimumWidthRequest = 100,
+                Content = imageView
+            };
+        }
+        else
+        {
+            var imageView = new Image
+            {
+                Source = image,
+                WidthRequest = 100,
+                HeightRequest = 100,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                ClassId = image
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                Margin = new Thickness(10, 0, 0, 0),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#444654"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                MinimumHeightRequest = 100,
+                MinimumWidthRequest = 100,
+                Content = imageView
+            };
+        }
+        await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
+    }
+    public async Task ShowEmotion(string name, string image, bool autoScroll = true)
+    {
+        Image emotionImageView = null;
+        if (name == CurrentName)
+        {
+            emotionImageView = new Image
             {
                 Source = image,
                 WidthRequest = 100,
@@ -446,7 +504,7 @@ public partial class ChatPage : ContentPage
         }
         else
         {
-            imageView = new Image
+            emotionImageView = new Image
             {
                 Source = image,
                 WidthRequest = 100,
@@ -456,7 +514,7 @@ public partial class ChatPage : ContentPage
                 ClassId = image
             };
         }
-        await AppendSenderAndShowMessage(name, imageView, autoScroll);
+        await AppendSenderAndShowMessage(name, emotionImageView, autoScroll);
     }
     public async Task ShowTextMessage(string name, string message, bool autoScroll = true)
     {
