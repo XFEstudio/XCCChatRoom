@@ -320,7 +320,7 @@
 
 	<ItemGroup>
 	  <Reference Include="XFE各类拓展">
-	    <HintPath>..\..\XFEExtension\XFE各类拓展\bin\Release\XFE各类拓展.dll</HintPath>
+	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展\XFE各类拓展\bin\Release\XFE各类拓展.dll</HintPath>
 	  </Reference>
 	  <Reference Include="XFE各类拓展.NetCore.XFEDataBase">
 	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展.NetCore.XFEDataBase\XFE各类拓展.NetCore.XFEDataBase\bin\Release\net7.0\publish\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>

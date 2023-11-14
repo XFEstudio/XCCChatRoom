@@ -46,15 +46,15 @@ public partial class ChatPage : ContentPage
     }
     #endregion
     #region 字段
-    private List<ImageButton> emotionImageButtonList = new List<ImageButton>();
-    private List<Image> emotionImageList = new List<Image>();
-    private XCCNetWork xCCNetWork;
+    private readonly List<ImageButton> emotionImageButtonList = new();
+    private readonly List<Image> emotionImageList = new();
+    private readonly XCCNetWork xCCNetWork;
     private XCCGroup xCCGroup;
-    private XCCMessageReceiveHelper messageReceiveHelper;
-    private Grid loadGrid;
-    private Image serverImg;
+    private readonly XCCMessageReceiveHelper messageReceiveHelper;
+    private readonly Grid loadGrid;
+    private readonly Image serverImg;
     private ImageButton lastButtonClicked = null;
-    private ToolbarItem phoneCallItem;
+    private readonly ToolbarItem phoneCallItem;
 #if ANDROID
     private AudioRecord audioRecord;
     private AudioTrack audioTrack;
@@ -238,7 +238,6 @@ public partial class ChatPage : ContentPage
                     HorizontalOptions = LayoutOptions.Fill,
                     VerticalOptions = LayoutOptions.Center,
                     LineBreakMode = LineBreakMode.WordWrap
-
                 };
                 var messageGrid = new Grid
                 {
@@ -253,13 +252,12 @@ public partial class ChatPage : ContentPage
         await PopupAction.DisplayPopup(new ErrorPopup("出现错误", sender.Message));
     }
 
-    private void MessageReceiveHelper_FileReceived(bool isHistory, XCCFile message)
+    private async void MessageReceiveHelper_FileReceived(bool isHistory, XCCFile message)
     {
         switch (message.FileType)
         {
             case XCCFileType.Image:
-                if (isHistory)
-                    ShowImage(message.Sender, message.FileBuffer, false);
+                await ShowStandardImage(isHistory, message);
                 break;
             case XCCFileType.Video:
                 break;
@@ -362,18 +360,10 @@ public partial class ChatPage : ContentPage
     {
         if (connected)
         {
-            var imageSource = ImageSource.FromFile(fileResult.FullPath);
-            ChatStack.Add(new Image
-            {
-                Source = imageSource,
-                MaximumHeightRequest = 800,
-                MaximumWidthRequest = ChatStack.DesiredSize.Width - ChatStack.DesiredSize.Width / 4,
-                HorizontalOptions = LayoutOptions.End,
-                VerticalOptions = LayoutOptions.Center
-            });
+            var imageView = await ShowImage(CurrentName, fileResult.FullPath, false);
             if (await xCCGroup.SendImage(fileResult.FullPath))
             {
-                await PopupAction.DisplayPopup(new TipPopup("图片发送成功"));
+                imageView.IsVisible = true;
             }
             else
             {
@@ -470,21 +460,22 @@ public partial class ChatPage : ContentPage
 
     public async void StartGroupComm(string groupName, string senderName)
     {
+        ShowConnectingTip();
         xCCGroup = xCCNetWork.CreateGroup(groupName, senderName);
         try
         {
-            await xCCGroup.StartXCC(true, 50);
+            var task = xCCGroup.StartXCC(true, 50);
             await xCCGroup.WaitConnect();
             if (firstConnect)
             {
                 try
                 {
+                    await messageReceiveHelper.LoadGroup(GroupName);
                     if (!await xCCGroup.GetHistory())
                     {
                         await PopupAction.DisplayPopup(new ErrorPopup("无法获取消息记录", "服务器返回校验错误"));
                     }
                     firstConnect = false;
-                    HideConnectingTip();
                 }
                 catch (Exception ex)
                 {
@@ -492,12 +483,12 @@ public partial class ChatPage : ContentPage
                 }
             }
             connected = true;
+            HideConnectingTip();
         }
         catch (Exception ex)
         {
             await DisplayAlert("网络错误", ex.Message, "确定");
         }
-        ShowConnectingTip();
     }
 
     protected override bool OnBackButtonPressed()
@@ -540,18 +531,39 @@ public partial class ChatPage : ContentPage
         (InputEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
 #endif
     }
+
     #region 显示消息
-    public async Task ShowImage(string name, byte[] buffer, bool autoScroll = true)
+    public async Task ShowStandardImage(bool isHistory, XCCFile xCCFile)
+    {
+        await Console.Out.WriteLineAsync($"发送者：{xCCFile.Sender}，是否加载：{xCCFile.Loaded}，是否为历史：{isHistory}");
+        if (xCCFile.Loaded)
+        {
+            await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, !isHistory);
+        }
+        else
+        {
+            var imageView = await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, !isHistory);
+            xCCFile.FileLoaded += xCCFile =>
+            {
+                imageView.Source = ImageSource.FromStream(() => new MemoryStream(xCCFile.FileBuffer));
+            };
+        }
+    }
+
+    public async Task<Image> ShowImage(string name, byte[] buffer, bool autoScroll = true)
     {
         Border imageBorder = null;
         ImageSource imageSource = buffer == null ? null : ImageSource.FromStream(() => new MemoryStream(buffer));
+        Image imageView = null;
         if (name == CurrentName)
         {
-            var imageView = new Image
+            imageView = new Image
             {
                 Source = imageSource,
-                WidthRequest = 100,
-                HeightRequest = 100,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -560,25 +572,25 @@ public partial class ChatPage : ContentPage
                 Stroke = Color.FromArgb("#202127"),
                 StrokeThickness = 1,
                 Padding = new Thickness(8, 5),
-                BackgroundColor = Color.FromArgb("#343541"),
+                BackgroundColor = Color.FromArgb("#444654"),
                 StrokeShape = new RoundRectangle
                 {
                     CornerRadius = new CornerRadius(5, 5, 5, 5)
                 },
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Center,
-                MinimumHeightRequest = 100,
-                MinimumWidthRequest = 100,
                 Content = imageView
             };
         }
         else
         {
-            var imageView = new Image
+            imageView = new Image
             {
                 Source = imageSource,
-                WidthRequest = 100,
-                HeightRequest = 100,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -588,19 +600,84 @@ public partial class ChatPage : ContentPage
                 Margin = new Thickness(10, 0, 0, 0),
                 StrokeThickness = 1,
                 Padding = new Thickness(8, 5),
-                BackgroundColor = Color.FromArgb("#444654"),
+                BackgroundColor = Color.FromArgb("#343541"),
                 StrokeShape = new RoundRectangle
                 {
                     CornerRadius = new CornerRadius(5, 5, 5, 5)
                 },
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center,
-                MinimumHeightRequest = 100,
-                MinimumWidthRequest = 100,
                 Content = imageView
             };
         }
         await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
+        return imageView;
+    }
+
+    public async Task<Image> ShowImage(string name, string filePath, bool showImage = true, bool autoScroll = true)
+    {
+        Border imageBorder = null;
+        ImageSource imageSource = ImageSource.FromFile(filePath);
+        Image imageView = null;
+        if (name == CurrentName)
+        {
+            imageView = new Image
+            {
+                Source = imageSource,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                IsVisible = showImage
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#444654"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                Content = imageView
+            };
+        }
+        else
+        {
+            imageView = new Image
+            {
+                Source = imageSource,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                IsVisible = showImage
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                Margin = new Thickness(10, 0, 0, 0),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#343541"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                Content = imageView
+            };
+        }
+        await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
+        return imageView;
     }
 
     public async Task ShowEmotion(string name, string image, bool autoScroll = true)
@@ -929,7 +1006,7 @@ public partial class ChatPage : ContentPage
 
     private void XCCNetWork_Connected(object sender, XCCConnectedEventArgs e)
     {
-
+        Console.WriteLine($"连接到服务器：{e.XCCClientType}");
     }
 
     private async void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
@@ -1001,14 +1078,12 @@ public partial class ChatPage : ContentPage
 
     private void UnFocusAllButtonInToolBar()
     {
-        foreach (ImageButton btn in ToolBarStackLayout.Children)
+        foreach (var btn in ToolBarStackLayout.Children.Cast<ImageButton>().Where(btn => !btn.ClassId.Contains("un")))
         {
-            if (!btn.ClassId.Contains("un"))
-            {
-                btn.Source = "un" + btn.ClassId;
-                btn.ClassId = "un" + btn.ClassId;
-            }
+            btn.Source = "un" + btn.ClassId;
+            btn.ClassId = "un" + btn.ClassId;
         }
+
         this.Dispatcher.Dispatch(() =>
         {
             ToolViewStackLayout.Children.Clear();
