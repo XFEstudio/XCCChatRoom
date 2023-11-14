@@ -30,7 +30,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
-	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	  <AndroidSigningStorePass>123qwe456rty</AndroidSigningStorePass>
 	  <AndroidSigningKeyAlias>XFE聊天室</AndroidSigningKeyAlias>
@@ -64,10 +64,22 @@
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\logoicon.png" />
+		<MauiImage Include="Resources\Images\Emoticon\bear_face.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\bouquet.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\chicken.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\christmas_tree.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\collision.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\folded_hands.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\pile_of_poo.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\pouting_face.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\rolling_on_the_floor_laughing.svg" />
+		<MauiImage Include="Resources\Images\Emoticon\sweat_droplets.svg" />
 		<MauiImage Include="Resources\Images\Icon\close.svg" />
 		<MauiImage Include="Resources\Images\Icon\copy.svg" />
+		<MauiImage Include="Resources\Images\Icon\image.svg" />
 		<MauiImage Include="Resources\Images\Icon\stop.svg" />
 		<MauiImage Include="Resources\Images\Icon\trash2.svg" />
+		<MauiImage Include="Resources\Images\Icon\unimage.svg" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\biglogoicon.png" Color="#FFFFFF">
@@ -87,25 +99,44 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\ai.svg" />
 	  <None Remove="Resources\Images\ai_draw_robot.svg" />
+	  <None Remove="Resources\Images\bear_face.svg" />
+	  <None Remove="Resources\Images\bouquet.svg" />
 	  <None Remove="Resources\Images\caution.png" />
+	  <None Remove="Resources\Images\chicken.svg" />
+	  <None Remove="Resources\Images\christmas_tree.svg" />
+	  <None Remove="Resources\Images\collision.svg" />
 	  <None Remove="Resources\Images\copy.svg" />
 	  <None Remove="Resources\Images\designer_desk.svg" />
+	  <None Remove="Resources\Images\Emoticon\bear_face.svg" />
+	  <None Remove="Resources\Images\Emoticon\bouquet.svg" />
+	  <None Remove="Resources\Images\Emoticon\chicken.svg" />
+	  <None Remove="Resources\Images\Emoticon\christmas_tree.svg" />
+	  <None Remove="Resources\Images\Emoticon\collision.svg" />
+	  <None Remove="Resources\Images\Emoticon\folded_hands.svg" />
+	  <None Remove="Resources\Images\Emoticon\pile_of_poo.svg" />
+	  <None Remove="Resources\Images\Emoticon\pouting_face.svg" />
+	  <None Remove="Resources\Images\Emoticon\rolling_on_the_floor_laughing.svg" />
+	  <None Remove="Resources\Images\Emoticon\sweat_droplets.svg" />
+	  <None Remove="Resources\Images\face_savoring_food.svg" />
+	  <None Remove="Resources\Images\folded_hands.svg" />
 	  <None Remove="Resources\Images\history.svg" />
 	  <None Remove="Resources\Images\Icon\higher_ai_robot.svg" />
 	  <None Remove="Resources\Images\Icon\likecircle.svg" />
 	  <None Remove="Resources\Images\Icon\starcircle.svg" />
 	  <None Remove="Resources\Images\Icon\stop.svg" />
 	  <None Remove="Resources\Images\Icon\trash2.svg" />
+	  <None Remove="Resources\Images\image.svg" />
 	  <None Remove="Resources\Images\normal_ai_robot.svg" />
+	  <None Remove="Resources\Images\pile_of_poo.svg" />
+	  <None Remove="Resources\Images\pouting_face.svg" />
 	  <None Remove="Resources\Images\protect_privacy.svg" />
 	  <None Remove="Resources\Images\quote.svg" />
 	  <None Remove="Resources\Images\refresh.svg" />
+	  <None Remove="Resources\Images\rolling_on_the_floor_laughing.svg" />
 	  <None Remove="Resources\Images\smile.svg" />
+	  <None Remove="Resources\Images\sweat_droplets.svg" />
+	  <None Remove="Resources\Images\unimage.svg" />
 	  <None Remove="Resources\Images\unsmile.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiSplashScreen Include="Resources\Splash\biglogoicon.png" />
 	</ItemGroup>
 
 	<ItemGroup>

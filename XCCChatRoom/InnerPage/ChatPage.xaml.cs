@@ -1,14 +1,15 @@
 ﻿using Microsoft.Maui.Controls.Shapes;
 #if ANDROID
 using Android.Media;
+using Plugin.LocalNotification;
 #endif
 using XFE各类拓展.CyberComm.XCCNetWork;
 using XFE各类拓展.TaskExtension;
 using Image = Microsoft.Maui.Controls.Image;
-using XFE各类拓展.FormatExtension;
-using Plugin.LocalNotification;
 using XCCChatRoom.AllImpl;
 using XFE各类拓展.StringExtension;
+using MauiPopup;
+using XCCChatRoom.Controls;
 
 namespace XCCChatRoom.InnerPage;
 [QueryProperty(nameof(GroupName), nameof(GroupName))]
@@ -30,21 +31,30 @@ public partial class ChatPage : ContentPage
         {
             SetValue(GroupNameProperty, value);
             DisplayGroupName = $"群组|{value}";
-            StartGroupComm(value);
         }
     }
     public static ChatPage CurrentInstance { get; private set; }
-    public string CurrentName { get; set; }
+    private string currentName;
+    public string CurrentName
+    {
+        get => currentName;
+        set
+        {
+            currentName = value;
+            StartGroupComm(GroupName, value);
+        }
+    }
     #endregion
     #region 字段
-    private List<ImageButton> emotionImageButtonList = new List<ImageButton>();
-    private List<Image> emotionImageList = new List<Image>();
-    private XCCNetWork xCCNetWork;
+    private readonly List<ImageButton> emotionImageButtonList = new();
+    private readonly List<Image> emotionImageList = new();
+    private readonly XCCNetWork xCCNetWork;
     private XCCGroup xCCGroup;
-    private Grid loadGrid;
-    private Image serverImg;
+    private readonly XCCMessageReceiveHelper messageReceiveHelper;
+    private readonly Grid loadGrid;
+    private readonly Image serverImg;
     private ImageButton lastButtonClicked = null;
-    private ToolbarItem phoneCallItem;
+    private readonly ToolbarItem phoneCallItem;
 #if ANDROID
     private AudioRecord audioRecord;
     private AudioTrack audioTrack;
@@ -114,9 +124,13 @@ public partial class ChatPage : ContentPage
         };
         ToolbarItems.Add(phoneCallItem);
         xCCNetWork = new XCCNetWork();
+        messageReceiveHelper = new XCCMessageReceiveHelper(AppPath.ChatDialogHistoryPath, xCCNetWork);
         xCCNetWork.Connected += XCCNetWork_Connected;
         xCCNetWork.ConnectionClosed += XCCNetWork_ConnectionClosed;
-        xCCNetWork.MessageReceived += XCCGroup_MessageReceived;
+        messageReceiveHelper.AudioBufferReceived += MessageReceiveHelper_AudioBufferReceived;
+        messageReceiveHelper.TextReceived += MessageReceiveHelper_TextReceived;
+        messageReceiveHelper.FileReceived += MessageReceiveHelper_FileReceived;
+        messageReceiveHelper.ExceptionOccurred += MessageReceiveHelper_ExceptionOccurred;
 #if ANDROID
         LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
 #endif
@@ -209,16 +223,156 @@ public partial class ChatPage : ContentPage
         #endregion
     }
 
+    private async void MessageReceiveHelper_ExceptionOccurred(XFE各类拓展.XFECyberCommException sender)
+    {
+        connected = false;
+        ChatStack.Dispatcher.Dispatch(() =>
+        {
+            ChatStack.Dispatcher.Dispatch(() =>
+            {
+                var messageLabel = new Label
+                {
+                    Text = $"发生错误：{sender.Message}",
+                    TextColor = Color.FromArgb("#F87171"),
+                    FontSize = 18,
+                    HorizontalOptions = LayoutOptions.Fill,
+                    VerticalOptions = LayoutOptions.Center,
+                    LineBreakMode = LineBreakMode.WordWrap
+                };
+                var messageGrid = new Grid
+                {
+                    BackgroundColor = Color.FromArgb("#444654"),
+                    Padding = new Thickness(20, 5, 5, 20),
+                    Children = { messageLabel }
+                };
+                ChatStack.Children.Add(messageGrid);
+            });
+            Console.WriteLine(sender);
+        });
+        await PopupAction.DisplayPopup(new ErrorPopup("出现错误", sender.Message));
+    }
+
+    private async void MessageReceiveHelper_FileReceived(bool isHistory, XCCFile message)
+    {
+        switch (message.FileType)
+        {
+            case XCCFileType.Image:
+                await ShowStandardImage(isHistory, message);
+                break;
+            case XCCFileType.Video:
+                break;
+            case XCCFileType.Audio:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private async void MessageReceiveHelper_TextReceived(bool isHistory, XCCMessage message)
+    {
+        switch (message.MessageType)
+        {
+            case XCCTextMessageType.Text:
+                if (isHistory)
+                {
+                    if (message.Message.Contains("[Emotion]"))
+                    {
+                        var image = message.Message.Replace("[Emotion]", string.Empty);
+                        await ShowEmotion(message.Sender, image, false);
+                    }
+                    else
+                    {
+                        await ShowTextMessage(message.Sender, message.Message, false);
+                    }
+                }
+                else
+                {
+#if ANDROID
+                    var iconImg = new NotificationImage();
+                    iconImg.ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png";
+                    var request = new NotificationRequest
+                    {
+                        Title = DisplayGroupName,
+                        Subtitle = $"新的群消息",
+                        Description = $"{message.Sender}：{message.Message}",
+                        BadgeNumber = MessageCount++,
+                        Image = iconImg,
+
+                    };
+                    await LocalNotificationCenter.Current.Show(request);
+#endif
+                    if (message.Message.Contains("[Emotion]"))
+                    {
+                        var image = message.Message.Replace("[Emotion]", string.Empty);
+                        await ShowEmotion(message.Sender, image);
+                    }
+                    else
+                    {
+                        await ShowTextMessage(message.Sender, message.Message);
+                    }
+                }
+                //new Action(async () =>
+                //{
+                //    while (!isScrolled)
+                //    {
+                //        try
+                //        {
+                //            await ChatScrollView.ScrollToAsync(0, ChatStack.DesiredSize.Height, false);
+                //        }
+                //        catch { }
+                //    }
+                //}).StartNewTask();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void MessageReceiveHelper_AudioBufferReceived(byte[] sender)
+    {
+#if ANDROID
+        if (phoneCallEnabled)
+            PlayAudioData(sender);
+#endif
+    }
+
     private async void EmotionImageButtonButton_Clicked(object sender, EventArgs e)
     {
         try
         {
-            await xCCGroup.SendStandardTextMessage(CurrentName, $"[Emotion]{(sender as ImageButton).ClassId}");
-            await ShowMessage(CurrentName, string.Empty, (sender as ImageButton).ClassId);
+            if (connected)
+            {
+                await xCCGroup.SendTextMessage($"[Emotion]{(sender as ImageButton).ClassId}");
+                await ShowEmotion(CurrentName, (sender as ImageButton).ClassId);
+            }
+            else
+            {
+                await DisplayAlert("未连接到服务器", "请检查网络连接", "确定");
+            }
         }
         catch (Exception ex)
         {
             await DisplayAlert("发送消息失败", ex.Message, "确定");
+        }
+    }
+
+    private async void SendSelectedImage(FileResult fileResult)
+    {
+        if (connected)
+        {
+            var imageView = await ShowImage(CurrentName, fileResult.FullPath, false);
+            if (await xCCGroup.SendImage(fileResult.FullPath))
+            {
+                imageView.IsVisible = true;
+            }
+            else
+            {
+                await PopupAction.DisplayPopup(new TipPopup("图片发送失败", "发送超时"));
+            }
+        }
+        else
+        {
+            await DisplayAlert("未连接到服务器", "请检查网络连接", "确定");
         }
     }
 
@@ -266,6 +420,7 @@ public partial class ChatPage : ContentPage
             }
         }
     }
+
     public void StartPlayback()
     {
         int bufferSizeInBytes = AudioTrack.GetMinBufferSize(44100, ChannelOut.Mono, Encoding.Pcm16bit);
@@ -286,12 +441,14 @@ public partial class ChatPage : ContentPage
         audioTrack.Play();
         isPlaying = true;
     }
+
     public void StopPlayback()
     {
         isPlaying = false;
         audioTrack.Stop();
         audioTrack.Release();
     }
+
     public void PlayAudioData(byte[] audioData)
     {
         if (isPlaying && audioData is not null)
@@ -300,19 +457,40 @@ public partial class ChatPage : ContentPage
         }
     }
 #endif
-    public async void StartGroupComm(string name)
+
+    public async void StartGroupComm(string groupName, string senderName)
     {
-        xCCGroup = xCCNetWork.CreateGroup(name);
+        ShowConnectingTip();
+        xCCGroup = xCCNetWork.CreateGroup(groupName, senderName);
         try
         {
-            xCCGroup.StartXCC(true, 50);
+            var task = xCCGroup.StartXCC(true, 50);
+            await xCCGroup.WaitConnect();
+            if (firstConnect)
+            {
+                try
+                {
+                    await messageReceiveHelper.LoadGroup(GroupName);
+                    if (!await xCCGroup.GetHistory())
+                    {
+                        await PopupAction.DisplayPopup(new ErrorPopup("无法获取消息记录", "服务器返回校验错误"));
+                    }
+                    firstConnect = false;
+                }
+                catch (Exception ex)
+                {
+                    await PopupAction.DisplayPopup(new ErrorPopup("获取历史消息失败", ex.Message));
+                }
+            }
+            connected = true;
+            HideConnectingTip();
         }
         catch (Exception ex)
         {
             await DisplayAlert("网络错误", ex.Message, "确定");
         }
-        ShowConnectingTip();
     }
+
     protected override bool OnBackButtonPressed()
     {
         if (phoneCallEnabled)
@@ -327,6 +505,7 @@ public partial class ChatPage : ContentPage
         StopGroupComm();
         return base.OnBackButtonPressed();
     }
+
     public void StopGroupComm()
     {
         if (connected)
@@ -334,14 +513,17 @@ public partial class ChatPage : ContentPage
             xCCGroup.CloseXCC();
         }
     }
+
     public void ShowConnectingTip()
     {
         loadGrid.IsVisible = true;
     }
+
     public void HideConnectingTip()
     {
         loadGrid.IsVisible = false;
     }
+
     protected override void OnHandlerChanged()
     {
         base.OnHandlerChanged();
@@ -349,110 +531,357 @@ public partial class ChatPage : ContentPage
         (InputEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
 #endif
     }
-    public async Task ShowMessage(string name, string message, string image = null, bool autoScroll = true)
+
+    #region 显示消息
+    public async Task ShowStandardImage(bool isHistory, XCCFile xCCFile)
+    {
+        await Console.Out.WriteLineAsync($"发送者：{xCCFile.Sender}，是否加载：{xCCFile.Loaded}，是否为历史：{isHistory}");
+        if (xCCFile.Loaded)
+        {
+            await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, !isHistory);
+        }
+        else
+        {
+            var imageView = await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, !isHistory);
+            xCCFile.FileLoaded += xCCFile =>
+            {
+                imageView.Source = ImageSource.FromStream(() => new MemoryStream(xCCFile.FileBuffer));
+            };
+        }
+    }
+
+    public async Task<Image> ShowImage(string name, byte[] buffer, bool autoScroll = true)
+    {
+        Border imageBorder = null;
+        ImageSource imageSource = buffer == null ? null : ImageSource.FromStream(() => new MemoryStream(buffer));
+        Image imageView = null;
+        if (name == CurrentName)
+        {
+            imageView = new Image
+            {
+                Source = imageSource,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#444654"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                Content = imageView
+            };
+        }
+        else
+        {
+            imageView = new Image
+            {
+                Source = imageSource,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                Margin = new Thickness(10, 0, 0, 0),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#343541"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                Content = imageView
+            };
+        }
+        await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
+        return imageView;
+    }
+
+    public async Task<Image> ShowImage(string name, string filePath, bool showImage = true, bool autoScroll = true)
+    {
+        Border imageBorder = null;
+        ImageSource imageSource = ImageSource.FromFile(filePath);
+        Image imageView = null;
+        if (name == CurrentName)
+        {
+            imageView = new Image
+            {
+                Source = imageSource,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                IsVisible = showImage
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#444654"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                Content = imageView
+            };
+        }
+        else
+        {
+            imageView = new Image
+            {
+                Source = imageSource,
+                MinimumWidthRequest = 100,
+                MinimumHeightRequest = 100,
+                MaximumHeightRequest = 600,
+                MaximumWidthRequest = 300,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                IsVisible = showImage
+            };
+            imageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                Margin = new Thickness(10, 0, 0, 0),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#343541"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                Content = imageView
+            };
+        }
+        await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
+        return imageView;
+    }
+
+    public async Task ShowEmotion(string name, string image, bool autoScroll = true)
+    {
+        Image emotionImageView = null;
+        if (name == CurrentName)
+        {
+            emotionImageView = new Image
+            {
+                Source = image,
+                WidthRequest = 100,
+                HeightRequest = 100,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                ClassId = image
+            };
+        }
+        else
+        {
+            emotionImageView = new Image
+            {
+                Source = image,
+                WidthRequest = 100,
+                HeightRequest = 100,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                ClassId = image
+            };
+        }
+        await AppendSenderAndShowMessage(name, emotionImageView, autoScroll);
+    }
+
+    public async Task ShowTextMessage(string name, string message, bool autoScroll = true)
+    {
+        var URLs = message.GetUrl();
+        Label messageLabel = null;
+        Border messageBorder = null;
+        if (name == CurrentName)
+        {
+            messageLabel = new Label
+            {
+                Text = message,
+                TextColor = Color.FromArgb("#ECECF1"),
+                FontSize = 16,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+            messageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#343541"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                Content = messageLabel
+            };
+            if (URLs.Length > 0)
+            {
+                var urlFlexLayout = new FlexLayout
+                {
+                    Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
+                };
+                foreach (var url in URLs)
+                {
+                    var urlLabel = new Label
+                    {
+                        Text = url,
+                        TextColor = Color.FromArgb("#ECECF1"),
+                        FontSize = 16,
+                        HorizontalOptions = LayoutOptions.End,
+                        VerticalOptions = LayoutOptions.Center,
+                        LineBreakMode = LineBreakMode.WordWrap
+                    };
+                    var urlBorder = new Border
+                    {
+                        Stroke = Color.FromArgb("#202127"),
+                        StrokeThickness = 1,
+                        Padding = new Thickness(8, 5),
+                        BackgroundColor = Color.FromArgb("#343541"),
+                        StrokeShape = new RoundRectangle
+                        {
+                            CornerRadius = new CornerRadius(5, 5, 5, 5)
+                        },
+                        HorizontalOptions = LayoutOptions.End,
+                        VerticalOptions = LayoutOptions.Center,
+                        Content = urlLabel
+                    };
+                    urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
+                    {
+                        Command = new Command(async () =>
+                        {
+                            await Clipboard.SetTextAsync(url);
+                            await Launcher.OpenAsync(url);
+                        })
+                    });
+                    urlFlexLayout.Children.Add(urlBorder);
+                }
+                var inBorderStackLayout = new StackLayout
+                {
+                    Children = { messageLabel, urlFlexLayout }
+                };
+                messageBorder.Content = inBorderStackLayout;
+            }
+        }
+        else
+        {
+            messageLabel = new Label
+            {
+                Text = message,
+                TextColor = Color.FromArgb("#D1D5DB"),
+                FontSize = 16,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+            messageBorder = new Border
+            {
+                Stroke = Color.FromArgb("#202127"),
+                Margin = new Thickness(10, 0, 0, 0),
+                StrokeThickness = 1,
+                Padding = new Thickness(8, 5),
+                BackgroundColor = Color.FromArgb("#444654"),
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(5, 5, 5, 5)
+                },
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                Content = messageLabel
+            };
+            if (URLs.Length > 0)
+            {
+                var urlFlexLayout = new FlexLayout
+                {
+                    Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
+                };
+                foreach (var url in URLs)
+                {
+                    var urlLabel = new Label
+                    {
+                        Text = url,
+                        TextColor = Color.FromArgb("#D1D5DB"),
+                        FontSize = 16,
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Center,
+                        LineBreakMode = LineBreakMode.WordWrap
+                    };
+                    var urlBorder = new Border
+                    {
+                        Stroke = Color.FromArgb("#202127"),
+                        StrokeThickness = 1,
+                        Padding = new Thickness(8, 5),
+                        BackgroundColor = Color.FromArgb("#444654"),
+                        StrokeShape = new RoundRectangle
+                        {
+                            CornerRadius = new CornerRadius(5, 5, 5, 5)
+                        },
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Center,
+                        Content = urlLabel
+                    };
+                    urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
+                    {
+                        Command = new Command(async () =>
+                        {
+                            await Clipboard.SetTextAsync(url);
+                            await Launcher.OpenAsync(url);
+                        })
+                    });
+                    urlFlexLayout.Children.Add(urlBorder);
+                }
+                var inBorderStackLayout = new StackLayout
+                {
+                    Children = { messageLabel, urlFlexLayout }
+                };
+                messageBorder.Content = inBorderStackLayout;
+            }
+        }
+        await AppendSenderAndShowMessage(name, messageBorder, autoScroll);
+    }
+
+    public async Task AppendSenderAndShowMessage(string name, View content, bool autoScroll)
     {
         ChatStack.Dispatcher.Dispatch(() =>
         {
             if (name == CurrentName)
             {
-                var URLs = message.GetUrl();
-                var messageLabel = new Label
-                {
-                    Text = message,
-                    TextColor = Color.FromArgb("#ECECF1"),
-                    FontSize = 16,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center,
-                    LineBreakMode = LineBreakMode.WordWrap
-                };
-                var messageBorder = new Border
-                {
-                    Stroke = Color.FromArgb("#202127"),
-                    StrokeThickness = 1,
-                    Padding = new Thickness(8, 5),
-                    BackgroundColor = Color.FromArgb("#343541"),
-                    StrokeShape = new RoundRectangle
-                    {
-                        CornerRadius = new CornerRadius(5, 5, 5, 5)
-                    },
-                    HorizontalOptions = LayoutOptions.End,
-                    VerticalOptions = LayoutOptions.Center,
-                    Content = messageLabel
-                };
-                if (URLs.Length > 0)
-                {
-                    var urlFlexLayout = new FlexLayout
-                    {
-                        Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
-                    };
-                    foreach (var url in URLs)
-                    {
-                        var urlLabel = new Label
-                        {
-                            Text = url,
-                            TextColor = Color.FromArgb("#ECECF1"),
-                            FontSize = 16,
-                            HorizontalOptions = LayoutOptions.End,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-                        };
-                        var urlBorder = new Border
-                        {
-                            Stroke = Color.FromArgb("#202127"),
-                            StrokeThickness = 1,
-                            Padding = new Thickness(8, 5),
-                            BackgroundColor = Color.FromArgb("#343541"),
-                            StrokeShape = new RoundRectangle
-                            {
-                                CornerRadius = new CornerRadius(5, 5, 5, 5)
-                            },
-                            HorizontalOptions = LayoutOptions.End,
-                            VerticalOptions = LayoutOptions.Center,
-                            Content = urlLabel
-                        };
-                        urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
-                        {
-                            Command = new Command(async () =>
-                            {
-                                await Clipboard.SetTextAsync(url);
-                                await Launcher.OpenAsync(url);
-                            })
-                        });
-                        urlFlexLayout.Children.Add(urlBorder);
-                    }
-                    var inBorderStackLayout = new StackLayout
-                    {
-                        Children = { messageLabel, urlFlexLayout }
-                    };
-                    messageBorder.Content = inBorderStackLayout;
-                }
                 var messageGrid = new Grid
                 {
                     Margin = new Thickness(20, 0, 20, 7),
                     Opacity = 0,
                     TranslationY = 50
                 };
-                if (image is not null)
-                {
-                    var imageView = new Image
-                    {
-                        Source = image,
-                        WidthRequest = 100,
-                        HeightRequest = 100,
-                        HorizontalOptions = LayoutOptions.End,
-                        VerticalOptions = LayoutOptions.Center,
-                        ClassId = image
-                    };
-                    messageGrid.Children.Add(imageView);
-                }
-                else
-                {
-                    messageGrid.Children.Add(messageBorder);
-                }
+                messageGrid.Children.Add(content);
                 if (lastSender == string.Empty || name != lastSender)
                 {
                     lastSender = name;
-                    messageBorder.Margin = new Thickness(0, 15, 0, 0);
+                    content.Margin = new Thickness(0, 15, 0, 0);
                     messageGrid.RowDefinitions = new RowDefinitionCollection
                     {
                         new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) },
@@ -491,78 +920,6 @@ public partial class ChatPage : ContentPage
             }
             else
             {
-                var URLs = message.GetUrl();
-                var messageLabel = new Label
-                {
-                    Text = message,
-                    TextColor = Color.FromArgb("#D1D5DB"),
-                    FontSize = 16,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center,
-                    LineBreakMode = LineBreakMode.WordWrap
-                };
-                var messageBorder = new Border
-                {
-                    Stroke = Color.FromArgb("#202127"),
-                    Margin = new Thickness(10, 0, 0, 0),
-                    StrokeThickness = 1,
-                    Padding = new Thickness(8, 5),
-                    BackgroundColor = Color.FromArgb("#444654"),
-                    StrokeShape = new RoundRectangle
-                    {
-                        CornerRadius = new CornerRadius(5, 5, 5, 5)
-                    },
-                    HorizontalOptions = LayoutOptions.Start,
-                    VerticalOptions = LayoutOptions.Center,
-                    Content = messageLabel
-                };
-                if (URLs.Length > 0)
-                {
-                    var urlFlexLayout = new FlexLayout
-                    {
-                        Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
-                    };
-                    foreach (var url in URLs)
-                    {
-                        var urlLabel = new Label
-                        {
-                            Text = url,
-                            TextColor = Color.FromArgb("#D1D5DB"),
-                            FontSize = 16,
-                            HorizontalOptions = LayoutOptions.Start,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-                        };
-                        var urlBorder = new Border
-                        {
-                            Stroke = Color.FromArgb("#202127"),
-                            StrokeThickness = 1,
-                            Padding = new Thickness(8, 5),
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            StrokeShape = new RoundRectangle
-                            {
-                                CornerRadius = new CornerRadius(5, 5, 5, 5)
-                            },
-                            HorizontalOptions = LayoutOptions.Start,
-                            VerticalOptions = LayoutOptions.Center,
-                            Content = urlLabel
-                        };
-                        urlBorder.GestureRecognizers.Add(new TapGestureRecognizer
-                        {
-                            Command = new Command(async () =>
-                            {
-                                await Clipboard.SetTextAsync(url);
-                                await Launcher.OpenAsync(url);
-                            })
-                        });
-                        urlFlexLayout.Children.Add(urlBorder);
-                    }
-                    var inBorderStackLayout = new StackLayout
-                    {
-                        Children = { messageLabel, urlFlexLayout }
-                    };
-                    messageBorder.Content = inBorderStackLayout;
-                }
                 var messageGrid = new Grid
                 {
                     BackgroundColor = Color.FromArgb("#444654"),
@@ -570,27 +927,11 @@ public partial class ChatPage : ContentPage
                     Opacity = 0,
                     TranslationY = 50
                 };
-                if (image is not null)
-                {
-                    var imageView = new Image
-                    {
-                        Source = image,
-                        WidthRequest = 100,
-                        HeightRequest = 100,
-                        HorizontalOptions = LayoutOptions.Start,
-                        VerticalOptions = LayoutOptions.Center,
-                        ClassId = image
-                    };
-                    messageGrid.Children.Add(imageView);
-                }
-                else
-                {
-                    messageGrid.Children.Add(messageBorder);
-                }
+                messageGrid.Children.Add(content);
                 if (lastSender == string.Empty || name != lastSender)
                 {
                     lastSender = name;
-                    messageBorder.Margin = new Thickness(10, 5, 0, 0);
+                    content.Margin = new Thickness(10, 5, 0, 0);
                     messageGrid.RowDefinitions = new RowDefinitionCollection
                     {
                         new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) },
@@ -631,6 +972,8 @@ public partial class ChatPage : ContentPage
         if (autoScroll)
             await ChatScrollView.ScrollToAsync(0, ChatScrollView.ContentSize.Height, true);
     }
+    #endregion
+
     private async void SendButton_Clicked(object sender, EventArgs e)
     {
         if (CurrentName == string.Empty)
@@ -645,9 +988,9 @@ public partial class ChatPage : ContentPage
                 {
                     string message = InputEditor.Text;
                     InputEditor.Text = string.Empty;
-                    var task = ShowMessage(CurrentName, message);
+                    var task = ShowTextMessage(CurrentName, message);
                     if (!string.IsNullOrWhiteSpace(message))
-                        await xCCGroup.SendStandardTextMessage(CurrentName, message);
+                        await xCCGroup.SendTextMessage(message);
                 }
                 catch (Exception ex)
                 {
@@ -660,192 +1003,23 @@ public partial class ChatPage : ContentPage
             }
         }
     }
+
     private void XCCNetWork_Connected(object sender, XCCConnectedEventArgs e)
     {
-        if (firstConnect)
-        {
-            try
-            {
-                xCCGroup.GetHistory();
-                firstConnect = false;
-                HideConnectingTip();
-            }
-            catch (Exception ex)
-            {
-                DisplayAlert("获取历史消息失败", ex.Message, "确定");
-            }
-        }
-        connected = true;
+        Console.WriteLine($"连接到服务器：{e.XCCClientType}");
     }
-    private void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
+
+    private async void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
     {
         if (!e.ClosedNormally)
         {
             ShowConnectingTip();
-        }
-    }
-    private async void XCCGroup_MessageReceived(object sender, XCCMessageReceivedEventArgs e)
-    {
-        switch (e.MessageType)
-        {
-            case XCCMessageType.Text:
-                string message = e.TextMessage;
-                bool isHistory = false;
-                if (e.TextMessage.Contains("[XCCGetHistory]"))
-                {
-                    message = e.TextMessage.Replace("[XCCGetHistory]", string.Empty);
-                    isHistory = true;
-                }
-                var dictionary = new XFEMultiDictionary(message);
-                if (dictionary.Count > 0)
-                {
-                    foreach (var entry in dictionary)
-                    {
-                        if (isHistory)
-                        {
-                            if (entry.Content.Contains("[Emotion]"))
-                            {
-                                var image = entry.Content.Replace("[Emotion]", string.Empty);
-                                await ShowMessage(entry.Header, entry.Content, image, false);
-                            }
-                            else
-                            {
-                                await ShowMessage(entry.Header, entry.Content, null, false);
-                            }
-                        }
-                        else
-                        {
-#if ANDROID
-                            var iconImg = new NotificationImage();
-                            iconImg.ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png";
-                            var request = new NotificationRequest
-                            {
-                                Title = DisplayGroupName,
-                                Subtitle = $"新的群消息",
-                                Description = $"{entry.Header}：{entry.Content}",
-                                BadgeNumber = MessageCount++,
-                                Image = iconImg,
-
-                            };
-                            await LocalNotificationCenter.Current.Show(request);
-#endif
-                            if (e.TextMessage.Contains("[Emotion]"))
-                            {
-                                var image = entry.Content.Replace("[Emotion]", string.Empty);
-                                await ShowMessage(entry.Header, entry.Content, image);
-                            }
-                            else
-                            {
-                                await ShowMessage(entry.Header, entry.Content);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    ChatStack.Dispatcher.Dispatch(() =>
-                    {
-                        var messageLabel = new Label
-                        {
-                            Text = message,
-                            TextColor = Color.FromArgb("#D1D5DB"),
-                            FontSize = 18,
-                            HorizontalOptions = LayoutOptions.Fill,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-
-                        };
-                        var messageGrid = new Grid
-                        {
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            Padding = new Thickness(20, 20, 20, 20),
-                            Children = { messageLabel }
-                        };
-                        ChatStack.Children.Add(messageGrid);
-                    });
-                }
-                if (isHistory)
-                {
-                    ChatStack.Dispatcher.Dispatch(() =>
-                    {
-                        var messageLabel = new Label
-                        {
-                            Text = "以上为历史消息",
-                            Opacity = 0.3,
-                            TextColor = Color.FromArgb("#D1D5DB"),
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            VerticalTextAlignment = TextAlignment.Center,
-                            FontSize = 18,
-                            HorizontalOptions = LayoutOptions.Fill,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-                        };
-                        if (dictionary.Count == 0)
-                        {
-                            messageLabel.Text = "暂无历史消息";
-                        }
-                        var messageGrid = new Grid
-                        {
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            Padding = new Thickness(20, 0, 20, 0),
-                            Margin = new Thickness(0, 5),
-                            Children = { messageLabel }
-                        };
-                        ChatStack.Children.Add(messageGrid);
-                        new Action(async () =>
-                        {
-                            while (!isScrolled)
-                            {
-                                try
-                                {
-                                    await ChatScrollView.ScrollToAsync(0, ChatStack.DesiredSize.Height, false);
-                                }
-                                catch { }
-                            }
-                        }).StartNewTask();
-                    });
-                }
-                break;
-
-            case XCCMessageType.Binary:
-                if (phoneCallEnabled)
-                {
-#if ANDROID
-                    PlayAudioData(e.BinaryMessage);
-#endif
-                }
-                break;
-            case XCCMessageType.Error:
-                connected = false;
-                ChatStack.Dispatcher.Dispatch(() =>
-                {
-                    ChatStack.Dispatcher.Dispatch(() =>
-                    {
-                        var messageLabel = new Label
-                        {
-                            Text = $"发生错误：{e.Exception.Message}",
-                            TextColor = Color.FromArgb("#F87171"),
-                            FontSize = 18,
-                            HorizontalOptions = LayoutOptions.Fill,
-                            VerticalOptions = LayoutOptions.Center,
-                            LineBreakMode = LineBreakMode.WordWrap
-
-                        };
-                        var messageGrid = new Grid
-                        {
-                            BackgroundColor = Color.FromArgb("#444654"),
-                            Padding = new Thickness(20, 5, 5, 20),
-                            Children = { messageLabel }
-                        };
-                        ChatStack.Children.Add(messageGrid);
-                    });
-                    Console.WriteLine(e.Exception);
-                });
-                await DisplayAlert("网路错误", e.Exception.Message, "确定");
-                break;
-            default:
-                ProcessException.ShowEnumException();
-                break;
+            await xCCGroup.WaitConnect();
+            if (!connected)
+            {
+                connected = true;
+                HideConnectingTip();
+            }
         }
     }
 
@@ -904,14 +1078,12 @@ public partial class ChatPage : ContentPage
 
     private void UnFocusAllButtonInToolBar()
     {
-        foreach (ImageButton btn in ToolBarStackLayout.Children)
+        foreach (var btn in ToolBarStackLayout.Children.Cast<ImageButton>().Where(btn => !btn.ClassId.Contains("un")))
         {
-            if (!btn.ClassId.Contains("un"))
-            {
-                btn.Source = "un" + btn.ClassId;
-                btn.ClassId = "un" + btn.ClassId;
-            }
+            btn.Source = "un" + btn.ClassId;
+            btn.ClassId = "un" + btn.ClassId;
         }
+
         this.Dispatcher.Dispatch(() =>
         {
             ToolViewStackLayout.Children.Clear();
@@ -948,5 +1120,32 @@ public partial class ChatPage : ContentPage
         ToolViewScrollView.IsVisible = false;
         ToolViewStackLayout.Children.Clear();
         UnFocusAllButtonInToolBar();
+    }
+
+    private async void ShowImageButton_Clicked(object sender, EventArgs e)
+    {
+        var fileResult = await FilePicker.PickAsync(PickOptions.Images);
+        if (fileResult is not null)
+            SendSelectedImage(fileResult);
+
+        //PermissionStatus m_statusRequestStorageRead = await Permissions.RequestAsync<Permissions.StorageRead>();
+        //switch (m_statusRequestStorageRead)
+        //{
+        //    case PermissionStatus.Granted:
+        //        SendSelectedImage(await FilePicker.PickAsync());
+        //        break;
+        //    case PermissionStatus.Denied:
+        //        await DisplayAlert("请求拒绝", "无法读取图片，请前往手机设置打开读写", "啊这，行吧");
+        //        break;
+        //    case PermissionStatus.Disabled:
+        //        await DisplayAlert("暂无权限", "没权限当然读取不了图片了", "彳亍吧");
+        //        break;
+        //    case PermissionStatus.Unknown:
+        //        await DisplayAlert("我 氵则", "请求处于未知状态？？？？？？？？？", "啊这（截图和我反馈）");
+        //        break;
+        //    default:
+        //        await DisplayAlert("这位更是个寄吧", "出现错误", "我测");
+        //        break;
+        //}
     }
 }

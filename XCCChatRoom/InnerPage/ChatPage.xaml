@@ -62,17 +62,33 @@
             <StackLayout
                 Grid.Row="1"
                 Grid.ColumnSpan="2">
-                <HorizontalStackLayout
+                <Grid
                     Margin="0,5,0,0"
                     x:Name="ToolBarStackLayout">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <ImageButton
                         x:Name="ShowEmotionButton"
                         Source="unsmile"
                         ClassId="unsmile"
+                        HorizontalOptions="Center"
                         HeightRequest="30"
                         WidthRequest="30"
                         Clicked="ShowEmotionButton_Clicked"/>
-                </HorizontalStackLayout>
+                    <ImageButton
+                        x:Name="ShowImageButton"
+                        Source="unimage"
+                        ClassId="unimage"
+                        HorizontalOptions="Center"
+                        HeightRequest="30"
+                        Grid.Column="1"
+                        WidthRequest="30"
+                        Clicked="ShowImageButton_Clicked"/>
+                </Grid>
                 <ScrollView
                     x:Name="ToolViewScrollView"
                     MaximumHeightRequest="200"
