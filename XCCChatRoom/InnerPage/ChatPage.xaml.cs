@@ -10,7 +10,6 @@ using XCCChatRoom.AllImpl;
 using XFE各类拓展.StringExtension;
 using MauiPopup;
 using XCCChatRoom.Controls;
-using static Android.Webkit.ConsoleMessage;
 
 namespace XCCChatRoom.InnerPage;
 [QueryProperty(nameof(GroupName), nameof(GroupName))]
@@ -51,6 +50,7 @@ public partial class ChatPage : ContentPage
     private List<Image> emotionImageList = new List<Image>();
     private XCCNetWork xCCNetWork;
     private XCCGroup xCCGroup;
+    private XCCMessageReceiveHelper messageReceiveHelper;
     private Grid loadGrid;
     private Image serverImg;
     private ImageButton lastButtonClicked = null;
@@ -124,11 +124,13 @@ public partial class ChatPage : ContentPage
         };
         ToolbarItems.Add(phoneCallItem);
         xCCNetWork = new XCCNetWork();
+        messageReceiveHelper = new XCCMessageReceiveHelper(AppPath.ChatDialogHistoryPath, xCCNetWork);
         xCCNetWork.Connected += XCCNetWork_Connected;
         xCCNetWork.ConnectionClosed += XCCNetWork_ConnectionClosed;
-        xCCNetWork.BinaryMessageReceived += XCCNetWork_BinaryMessageReceived;
-        xCCNetWork.TextMessageReceived += XCCNetWork_TextMessageReceived;
-        xCCNetWork.ExceptionMessageReceived += XCCNetWork_ExceptionMessageReceived;
+        messageReceiveHelper.AudioBufferReceived += MessageReceiveHelper_AudioBufferReceived;
+        messageReceiveHelper.TextReceived += MessageReceiveHelper_TextReceived;
+        messageReceiveHelper.FileReceived += MessageReceiveHelper_FileReceived;
+        messageReceiveHelper.ExceptionOccurred += MessageReceiveHelper_ExceptionOccurred;
 #if ANDROID
         LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
 #endif
@@ -221,7 +223,7 @@ public partial class ChatPage : ContentPage
         #endregion
     }
 
-    private async void XCCNetWork_ExceptionMessageReceived(object sender, XCCExceptionMessageReceivedEventArgs e)
+    private async void MessageReceiveHelper_ExceptionOccurred(XFE各类拓展.XFECyberCommException sender)
     {
         connected = false;
         ChatStack.Dispatcher.Dispatch(() =>
@@ -230,7 +232,7 @@ public partial class ChatPage : ContentPage
             {
                 var messageLabel = new Label
                 {
-                    Text = $"发生错误：{e.Exception.Message}",
+                    Text = $"发生错误：{sender.Message}",
                     TextColor = Color.FromArgb("#F87171"),
                     FontSize = 18,
                     HorizontalOptions = LayoutOptions.Fill,
@@ -246,9 +248,94 @@ public partial class ChatPage : ContentPage
                 };
                 ChatStack.Children.Add(messageGrid);
             });
-            Console.WriteLine(e.Exception);
+            Console.WriteLine(sender);
         });
-        await DisplayAlert("网路错误", e.Exception.Message, "确定");
+        await PopupAction.DisplayPopup(new ErrorPopup("出现错误", sender.Message));
+    }
+
+    private void MessageReceiveHelper_FileReceived(bool isHistory, XCCFile message)
+    {
+        switch (message.FileType)
+        {
+            case XCCFileType.Image:
+                if (isHistory)
+                    ShowImage(message.Sender, message.FileBuffer, false);
+                break;
+            case XCCFileType.Video:
+                break;
+            case XCCFileType.Audio:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private async void MessageReceiveHelper_TextReceived(bool isHistory, XCCMessage message)
+    {
+        switch (message.MessageType)
+        {
+            case XCCTextMessageType.Text:
+                if (isHistory)
+                {
+                    if (message.Message.Contains("[Emotion]"))
+                    {
+                        var image = message.Message.Replace("[Emotion]", string.Empty);
+                        await ShowEmotion(message.Sender, image, false);
+                    }
+                    else
+                    {
+                        await ShowTextMessage(message.Sender, message.Message, false);
+                    }
+                }
+                else
+                {
+#if ANDROID
+                    var iconImg = new NotificationImage();
+                    iconImg.ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png";
+                    var request = new NotificationRequest
+                    {
+                        Title = DisplayGroupName,
+                        Subtitle = $"新的群消息",
+                        Description = $"{message.Sender}：{message.Message}",
+                        BadgeNumber = MessageCount++,
+                        Image = iconImg,
+
+                    };
+                    await LocalNotificationCenter.Current.Show(request);
+#endif
+                    if (message.Message.Contains("[Emotion]"))
+                    {
+                        var image = message.Message.Replace("[Emotion]", string.Empty);
+                        await ShowEmotion(message.Sender, image);
+                    }
+                    else
+                    {
+                        await ShowTextMessage(message.Sender, message.Message);
+                    }
+                }
+                //new Action(async () =>
+                //{
+                //    while (!isScrolled)
+                //    {
+                //        try
+                //        {
+                //            await ChatScrollView.ScrollToAsync(0, ChatStack.DesiredSize.Height, false);
+                //        }
+                //        catch { }
+                //    }
+                //}).StartNewTask();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void MessageReceiveHelper_AudioBufferReceived(byte[] sender)
+    {
+#if ANDROID
+        if (phoneCallEnabled)
+            PlayAudioData(sender);
+#endif
     }
 
     private async void EmotionImageButtonButton_Clicked(object sender, EventArgs e)
@@ -270,6 +357,7 @@ public partial class ChatPage : ContentPage
             await DisplayAlert("发送消息失败", ex.Message, "确定");
         }
     }
+
     private async void SendSelectedImage(FileResult fileResult)
     {
         if (connected)
@@ -342,6 +430,7 @@ public partial class ChatPage : ContentPage
             }
         }
     }
+
     public void StartPlayback()
     {
         int bufferSizeInBytes = AudioTrack.GetMinBufferSize(44100, ChannelOut.Mono, Encoding.Pcm16bit);
@@ -362,12 +451,14 @@ public partial class ChatPage : ContentPage
         audioTrack.Play();
         isPlaying = true;
     }
+
     public void StopPlayback()
     {
         isPlaying = false;
         audioTrack.Stop();
         audioTrack.Release();
     }
+
     public void PlayAudioData(byte[] audioData)
     {
         if (isPlaying && audioData is not null)
@@ -376,12 +467,31 @@ public partial class ChatPage : ContentPage
         }
     }
 #endif
+
     public async void StartGroupComm(string groupName, string senderName)
     {
         xCCGroup = xCCNetWork.CreateGroup(groupName, senderName);
         try
         {
             await xCCGroup.StartXCC(true, 50);
+            await xCCGroup.WaitConnect();
+            if (firstConnect)
+            {
+                try
+                {
+                    if (!await xCCGroup.GetHistory())
+                    {
+                        await PopupAction.DisplayPopup(new ErrorPopup("无法获取消息记录", "服务器返回校验错误"));
+                    }
+                    firstConnect = false;
+                    HideConnectingTip();
+                }
+                catch (Exception ex)
+                {
+                    await PopupAction.DisplayPopup(new ErrorPopup("获取历史消息失败", ex.Message));
+                }
+            }
+            connected = true;
         }
         catch (Exception ex)
         {
@@ -389,6 +499,7 @@ public partial class ChatPage : ContentPage
         }
         ShowConnectingTip();
     }
+
     protected override bool OnBackButtonPressed()
     {
         if (phoneCallEnabled)
@@ -403,6 +514,7 @@ public partial class ChatPage : ContentPage
         StopGroupComm();
         return base.OnBackButtonPressed();
     }
+
     public void StopGroupComm()
     {
         if (connected)
@@ -410,14 +522,17 @@ public partial class ChatPage : ContentPage
             xCCGroup.CloseXCC();
         }
     }
+
     public void ShowConnectingTip()
     {
         loadGrid.IsVisible = true;
     }
+
     public void HideConnectingTip()
     {
         loadGrid.IsVisible = false;
     }
+
     protected override void OnHandlerChanged()
     {
         base.OnHandlerChanged();
@@ -425,19 +540,20 @@ public partial class ChatPage : ContentPage
         (InputEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
 #endif
     }
-    public async Task ShowImagePlaceHolder(string name, byte[] buffer,, bool autoScroll = true)
+    #region 显示消息
+    public async Task ShowImage(string name, byte[] buffer, bool autoScroll = true)
     {
         Border imageBorder = null;
+        ImageSource imageSource = buffer == null ? null : ImageSource.FromStream(() => new MemoryStream(buffer));
         if (name == CurrentName)
         {
             var imageView = new Image
             {
-                Source = im,
+                Source = imageSource,
                 WidthRequest = 100,
                 HeightRequest = 100,
                 HorizontalOptions = LayoutOptions.End,
-                VerticalOptions = LayoutOptions.Center,
-                ClassId = image
+                VerticalOptions = LayoutOptions.Center
             };
             imageBorder = new Border
             {
@@ -460,12 +576,11 @@ public partial class ChatPage : ContentPage
         {
             var imageView = new Image
             {
-                Source = image,
+                Source = imageSource,
                 WidthRequest = 100,
                 HeightRequest = 100,
                 HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.Center,
-                ClassId = image
+                VerticalOptions = LayoutOptions.Center
             };
             imageBorder = new Border
             {
@@ -487,6 +602,7 @@ public partial class ChatPage : ContentPage
         }
         await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
     }
+
     public async Task ShowEmotion(string name, string image, bool autoScroll = true)
     {
         Image emotionImageView = null;
@@ -516,6 +632,7 @@ public partial class ChatPage : ContentPage
         }
         await AppendSenderAndShowMessage(name, emotionImageView, autoScroll);
     }
+
     public async Task ShowTextMessage(string name, string message, bool autoScroll = true)
     {
         var URLs = message.GetUrl();
@@ -670,6 +787,7 @@ public partial class ChatPage : ContentPage
         }
         await AppendSenderAndShowMessage(name, messageBorder, autoScroll);
     }
+
     public async Task AppendSenderAndShowMessage(string name, View content, bool autoScroll)
     {
         ChatStack.Dispatcher.Dispatch(() =>
@@ -777,6 +895,8 @@ public partial class ChatPage : ContentPage
         if (autoScroll)
             await ChatScrollView.ScrollToAsync(0, ChatScrollView.ContentSize.Height, true);
     }
+    #endregion
+
     private async void SendButton_Clicked(object sender, EventArgs e)
     {
         if (CurrentName == string.Empty)
@@ -809,110 +929,20 @@ public partial class ChatPage : ContentPage
 
     private void XCCNetWork_Connected(object sender, XCCConnectedEventArgs e)
     {
-        if (firstConnect)
-        {
-            try
-            {
-                xCCGroup.GetHistory();
-                firstConnect = false;
-                HideConnectingTip();
-            }
-            catch (Exception ex)
-            {
-                DisplayAlert("获取历史消息失败", ex.Message, "确定");
-            }
-        }
-        connected = true;
+
     }
 
-    private void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
+    private async void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
     {
         if (!e.ClosedNormally)
         {
             ShowConnectingTip();
-        }
-    }
-
-    private async void XCCNetWork_TextMessageReceived(object sender, XCCTextMessageReceivedEventArgs e)
-    {
-        switch (e.MessageType)
-        {
-            case XCCTextMessageType.Text:
-                if (e.IsHistory)
-                {
-                    if (e.TextMessage.Contains("[Emotion]"))
-                    {
-                        var image = e.TextMessage.Replace("[Emotion]", string.Empty);
-                        await ShowEmotion(e.Sender, image, false);
-                    }
-                    else
-                    {
-                        await ShowTextMessage(e.Sender, e.TextMessage, false);
-                    }
-                }
-                else
-                {
-#if ANDROID
-                    var iconImg = new NotificationImage();
-                    iconImg.ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png";
-                    var request = new NotificationRequest
-                    {
-                        Title = DisplayGroupName,
-                        Subtitle = $"新的群消息",
-                        Description = $"{e.Sender}：{e.TextMessage}",
-                        BadgeNumber = MessageCount++,
-                        Image = iconImg,
-
-                    };
-                    await LocalNotificationCenter.Current.Show(request);
-#endif
-                    if (e.TextMessage.Contains("[Emotion]"))
-                    {
-                        var image = e.TextMessage.Replace("[Emotion]", string.Empty);
-                        await ShowEmotion(e.Sender, image);
-                    }
-                    else
-                    {
-                        await ShowTextMessage(e.Sender, e.TextMessage);
-                    }
-                }
-                //new Action(async () =>
-                //{
-                //    while (!isScrolled)
-                //    {
-                //        try
-                //        {
-                //            await ChatScrollView.ScrollToAsync(0, ChatStack.DesiredSize.Height, false);
-                //        }
-                //        catch { }
-                //    }
-                //}).StartNewTask();
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void XCCNetWork_BinaryMessageReceived(object sender, XCCBinaryMessageReceivedEventArgs e)
-    {
-        switch (e.MessageType)
-        {
-            case XCCBinaryMessageType.Text:
-                break;
-            case XCCBinaryMessageType.Binary:
-                break;
-            case XCCBinaryMessageType.Image:
-                break;
-            case XCCBinaryMessageType.Audio:
-                break;
-            case XCCBinaryMessageType.AudioBuffer:
-#if ANDROID
-                if (phoneCallEnabled)
-                    PlayAudioData(e.BinaryMessage);
-#endif
-                break;
-            default:
-                break;
+            await xCCGroup.WaitConnect();
+            if (!connected)
+            {
+                connected = true;
+                HideConnectingTip();
+            }
         }
     }
 
@@ -1016,6 +1046,7 @@ public partial class ChatPage : ContentPage
         ToolViewStackLayout.Children.Clear();
         UnFocusAllButtonInToolBar();
     }
+
     private async void ShowImageButton_Clicked(object sender, EventArgs e)
     {
         var fileResult = await FilePicker.PickAsync(PickOptions.Images);
