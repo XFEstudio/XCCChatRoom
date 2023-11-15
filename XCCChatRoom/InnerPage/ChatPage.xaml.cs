@@ -616,9 +616,9 @@ public partial class ChatPage : ContentPage
 
     public async Task<Image> ShowImage(string name, string filePath, bool showImage = true, bool autoScroll = true)
     {
-        Border imageBorder = null;
         ImageSource imageSource = ImageSource.FromFile(filePath);
-        Image imageView = null;
+        Border imageBorder;
+        Image imageView;
         if (name == CurrentName)
         {
             imageView = new Image
@@ -676,6 +676,9 @@ public partial class ChatPage : ContentPage
                 Content = imageView
             };
         }
+        var tapGestureRecognizer = new TapGestureRecognizer();
+        tapGestureRecognizer.Tapped 
+        imageBorder.GestureRecognizers.Add()
         await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
         return imageView;
     }
