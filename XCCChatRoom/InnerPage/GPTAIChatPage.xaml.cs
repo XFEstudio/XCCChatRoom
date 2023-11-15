@@ -293,6 +293,8 @@ public partial class GPTAIChatPage : ContentPage
             var askGrid = new Grid
             {
                 Margin = new Thickness(20, 20, 20, 20),
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.Center,
                 ColumnDefinitions =
                 {
                     new ColumnDefinition
@@ -334,6 +336,8 @@ public partial class GPTAIChatPage : ContentPage
             {
                 BackgroundColor = Color.FromArgb("#444654"),
                 Padding = new Thickness(20, 20, 20, 20),
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.Center,
                 ColumnDefinitions =
                 {
                     new ColumnDefinition
@@ -357,7 +361,7 @@ public partial class GPTAIChatPage : ContentPage
             var labelAndString = new LabelAndMessageId(responseLabel, guid.ToString());
             labelAndMessageIdList.Add(labelAndString);
             var task = new Action(() => TextMouseUpdate(labelAndString)).StartNewTask();
-            await ChatScrollView.ScrollToAsync(responseGrid, ScrollToPosition.End, false);
+            await ChatScrollView.ScrollToAsync(0, ChatScrollView.ContentSize.Height + 500, false);
             try
             {
                 memorableXFEChatGPT.AskChatGPT(CurrentDialogId, guid.ToString(), InputEditor.Text);
