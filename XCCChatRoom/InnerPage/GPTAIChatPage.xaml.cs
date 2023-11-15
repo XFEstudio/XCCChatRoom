@@ -73,7 +73,7 @@ public partial class GPTAIChatPage : ContentPage
     private string lastQuestion = string.Empty;
     private bool lastAnswerGenerated = true;
     private bool autoScrollEnable = true;
-    private bool autoScrolled = false;
+    private double lastScrollDistance = 0;
     public GPTAIChatPage()
     {
         Current = this;
@@ -265,8 +265,6 @@ public partial class GPTAIChatPage : ContentPage
         UserInfo.CurrentUser.TotalNormalGPTUsage++;
         await UserInfo.UpLoadUserInfo();
         autoScrollEnable = true;
-        autoScrolled = true;
-        await ChatScrollView.ScrollToAsync(ChatStack, ScrollToPosition.End, false);
         lastQuestion = InputEditor.Text;
         lastAnswerGenerated = false;
         SendButton.IsEnabled = false;
@@ -299,15 +297,15 @@ public partial class GPTAIChatPage : ContentPage
                 {
                     new ColumnDefinition
                     {
-                        Width = GridLength.Star
-                    },
-                    new ColumnDefinition
-                    {
-                        Width = new GridLength(10, GridUnitType.Star)
+                        Width = new GridLength(30,GridUnitType.Absolute)
                     },
                     new ColumnDefinition
                     {
                         Width = GridLength.Star
+                    },
+                    new ColumnDefinition
+                    {
+                        Width = new GridLength(30,GridUnitType.Absolute)
                     }
                 }
             };
@@ -340,15 +338,15 @@ public partial class GPTAIChatPage : ContentPage
                 {
                     new ColumnDefinition
                     {
-                        Width = GridLength.Star
-                    },
-                    new ColumnDefinition
-                    {
-                        Width = new GridLength(10, GridUnitType.Star)
+                        Width = new GridLength(30,GridUnitType.Absolute)
                     },
                     new ColumnDefinition
                     {
                         Width = GridLength.Star
+                    },
+                    new ColumnDefinition
+                    {
+                        Width = new GridLength(30,GridUnitType.Absolute)
                     }
                 }
             };
@@ -359,6 +357,7 @@ public partial class GPTAIChatPage : ContentPage
             var labelAndString = new LabelAndMessageId(responseLabel, guid.ToString());
             labelAndMessageIdList.Add(labelAndString);
             var task = new Action(() => TextMouseUpdate(labelAndString)).StartNewTask();
+            await ChatScrollView.ScrollToAsync(responseGrid, ScrollToPosition.End, false);
             try
             {
                 memorableXFEChatGPT.AskChatGPT(CurrentDialogId, guid.ToString(), InputEditor.Text);
@@ -400,7 +399,6 @@ public partial class GPTAIChatPage : ContentPage
                             {
                                 if (autoScrollEnable)
                                 {
-                                    autoScrolled = true;
                                     ChatScrollView.ScrollToAsync(ChatStack, ScrollToPosition.End, false);
                                 }
                             });
@@ -598,15 +596,10 @@ public partial class GPTAIChatPage : ContentPage
 
     private void ChatScrollView_Scrolled(object sender, ScrolledEventArgs e)
     {
-        if (autoScrolled)
-        {
-            autoScrolled = false;
-            autoScrollEnable = true;
-        }
-        else
-        {
+        if (lastScrollDistance > e.ScrollY)
             autoScrollEnable = false;
-        }
+        else
+            lastScrollDistance = e.ScrollY;
     }
 
     private void StopGenerateButton_Clicked(object sender, EventArgs e)
