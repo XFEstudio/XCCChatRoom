@@ -25,12 +25,14 @@ public partial class UserPasswordEditorPage : ContentPage
     private void OldPassword_Unfocused(object sender, FocusEventArgs e)
     {
         if (UserInfo.CurrentUser.Apassword == OldPassword.Text) { flag1 = true; }
+        else { flag1 = false; }
     }
 
 
     private void NewPassword_Unfocused(object sender, FocusEventArgs e)
     {
         if (NewPassword.Text.PasswordEditor()) { flag2 = true; }
+        else { flag2 = false; }
     }
 
     private void NewPasswordConfirmation_TextChanged(object sender, TextChangedEventArgs e)
@@ -38,6 +40,7 @@ public partial class UserPasswordEditorPage : ContentPage
         if (flag2)
         {
             if (NewPassword.Text == NewPasswordConfirmation.Text) { flag3 = true; }
+            else { flag3 = false; }
         }
     }
 
