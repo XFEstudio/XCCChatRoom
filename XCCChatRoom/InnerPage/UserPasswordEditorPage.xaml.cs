@@ -22,13 +22,13 @@ public partial class UserPasswordEditorPage : ContentPage
 #endif
     }*/
 
-    private async void OldPassword_Unfocused(object sender, FocusEventArgs e)
+    private void OldPassword_Unfocused(object sender, FocusEventArgs e)
     {
         if (UserInfo.CurrentUser.Apassword == OldPassword.Text) { flag1 = true; }
     }
 
 
-    private async void NewPassword_Unfocused(object sender, FocusEventArgs e)
+    private void NewPassword_Unfocused(object sender, FocusEventArgs e)
     {
         if (NewPassword.Text.PasswordEditor()) { flag2 = true; }
     }
@@ -61,5 +61,10 @@ public partial class UserPasswordEditorPage : ContentPage
         {
             await DisplayAlert("出错了", "两次输入新密码不一致", "确定");
         }
+    }
+
+    private void ForgotPasswordButton_Click(object sender, TappedEventArgs e)
+    {
+        Shell.Current.GoToAsync(nameof(ForgetPasswordPage));
     }
 }
