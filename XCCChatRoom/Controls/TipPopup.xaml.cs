@@ -6,7 +6,7 @@ namespace XCCChatRoom.Controls;
 
 public partial class TipPopup : BasePopupPage
 {
-    public TipPopup(string title, int closeTime = 3)
+    public TipPopup(string title, double closeTime = 3)
     {
         InitializeComponent();
         this.Shadow = new Shadow
@@ -20,7 +20,7 @@ public partial class TipPopup : BasePopupPage
         DisplayContentLabel.IsVisible = false;
         CloseTimer(closeTime);
     }
-    public TipPopup(string title, string content, int closeTime = 3)
+    public TipPopup(string title, string content, double closeTime = 3)
     {
         InitializeComponent();
         this.Shadow = new Shadow
@@ -34,7 +34,7 @@ public partial class TipPopup : BasePopupPage
         DisplayContentLabel.Text = content;
         CloseTimer(closeTime);
     }
-    private void CloseTimer(int second)
+    private void CloseTimer(double second)
     {
         Timer timer = new Timer(second * 1000);
         timer.Elapsed += (sender, e) =>

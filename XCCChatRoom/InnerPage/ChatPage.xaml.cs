@@ -360,7 +360,7 @@ public partial class ChatPage : ContentPage
     {
         if (connected)
         {
-            var imageView = await ShowImage(CurrentName, fileResult.FullPath, false);
+            var imageView = await ShowImage(CurrentName, fileResult.FullPath, fileResult.FileName, false);
             if (await xCCGroup.SendImage(fileResult.FullPath))
             {
                 imageView.IsVisible = true;
@@ -538,11 +538,11 @@ public partial class ChatPage : ContentPage
         await Console.Out.WriteLineAsync($"发送者：{xCCFile.Sender}，是否加载：{xCCFile.Loaded}，是否为历史：{isHistory}");
         if (xCCFile.Loaded)
         {
-            await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, !isHistory);
+            await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, xCCFile.MessageId, !isHistory);
         }
         else
         {
-            var imageView = await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, !isHistory);
+            var imageView = await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, xCCFile.MessageId, !isHistory);
             xCCFile.FileLoaded += xCCFile =>
             {
                 imageView.Source = ImageSource.FromStream(() => new MemoryStream(xCCFile.FileBuffer));
@@ -550,7 +550,7 @@ public partial class ChatPage : ContentPage
         }
     }
 
-    public async Task<Image> ShowImage(string name, byte[] buffer, bool autoScroll = true)
+    public async Task<Image> ShowImage(string name, byte[] buffer, string imageId, bool autoScroll = true)
     {
         Border imageBorder = null;
         ImageSource imageSource = buffer == null ? null : ImageSource.FromStream(() => new MemoryStream(buffer));
@@ -610,11 +610,17 @@ public partial class ChatPage : ContentPage
                 Content = imageView
             };
         }
+        var tapGestureRecognizer = new TapGestureRecognizer();
+        tapGestureRecognizer.Tapped += async (sender, e) =>
+        {
+            await PopupAction.DisplayPopup(new ImagePopup(buffer, imageId));
+        };
+        imageBorder.GestureRecognizers.Add(tapGestureRecognizer);
         await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
         return imageView;
     }
 
-    public async Task<Image> ShowImage(string name, string filePath, bool showImage = true, bool autoScroll = true)
+    public async Task<Image> ShowImage(string name, string filePath, string imageId, bool showImage = true, bool autoScroll = true)
     {
         ImageSource imageSource = ImageSource.FromFile(filePath);
         Border imageBorder;
@@ -677,8 +683,11 @@ public partial class ChatPage : ContentPage
             };
         }
         var tapGestureRecognizer = new TapGestureRecognizer();
-        tapGestureRecognizer.Tapped 
-        imageBorder.GestureRecognizers.Add()
+        tapGestureRecognizer.Tapped += async (sender, e) =>
+        {
+            await PopupAction.DisplayPopup(new ImagePopup(await File.ReadAllBytesAsync(filePath), imageId));
+        };
+        imageBorder.GestureRecognizers.Add(tapGestureRecognizer);
         await AppendSenderAndShowMessage(name, imageBorder, autoScroll);
         return imageView;
     }

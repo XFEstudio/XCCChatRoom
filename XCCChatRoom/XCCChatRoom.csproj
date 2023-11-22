@@ -76,6 +76,7 @@
 		<MauiImage Include="Resources\Images\Emoticon\sweat_droplets.svg" />
 		<MauiImage Include="Resources\Images\Icon\close.svg" />
 		<MauiImage Include="Resources\Images\Icon\copy.svg" />
+		<MauiImage Include="Resources\Images\Icon\download.svg" />
 		<MauiImage Include="Resources\Images\Icon\image.svg" />
 		<MauiImage Include="Resources\Images\Icon\stop.svg" />
 		<MauiImage Include="Resources\Images\Icon\trash2.svg" />
@@ -120,6 +121,7 @@
 	  <None Remove="Resources\Images\face_savoring_food.svg" />
 	  <None Remove="Resources\Images\folded_hands.svg" />
 	  <None Remove="Resources\Images\history.svg" />
+	  <None Remove="Resources\Images\Icon\download.svg" />
 	  <None Remove="Resources\Images\Icon\higher_ai_robot.svg" />
 	  <None Remove="Resources\Images\Icon\likecircle.svg" />
 	  <None Remove="Resources\Images\Icon\starcircle.svg" />
@@ -150,6 +152,9 @@
 	<ItemGroup>
 	  <Compile Update="Controls\ErrorPopup.xaml.cs">
 	    <DependentUpon>ErrorPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\ImagePopup.xaml.cs">
+	    <DependentUpon>ImagePopup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Controls\TipPopup.xaml.cs">
 	    <DependentUpon>TipPopup.xaml</DependentUpon>
@@ -185,6 +190,9 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\LikeButton.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\ImagePopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\TipPopup.xaml">
