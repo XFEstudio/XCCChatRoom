@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-maccatalyst;net7.0-android33.0;net7.0-ios</TargetFrameworks>
+		<TargetFrameworks>net8.0-android34.0;net8.0-ios</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -29,7 +29,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|AnyCPU'">
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	  <AndroidSigningStorePass>123qwe456rty</AndroidSigningStorePass>
@@ -43,11 +43,7 @@
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	</PropertyGroup>
 
-	<PropertyGroup>
-	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.22621.0</TargetFrameworks>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	  <AndroidSigningStorePass>123qwe456rty</AndroidSigningStorePass>
@@ -59,6 +55,14 @@
 	  <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
 	  <DebugSymbols>False</DebugSymbols>
 	  <RunAOTCompilation>False</RunAOTCompilation>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android33.0|AnyCPU'">
+	  <RunAOTCompilation>False</RunAOTCompilation>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -142,11 +146,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
 		<PackageReference Include="Plugin.Maui.Popup" Version="1.0.5" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
-		<PackageReference Include="TencentCloudSDK" Version="3.0.868" />
+		<PackageReference Include="TencentCloudSDK" Version="3.0.901" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -328,10 +334,10 @@
 
 	<ItemGroup>
 	  <Reference Include="XFE各类拓展">
-	    <HintPath>..\..\XFEExtension\XFE各类拓展\bin\Release\XFE各类拓展.dll</HintPath>
+	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展\XFE各类拓展\bin\Release\XFE各类拓展.dll</HintPath>
 	  </Reference>
 	  <Reference Include="XFE各类拓展.NetCore.XFEDataBase">
-	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展.NetCore.XFEDataBase\XFE各类拓展.NetCore.XFEDataBase\bin\Release\net7.0\publish\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>
+	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展.NetCore.XFEDataBase\XFE各类拓展.NetCore.XFEDataBase\bin\Release\net7.0\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 
