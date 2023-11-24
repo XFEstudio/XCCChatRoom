@@ -625,7 +625,7 @@ public partial class UserLoginPage : ContentPage
         var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, new string[] { randomCode, "2" });
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
-            await DisplayAlert("出错啦！", $"验证码发送失败：{resp.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
+            await DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
             TelVerifyCodeBorder.IsEnabled = true;
             TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
             TelVerifyCodeButton.Text = "重新发送";
