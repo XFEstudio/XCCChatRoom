@@ -46,8 +46,8 @@ public partial class ChatPage : ContentPage
     }
     #endregion
     #region 字段
-    private readonly List<ImageButton> emotionImageButtonList = new();
-    private readonly List<Image> emotionImageList = new();
+    private readonly List<ImageButton> emotionImageButtonList = [];
+    private readonly List<Image> emotionImageList = [];
     private readonly XCCNetWork xCCNetWork;
     private XCCGroup xCCGroup;
     private readonly XCCMessageReceiveHelper messageReceiveHelper;
