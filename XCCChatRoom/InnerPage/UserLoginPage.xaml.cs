@@ -626,7 +626,7 @@ public partial class UserLoginPage : ContentPage
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
             await DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
-            TelVerifyCodeBorder.IsEnabled = true;
+            TelVerifyCodeButton.IsEnabled = true;
             TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
             TelVerifyCodeButton.Text = "重新发送";
         }
