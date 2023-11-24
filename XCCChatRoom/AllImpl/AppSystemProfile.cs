@@ -10,8 +10,8 @@ namespace XCCChatRoom.AllImpl
     }
     public class AppSystemProfile
     {
-        public static LoginMethod LoginMethod { get; set; }
-        public static string IgnoreVersion { get; set; }
+        public static LoginMethod LoginMethod { get; set; } = LoginMethod.PasswordLogin;
+        public static string IgnoreVersion { get; set; } = string.Empty;
         public static void SaveSystemProfile()
         {
             string saveString = new XFEDictionary(new string[]
