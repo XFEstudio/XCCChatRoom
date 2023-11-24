@@ -67,9 +67,9 @@ public partial class GPTAIChatPage : ContentPage
             }
         }
     }
-    private static MemorableXFEChatGPT memorableXFEChatGPT = GPTAIDialogManager.MemorableXFEChatGPT;
+    private static readonly MemorableXFEChatGPT memorableXFEChatGPT = GPTAIDialogManager.MemorableXFEChatGPT;
     private static bool isInitialized = false;
-    private static List<LabelAndMessageId> labelAndMessageIdList = new List<LabelAndMessageId>();
+    private static readonly List<LabelAndMessageId> labelAndMessageIdList = [];
     private string lastQuestion = string.Empty;
     private bool lastAnswerGenerated = true;
     private bool autoScrollEnable = true;
