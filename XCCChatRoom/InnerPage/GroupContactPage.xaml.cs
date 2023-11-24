@@ -62,7 +62,8 @@ public partial class GroupContactPage : ContentPage
                             var groupView = new GroupCardView
                             {
                                 GroupName = targetGroupName,
-                                UserNameInGroup = userNameInGroup
+                                UserNameInGroup = userNameInGroup,
+                                Margin = new Thickness(0, 5, 0, 5)
                             };
                             groupView.Click += GroupCardView_Click;
                             groupView.Swipe += GroupCardView_Swipe;
@@ -99,7 +100,8 @@ public partial class GroupContactPage : ContentPage
                         var groupView = new GroupCardView
                         {
                             GroupName = item.Header,
-                            UserNameInGroup = item.Content
+                            UserNameInGroup = item.Content,
+                            Margin = new Thickness(0, 5, 0, 5)
                         };
                         groupView.Click += GroupCardView_Click;
                         groupView.Swipe += GroupCardView_Swipe;

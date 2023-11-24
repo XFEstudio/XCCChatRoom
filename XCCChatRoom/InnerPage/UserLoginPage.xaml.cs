@@ -622,7 +622,7 @@ public partial class UserLoginPage : ContentPage
         TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
         TelVerifyCodeButton.Text = "发送中...";
         IsCoolDown = true;
-        var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, new string[] { randomCode, "2" });
+        var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, [randomCode, "2"]);
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
             await DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");

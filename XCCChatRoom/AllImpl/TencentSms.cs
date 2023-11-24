@@ -46,11 +46,12 @@ namespace XCCChatRoom.AllImpl
                 req.SignName = "武汉寰宇朽力网络科技";
                 req.TemplateId = templateId;
                 req.TemplateParamSet = args;
-                req.PhoneNumberSet = new string[] { phoneNum };
+                req.PhoneNumberSet = [phoneNum];
                 return await client.SendSms(req);
             }
-            catch
+            catch (Exception ex)
             {
+                await Console.Out.WriteLineAsync(ex.ToString());
                 return null;
             }
         }

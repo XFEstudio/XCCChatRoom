@@ -88,6 +88,7 @@
                         CornerRadius="30"
                         ImageSource="send"
                         TextColor="White"
+                        IsEnabled="False"
                         Grid.Column="1"
                         BackgroundColor="#A491E8"
                         FontSize="12"

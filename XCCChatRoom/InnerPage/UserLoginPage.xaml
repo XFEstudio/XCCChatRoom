@@ -157,6 +157,7 @@
                         Clicked="TelVerifyCodeButton_Clicked"
                         CornerRadius="30"
                         ImageSource="send"
+                        IsEnabled="False"
                         TextColor="White"
                         Grid.Column="1"
                         BackgroundColor="#A491E8"

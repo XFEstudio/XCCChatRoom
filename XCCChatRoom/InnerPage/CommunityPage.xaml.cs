@@ -11,8 +11,8 @@ public partial class CommunityPage : ContentPage
     public static CommunityPage Current { get; private set; }
     private bool tapped = false;
     private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
-    private List<PostCardView> postCardList = new List<PostCardView>();
-    private List<string> postIdList = new List<string>();
+    private readonly List<PostCardView> postCardList = [];
+    private readonly List<string> postIdList = [];
     private long totalHeight = 0;
     private bool firstRefresh = true;
     private bool refreshingIsBusy = false;
@@ -64,9 +64,15 @@ public partial class CommunityPage : ContentPage
                     {
                         PostCardView post;
                         if (firstRefresh)
-                            post = new PostCardView(postData, false);
+                            post = new PostCardView(postData, false)
+                            {
+                                Margin = new Thickness(0, 5, 0, 5)
+                            };
                         else
-                            post = new PostCardView(postData);
+                            post = new PostCardView(postData)
+                            {
+                                Margin = new Thickness(0, 5, 0, 5)
+                            };
                         post.LikeClick += Post_LikeClick;
                         post.Click += Post_Click;
                         post.TagClick += Post_TagClick;
