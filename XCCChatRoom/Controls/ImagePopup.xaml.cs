@@ -25,12 +25,14 @@ public partial class ImagePopup : BasePopupPage
                 await DisplayAlert("储存失败", "未知请求状态", "啊？");
                 break;
             case PermissionStatus.Denied:
-                await DisplayAlert("储存失败", "不是哥们请求被拒绝了我怎么储存啊？", "原神怎么你了");
+                await DisplayAlert("储存失败", "请求被拒绝", "确认");
                 break;
             case PermissionStatus.Disabled:
-                await DisplayAlert("储存失败", "储存不了了捏，得去手动赋予权限", "搜戴斯内");
+                await DisplayAlert("储存失败", "储存不了了捏，得去手动赋予权限", "OK");
                 break;
             case PermissionStatus.Granted:
+                if (Directory.Exists(AppPath.ChatImageSavePath))
+                    Directory.CreateDirectory(AppPath.ChatImageSavePath);
                 var savePath = $"{AppPath.ChatImageSavePath}/{ImageId}.png";
                 try
                 {

@@ -7,7 +7,7 @@ namespace XCCChatRoom.InnerPage;
 
 public partial class UserLoginPage : ContentPage
 {
-    private XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
+    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     private bool IsAccountChanged = false, IsPasswordChanged = false, IsTelChanged = false;
     private bool IsPasswordEditorEmpty = true, IsAccountEditorEmpty = true, IsTelEditorEmpty = true;
     private bool IsCoolDown = false;
