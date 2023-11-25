@@ -29,7 +29,7 @@
             <ScrollView
                 VerticalScrollBarVisibility="Never">
                 <StackLayout
-                    Padding="5,10"
+                    Padding="5,5"
                     x:Name="GroupStackLayout"
                     x:FieldModifier="public">
                     <controls:GroupCardView 

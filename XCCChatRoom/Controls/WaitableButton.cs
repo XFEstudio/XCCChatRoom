@@ -15,10 +15,8 @@
                     this.IsEnabled = false;
                     if (UseLoadingAnimation)
                         this.ImageSource = "whiteloader";
-                    if (TextColor is null)
-                        TextColor = Color.Parse("White");
-                    if (BackgroundColor is null)
-                        BackgroundColor = Color.FromArgb("#512BD4");
+                    TextColor ??= Color.Parse("White");
+                    BackgroundColor ??= Color.FromArgb("#512BD4");
                     this.BackgroundColor = this.BackgroundColor.MultiplyAlpha(0.5f);
                 }
                 else
@@ -43,21 +41,16 @@
             Clicked += WaitButton_Clicked;
         }
     }
-    public class WaitButtonClickedEventArgs : EventArgs
+    public class WaitButtonClickedEventArgs(EventArgs e, WaitableButton button) : EventArgs
     {
-        public EventArgs ClickedEventArgs { get; private set; }
-        private WaitableButton button;
+        public EventArgs ClickedEventArgs { get; private set; } = e;
+        private readonly WaitableButton button = button;
         public void Continue()
         {
             button.Dispatcher.Dispatch(() =>
             {
                 button.IsWaiting = false;
             });
-        }
-        public WaitButtonClickedEventArgs(EventArgs e, WaitableButton button)
-        {
-            ClickedEventArgs = e;
-            this.button = button;
         }
     }
 }

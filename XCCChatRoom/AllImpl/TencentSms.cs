@@ -27,7 +27,7 @@ namespace XCCChatRoom.AllImpl
                 _decodeKey = value.XEADecrypt("早期测试版Key")[..^2];
             }
         }
-        public static async Task<SendSmsResponse> SendVerifyCode(Page CurrentPage, string templateId, string phoneNum, string[] args)
+        public static async Task<SendSmsResponse> SendVerifyCode(string templateId, string phoneNum, string[] args)
         {
             await new Action(() =>
             {
@@ -46,12 +46,12 @@ namespace XCCChatRoom.AllImpl
                 req.SignName = "武汉寰宇朽力网络科技";
                 req.TemplateId = templateId;
                 req.TemplateParamSet = args;
-                req.PhoneNumberSet = new string[] { phoneNum };
+                req.PhoneNumberSet = [phoneNum];
                 return await client.SendSms(req);
             }
             catch (Exception ex)
             {
-                await CurrentPage.DisplayAlert("错误", $"发送验证码失败！\n{ex.Message}", "确定");
+                await Console.Out.WriteLineAsync(ex.ToString());
                 return null;
             }
         }
