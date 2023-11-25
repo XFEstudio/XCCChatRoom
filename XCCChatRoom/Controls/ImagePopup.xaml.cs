@@ -31,7 +31,7 @@ public partial class ImagePopup : BasePopupPage
                 await DisplayAlert("储存失败", "储存不了了捏，得去手动赋予权限", "OK");
                 break;
             case PermissionStatus.Granted:
-                if (Directory.Exists(AppPath.ChatImageSavePath))
+                if (!Directory.Exists(AppPath.ChatImageSavePath))
                     Directory.CreateDirectory(AppPath.ChatImageSavePath);
                 var savePath = $"{AppPath.ChatImageSavePath}/{ImageId}.png";
                 try
