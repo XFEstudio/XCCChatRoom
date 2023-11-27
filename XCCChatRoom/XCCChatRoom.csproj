@@ -310,7 +310,7 @@
 
 	<ItemGroup>
 	  <Reference Include="XFE各类拓展">
-	    <HintPath>E:\visual wenjian\XFE各类拓展.dll</HintPath>
+	    <HintPath>D:\Down\XFE\XFE各类拓展.dll</HintPath>
 	  </Reference>
 	  <Reference Include="XFE各类拓展.NetCore.XFEDataBase">
 	    <HintPath>E:\visual wenjian\net7.0\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>

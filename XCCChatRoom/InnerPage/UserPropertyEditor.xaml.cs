@@ -30,8 +30,7 @@ public partial class UserPropertyEditor : ContentPage
                 flag1 = true;
                 if (flag2)
                 {
-                    await DisplayAlert("1", randomCode, "queding");
-                    /*await TencentSms.SendVerifyCode(this, "1922760", "+86" + UserInfo.CurrentUser.Atel, new string[] { randomCode });*/
+                    await TencentSms.SendVerifyCode(this, "1922760", "+86" + UserInfo.CurrentUser.Atel, new string[] { randomCode });
                     flag2 = false;
                 }
             }
@@ -96,9 +95,10 @@ public partial class UserPropertyEditor : ContentPage
                     ModifyAuthentication();
                 break;
             case "重新绑定邮箱":
-                /*await Shell.Current.GoToAsync(nameof(UserMailEditorPage));*/
+                
                 if (modifyAuthentication)
-                    await DisplayAlert("1", "2", "3");
+                    /*await Shell.Current.GoToAsync(nameof(UserMailEditorPage));*/
+                    await DisplayAlert("1", "写完请将改行替换为注释内容", "3");
                 else
                     ModifyAuthentication();
                 break;

@@ -12,15 +12,6 @@ public partial class UserPasswordEditorPage : ContentPage
 		InitializeComponent();
 	}
 
-    /*protected override void OnHandlerChanged()
-    {
-        base.OnHandlerChanged();
-#if ANDROID
-        (OldPassword.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (NewPassword.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (NewPasswordConfirmation.Handler.PlatformView as Android.Widget.EditText).Background = null;
-#endif
-    }*/
 
     private void OldPassword_Unfocused(object sender, FocusEventArgs e)
     {
