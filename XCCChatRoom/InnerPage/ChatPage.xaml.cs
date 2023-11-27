@@ -1136,28 +1136,65 @@ public partial class ChatPage : ContentPage
 
     private async void ShowImageButton_Clicked(object sender, EventArgs e)
     {
-        var fileResult = await FilePicker.PickAsync(PickOptions.Images);
-        if (fileResult is not null)
-            SendSelectedImage(fileResult);
+        PermissionStatus m_statusRequestStorageRead = await Permissions.RequestAsync<Permissions.Photos>();
+        switch (m_statusRequestStorageRead)
+        {
+            case PermissionStatus.Granted:
+                try
+                {
+                    var fileResult = await MediaPicker.PickPhotoAsync();
+                    if (fileResult is not null)
+                        SendSelectedImage(fileResult);
+                }
+                catch (Exception ex)
+                {
+                    await PopupAction.DisplayPopup(new ErrorPopup("读取照片时出现错误", ex.Message));
+                }
+                break;
+            case PermissionStatus.Denied:
+                await DisplayAlert("请求拒绝", "无法读取图片，请前往手机设置打开读写", "确认");
+                break;
+            case PermissionStatus.Disabled:
+                await DisplayAlert("暂无权限", "读取图片的请求被拒绝，请前往权限管理打开权限", "确认");
+                break;
+            case PermissionStatus.Unknown:
+                await DisplayAlert("我 氵则", "请求处于未知状态？？？？？？？？？", "啊这（截图和我反馈）");
+                break;
+            default:
+                await DisplayAlert("这位更是个寄吧", "出现错误", "我测");
+                break;
+        }
+    }
 
-        //PermissionStatus m_statusRequestStorageRead = await Permissions.RequestAsync<Permissions.StorageRead>();
-        //switch (m_statusRequestStorageRead)
-        //{
-        //    case PermissionStatus.Granted:
-        //        SendSelectedImage(await FilePicker.PickAsync());
-        //        break;
-        //    case PermissionStatus.Denied:
-        //        await DisplayAlert("请求拒绝", "无法读取图片，请前往手机设置打开读写", "啊这，行吧");
-        //        break;
-        //    case PermissionStatus.Disabled:
-        //        await DisplayAlert("暂无权限", "没权限当然读取不了图片了", "彳亍吧");
-        //        break;
-        //    case PermissionStatus.Unknown:
-        //        await DisplayAlert("我 氵则", "请求处于未知状态？？？？？？？？？", "啊这（截图和我反馈）");
-        //        break;
-        //    default:
-        //        await DisplayAlert("这位更是个寄吧", "出现错误", "我测");
-        //        break;
-        //}
+    private async void CameraButton_Clicked(object sender, EventArgs e)
+    {
+        PermissionStatus m_statusRequestStorageRead = await Permissions.RequestAsync<Permissions.Photos>();
+        switch (m_statusRequestStorageRead)
+        {
+            case PermissionStatus.Granted:
+                try
+                {
+                    var fileResult = await MediaPicker.CapturePhotoAsync();
+                    if (fileResult is not null)
+                        SendSelectedImage(fileResult);
+                }
+                catch (Exception ex)
+                {
+                    await PopupAction.DisplayPopup(new ErrorPopup("打开摄像头时出现错误", ex.Message));
+                }
+                break;
+            case PermissionStatus.Denied:
+                await DisplayAlert("请求拒绝", "无法拍摄图片，请前往手机设置打开摄像头权限", "确认");
+                break;
+            case PermissionStatus.Disabled:
+                await DisplayAlert("暂无权限", "获取摄像头权限被拒绝", "确认");
+                break;
+            case PermissionStatus.Unknown:
+                await DisplayAlert("我 氵则", "请求处于未知状态？？？？？？？？？", "啊这（截图和我反馈）");
+                break;
+            default:
+                await DisplayAlert("这位更是个寄吧", "出现错误", "我测");
+                break;
+        }
     }
 }

@@ -78,12 +78,14 @@
 		<MauiImage Include="Resources\Images\Emoticon\pouting_face.svg" />
 		<MauiImage Include="Resources\Images\Emoticon\rolling_on_the_floor_laughing.svg" />
 		<MauiImage Include="Resources\Images\Emoticon\sweat_droplets.svg" />
+		<MauiImage Include="Resources\Images\Icon\camera.svg" />
 		<MauiImage Include="Resources\Images\Icon\close.svg" />
 		<MauiImage Include="Resources\Images\Icon\copy.svg" />
 		<MauiImage Include="Resources\Images\Icon\download.svg" />
 		<MauiImage Include="Resources\Images\Icon\image.svg" />
 		<MauiImage Include="Resources\Images\Icon\stop.svg" />
 		<MauiImage Include="Resources\Images\Icon\trash2.svg" />
+		<MauiImage Include="Resources\Images\Icon\uncamera.svg" />
 		<MauiImage Include="Resources\Images\Icon\unimage.svg" />
 
 		<!-- Splash Screen -->
@@ -106,6 +108,7 @@
 	  <None Remove="Resources\Images\ai_draw_robot.svg" />
 	  <None Remove="Resources\Images\bear_face.svg" />
 	  <None Remove="Resources\Images\bouquet.svg" />
+	  <None Remove="Resources\Images\camera.svg" />
 	  <None Remove="Resources\Images\caution.png" />
 	  <None Remove="Resources\Images\chicken.svg" />
 	  <None Remove="Resources\Images\christmas_tree.svg" />
@@ -141,6 +144,7 @@
 	  <None Remove="Resources\Images\rolling_on_the_floor_laughing.svg" />
 	  <None Remove="Resources\Images\smile.svg" />
 	  <None Remove="Resources\Images\sweat_droplets.svg" />
+	  <None Remove="Resources\Images\uncamera.svg" />
 	  <None Remove="Resources\Images\unimage.svg" />
 	  <None Remove="Resources\Images\unsmile.svg" />
 	</ItemGroup>
@@ -334,7 +338,7 @@
 
 	<ItemGroup>
 	  <Reference Include="XFE各类拓展">
-	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展\XFE各类拓展\bin\Release\XFE各类拓展.dll</HintPath>
+	    <HintPath>..\..\XFEExtension\XFE各类拓展\bin\Release\XFE各类拓展.dll</HintPath>
 	  </Reference>
 	  <Reference Include="XFE各类拓展.NetCore.XFEDataBase">
 	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展.NetCore.XFEDataBase\XFE各类拓展.NetCore.XFEDataBase\bin\Release\net7.0\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>
