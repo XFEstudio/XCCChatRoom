@@ -34,7 +34,8 @@
                     x:FieldModifier="public">
                     <controls:GroupCardView 
                         x:Name="OfficalGroupCardView"
-                        GroupName="XFE聊天室[官方]"/>
+                        GroupName="XFE聊天室[官方]"
+                        Margin="0,3,0,3"/>
                 </StackLayout>
             </ScrollView>
         </Grid>
