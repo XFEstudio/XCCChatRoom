@@ -655,7 +655,7 @@ public partial class UserLoginPage : ContentPage
 
     private void ForgotPasswordButton_Click(object sender, TappedEventArgs e)
     {
-        DisplayAlert("功能尚未开发", "我知道你很急但是你先别急，让我先急", "急急急");
+        Shell.Current.GoToAsync(nameof(ForgetPasswordPage));
     }
     #endregion
 }

@@ -3,8 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ctr="clr-namespace:XCCChatRoom.Controls;assembly=XCCChatRoom"
              x:Class="XCCChatRoom.InnerPage.UserPropertyEditor"
-             Title="UserPropertyEditor">
+             Title="修改用户信息">
     <VerticalStackLayout>
-        
+		<Button
+    Margin="50,170,50,10"
+    Text="修改用户名"
+    Clicked="UserPropertyEditorButton_Click"
+    />
+		<Button
+			Margin="50,30,50,10"
+			Text="重置密码"
+			Clicked="UserPropertyEditorButton_Click"
+    />
+		<Button
+			Margin="50,30,50,10"
+			Text="重新绑定邮箱"
+			Clicked="UserPropertyEditorButton_Click"
+    />
+		<Button
+			Margin="50,30,50,10"
+			Text="重新绑定电话号码"
+			Clicked="UserPropertyEditorButton_Click"
+    />
     </VerticalStackLayout>
 </ContentPage>

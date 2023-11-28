@@ -15,5 +15,11 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(PostViewPage), typeof(PostViewPage));
         Routing.RegisterRoute(nameof(GPTAIChatPage), typeof(GPTAIChatPage));
         Routing.RegisterRoute(nameof(AIDrawPage), typeof(AIDrawPage));
+        Routing.RegisterRoute(nameof(UserPropertyEditor), typeof(UserPropertyEditor));
+        Routing.RegisterRoute(nameof(UserPrivacyListPage), typeof(UserPrivacyListPage));
+        Routing.RegisterRoute(nameof(UserPasswordEditorPage), typeof(UserPasswordEditorPage));
+        Routing.RegisterRoute(nameof(UserTelEditorPage), typeof(UserTelEditorPage));
+        Routing.RegisterRoute(nameof(UserMailEditorPage), typeof(UserMailEditorPage));
+        Routing.RegisterRoute(nameof(ForgetPasswordPage), typeof(ForgetPasswordPage));
     }
 }

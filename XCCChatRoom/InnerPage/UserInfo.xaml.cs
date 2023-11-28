@@ -279,4 +279,14 @@ public partial class UserInfo : ContentPage
         }
         e.Continue();
     }
+
+    private void WhiteChoiceButton_Click(object sender, TappedEventArgs e)
+    {
+        Shell.Current.GoToAsync(nameof(UserPrivacyListPage));
+    }
+
+    private void WhiteChoiceUserPropertyEditorButton_Click(object sender, TappedEventArgs e)
+    {
+        Shell.Current.GoToAsync(nameof(UserPropertyEditor));
+    }
 }

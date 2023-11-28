@@ -171,6 +171,12 @@
 	  <Compile Update="InnerPage\ChatPage.xaml.cs">
 	    <DependentUpon>ChatPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="InnerPage\UserPasswordEditorPage.xaml.cs">
+	    <DependentUpon>UserPasswordEditorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="InnerPage\UserPrivacyListPage.xaml.cs">
+	    <DependentUpon>UserPrivacyListPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="InnerPage\UserLoginPage.xaml.cs">
 	    <DependentUpon>UserLoginPage.xaml</DependentUpon>
 	  </Compile>
@@ -219,10 +225,22 @@
 		<MauiXaml Update="InnerPage\CommunityPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="InnerPage\ForgetPasswordPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="InnerPage\GPTAIChatPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\IntroductionPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserMailEditorPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserPasswordEditorPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserPrivacyListPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\PostEditPage.xaml">
@@ -250,6 +268,9 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\UserRegisterPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserTelEditorPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\XEAEncryptPage.xaml">
