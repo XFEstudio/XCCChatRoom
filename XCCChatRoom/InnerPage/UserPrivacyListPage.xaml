@@ -14,32 +14,30 @@
             </Grid.RowDefinitions>
 
             <Label 
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            Text="用户隐私"
-            TextColor="Black"
-            FontSize="28"
-            Padding="50,50"/>
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                Text="用户隐私"
+                TextColor="Black"
+                FontSize="28"
+                Padding="50,50"/>
 
             <Label
-            Text="更新时间:     2023年11月7日"
-            Grid.Row="1"
-            WidthRequest="350"
-            />
+                Text="更新时间:     2023年11月7日"
+                Grid.Row="1"
+                WidthRequest="350"/>
 
             <Label
-            Text="生效时间:     2023年11月7日"
-            Grid.Row="2"
-            WidthRequest="350"
-                />
+                Text="生效时间:     2023年11月7日"
+                Grid.Row="2"
+                WidthRequest="350"/>
+
             <Label
-            Margin="10,20"
-            TextColor="#000039"
-            FontSize="20"
-            x:Name="textLabel"
-            WidthRequest="300"
-            Grid.Row="3"
-        />
+                Margin="10,20"
+                TextColor="#000039"
+                FontSize="20"
+                x:Name="textLabel"
+                WidthRequest="300"
+                Grid.Row="3"/>
         </Grid>
     </ScrollView>
 </ContentPage>

@@ -15,14 +15,14 @@ public partial class UserPasswordEditorPage : ContentPage
 
     private void OldPassword_Unfocused(object sender, FocusEventArgs e)
     {
-        if (UserInfo.CurrentUser.Apassword == OldPassword.Text) { flag1 = true; }
+        if (UserInfo.CurrentUser.Apassword == OldPasswordEntry.Text) { flag1 = true; }
         else { flag1 = false; }
     }
 
 
     private void NewPassword_Unfocused(object sender, FocusEventArgs e)
     {
-        if (NewPassword.Text.PasswordEditor()) { flag2 = true; }
+        if (NewPasswordEntry.Text.PasswordEditor()) { flag2 = true; }
         else { flag2 = false; }
     }
 
@@ -30,7 +30,7 @@ public partial class UserPasswordEditorPage : ContentPage
     {
         if (flag2)
         {
-            if (NewPassword.Text == NewPasswordConfirmation.Text) { flag3 = true; }
+            if (NewPasswordEntry.Text == NewPasswordConfirmationEntry.Text) { flag3 = true; }
             else { flag3 = false; }
         }
     }
@@ -39,7 +39,7 @@ public partial class UserPasswordEditorPage : ContentPage
     {
         if(flag1 && flag2 && flag3)
         {
-            UserInfo.EditUserProperty(UserPropertyToEdit.Password,NewPassword.Text, this);
+            UserInfo.EditUserProperty(UserPropertyToEdit.Password, NewPasswordEntry.Text, this);
             await DisplayAlert("提示", "修改成功", "返回");
             Shell.Current.SendBackButtonPressed();
         }

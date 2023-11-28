@@ -6,11 +6,11 @@ namespace XCCChatRoom.InnerPage;
 
 public partial class ForgetPasswordPage : ContentPage
 {
-    private bool telflag = false;
-    private bool passwordflag = false;
-    private bool captchaflag = false;
+    private bool telIsValid = false;
+    private bool passwordIsValid = false;
+    private bool captchaIsValid = false;
     /*确认按钮允许点击的条件*/
-    private string TelCaptcha = null;
+    private string telCaptcha = null;
     public ForgetPasswordPage()
 	{
 		InitializeComponent();
@@ -24,39 +24,39 @@ public partial class ForgetPasswordPage : ContentPage
             var result = await xFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == Tel.Text);
             if (result.Count > 0 && result is not null)
             {
-                if (result.Count == 1) { telflag = true; }
+                if (result.Count == 1) { telIsValid = true; }
                 else
                 {
                     await DisplayAlert("异常", "该手机号绑定过多个账号", "确定");
-                    telflag = false;
+                    telIsValid = false;
                 }
             }
             else
             {
                 await DisplayAlert("不存在该用户", "该手机号未绑定过账号", "确定");
-                telflag = false;
+                telIsValid = false;
             }
         }
         else 
         {
-            telflag = false;
+            telIsValid = false;
             await DisplayAlert("错误", "请先输入手机号", "确定"); 
         }
     }
 
     private async void PasswordQualifiedJudgment()
     {
-        passwordflag = NewPassword.Text.PasswordEditor();
-        if(!passwordflag)
+        passwordIsValid = NewPasswordEditor.Text.PasswordEditor();
+        if(!passwordIsValid)
         {
-            await DisplayAlert("密码不合格", "请修改密码", "确定");
+            await DisplayAlert("密码不符合规范", "请修改密码", "确定");
         }
     }
 
     private async void GetTelCode_Clicked(object sender, EventArgs e)
     {
         TelBindJudgment();
-        if (telflag)
+        if (telIsValid)
         {
             GetTelCode.IsEnabled = false;
             int countDown = 60;
@@ -78,35 +78,35 @@ public partial class ForgetPasswordPage : ContentPage
                 for (int i = 6 - randomCode.Length; i > 0; i--)
                     randomCode = $"0{randomCode}";
             }
-            this.TelCaptcha = randomCode;
+            this.telCaptcha = randomCode;
             await TencentSms.SendVerifyCode("1922760", "+86" + Tel.Text, new string[] { randomCode });
-            captchaflag = false;
+            captchaIsValid = false;
         }
     }
 
     private async void CaptchaJudgment()
     {
-        if (ForgetPassword_TelCaptcha is not null)
-            if (ForgetPassword_TelCaptcha.Text == this.TelCaptcha)
-                captchaflag = true;
-            else { captchaflag = false; }
+        if (ForgetPassword_TelCaptchaEntry is not null)
+            if (ForgetPassword_TelCaptchaEntry.Text == this.telCaptcha)
+                captchaIsValid = true;
+            else { captchaIsValid = false; }
         else 
         { 
             await DisplayAlert("警告", "您未输入验证码", "确定");
-            captchaflag = false; 
+            captchaIsValid = false; 
         }
     }
     private async void  Button_Clicked(object sender, EventArgs e)
     {
         CaptchaJudgment();
         PasswordQualifiedJudgment();
-        if (!passwordflag)
+        if (!passwordIsValid)
             await DisplayAlert("警告", "您未输入密码", "确定");
-        else if(!captchaflag)
+        else if(!captchaIsValid)
             await DisplayAlert("警告", "验证码错误", "确定");
         else
         {
-            UserInfo.EditUserProperty(UserPropertyToEdit.Password, NewPassword.Text, this);
+            UserInfo.EditUserProperty(UserPropertyToEdit.Password, NewPasswordEditor.Text, this);
             await DisplayAlert("提示", "修改成功", "返回");
             Shell.Current.SendBackButtonPressed();
         }

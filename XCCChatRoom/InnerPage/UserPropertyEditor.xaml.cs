@@ -104,7 +104,7 @@ public partial class UserPropertyEditor : ContentPage
                 break;
             case "重新绑定电话号码":
                 if(modifyAuthentication)
-                    await Shell.Current.GoToAsync(nameof(UserTelEditorPage));
+                    await Shell.Current.GoToAsync(nameof(UserTelEditPage));
                 else
                     ModifyAuthentication();
                 break;
