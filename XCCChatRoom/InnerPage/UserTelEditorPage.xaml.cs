@@ -70,7 +70,7 @@ public partial class UserTelEditorPage : ContentPage
                     randomCode = $"0{randomCode}";
             }
             this.TelCaptcha = randomCode;
-            await TencentSms.SendVerifyCode(this, "1922760", "+86" + NewTel.Text, new string[] { randomCode });
+            await TencentSms.SendVerifyCode("1922760", "+86" + NewTel.Text, new string[] { randomCode });
             new_Tel = NewTel.Text;
             flag2 = true;
         }

@@ -30,7 +30,7 @@ public partial class UserPropertyEditor : ContentPage
                 flag1 = true;
                 if (flag2)
                 {
-                    await TencentSms.SendVerifyCode(this, "1922760", "+86" + UserInfo.CurrentUser.Atel, new string[] { randomCode });
+                    await TencentSms.SendVerifyCode("1922760", "+86" + UserInfo.CurrentUser.Atel, new string[] { randomCode });
                     flag2 = false;
                 }
             }

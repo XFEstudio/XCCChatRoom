@@ -79,7 +79,7 @@ public partial class ForgetPasswordPage : ContentPage
                     randomCode = $"0{randomCode}";
             }
             this.TelCaptcha = randomCode;
-            await TencentSms.SendVerifyCode(this, "1922760", "+86" + Tel.Text, new string[] { randomCode });
+            await TencentSms.SendVerifyCode("1922760", "+86" + Tel.Text, new string[] { randomCode });
             captchaflag = false;
         }
     }
