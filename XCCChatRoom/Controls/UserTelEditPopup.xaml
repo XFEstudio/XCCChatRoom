@@ -13,7 +13,6 @@
     BackgroundColor="Transparent">
     <Border
         StrokeThickness="3"
-        Padding="15"
         Stroke="#512BD4"
         StrokeShape="RoundRectangle 20"
         BackgroundColor="#F0ECFE">
@@ -23,7 +22,8 @@
                 Opacity="0.5"
                 Radius="10"/>
         </Border.Shadow>
-        <StackLayout>
+        <StackLayout
+            Padding="15">
             <Label
                 Text="换绑手机号"
                 HorizontalOptions="Center"
@@ -47,7 +47,7 @@
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 50"
                 MaximumWidthRequest="100"
-                HorizontalOptions="FillAndExpand"
+                HorizontalOptions="Fill"
                 VerticalOptions="Center">
                 <Entry
                     x:Name="UserTelEditor"
@@ -57,7 +57,7 @@
                     MaxLength="13"
                     IsSpellCheckEnabled="False"
                     Placeholder="请输入11/13位手机号"
-                    HorizontalOptions="FillAndExpand"
+                    HorizontalOptions="Fill"
                     VerticalOptions="Center"/>
             </Border>
             <Label
@@ -70,7 +70,7 @@
                 HorizontalOptions="Fill" />
             <Grid
                 x:Name="TelVerifyCodeGrid"
-                Padding="20,0">
+                Padding="10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="130"/>
@@ -95,7 +95,7 @@
                     Stroke="#444654"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 50"
-                    HorizontalOptions="FillAndExpand"
+                    HorizontalOptions="Fill"
                     VerticalOptions="Center">
                     <Entry
                         x:Name="TelVerifyCodeEditor"
@@ -105,13 +105,13 @@
                         MaxLength="6"
                         IsSpellCheckEnabled="False"
                         Placeholder="请输入6位验证码"
-                        HorizontalOptions="FillAndExpand"
+                        HorizontalOptions="Fill"
                         VerticalOptions="Center"/>
                 </Border>
             </Grid>
             <ctr:WaitableButton
                 x:Name="SaveAndBackButton"
-                Margin="0,30"
+                Margin="0,30,0,10"
                 Text="保存并返回"
                 CornerRadius="30"
                 TextColor="White"

@@ -2,6 +2,7 @@ using MauiPopup;
 using MauiPopup.Views;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.InnerPage;
+using XFE各类拓展.NetCore.XFEDataBase;
 using XFE各类拓展.StringExtension;
 using XFE各类拓展.TaskExtension;
 
@@ -14,6 +15,7 @@ public partial class UserTelEditPopup : BasePopupPage
     private string currentNewPhoneNum = string.Empty;
     private string randomCode = string.Empty;
     private readonly UserPropertyEditPage userPropertyEditPage;
+    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     public UserTelEditPopup(UserPropertyEditPage userPropertyEditPage)
     {
         this.userPropertyEditPage = userPropertyEditPage;
@@ -41,9 +43,9 @@ public partial class UserTelEditPopup : BasePopupPage
     private void TelVerifyCodeEditor_Focused(object sender, FocusEventArgs e)
     {
         TelVerifyCodeLabel.FadeTo(1, 300, Easing.CubicOut);
-        TelVerifyCodeLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        TelVerifyCodeLabel.ScaleTo(1.1, 300, Easing.CubicOut);
         TelVerifyCodeBorder.FadeTo(1, 300, Easing.CubicOut);
-        TelVerifyCodeBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        TelVerifyCodeBorder.ScaleTo(1.1, 300, Easing.CubicOut);
         TelVerifyCodeButton.ScaleTo(0.8, 300, Easing.CubicOut);
     }
 
@@ -148,18 +150,30 @@ public partial class UserTelEditPopup : BasePopupPage
         {
             if (TelVerifyCodeEditor.Text == randomCode)
             {
-                UserInfo.CurrentUser.Atel = currentNewPhoneNum;
-                if (await UserInfo.UpLoadUserInfo() > 0)
+                if (await XFEExecuter.ExecuteGetFirst<XFEChatRoom_UserInfoForm>(x => x.Atel == currentNewPhoneNum) == null)
                 {
-                    userPropertyEditPage.CurrentPhoneNumLabelText = currentNewPhoneNum;
-                    SendBackButtonPressed();
-                    await PopupAction.DisplayPopup(new TipPopup("手机号修改成功"));
+                    UserInfo.CurrentUser.Atel = currentNewPhoneNum;
+                    if (await UserInfo.UpLoadUserInfo() > 0)
+                    {
+                        userPropertyEditPage.CurrentPhoneNumLabelText = currentNewPhoneNum;
+                        SendBackButtonPressed();
+                        await PopupAction.DisplayPopup(new TipPopup("手机号修改成功"));
+                    }
+                    else
+                    {
+                        await PopupAction.DisplayPopup(new ErrorPopup("手机号修改失败"));
+                    }
+                    e.Continue();
                 }
                 else
                 {
-                    await PopupAction.DisplayPopup(new ErrorPopup("手机号修改失败"));
+                    ControlExtension.BorderShake(TelVerifyCodeBorder);
+                    TelVerifyCodeLabel.Text = "手机号已被注册过";
+                    TelVerifyCodeLabel.TextColor = Color.Parse("Red");
+                    TelVerifyCodeBorder.Stroke = Color.Parse("Red");
+                    TelVerifyCodeEditor.Focus();
+                    e.Continue();
                 }
-                e.Continue();
             }
             else
             {
