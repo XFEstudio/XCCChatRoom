@@ -1,13 +1,10 @@
-using System.Text;
 using XCCChatRoom.AllImpl;
-using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.StringExtension;
 
 namespace XCCChatRoom.InnerPage;
 
-public partial class UserPropertyEditor : ContentPage
+public partial class UserPropertyEditPage : ContentPage
 {
-    public UserPropertyEditor()
+    public UserPropertyEditPage()
     {
         InitializeComponent();
     }
@@ -16,16 +13,11 @@ public partial class UserPropertyEditor : ContentPage
     {
         bool flag1 = false;
         bool flag2 = true;
-        var randomCode = new Random().Next(0, 999999).ToString();
-        if (randomCode.Length < 6)
+        var randomCode = new Random().Next(100000, 999999).ToString();
+        if (!modifyAuthentication)
         {
-            for (int i = 6 - randomCode.Length; i > 0; i--)
-                randomCode = $"0{randomCode}";
-        }
-        if (!modifyAuthentication) 
-        {
-            bool Telflag= await DisplayAlert("当前环境不安全", "请进行身份验证", "确定", "取消");
-            if (Telflag)
+            bool telFlag = await DisplayAlert("当前环境不安全", "请进行身份验证", "确定", "取消");
+            if (telFlag)
             {
                 flag1 = true;
                 if (flag2)
@@ -34,7 +26,7 @@ public partial class UserPropertyEditor : ContentPage
                     flag2 = false;
                 }
             }
-            else { flag1 = false;}
+            else { flag1 = false; }
             if (flag1)
             {
                 string captcha = await DisplayPromptAsync("手机号验证", "请输入验证码", "确定", "取消");
@@ -44,12 +36,12 @@ public partial class UserPropertyEditor : ContentPage
                 }
             }
         }
-        
+
     }
     private async void UserNameEditor()
     {
         string newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的昵称", "确定", "取消");
-        if(newUserProperty is not null && newUserProperty != string.Empty)
+        if (newUserProperty is not null && newUserProperty != string.Empty)
         {
             bool flag = newUserProperty.UserNameEditor();
             if (flag)
@@ -95,7 +87,7 @@ public partial class UserPropertyEditor : ContentPage
                     ModifyAuthentication();
                 break;
             case "重新绑定邮箱":
-                
+
                 if (modifyAuthentication)
                     /*await Shell.Current.GoToAsync(nameof(UserMailEditorPage));*/
                     await DisplayAlert("1", "写完请将改行替换为注释内容", "3");
@@ -103,7 +95,7 @@ public partial class UserPropertyEditor : ContentPage
                     ModifyAuthentication();
                 break;
             case "重新绑定电话号码":
-                if(modifyAuthentication)
+                if (modifyAuthentication)
                     await Shell.Current.GoToAsync(nameof(UserTelEditPage));
                 else
                     ModifyAuthentication();

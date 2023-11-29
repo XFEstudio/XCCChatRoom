@@ -180,6 +180,9 @@
 	  <Compile Update="InnerPage\UserLoginPage.xaml.cs">
 	    <DependentUpon>UserLoginPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="InnerPage\UserPropertyEditPage.xaml.cs">
+	    <DependentUpon>UserPropertyEditPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="InnerPage\UserRegisterPage.xaml.cs">
 	    <DependentUpon>UserRegisterPage.xaml</DependentUpon>
 	  </Compile>
@@ -252,7 +255,7 @@
 		<MauiXaml Update="InnerPage\PostViewPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserPropertyEditor.xaml">
+		<MauiXaml Update="InnerPage\UserPropertyEditPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\GroupCardView.xaml">

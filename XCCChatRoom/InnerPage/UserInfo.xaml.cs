@@ -287,6 +287,6 @@ public partial class UserInfo : ContentPage
 
     private void WhiteChoiceUserPropertyEditorButton_Click(object sender, TappedEventArgs e)
     {
-        Shell.Current.GoToAsync(nameof(UserPropertyEditor));
+        Shell.Current.GoToAsync(nameof(UserPropertyEditPage));
     }
 }
