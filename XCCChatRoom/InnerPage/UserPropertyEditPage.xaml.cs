@@ -5,6 +5,39 @@ namespace XCCChatRoom.InnerPage;
 
 public partial class UserPropertyEditPage : ContentPage
 {
+    public string CurrentPhoneNumLabelText
+    {
+        get
+        {
+            return 
+        }
+        set
+        {
+            UserInfo.CurrentUser.Atel = value;
+        }
+    }
+    public string CurrentPasswordLabelText
+    {
+        get
+        {
+
+        }
+        set
+        {
+
+        }
+    }
+    public string CurrentMailLabelText
+    {
+        get
+        {
+            
+        }
+        set
+        {
+
+        }
+    }
     public UserPropertyEditPage()
     {
         InitializeComponent();
@@ -102,7 +135,7 @@ public partial class UserPropertyEditPage : ContentPage
                 if (modifyAuthentication)
                     await Shell.Current.GoToAsync(nameof(UserTelEditPage));
                 //else
-                    //ModifyAuthentication();
+                //ModifyAuthentication();
                 break;
             default :
                 await DisplayAlert("抱歉", "出现异常，点击失败", "确定");

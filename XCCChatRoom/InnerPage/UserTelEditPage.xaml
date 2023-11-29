@@ -4,7 +4,8 @@
              xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
              x:Class="XCCChatRoom.InnerPage.UserTelEditPage"
              Title="修改手机号">
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Margin="20,0">
         <Label
             Text="换绑手机号"
             Margin="0,50,0,0"
@@ -92,6 +93,7 @@
         </Grid>
         <ctr:WaitableButton
             x:Name="SaveAndBackButton"
+            Margin="0,50"
             Text="保存并返回"
             CornerRadius="30"
             TextColor="White"

@@ -159,6 +159,9 @@
 	  <Compile Update="Controls\ErrorPopup.xaml.cs">
 	    <DependentUpon>ErrorPopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Controls\UserTelEditPopup.xaml.cs">
+	    <DependentUpon>UserTelEditPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Controls\ImagePopup.xaml.cs">
 	    <DependentUpon>ImagePopup.xaml</DependentUpon>
 	  </Compile>
@@ -202,6 +205,9 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\GPTSettingPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\UserTelEditPopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\StarButton.xaml">

@@ -125,13 +125,14 @@ public partial class UserTelEditPage : ContentPage
         }
     }
 
-    private void SaveAndBackButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+    private async void SaveAndBackButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         if (currentNewPhoneNum == UserTelEditor.Text)
         {
             if (TelVerifyCodeEditor.Text == randomCode)
             {
-
+                UserInfo.CurrentUser.Atel = currentNewPhoneNum;
+                await UserInfo.UpLoadUserInfo();
             }
             else
             {
