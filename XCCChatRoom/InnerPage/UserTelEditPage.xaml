@@ -99,6 +99,6 @@
             IsEnabled="False"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Center"
-            Clicked="SaveAndBackButton_Clicked"/>
+            WaitClick="SaveAndBackButton_WaitClick"/>
     </VerticalStackLayout>
 </ContentPage>

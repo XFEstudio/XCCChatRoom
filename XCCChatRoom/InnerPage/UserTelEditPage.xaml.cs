@@ -1,4 +1,5 @@
 using XCCChatRoom.AllImpl;
+using XCCChatRoom.Controls;
 using XFE各类拓展.StringExtension;
 using XFE各类拓展.TaskExtension;
 
@@ -8,7 +9,7 @@ public partial class UserTelEditPage : ContentPage
 {
     private bool isTelChanged = false, isTelEditorEmpty = true;
     private bool isCoolDown = false;
-    private string currentPhoneNum = string.Empty;
+    private string currentNewPhoneNum = string.Empty;
     private string randomCode = string.Empty;
     public UserTelEditPage()
     {
@@ -100,11 +101,6 @@ public partial class UserTelEditPage : ContentPage
         }
     }
 
-    private void SaveAndBackButton_Clicked(object sender, EventArgs e)
-    {
-
-    }
-
     private void UserTelEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (UserTelEditor.Text.IsMobPhoneNumber())
@@ -128,9 +124,39 @@ public partial class UserTelEditPage : ContentPage
             TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
         }
     }
+
+    private void SaveAndBackButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+    {
+        if (currentNewPhoneNum == UserTelEditor.Text)
+        {
+            if (TelVerifyCodeEditor.Text == randomCode)
+            {
+
+            }
+            else
+            {
+                ControlExtension.BorderShake(TelVerifyCodeBorder);
+                TelVerifyCodeLabel.Text = "验证码不正确";
+                TelVerifyCodeLabel.TextColor = Color.Parse("Red");
+                TelVerifyCodeBorder.Stroke = Color.Parse("Red");
+                TelVerifyCodeEditor.Focus();
+                e.Continue();
+            }
+        }
+        else
+        {
+            ControlExtension.BorderShake(UserTelBorder);
+            UserTelLabel.Text = "手机号与发送验证码时不匹配";
+            UserTelLabel.TextColor = Color.Parse("Red");
+            UserTelBorder.Stroke = Color.Parse("Red");
+            UserTelEditor.Focus();
+            e.Continue();
+        }
+    }
+
     private async void TelVerifyCodeButton_Clicked(object sender, EventArgs e)
     {
-        currentPhoneNum = UserTelEditor.Text;
+        currentNewPhoneNum = UserTelEditor.Text;
         randomCode = IDGenerator.SummonRandomID(6);
         TelVerifyCodeButton.IsEnabled = false;
         TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
