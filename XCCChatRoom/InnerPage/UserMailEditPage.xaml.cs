@@ -4,7 +4,7 @@ using Timer = System.Timers.Timer;
 
 namespace XCCChatRoom.InnerPage;
 
-public partial class UserMailEditorPage : ContentPage
+public partial class UserMailEditPage : ContentPage
 {
     private bool flag1 = false;
     private bool flag2 = false;
@@ -12,7 +12,7 @@ public partial class UserMailEditorPage : ContentPage
     private string MailCaptcha = null;
     private string new_Mail = null;
 
-    public UserMailEditorPage()
+    public UserMailEditPage()
 	{
 		InitializeComponent();
         OldMail.Text = UserInfo.CurrentUser.Amail;
@@ -70,7 +70,7 @@ public partial class UserMailEditorPage : ContentPage
             }
             catch (Exception ex)
             {
-                await DisplayAlert("无法发送邮件", "失败了", "退出");
+                await DisplayAlert("无法发送邮件", $"错误：{ex.Message}", "退出");
             }
         }
     }

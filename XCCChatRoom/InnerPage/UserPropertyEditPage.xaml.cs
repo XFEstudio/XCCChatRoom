@@ -1,4 +1,6 @@
+using MauiPopup;
 using XCCChatRoom.AllImpl;
+using XCCChatRoom.Controls;
 using XFE各类拓展.StringExtension;
 
 namespace XCCChatRoom.InnerPage;
@@ -50,7 +52,7 @@ public partial class UserPropertyEditPage : ContentPage
     {
         bool flag1 = false;
         bool flag2 = true;
-        var randomCode = new Random().Next(100000, 999999).ToString();
+        var randomCode = IDGenerator.SummonRandomID(6);
 
         if (!modifyAuthentication)
         {
@@ -124,7 +126,6 @@ public partial class UserPropertyEditPage : ContentPage
                     ModifyAuthentication();
                 break;
             case "MailEditor":
-
                 if (modifyAuthentication)
                     /*await Shell.Current.GoToAsync(nameof(UserMailEditorPage));*/
                     await DisplayAlert("1", "写完请将改行替换为注释内容", "3");
@@ -132,8 +133,8 @@ public partial class UserPropertyEditPage : ContentPage
                     ModifyAuthentication();
                 break;
             case "TelEditor":
-                if (modifyAuthentication)
-                    await Shell.Current.GoToAsync(nameof(UserTelEditPage));
+                //if (modifyAuthentication)
+                await PopupAction.DisplayPopup(new UserTelEditPopup(this));
                 //else
                 //ModifyAuthentication();
                 break;

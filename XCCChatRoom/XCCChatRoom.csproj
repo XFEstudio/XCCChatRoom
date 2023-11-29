@@ -174,6 +174,9 @@
 	  <Compile Update="InnerPage\ChatPage.xaml.cs">
 	    <DependentUpon>ChatPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="InnerPage\UserMailEditPage.xaml.cs">
+	    <DependentUpon>UserMailEditPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="InnerPage\UserPasswordEditorPage.xaml.cs">
 	    <DependentUpon>UserPasswordEditorPage.xaml</DependentUpon>
 	  </Compile>
@@ -188,9 +191,6 @@
 	  </Compile>
 	  <Compile Update="InnerPage\UserRegisterPage.xaml.cs">
 	    <DependentUpon>UserRegisterPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="InnerPage\UserTelEditPage.xaml.cs">
-	    <DependentUpon>UserTelEditPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -246,7 +246,7 @@
 		<MauiXaml Update="InnerPage\IntroductionPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserMailEditorPage.xaml">
+		<MauiXaml Update="InnerPage\UserMailEditPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\UserPasswordEditorPage.xaml">
@@ -280,9 +280,6 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\UserRegisterPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserTelEditPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\XEAEncryptPage.xaml">

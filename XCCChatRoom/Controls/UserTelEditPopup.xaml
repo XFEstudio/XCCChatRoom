@@ -6,10 +6,10 @@
     xmlns:mauiPopup="clr-namespace:MauiPopup.Views;assembly=MauiPopup"
     x:Class="XCCChatRoom.Controls.UserTelEditPopup"
     IsCloseOnBackgroundClick="True"
-    HorizontalOptions="Fill"
-    VerticalOptions="Fill"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
     Title="UserTelEditPopup"
-    ForegroundColor="Black"
+    ForegroundColor="Transparent"
     BackgroundColor="Transparent">
     <Border
         StrokeThickness="3"
@@ -26,10 +26,9 @@
         <StackLayout>
             <Label
                 Text="换绑手机号"
-                Margin="0,50,0,0"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                FontSize="32"
+                FontSize="28"
                 FontAttributes="Bold"
                 TextColor="#512BD4"/>
             <Label 
@@ -70,7 +69,8 @@
                 VerticalOptions="Center" 
                 HorizontalOptions="Fill" />
             <Grid
-                x:Name="TelVerifyCodeGrid">
+                x:Name="TelVerifyCodeGrid"
+                Padding="20,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="130"/>
