@@ -25,7 +25,7 @@
                 VerticalOptions="End"
                 Margin="0,0,0,5"/>
             <Entry 
-                x:Name="CurrentUserName"
+                x:Name="CurrentUserNameEntry"
                 HorizontalTextAlignment="Center"
                 FontSize="20"
                 VerticalOptions="End"
@@ -48,7 +48,7 @@
                 VerticalOptions="Center"
                 Grid.Row="1"/>  
             <Label
-                x:Name="CurrentUserTel"
+                x:Name="CurrentUserTelLabel"
                 FontSize="20"
                 HorizontalTextAlignment="Center"
                 VerticalOptions="Center"
@@ -72,7 +72,7 @@
                 VerticalOptions="Center"
                 Grid.Row="2"/>
             <Label 
-                x:Name="CurrentUserMail"
+                x:Name="CurrentUserMailLabel"
                 FontSize="20"
                 HorizontalTextAlignment="Center"
                 VerticalOptions="Center"
@@ -97,6 +97,7 @@
                 VerticalOptions="Center"
                 Grid.Row="3"/>
             <Label
+                x:Name="CurrentPasswordLabel"
                 Text="******"
                 HorizontalTextAlignment="Center"
                 FontSize="20"
@@ -115,9 +116,5 @@
                 Grid.Row="3"
                 Grid.Column="2"/>
         </Grid>
-		
-
-
-		
     </VerticalStackLayout>
 </ContentPage>

@@ -9,41 +9,41 @@ public partial class UserPropertyEditPage : ContentPage
     {
         get
         {
-            return 
+            return CurrentUserTelLabel.Text;
         }
         set
         {
-            UserInfo.CurrentUser.Atel = value;
+            CurrentUserTelLabel.Dispatcher.Dispatch(() => CurrentUserTelLabel.Text = value);
         }
     }
     public string CurrentPasswordLabelText
     {
         get
         {
-
+            return CurrentPasswordLabel.Text;
         }
         set
         {
-
+            CurrentPasswordLabel.Dispatcher.Dispatch(() => CurrentPasswordLabel.Text = value);
         }
     }
     public string CurrentMailLabelText
     {
         get
         {
-            
+            return CurrentUserMailLabel.Text;
         }
         set
         {
-
+            CurrentUserMailLabel.Dispatcher.Dispatch(() => CurrentUserMailLabel.Text = value);
         }
     }
     public UserPropertyEditPage()
     {
         InitializeComponent();
-        CurrentUserName.Text = UserInfo.CurrentUser.Aname;
-        CurrentUserTel.Text = UserInfo.CurrentUser.Atel;
-        CurrentUserMail.Text = UserInfo.CurrentUser.Amail;
+        CurrentUserTelLabel.Text = UserInfo.CurrentUser.Aname = UserInfo.CurrentUser.Aname;
+        CurrentPhoneNumLabelText = UserInfo.CurrentUser.Atel;
+        CurrentMailLabelText = UserInfo.CurrentUser.Amail;
     }
     private static bool modifyAuthentication = false;
     private async void ModifyAuthentication()
@@ -52,7 +52,7 @@ public partial class UserPropertyEditPage : ContentPage
         bool flag2 = true;
         var randomCode = new Random().Next(100000, 999999).ToString();
 
-        if (!modifyAuthentication) 
+        if (!modifyAuthentication)
         {
             bool telFlag = await DisplayAlert("当前环境不安全", "请进行身份验证", "确定", "取消");
             if (telFlag)
@@ -78,12 +78,12 @@ public partial class UserPropertyEditPage : ContentPage
     }
     private async void UserNameEditor()
     {
-        if (CurrentUserName.Text is not null && CurrentUserName.Text != string.Empty)
+        if (CurrentUserNameEntry.Text is not null && CurrentUserNameEntry.Text != string.Empty)
         {
-            bool flag = CurrentUserName.Text.UserNameEditor();
+            bool flag = CurrentUserNameEntry.Text.UserNameEditor();
             if (flag)
             {
-                UserInfo.EditUserProperty(UserPropertyToEdit.UserName, CurrentUserName.Text, this);
+                UserInfo.EditUserProperty(UserPropertyToEdit.UserName, CurrentUserNameEntry.Text, this);
                 await DisplayAlert("修改成功", "内容合法", "明白了");
             }
             else
@@ -137,7 +137,7 @@ public partial class UserPropertyEditPage : ContentPage
                 //else
                 //ModifyAuthentication();
                 break;
-            default :
+            default:
                 await DisplayAlert("抱歉", "出现异常，点击失败", "确定");
                 break;
         }
