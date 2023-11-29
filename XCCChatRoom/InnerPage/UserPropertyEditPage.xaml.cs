@@ -5,6 +5,39 @@ namespace XCCChatRoom.InnerPage;
 
 public partial class UserPropertyEditPage : ContentPage
 {
+    public string CurrentPhoneNumLabelText
+    {
+        get
+        {
+            return 
+        }
+        set
+        {
+            UserInfo.CurrentUser.Atel = value;
+        }
+    }
+    public string CurrentPasswordLabelText
+    {
+        get
+        {
+
+        }
+        set
+        {
+
+        }
+    }
+    public string CurrentMailLabelText
+    {
+        get
+        {
+            
+        }
+        set
+        {
+
+        }
+    }
     public UserPropertyEditPage()
     {
         InitializeComponent();
@@ -97,9 +130,9 @@ public partial class UserPropertyEditPage : ContentPage
                 break;
             case "重新绑定电话号码":
                 //if (modifyAuthentication)
-                    await Shell.Current.GoToAsync(nameof(UserTelEditPage));
+                await Shell.Current.GoToAsync(nameof(UserTelEditPage));
                 //else
-                    //ModifyAuthentication();
+                //ModifyAuthentication();
                 break;
         }
     }
