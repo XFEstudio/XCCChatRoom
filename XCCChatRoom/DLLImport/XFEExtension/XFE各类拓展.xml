@@ -1,0 +1,4555 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XFE各类拓展</name>
+    </assembly>
+    <members>
+        <member name="T:XFE各类拓展.ArrayExtension.AI.MatrixOfArrayExtension">
+            <summary>
+            对神经网络算法的数组矩阵的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.ArrayExtension.AI.MatrixOfArrayExtension.OutPutInMatrix``1(``0[])">
+            <summary>
+            以矩阵形式打印数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="arrays"></param>
+        </member>
+        <member name="M:XFE各类拓展.ArrayExtension.AI.MatrixOfArrayExtension.OutPutInMatrix``1(``0[][])">
+            <summary>
+            以矩阵形式打印数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="arrays"></param>
+        </member>
+        <member name="M:XFE各类拓展.ArrayExtension.AI.MatrixOfArrayExtension.OutPutInMatrix``1(``0[0:,0:])">
+            <summary>
+            以矩阵形式打印数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="arrays"></param>
+        </member>
+        <member name="T:XFE各类拓展.ArrayExtension.ArrayExtension">
+            <summary>
+            对数组的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.ArrayExtension.ArrayExtension.ToXFEString``1(``0[])">
+            <summary>
+            将数组转换为XFE格式字符串
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="arrays"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ArrayExtension.ArrayExtension.ToXFEString``1(``0[],System.String)">
+            <summary>
+            将数组转换为XFE格式字符串
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="arrays"></param>
+            <param name="propertyName">属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ArrayExtension.ArrayExtension.ToXFEArray``1(System.String)">
+            <summary>
+            将XFE格式字符串转换为数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="str"></param>
+            <returns>T类型的数组</returns>
+        </member>
+        <member name="M:XFE各类拓展.ArrayExtension.ArrayExtension.GetTypes(System.Object[])">
+            <summary>
+            获取数组中的类型
+            </summary>
+            <param name="objects"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.AttributeExtension.AttributeExtension">
+            <summary>
+            属性拓展类
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInMethod``1(System.String,System.String)">
+            <summary>
+            获取给定类的某个方法的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="methodName">类中的方法名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInMethod``1(System.String,System.String)">
+            <summary>
+            获取给定类的某个方法的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="methodName">类中的方法名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInField``1(System.String,System.String)">
+            <summary>
+            获取给定类的某个字段的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="fieldName">类中的字段名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInField``1(System.String,System.String)">
+            <summary>
+            获取给定类的某个字段的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="fieldName">类中的字段名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInProperty``1(System.String,System.String)">
+            <summary>
+            获取给定类的某个属性的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="propertyName">类中的属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInProperty``1(System.String,System.String)">
+            <summary>
+            获取给定类的某个属性的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="propertyName">类中的属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInParam``1(System.String,System.String,System.String)">
+            <summary>
+            获取给定类的给定方法的给定参数的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="methodName">方法名</param>
+            <param name="paramName">参数名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInParam``1(System.String,System.String,System.String)">
+            <summary>
+            获取给定类的给定方法的给定参数的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="className">类名(区分大小写)</param>
+            <param name="methodName">方法名</param>
+            <param name="paramName">参数名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeOnClass``1(System.String)">
+            <summary>
+            给定类的给定属性的对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="className"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesOnClass``1(System.String)">
+            <summary>
+            给定类的给定属性的对象列表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="className"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttribute``1(System.Object)">
+            <summary>
+            获取该对象的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="obj">对象</param>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributes``1(System.Object)">
+            <summary>
+            获取该对象的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="obj">对象</param>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInMethod``1(System.Object,System.String)">
+            <summary>
+            获取给定类的某个方法的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类</param>
+            <param name="methodName">类中的方法名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInMethod``1(System.Object,System.String)">
+            <summary>
+            获取给定类的某个方法的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类</param>
+            <param name="methodName">类中的方法名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInField``1(System.Object,System.String)">
+            <summary>
+            获取给定类的某个字段的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类</param>
+            <param name="fieldName">类中的字段名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInField``1(System.Object,System.String)">
+            <summary>
+            获取给定类的某个字段的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类</param>
+            <param name="fieldName">类中的字段名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInProperty``1(System.Object,System.String)">
+            <summary>
+            获取给定类的某个属性的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类</param>
+            <param name="propertyName">类中的属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInProperty``1(System.Object,System.String)">
+            <summary>
+            获取给定类的某个属性的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类</param>
+            <param name="propertyName">类中的属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributeInParam``1(System.Object,System.String,System.String)">
+            <summary>
+            获取给定类的给定方法的给定参数的给定属性的对象
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类</param>
+            <param name="methodName">方法名</param>
+            <param name="paramName">参数名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.AttributeExtension.AttributeExtension.GetAttributesInParam``1(System.Object,System.String,System.String)">
+            <summary>
+            获取给定类的给定方法的给定参数的给定属性的对象列表
+            </summary>
+            <typeparam name="T">属性类型</typeparam>
+            <param name="tarClass">类名(区分大小写)</param>
+            <param name="methodName">方法名</param>
+            <param name="paramName">参数名</param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.BufferExtension.BufferExtension">
+            <summary>
+            对二进制数组的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.IndexOf(System.Byte[],System.Byte[])">
+            <summary>
+            获取第一个匹配Buffer的位置
+            </summary>
+            <param name="buffer"></param>
+            <param name="targetBuffer">要匹配Buffer</param>
+            <returns>没有查找到为-1</returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.IndexesOf(System.Byte[],System.Byte[],System.Boolean)">
+            <summary>
+            获取所有匹配的Buffer的位置
+            </summary>
+            <param name="buffer"></param>
+            <param name="targetBuffer">要匹配的Buffer</param>
+            <param name="shareable">是否可以共用</param>
+            <returns>查找到的位置数组</returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.Replace(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            替换Buffer中的指定Buffer为目标Buffer
+            </summary>
+            <param name="buffer"></param>
+            <param name="originBuffer"></param>
+            <param name="targetBuffer"></param>
+            <returns>替换后的Buffer</returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.Split(System.Byte[],System.Byte[])">
+            <summary>
+            分割Buffer
+            </summary>
+            <param name="buffer"></param>
+            <param name="targetBuffer">分割器</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.PackBuffer(System.Collections.Generic.List{System.Byte[]})">
+            <summary>
+            将Buffer转换为XFEBuffer
+            </summary>
+            <param name="buffers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.AddHeaderAndPack(System.Byte[],System.String[])">
+            <summary>
+            为Buffer添加头部并封装为XFEBuffer
+            </summary>
+            <param name="buffer"></param>
+            <param name="headers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.AddHeaderAndPack(System.Byte[],System.Byte[])">
+            <summary>
+            为Buffer添加头部并封装为XFEBuffer
+            </summary>
+            <param name="buffer"></param>
+            <param name="headers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.BufferExtension.UnPackBuffer(System.Byte[])">
+            <summary>
+            将XEFBuffer转换为BufferList
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.BufferExtension.XFEBuffer">
+            <summary>
+            XFE的二进制数组协议
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.BufferExtension.XFEBuffer.Headers">
+            <summary>
+            所有的头
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.BufferExtension.XFEBuffer.Buffers">
+            <summary>
+            所有的值
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.BufferExtension.XFEBuffer.Count">
+            <summary>
+            长度
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.BufferExtension.XFEBuffer.Item(System.String)">
+            <summary>
+            获取或设置Buffer
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.ToBuffer">
+            <summary>
+            封装Buffer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.ToXFEBuffer(System.Byte[])">
+            <summary>
+            将Buffer转换为XFEBuffer
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.Add(System.String,System.Byte[])">
+            <summary>
+            添加XFEBuffer
+            </summary>
+            <param name="header">头</param>
+            <param name="buffer">Buffer</param>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.AddRange(System.Object[])">
+            <summary>
+            添加XFEBuffer
+            </summary>
+            <param name="params"></param>
+            <exception cref="T:XFE各类拓展.XFEExtensionException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.Remove(System.String)">
+            <summary>
+            移除XFEBuffer
+            </summary>
+            <param name="header">头</param>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.RemoveAt(System.Int32)">
+            <summary>
+            移除指定位置的XFEBuffer
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.Clear">
+            <summary>
+            清空
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.Contains(System.String)">
+            <summary>
+            是否包含
+            </summary>
+            <param name="header">头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.GetHeaders">
+            <summary>
+            获取头
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.#ctor">
+            <summary>
+            XFE的二进制数组协议
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.BufferExtension.XFEBuffer.#ctor(System.Object[])">
+            <summary>
+            XFE的二进制数组协议
+            </summary>
+            <param name="params">头和Buffer对</param>
+            <exception cref="T:XFE各类拓展.XFEExtensionException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.BackMessageType">
+            <summary>
+            传回的参数类型
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.BackMessageType.Text">
+            <summary>
+            文本消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.BackMessageType.Binary">
+            <summary>
+            二进制消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.BackMessageType.Error">
+            <summary>
+            错误消息
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.CyberCommClient">
+            <summary>
+            CyberComm客户端
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClient.ServerURL">
+            <summary>
+            指定的WS服务器URL
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClient.IsConnected">
+            <summary>
+            是否已连接
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClient.AutoReconnect">
+            <summary>
+            是否自动重连
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClient.ReconnectMaxTimes">
+            <summary>
+            自动重连最大次数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClient.ReconnectTryDelay">
+            <summary>
+            自动重连尝试间隔
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClient.AutoReceiveCompletedMessage">
+            <summary>
+            是否自动接收完整消息
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.CyberCommClient.MessageReceived">
+            <summary>
+            收到消息时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.CyberCommClient.ConnectionClosed">
+            <summary>
+            连接关闭时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.CyberCommClient.Connected">
+            <summary>
+            连接成功时触发
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClient.ClientWebSocket">
+            <summary>
+            WebSocket客户端
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClient.StartCyberCommClient">
+            <summary>
+            启动CyberComm客户端
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClient.SendTextMessage(System.String)">
+            <summary>
+            发送文本消息
+            </summary>
+            <param name="message">待发送的文本</param>
+            <returns>发送进程</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClient.SendBinaryMessage(System.Byte[])">
+            <summary>
+            发送二进制消息
+            </summary>
+            <param name="message">待发送的二进制数据</param>
+            <returns>发送进程</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClient.CloseCyberCommClient">
+            <summary>
+            关闭CyberComm客户端
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClient.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            CyberComm客户端
+            </summary>
+            <param name="serverURL">WS服务器地址</param>
+            <param name="autoReconnect">是否自动重连</param>
+            <param name="autoReceiveCompletedMessage">是否自动接收完整消息</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClient.#ctor">
+            <summary>
+            CyberComm客户端
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.CyberCommServer">
+            <summary>
+            CyberComm服务器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServer.AutoReceiveCompletedMessage">
+            <summary>
+            是否自动接收完整消息
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.CyberCommServer.MessageReceived">
+            <summary>
+            收到消息时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.CyberCommServer.ClientConnected">
+            <summary>
+            客户端连接时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.CyberCommServer.ServerStarted">
+            <summary>
+            服务器启动时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.CyberCommServer.ConnectionClosed">
+            <summary>
+            连接关闭时触发
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServer.WebSocketServer">
+            <summary>
+            WebSocket服务器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommServer.StartCyberCommServer">
+            <summary>
+            启动CyberComm服务器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommServer.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            CyberComm服务器，使用端口创建
+            </summary>
+            <param name="listenPort">监听端口</param>
+            <param name="autoReceiveCompletedMessage">是否自动接收完整消息</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommServer.#ctor(System.String,System.Boolean)">
+            <summary>
+            CyberComm服务器，使用URL创建
+            </summary>
+            <param name="serverURL">服务器URL</param>
+            <param name="autoReceiveCompletedMessage">是否自动接收完整消息</param>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.CyberCommClientEventArgs">
+            <summary>
+            CyberComm客户端事件参数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClientEventArgs.MessageType">
+            <summary>
+            消息类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClientEventArgs.CurrentWebSocket">
+            <summary>
+            当前WebSocket
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClientEventArgs.TextMessage">
+            <summary>
+            文本消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClientEventArgs.Exception">
+            <summary>
+            异常消息（如果有的话）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommClientEventArgs.BinaryMessage">
+            <summary>
+            二进制消息
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClientEventArgs.ReplyMessage(System.String)">
+            <summary>
+            发送文本消息
+            </summary>
+            <param name="message">待发送的文本</param>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+            <returns>发送进程</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommClientEventArgs.Close">
+            <summary>
+            关闭连接
+            </summary>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.CyberCommServerEventArgs">
+            <summary>
+            CyberComm服务器事件参数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServerEventArgs.MessageType">
+            <summary>
+            消息类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServerEventArgs.CurrentWebSocket">
+            <summary>
+            当前WebSocket
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServerEventArgs.WSHeader">
+            <summary>
+            客户端请求头
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServerEventArgs.Exception">
+            <summary>
+            异常消息（如果有的话）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServerEventArgs.IpAddress">
+            <summary>
+            客户端IP地址
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServerEventArgs.TextMessage">
+            <summary>
+            文本消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommServerEventArgs.BinaryMessage">
+            <summary>
+            二进制消息
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommServerEventArgs.ReplyMessage(System.String)">
+            <summary>
+            发送文本消息
+            </summary>
+            <param name="message">待发送的文本</param>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+            <returns>发送进程</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommServerEventArgs.ReplyBinaryMessage(System.Byte[])">
+            <summary>
+            发送二进制消息
+            </summary>
+            <param name="bytes">二进制消息</param>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommServerEventArgs.Close">
+            <summary>
+            关闭连接
+            </summary>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommServerEventArgs.ForceClose">
+            <summary>
+            强制关闭连接
+            </summary>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.CyberCommGroup">
+            <summary>
+            CyberComm客户端群组
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommGroup.GroupId">
+            <summary>
+            组ID
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.Add(XFE各类拓展.CyberComm.CyberCommServerEventArgs)">
+            <summary>
+            添加客户端
+            </summary>
+            <param name="e">客户端</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.Remove(System.Net.WebSockets.WebSocket)">
+            <summary>
+            移除指定的客户端
+            </summary>
+            <param name="webSocket">客户端</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.RemoveAt(System.Int32)">
+            <summary>
+            移除指定索引的客户端
+            </summary>
+            <param name="index">客户单索引</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.Clear">
+            <summary>
+            清空列表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommGroup.Count">
+            <summary>
+            群组客户端数量
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommGroup.Item(System.Predicate{XFE各类拓展.CyberComm.CyberCommServerEventArgs})">
+            <summary>
+            索引器
+            </summary>
+            <param name="findFunc">查找</param>
+            <returns>客户端</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.SendGroupTextMessage(System.String)">
+            <summary>
+            发送群组文本消息
+            </summary>
+            <param name="message">群发文本消息</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.SendGroupTextMessage(System.String,System.Func{XFE各类拓展.CyberComm.CyberCommServerEventArgs,System.Boolean})">
+            <summary>
+            向指定的WS客户端发送群组文本消息
+            </summary>
+            <param name="message">群发文本消息</param>
+            <param name="findFunc">指定的WS客户端</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.SendGroupBinaryMessage(System.Byte[])">
+            <summary>
+            发送群组二进制消息
+            </summary>
+            <param name="bytes">群发二进制消息</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.SendGroupBinaryMessage(System.Byte[],System.Func{XFE各类拓展.CyberComm.CyberCommServerEventArgs,System.Boolean})">
+            <summary>
+            向指定的WS客户端发送群组二进制消息
+            </summary>
+            <param name="bytes">群发二进制消息</param>
+            <param name="findFunc">指定的WS客户端</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.#ctor(System.String)">
+            <summary>
+            客户端群组
+            </summary>
+            <param name="GroupId">群组ID</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroup.#ctor(System.String,System.Collections.Generic.List{XFE各类拓展.CyberComm.CyberCommServerEventArgs})">
+            <summary>
+            客户端群组
+            </summary>
+            <param name="GroupId">群组ID</param>
+            <param name="cyberCommList">客户端群组</param>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.SignedWebSocket">
+            <summary>
+            代签名的WebSocket
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.SignedWebSocket.Signature">
+            <summary>
+            签名
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.SignedWebSocket.WebSocket">
+            <summary>
+            服务器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.SignedWebSocket.#ctor(System.String,System.Net.WebSockets.WebSocket)">
+            <summary>
+            签名WebSocket
+            </summary>
+            <param name="signature">签名</param>
+            <param name="webSocket">WebSocket</param>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.CyberCommGroupController">
+            <summary>
+            通信群组控制器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.Refresh">
+            <summary>
+            刷新
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.AddGroup(XFE各类拓展.CyberComm.CyberCommGroup)">
+            <summary>
+            添加群组
+            </summary>
+            <param name="commGroup"></param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.RemoveGroup(XFE各类拓展.CyberComm.CyberCommGroup)">
+            <summary>
+            移除群组
+            </summary>
+            <param name="commGroup"></param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.RemoveGroupAt(System.Int32)">
+            <summary>
+            移除指定索引的群组
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.Clear">
+            <summary>
+            清空群组
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommGroupController.Count">
+            <summary>
+            群组数量
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommGroupController.Item(System.Int32)">
+            <summary>
+            索引器
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.CyberCommGroupController.Item(System.String)">
+            <summary>
+            索引器
+            </summary>
+            <param name="GroupId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.SendGroupTextMessage(System.String,System.String)">
+            <summary>
+            通信群组控制器发送文本消息
+            </summary>
+            <param name="GroupId">目标群组的ID</param>
+            <param name="message">发送的文本消息</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.SendGroupBinaryMessage(System.String,System.Byte[])">
+            <summary>
+            通信群组控制器发送二进制消息
+            </summary>
+            <param name="GroupId">目标群组的ID</param>
+            <param name="bytes">发送的二进制消息</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.CyberCommGroupController.#ctor">
+            <summary>
+            通信群组控制器
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWorkBase.textMessageReceived">
+            <summary>
+            明文消息接收时触发
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWorkBase.binaryMessageReceived">
+            <summary>
+            二进制消息接收时触发
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWorkBase.exceptionMessageReceived">
+            <summary>
+            异常消息接收时触发
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWorkBase.connectionClosed">
+            <summary>
+            连接关闭时触发
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWorkBase.connected">
+            <summary>
+            连接成功时触发
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCClientType">
+            <summary>
+            XCC客户端连接类型
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCClientType.TextMessageClient">
+            <summary>
+            明文类型
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCClientType.FileTransportClient">
+            <summary>
+            文件类型
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork">
+            <summary>
+            XCC网络通讯
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.Groups">
+            <summary>
+            XCC当前群组
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.TextMessageReceived">
+            <summary>
+            明文消息接收时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.BinaryMessageReceived">
+            <summary>
+            二进制消息接收时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.ExceptionMessageReceived">
+            <summary>
+            异常消息接收时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.ConnectionClosed">
+            <summary>
+            连接关闭时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.Connected">
+            <summary>
+            连接成功时触发
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.CreateGroup(System.String,System.String)">
+            <summary>
+            创建XCC群组会话
+            </summary>
+            <param name="groupId">群组名称</param>
+            <param name="sender">发送者</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork.#ctor">
+            <summary>
+            XCC网络通信会话
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup">
+            <summary>
+            XCC群组
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.Signature">
+            <summary>
+            客户端标识名
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.GroupId">
+            <summary>
+            群组ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.Sender">
+            <summary>
+            发送者
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.TextMessageClientConnected">
+            <summary>
+            明文传输服务器是否连接
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.FileTransportClientConnected">
+            <summary>
+            文件传输服务器是否连接
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.TextMessageClientWebSocket">
+            <summary>
+            WebSocket明文传输客户端
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.FileTransportClientWebSocket">
+            <summary>
+            WebSocket文件传输客户端
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.StartXCC(System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            启动XCC会话
+            </summary>
+            <param name="autoReconnect">是否自动重连</param>
+            <param name="reconnectMaxTimes">最大重连次数，-1则为无限次</param>
+            <param name="reconnectTryDelay">重连尝试延迟</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.StartTextMessageXCC(System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            启动XCC文本会话
+            </summary>
+            <param name="autoReconnect">是否自动重连</param>
+            <param name="reconnectMaxTimes">最大重连次数，-1则为无限次</param>
+            <param name="reconnectTryDelay">重连尝试延迟</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.StartFileTransportXCC(System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            启动XCC文件传输会话
+            </summary>
+            <param name="autoReconnect">是否自动重连</param>
+            <param name="reconnectMaxTimes">最大重连次数，-1则为无限次</param>
+            <param name="reconnectTryDelay">重连尝试延迟</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.WaitConnect">
+            <summary>
+            等待明文服务器和文件服务器均连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendTextMessage(System.String,System.Int32)">
+            <summary>
+            发送文本消息
+            </summary>
+            <param name="message">待发送的文本</param>
+            <param name="timeout">最长超时时长</param>
+            <returns>服务器接收校验是否成功</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendTextMessage(System.String,System.String,System.Int32)">
+            <summary>
+            发送文本消息
+            </summary>
+            <param name="message">待发送的文本</param>
+            <param name="messageId">消息ID</param>
+            <param name="timeout">最长超时时长</param>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+            <returns>服务器接收校验是否成功</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendStandardTextMessage(System.String,System.String)">
+            <summary>
+            发送标准的文本消息
+            </summary>
+            <param name="role">发送者角色</param>
+            <param name="message">待发送的文本</param>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+            <returns>服务器接收校验是否成功</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendSignedBinaryMessage(System.Byte[],System.String,System.Int32)">
+            <summary>
+            发送签名二进制消息
+            </summary>
+            <param name="message">二进制消息</param>
+            <param name="signature">签名标识</param>
+            <param name="timeout">最长超时时长</param>
+            <returns>服务器接收校验是否成功</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendSignedBinaryMessage(System.Byte[],System.String,System.String,System.Int32)">
+            <summary>
+            发送签名二进制消息
+            </summary>
+            <param name="message">二进制消息</param>
+            <param name="messageId">消息ID</param>
+            <param name="signature">签名标识</param>
+            <param name="timeout">最长超时时长</param>
+            <returns>服务器接收校验是否成功</returns>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendBinaryTextMessage(System.String)">
+            <summary>
+            发送二进制文本消息
+            </summary>
+            <param name="message">消息</param>
+            <returns>服务器接收校验是否成功</returns>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendBinaryMessage(System.Byte[],System.Int32)">
+            <summary>
+            发送默认标准的二进制消息
+            </summary>
+            <param name="message">待发送的二进制数据</param>
+            <param name="timeout">最长超时时长</param>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+            <returns>服务器接收校验是否成功</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendImage(System.String)">
+            <summary>
+            发送图片
+            </summary>
+            <param name="filePath">图片路径</param>
+            <returns>服务器接收校验是否成功</returns>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendVideo(System.String)">
+            <summary>
+            发送视频
+            </summary>
+            <param name="filePath">视频路径</param>
+            <returns>服务器接收校验是否成功</returns>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendAudio(System.String)">
+            <summary>
+            发送音频
+            </summary>
+            <param name="filePath">音频路径</param>
+            <returns>服务器接收校验是否成功</returns>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.SendAudioBuffer(System.Byte[])">
+            <summary>
+            发送音频字节流（服务器不会缓存）
+            </summary>
+            <param name="buffer">二进制音频流</param>
+            <returns>服务器接收校验是否成功</returns>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.GetHistory">
+            <summary>
+            获取历史记录
+            </summary>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCGroup.CloseXCC">
+            <summary>
+            关闭XCC会话
+            </summary>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCFileType">
+            <summary>
+            XCC文件类型
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCFileType.Image">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCFileType.Video">
+            <summary>
+            视频
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCFileType.Audio">
+            <summary>
+            音频
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.MessageReceivedHandler`1">
+            <summary>
+            消息接收触发器
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="isHistory">是否为历史消息</param>
+            <param name="message">消息</param>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper">
+            <summary>
+            XCC消息接收器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.AutoSaveInLocal">
+            <summary>
+            自动保存到本地
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.SavePathRoot">
+            <summary>
+            保存的根目录
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.FileReceived">
+            <summary>
+            接收到文件事件
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.TextReceived">
+            <summary>
+            接收到文本事件
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.ExceptionOccurred">
+            <summary>
+            错误发生事件
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.AudioBufferReceived">
+            <summary>
+            接收到实时音频字节流事件
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.Load">
+            <summary>
+            从设置的根目录加载
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.LoadGroup(System.String)">
+            <summary>
+            从设置的根目录的指定群组加载
+            </summary>
+            <param name="groupId">群组ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.ClearUselessFile">
+            <summary>
+            清理无用文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.GetFile(System.String)">
+            <summary>
+            获取文件
+            </summary>
+            <param name="messageId">消息ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.AddFile(XFE各类拓展.CyberComm.XCCNetWork.XCCFile)">
+            <summary>
+            添加文件
+            </summary>
+            <param name="xCCFile">XCC文件实例</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.SaveFile(XFE各类拓展.CyberComm.XCCNetWork.XCCFile)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="xCCFile">XCC文件实例</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.SaveMessage(System.String)">
+            <summary>
+            保存群组消息
+            </summary>
+            <param name="groupId"></param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.#ctor(System.String,System.Boolean)">
+            <summary>
+            XCC消息接收器
+            </summary>
+            <param name="savePathRoot">保存根目录</param>
+            <param name="autoSaveInLocal">自动保存</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceiveHelper.#ctor(System.String,XFE各类拓展.CyberComm.XCCNetWork.XCCNetWork,System.Boolean)">
+            <summary>
+            XCC消息接收器
+            </summary>
+            <param name="savePathRoot">保存根目录</param>
+            <param name="xCCNetWork">XCC网络通讯实例</param>
+            <param name="autoSaveInLocal">自动保存</param>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCFile">
+            <summary>
+            XCC文件
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.FileLoaded">
+            <summary>
+            文件加载完成时触发
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.GroupId">
+            <summary>
+            群组ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.MessageId">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.Sender">
+            <summary>
+            发送者
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.FileType">
+            <summary>
+            XCC文件类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.Loaded">
+            <summary>
+            是否已加载
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.FileBuffer">
+            <summary>
+            文件流
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.LoadFile(System.Byte[])">
+            <summary>
+            加载文件
+            </summary>
+            <param name="fileBuffer">文件流</param>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCFile.#ctor(System.String,System.String,XFE各类拓展.CyberComm.XCCNetWork.XCCFileType,System.String,System.Nullable{System.DateTime},System.Byte[])">
+            <summary>
+            XCC文件
+            </summary>
+            <param name="groupId">群组ID</param>
+            <param name="messageId">文件消息ID</param>
+            <param name="fileType">文件类型</param>
+            <param name="sender">发送者</param>
+            <param name="sendTime">发送时间</param>
+            <param name="fileBuffer">文件的Buffer</param>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage">
+            <summary>
+            XCC消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.MessageId">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.MessageType">
+            <summary>
+            消息类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.Message">
+            <summary>
+            消息内容
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.Sender">
+            <summary>
+            发送者
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.GroupId">
+            <summary>
+            群组ID
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.ToString">
+            <summary>
+            封装为字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.ConvertToXCCMessage(System.String,System.String)">
+            <summary>
+            将封装后的XCC消息字符串转换为XCC消息对象
+            </summary>
+            <param name="xCCMessageStringFormat"></param>
+            <param name="groupId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessage.#ctor(System.String,XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageType,System.String,System.String,System.DateTime,System.String)">
+            <summary>
+            XCC消息
+            </summary>
+            <param name="messageId">消息ID</param>
+            <param name="messageType">消息类型</param>
+            <param name="message">消息内容</param>
+            <param name="sender">发送者</param>
+            <param name="sendTime">发送时间</param>
+            <param name="groupId">群组ID</param>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs">
+            <summary>
+            XCC网络通讯事件
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.Group">
+            <summary>
+            触发事件的群组
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.TextMessageClientWebSocket">
+            <summary>
+            WebSocket明文传输客户端
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.FileTransportClientWebSocket">
+            <summary>
+            WebSocket文件传输客户端
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.XCCClientType">
+            <summary>
+            XCC服务器连接类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.MessageId">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.GroupId">
+            <summary>
+            群组ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.Sender">
+            <summary>
+            发送者
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.ReplyTextMessage(System.String)">
+            <summary>
+            回复文本消息
+            </summary>
+            <param name="message">待发送的文本</param>
+            <returns>发送进程</returns>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.ReplyBinaryMessage(System.Byte[])">
+            <summary>
+            回复二进制消息
+            </summary>
+            <param name="message">二进制消息</param>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.CyberComm.XCCNetWork.XCCMessageReceivedEventArgs.Close">
+            <summary>
+            关闭连接
+            </summary>
+            <exception cref="T:XFE各类拓展.XFECyberCommException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageType">
+            <summary>
+            XFE网络通信明文返回消息类型
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageType.Text">
+            <summary>
+            文本消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageType.Image">
+            <summary>
+            图片消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageType.Audio">
+            <summary>
+            音频消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageType.Video">
+            <summary>
+            视频消息
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageReceivedEventArgs">
+            <summary>
+            XCC网络通讯接收到明文消息事件
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageReceivedEventArgs.MessageType">
+            <summary>
+            返回文本消息类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageReceivedEventArgs.TextMessage">
+            <summary>
+            文本消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageReceivedEventArgs.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCTextMessageReceivedEventArgs.IsHistory">
+            <summary>
+            是否为历史消息
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageType">
+            <summary>
+            XFE网络通信二进制返回消息类型
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageType.Text">
+            <summary>
+            文本消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageType.Binary">
+            <summary>
+            二进制消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageType.Image">
+            <summary>
+            图片消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageType.Audio">
+            <summary>
+            音频消息
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageType.AudioBuffer">
+            <summary>
+            实时音频
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageType.Video">
+            <summary>
+            视频消息
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageReceivedEventArgs">
+            <summary>
+            XCC网络通讯接收到二进制消息事件
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageReceivedEventArgs.MessageType">
+            <summary>
+            返回二进制消息类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageReceivedEventArgs.Signature">
+            <summary>
+            消息签名
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageReceivedEventArgs.BinaryMessage">
+            <summary>
+            二进制消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageReceivedEventArgs.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCBinaryMessageReceivedEventArgs.IsHistory">
+            <summary>
+            是否为历史消息
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCExceptionMessageReceivedEventArgs">
+            <summary>
+            XCC网络通讯期间异常事件
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCExceptionMessageReceivedEventArgs.Exception">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectionClosedEventArgs">
+            <summary>
+            XCC会话关闭事件
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectionClosedEventArgs.Group">
+            <summary>
+            触发事件的群组
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectionClosedEventArgs.XCCClientType">
+            <summary>
+            XCC服务器连接类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectionClosedEventArgs.TextMessageClientWebSocket">
+            <summary>
+            WebSocket明文传输客户端
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectionClosedEventArgs.FileTransportClientWebSocket">
+            <summary>
+            WebSocket文件传输客户端
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectionClosedEventArgs.ClosedNormally">
+            <summary>
+            是否正常关闭
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectedEventArgs">
+            <summary>
+            XCC连接事件
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectedEventArgs.Group">
+            <summary>
+            触发事件的群组
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectedEventArgs.XCCClientType">
+            <summary>
+            XCC服务器连接类型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectedEventArgs.TextMessageClientWebSocket">
+            <summary>
+            WebSocket明文传输客户端
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CyberComm.XCCNetWork.XCCConnectedEventArgs.FileTransportClientWebSocket">
+            <summary>
+            WebSocket文件传输客户端
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.DelegateExtension.XFEEventHandler`1">
+            <summary>
+            指定发送者泛型的委托事件
+            </summary>
+            <typeparam name="T">发送者泛型</typeparam>
+            <param name="sender">发送者</param>
+        </member>
+        <member name="T:XFE各类拓展.DelegateExtension.XFEEventHandler`2">
+            <summary>
+            指定发送者泛型的委托事件
+            </summary>
+            <typeparam name="T1">发送者泛型</typeparam>
+            <typeparam name="T2">事件参数泛型</typeparam>
+            <param name="sender">发送者</param>
+            <param name="e">事件参数</param>
+        </member>
+        <member name="T:XFE各类拓展.DelegateExtension.DelegateExtension">
+            <summary>
+            委托事件拓展
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.FileExtension.FileExtension">
+            <summary>
+            文件的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.WriteIn(System.String,System.String)">
+            <summary>
+            将字符串写入文件
+            </summary>
+            <param name="txt"></param>
+            <param name="fileName">目标文件路径及文件名</param>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.WriteInObj(System.Object,System.String)">
+            <summary>
+            将非法字符串写入文件
+            </summary>
+            <param name="bin"></param>
+            <param name="fileName">文件名</param>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.ReadOut(System.String,System.String@)">
+            <summary>
+            读取文件中的字符串
+            </summary>
+            <param name="Name"></param>
+            <param name="Content">读取的内容</param>
+            <returns>被读取的文件是否存在</returns>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.ReadOut(System.String)">
+            <summary>
+            读取文件中的字符串
+            </summary>
+            <param name="fileName">目标文件路径及文件名</param>
+            <returns>目标文件内容，如不存在则返回-1</returns>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.ReadOutObj``1(System.String)">
+            <summary>
+            读取文件中的字符串
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.ReadOut(System.String,System.Boolean@)">
+            <summary>
+            读取文件中的字符串
+            </summary>
+            <param name="fileName">目标文件路径及文件名</param>
+            <param name="exist">目标文件是否存在</param>
+            <returns>目标文件内容，如不存在则返回-1</returns>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.ReadOutObj(System.String,System.Boolean@)">
+            <summary>
+            读取文件中的字符串
+            </summary>
+            <param name="fileName"></param>
+            <param name="exist">是否存在</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.SerializeToFile(System.Object,System.String)">
+            <summary>
+            序列化对象到文件
+            </summary>
+            <param name="obj"></param>
+            <param name="fileName">文件路径</param>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.DeserializeFromFile``1(System.String)">
+            <summary>
+            从文件反序列化对象
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.FileExtension.FileSize(System.Int64)">
+            <summary>
+            输出文件大小
+            </summary>
+            <param name="bufferLength"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.FileExtension.XFEFileWatcher">
+            <summary>
+            XFE文件监视器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FileExtension.XFEFileWatcher.WatchSubdirectories">
+            <summary>
+            是否遍历监视所有子文件夹
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FileExtension.XFEFileWatcher.Path">
+            <summary>
+            文件或文件夹路径
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.FileExtension.XFEFileWatcher.FileChanged">
+            <summary>
+            文件发生改变时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.FileExtension.XFEFileWatcher.FileCreated">
+            <summary>
+            文件被创建时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.FileExtension.XFEFileWatcher.FileDeleted">
+            <summary>
+            文件被删除时触发
+            </summary>
+        </member>
+        <member name="E:XFE各类拓展.FileExtension.XFEFileWatcher.FileRenamed">
+            <summary>
+            文件被重命名时触发
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.XFEFileWatcher.StartWatchingAsync">
+            <summary>
+            启动监视
+            </summary>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEExtensionException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.XFEFileWatcher.StartWatching">
+            <summary>
+            启动监视
+            </summary>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEExtensionException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.XFEFileWatcher.StopWatching">
+            <summary>
+            停止监视
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.XFEFileWatcher.ContinueWatching">
+            <summary>
+            继续监视
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.XFEFileWatcher.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.XFEFileWatcher.#ctor">
+            <summary>
+            XFE文件监视器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FileExtension.XFEFileWatcher.#ctor(System.String,System.Boolean)">
+            <summary>
+            XFE文件监视器
+            </summary>
+            <param name="path">路径</param>
+            <param name="watchSubdirectories">是否遍历监视所有子文件/文件夹</param>
+        </member>
+        <member name="T:XFE各类拓展.ListExtension.ListExtension">
+            <summary>
+            列表的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.ListExtension.ListExtension.ToXFEString``1(System.Collections.Generic.List{``0})">
+            <summary>
+            将List列表转换为XFE格式字符串
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ListExtension.ListExtension.ToXFEString``1(System.Collections.Generic.List{``0},System.String)">
+            <summary>
+            将List列表转换为XFE格式字符串
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="propertyName">属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ListExtension.ListExtension.ToXFEList``1(System.String)">
+            <summary>
+            将XFE格式字符串转换为List列表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="str"></param>
+            <returns>T类型的List列表</returns>
+        </member>
+        <member name="T:XFE各类拓展.MailExtension.MailExtension">
+            <summary>
+            XFE邮件的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.MailExtension.MailExtension.SendEmail(System.String,System.String,System.String,System.String)">
+            <summary>
+            发送邮件
+            </summary>
+            <param name="Content">内容</param>
+            <param name="Password">密码</param>
+            <param name="SubTitle">标题</param>
+            <param name="To">目标邮箱地址</param>
+            <exception cref="T:XFE各类拓展.XFEMailException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.MailExtension.MailExtension.SendEmail(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            发送邮件
+            </summary>
+            <param name="Password">密码</param>
+            <param name="Name">名称</param>
+            <param name="SubTitle">标题</param>
+            <param name="Content">内容</param>
+            <param name="To">目标邮箱地址</param>
+            <exception cref="T:XFE各类拓展.XFEMailException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.MailExtension.XFEMail">
+            <summary>
+            XFE邮件
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.MailExtension.XFEMail.SenderName">
+            <summary>
+            发送者名称
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.MailExtension.XFEMail.ToAddress">
+            <summary>
+            对方邮箱地址
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.MailExtension.XFEMail.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.MailExtension.XFEMail.SendEmail(System.String,System.String)">
+            <summary>
+            发送邮件
+            </summary>
+            <param name="SubTitle">标题</param>
+            <param name="Content">内容</param>
+            <exception cref="T:XFE各类拓展.XFEMailException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.MailExtension.XFEMail.#ctor(System.String,System.String,System.String)">
+            <summary>
+            XFE邮件系统
+            </summary>
+            <param name="senderName">名称</param>
+            <param name="toAddress">目标地址</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:XFE各类拓展.MailExtension.XFEMail.#ctor(System.String)">
+            <summary>
+            XFE邮件系统
+            </summary>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:XFE各类拓展.MailExtension.XFEMail.#ctor">
+            <summary>
+            XFE邮件系统
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.ObjectExtension.ObjectExtension">
+            <summary>
+            所有类的基类的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.ObjectExtension.ObjectExtension.ActiveCopyOf``1(``0)">
+            <summary>
+            进行浅拷贝
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+            <returns>浅拷贝后的对象</returns>
+            <exception cref="T:System.ArgumentNullException">无类型错误</exception>
+        </member>
+        <member name="M:XFE各类拓展.ObjectExtension.ObjectExtension.StaticCopyOf``1(``0)">
+            <summary>
+            进行静态拷贝
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+            <returns>静态拷贝后的对象</returns>
+        </member>
+        <member name="M:XFE各类拓展.ObjectExtension.ObjectExtension.AboutEqual``1(``0,``0)">
+            <summary>
+            比较两个对象的属性是否完全相同而非对象本身相同
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj1"></param>
+            <param name="obj2"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.FormatExtension.XFEEntry">
+            <summary>
+            XFE条目
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEEntry.Header">
+            <summary>
+            头
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEEntry.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEEntry.ToString">
+            <summary>
+            转换为字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEEntry.ToEntry(System.String)">
+            <summary>
+            将字符串转化为条目对象
+            </summary>
+            <param name="EntryString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEEntry.#ctor(System.String,System.String)">
+            <summary>
+            XFE条目
+            </summary>
+            <param name="Header">头</param>
+            <param name="Content">内容</param>
+        </member>
+        <member name="T:XFE各类拓展.FormatExtension.XFEDictionary">
+            <summary>
+            XFE唯一字典存储
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEDictionary.Count">
+            <summary>
+            字典中的条目数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEDictionary.IsReadOnly">
+            <summary>
+            只读
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Load(System.String)">
+            <summary>
+            从字符串中加载字典
+            </summary>
+            <param name="DictionaryString"></param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Add(XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            追加条目
+            </summary>
+            <param name="entry">条目对象</param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Add(System.String)">
+            <summary>
+            追加条目
+            </summary>
+            <param name="EntryString">条目字符串</param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Add(System.String,System.String)">
+            <summary>
+            追加条目
+            </summary>
+            <param name="Header">头</param>
+            <param name="Content">内容</param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.AddRange(System.Collections.Generic.List{XFE各类拓展.FormatExtension.XFEEntry})">
+            <summary>
+            追加字典
+            </summary>
+            <param name="collection">字典对象</param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.AddRange(System.String)">
+            <summary>
+            追加字典
+            </summary>
+            <param name="DictionaryString">字典字符串</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Insert(System.Int32,XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            插入条目
+            </summary>
+            <param name="index">插入位置</param>
+            <param name="entry">条目</param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Insert(System.Int32,System.String)">
+            <summary>
+            插入条目
+            </summary>
+            <param name="index">插入位置</param>
+            <param name="EntryString">条目</param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Insert(System.Int32,System.String,System.String)">
+            <summary>
+            插入条目
+            </summary>
+            <param name="index">插入位置</param>
+            <param name="Header">头</param>
+            <param name="Content">内容</param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Clear">
+            <summary>
+            清空字典
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Contains(XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            检测是否包含
+            </summary>
+            <param name="item">条目对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Contains(System.String)">
+            <summary>
+            检测是否包含头
+            </summary>
+            <param name="HeaderString">指定头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.ContainContent(System.String)">
+            <summary>
+            检测是否包含内容
+            </summary>
+            <param name="ContentString">指定内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.CopyTo(XFE各类拓展.FormatExtension.XFEEntry[],System.Int32)">
+            <summary>
+            复制
+            </summary>
+            <param name="array">条目数组</param>
+            <param name="arrayIndex">索引</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.GetEnumerator">
+            <summary>
+            获取索引器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Remove(XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            移除指定的条目
+            </summary>
+            <param name="item">条目对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.Remove(System.String)">
+            <summary>
+            移除指定的条目
+            </summary>
+            <param name="HeaderString">头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+            移除指定范围的数组
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="count">移除长度</param>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEDictionary.Item(System.String)">
+            <summary>
+            索引器
+            </summary>
+            <param name="HeaderString">头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.ToString">
+            <summary>
+            转换为字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.ToList(System.String)">
+            <summary>
+            将字符串转换为XFEEntry的List
+            </summary>
+            <param name="DictionaryString">字符串</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.ToDictionary(System.String)">
+            <summary>
+            将字符串转换为XFEDictionary
+            </summary>
+            <param name="DictionaryString">字符串</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.#ctor(System.Collections.Generic.List{XFE各类拓展.FormatExtension.XFEEntry})">
+            <summary>
+            XFE字典存储
+            </summary>
+            <param name="xFEDictionaryList">条目列表</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.#ctor(System.String[])">
+            <summary>
+            XFE字典存储
+            </summary>
+            <param name="HeaderAndContentStrings"></param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.#ctor(System.String)">
+            <summary>
+            XFE字典存储
+            </summary>
+            <param name="DictionaryString">字典字符串</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEDictionary.#ctor">
+            <summary>
+            XFE字典存储
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.FormatExtension.XFEMultiDictionary">
+            <summary>
+            XFE可重复字典存储
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEMultiDictionary.Count">
+            <summary>
+            字典中的条目数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEMultiDictionary.IsReadOnly">
+            <summary>
+            只读
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Load(System.String)">
+            <summary>
+            从字符串中加载字典
+            </summary>
+            <param name="DictionaryString"></param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Add(XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            追加条目
+            </summary>
+            <param name="entry">条目对象</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Add(System.String)">
+            <summary>
+            追加条目
+            </summary>
+            <param name="EntryString">条目字符串</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Add(System.String,System.String)">
+            <summary>
+            追加条目
+            </summary>
+            <param name="Header">头</param>
+            <param name="Content">内容</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.AddRange(System.Collections.Generic.List{XFE各类拓展.FormatExtension.XFEEntry})">
+            <summary>
+            追加字典
+            </summary>
+            <param name="collection">字典对象</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.AddRange(System.String)">
+            <summary>
+            追加字典
+            </summary>
+            <param name="DictionaryString">字典字符串</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Insert(System.Int32,XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            插入条目
+            </summary>
+            <param name="index">插入位置</param>
+            <param name="entry">条目</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Insert(System.Int32,System.String)">
+            <summary>
+            插入条目
+            </summary>
+            <param name="index">插入位置</param>
+            <param name="EntryString">条目</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Insert(System.Int32,System.String,System.String)">
+            <summary>
+            插入条目
+            </summary>
+            <param name="index">插入位置</param>
+            <param name="Header">头</param>
+            <param name="Content">内容</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Clear">
+            <summary>
+            清空字典
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Contains(XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            检测是否包含
+            </summary>
+            <param name="item">条目对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Contains(System.String)">
+            <summary>
+            检测是否包含头
+            </summary>
+            <param name="HeaderString">指定头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.ContainContent(System.String)">
+            <summary>
+            检测是否包含内容
+            </summary>
+            <param name="ContentString">指定内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.CopyTo(XFE各类拓展.FormatExtension.XFEEntry[],System.Int32)">
+            <summary>
+            复制
+            </summary>
+            <param name="array">条目数组</param>
+            <param name="arrayIndex">索引</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.GetContents(System.String)">
+            <summary>
+            获取内容
+            </summary>
+            <param name="header">头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.GetEnumerator">
+            <summary>
+            获取索引器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Remove(XFE各类拓展.FormatExtension.XFEEntry)">
+            <summary>
+            移除指定的条目
+            </summary>
+            <param name="item">条目对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.Remove(System.String)">
+            <summary>
+            移除指定的条目
+            </summary>
+            <param name="HeaderString">头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+            移除指定范围的数组
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="count">移除长度</param>
+        </member>
+        <member name="P:XFE各类拓展.FormatExtension.XFEMultiDictionary.Item(System.String)">
+            <summary>
+            索引器
+            </summary>
+            <param name="HeaderString">头</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.ToString">
+            <summary>
+            转换为字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.ToList(System.String)">
+            <summary>
+            将字符串转换为XFEEntry的List
+            </summary>
+            <param name="DictionaryString">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.ToMultiDictionary(System.String)">
+            <summary>
+            将字符串转换为XFEMultiDictionary
+            </summary>
+            <param name="DictionaryString">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.#ctor(System.Collections.Generic.List{XFE各类拓展.FormatExtension.XFEEntry})">
+            <summary>
+            XFE字典存储
+            </summary>
+            <param name="xFEDictionaryList">条目列表</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.#ctor(System.String[])">
+            <summary>
+            XFE字典存储
+            </summary>
+            <param name="HeaderAndContentStrings"></param>
+            <exception cref="T:XFE各类拓展.XFEDictionaryException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.#ctor(System.String)">
+            <summary>
+            XFE字典存储
+            </summary>
+            <param name="DictionaryString">字典字符串</param>
+        </member>
+        <member name="M:XFE各类拓展.FormatExtension.XFEMultiDictionary.#ctor">
+            <summary>
+            XFE字典存储
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.ReflectionExtension.ReflectionExtension">
+            <summary>
+            反射拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.GetDefaultParameters(System.Reflection.MethodInfo)">
+            <summary>
+            获取方法默认参数
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.GetPrivateField``1(System.Object,System.String)">
+            <summary>
+            获取某个类中的某个私有字段的值
+            </summary>
+            <typeparam name="T">类</typeparam>
+            <param name="obj"></param>
+            <param name="fieldName">字段名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.SetPrivateField(System.Object,System.String,System.Object)">
+            <summary>
+            设置某个类中的某个私有字段的值
+            </summary>
+            <param name="obj"></param>
+            <param name="fieldName">字段名称</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.GetPrivateProperty``1(System.Object,System.String)">
+            <summary>
+            获取某个类中的某个私有属性的值
+            </summary>
+            <typeparam name="T">类</typeparam>
+            <param name="obj"></param>
+            <param name="propertyName">属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.SetPrivateProperty(System.Object,System.String,System.Object)">
+            <summary>
+            设置某个类中的某个私有属性的值
+            </summary>
+            <param name="obj"></param>
+            <param name="propertyName">属性名称</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.GetPrivateStaticField``1(System.Type,System.String)">
+            <summary>
+            获取某个类中的某个私有静态字段的值
+            </summary>
+            <typeparam name="T">类</typeparam>
+            <param name="type"></param>
+            <param name="fieldName">字段名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.SetPrivateStaticField(System.Type,System.String,System.Object)">
+            <summary>
+            设置某个类中的某个私有静态字段的值
+            </summary>
+            <param name="type"></param>
+            <param name="fieldName">字段名称</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.GetPrivateStaticProperty``1(System.Type,System.String)">
+            <summary>
+            获取某个类中的某个私有静态属性的值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="type"></param>
+            <param name="propertyName">属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.SetPrivateStaticProperty(System.Type,System.String,System.Object)">
+            <summary>
+            设置某个类中的某个私有静态属性的值
+            </summary>
+            <param name="type"></param>
+            <param name="propertyName">属性名称</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.InvokePrivateMethod``1(System.Object,System.String,System.Object[])">
+            <summary>
+            调用某个类中的某个私有方法
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="methodName">方法名称</param>
+            <param name="parameters">传入的参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.InvokePrivateMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            调用某个类中的某个私有方法
+            </summary>
+            <param name="obj"></param>
+            <param name="methodName">方法名称</param>
+            <param name="parameters">传入参数</param>
+        </member>
+        <member name="M:XFE各类拓展.ReflectionExtension.ReflectionExtension.InvokePrivateStaticMethod``1(System.Type,System.String,System.Object[])">
+            <summary>
+            调用某个类中的某个私有静态方法
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="type"></param>
+            <param name="methodName">方法名称</param>
+            <param name="parameters">传入参数</param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.XFPManager.XFManager">
+            <summary>
+            XFE字段属性管理器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFPManager.XFManager.Item(System.String)">
+            <summary>
+            通过索引器获取属性或字段
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFManager.X``1(System.String)">
+            <summary>
+            通过名称获取给定类型的字段或属性
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFManager.E(System.String,System.Object)">
+            <summary>
+            通过名称设置给定类型的字段或属性
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFManager.#ctor">
+            <summary>
+            XFE字段属性管理器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFManager.#ctor(System.Boolean,System.Object[])">
+            <summary>
+            XFE字段属性管理器
+            </summary>
+            <param name="nameAndValue">属性/字段名称和其值</param>
+            <param name="IsProperty">是否为属性</param>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFManager.#ctor(System.Object[])">
+            <summary>
+            XFE字段属性管理器
+            </summary>
+            <param name="nameAndValue">字段名称和其值</param>
+        </member>
+        <member name="T:XFE各类拓展.XFPManager.XFPManager">
+            <summary>
+            XFE属性管理器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFPManager.XFPManager.Item(System.String)">
+            <summary>
+            通过索引器获取属性
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFPManager.X``1(System.String)">
+            <summary>
+            通过名称获取给定类型的属性
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <returns>属性值</returns>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFPManager.E(System.String,System.Object)">
+            <summary>
+            通过名称设置给定类型的属性
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFPManager.#ctor">
+            <summary>
+            XFE属性管理器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFPManager.#ctor(System.Object[])">
+            <summary>
+            XFE属性管理器
+            </summary>
+            <param name="nameAndValue">属性名称和其值</param>
+        </member>
+        <member name="T:XFE各类拓展.XFPManager.XFFManager">
+            <summary>
+            XFE字段管理器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFPManager.XFFManager.Item(System.String)">
+            <summary>
+            通过索引器获取字段
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFFManager.X``1(System.String)">
+            <summary>
+            通过名称获取给定类型的字段
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <returns>字段值</returns>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFFManager.E(System.String,System.Object)">
+            <summary>
+            通过名称设置给定类型的字段
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFFManager.#ctor">
+            <summary>
+            XFE字段管理器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFPManager.XFFManager.#ctor(System.Object[])">
+            <summary>
+            XFE字段管理器
+            </summary>
+            <param name="nameAndValue">字段名称和其值</param>
+        </member>
+        <member name="T:XFE各类拓展.StringExtension.Json.JsonStringExtension">
+            <summary>
+            对string类进行Json操作的扩展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.Json.JsonStringExtension.GetStringBetweenTwoString(System.String,System.String,System.String)">
+            <summary>
+            根据给定的开头和末尾返回查找到的第一个匹配的字符串（全匹配）
+            </summary>
+            <param name="str">被匹配的字符串</param>
+            <param name="beginString">匹配开头字符串</param>
+            <param name="endString">匹配结尾字符串</param>
+            <returns>返回夹在开头和末尾中间的字符串</returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.Json.JsonStringExtension.GetTextByForm(System.String,System.String)">
+            <summary>
+            通过给定的文本格式查找对应的字段
+            </summary>
+            <param name="str">待匹配文本</param>
+            <param name="form">查找的文本格式</param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.StringExtension.StringExtension">
+            <summary>
+            字符串拓展类
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsTelePhone(System.String)">
+            <summary>
+            判断字符串是否为座机号码
+            </summary>
+            <param name="str_telephone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsMobPhoneNumber(System.String)">
+            <summary>
+            判断字符串是否为手机号码
+            </summary>
+            <param name="str_handset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsPostalCode(System.String)">
+            <summary>
+            判断字符串是否为邮政编码
+            </summary>
+            <param name="postalCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsNumber(System.String)">
+            <summary>
+            判断字符串是否为数字
+            </summary>
+            <param name="str_number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsIdCard(System.String)">
+            <summary>
+            判断字符串是否为身份证件号
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsValidEmail(System.String)">
+            <summary>
+            判断字符串是否为邮箱地址
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsURL(System.String)">
+            <summary>
+            验证是否是URL链接
+            </summary>
+            <param name="str">指定字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.IsMatch(System.String,System.String)">
+            <summary>
+            判断一个字符串，是否匹配指定的表达式(区分大小写的情况下)
+            </summary>
+            <param name="expression">正则表达式</param>
+            <param name="str">要匹配的字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.GetUrl(System.String)">
+            <summary>
+            提取字符串中的URL链接
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.ReplaceStrings(System.String,System.String[],System.String)">
+            <summary>
+            替换字符串中的多个字符串为指定字符串
+            </summary>
+            <param name="str"></param>
+            <param name="replaceStringArray">替换的字符串组</param>
+            <param name="tarString">目的字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.MatchStringsBetween(System.String,System.String,System.String)">
+            <summary>
+            匹配两个字符串之间的字符串
+            </summary>
+            <param name="input"></param>
+            <param name="startString">起始字符串</param>
+            <param name="endString">结束字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.WrapText(System.String,System.Int32)">
+            <summary>
+            文本自动换行
+            </summary>
+            <param name="text"></param>
+            <param name="width">一行文本的最大长度</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.WriteLineToConsole(System.Object)">
+            <summary>
+            输出到控制台并返回
+            </summary>
+            <param name="obj"></param>
+            <returns>ToString后的内容</returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.CW(System.Object)">
+            <summary>
+            输出到控制台
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.DisplayLength(System.String)">
+            <summary>
+            字符串实际显示的长度
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.GenerateRandomString(System.Int32)">
+            <summary>
+            随机生成指定长度的字符串
+            </summary>
+            <param name="length">字符串的长度</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.GenerateRandomString(System.Int32,System.String)">
+            <summary>
+            随机生成指定长度指定字符串组合的字符串
+            </summary>
+            <param name="length">字符串的长度</param>
+            <param name="allowedChars">允许的字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.SplitAndKeepDelimiter(System.String,System.String[],System.Boolean)">
+            <summary>
+            返回包含分割器的字符串
+            </summary>
+            <param name="str"></param>
+            <param name="delimiter">分割器组</param>
+            <param name="removeEmptyString">是否移除空字符串</param>
+            <returns>分割后的带分割器字符串数组</returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.SplitAndKeepDelimiter(System.String,System.String,System.Boolean)">
+            <summary>
+            返回包含分割器的字符串
+            </summary>
+            <param name="str"></param>
+            <param name="delimiter">分割器</param>
+            <param name="removeEmptyString">是否移除空字符串</param>
+            <returns>分割后的带分割器字符串数组</returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.SplitAndKeepDelimiter(System.String,System.String)">
+            <summary>
+            返回包含分割器的字符串
+            </summary>
+            <param name="str"></param>
+            <param name="delimiter">分割器</param>
+            <returns>分割后的带分割器字符串数组</returns>
+        </member>
+        <member name="M:XFE各类拓展.StringExtension.StringExtension.SplitAndKeepDelimiter(System.String,System.String[])">
+            <summary>
+            返回包含分割器的字符串
+            </summary>
+            <param name="str"></param>
+            <param name="delimiter">分割器组</param>
+            <returns>分割后的带分割器字符串数组</returns>
+        </member>
+        <member name="T:XFE各类拓展.TaskExtension.TaskExtension">
+            <summary>
+            任务的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskExtension.StartNewTask(System.Action)">
+            <summary>
+            新建一个任务并开始
+            </summary>
+            <param name="action"></param>
+            <returns>运行的任务</returns>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskExtension.StartNewTask``1(System.Action{``0},``0)">
+            <summary>
+            新建一个任务并开始
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="action"></param>
+            <param name="t">对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskExtension.StartNewTask``1(System.Func{``0})">
+            <summary>
+            新建一个任务并开始
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskExtension.WaitAndGetResult``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            等待任务完成
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskExtension.CTime(System.Action,System.Boolean,System.String)">
+            <summary>
+            计算一段代码执行所需时间
+            </summary>
+            <param name="action"></param>
+            <param name="autoOutPut">自动输出</param>
+            <param name="timerName">该次计时标识名</param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.TaskExtension.EndTaskTrigger`1">
+            <summary>
+            传入值并终止等待器
+            </summary>
+            <typeparam name="T">泛型</typeparam>
+            <param name="taskId">任务ID</param>
+            <param name="result">目标等待器返回值</param>
+        </member>
+        <member name="T:XFE各类拓展.TaskExtension.XFEWaitTask`1">
+            <summary>
+            XFE等待器
+            </summary>
+            <typeparam name="T">泛型</typeparam>
+        </member>
+        <member name="P:XFE各类拓展.TaskExtension.XFEWaitTask`1.TaskId">
+            <summary>
+            任务ID
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.XFEWaitTask`1.EndTask(`0,System.String)">
+            <summary>
+            结束任务并返回
+            </summary>
+            <param name="result">返回结果</param>
+            <param name="taskId">任务ID</param>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.XFEWaitTask`1.GetAwaiter">
+            <summary>
+            获取等待器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.XFEWaitTask`1.#ctor(XFE各类拓展.TaskExtension.EndTaskTrigger{`0}@,System.String)">
+            <summary>
+            XFE等待器
+            </summary>
+            <param name="endTaskAndReturn">触发任务结束事件</param>
+            <param name="taskId">任务ID</param>
+        </member>
+        <member name="T:XFE各类拓展.TaskExtension.TaskSynchronizer">
+            <summary>
+            任务同步器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TaskExtension.TaskSynchronizer.CurrentTask">
+            <summary>
+            当前任务
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskSynchronizer.GetAwaiter">
+            <summary>
+            返回当前任务的等待器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskSynchronizer.AddTask(System.Threading.Tasks.Task)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="task">待执行任务</param>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskSynchronizer.#ctor">
+            <summary>
+            任务同步器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.TaskExtension.TaskSynchronizer.#ctor(System.Threading.Tasks.Task)">
+            <summary>
+            任务同步器
+            </summary>
+            <param name="task">第一个待执行任务</param>
+        </member>
+        <member name="T:XFE各类拓展.ThreadExtension.ThreadExtension">
+            <summary>
+            线程的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.WaitThreadListComplete(System.Collections.Generic.List{System.Threading.Thread})">
+            <summary>
+            等待指定线程组的所有线程完成
+            </summary>
+            <param name="threads"></param>
+            <returns>等待任务</returns>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.WaitThreadListComplete(System.Collections.Generic.List{System.Threading.Thread},System.Threading.ThreadState)">
+            <summary>
+            等待指定线程组的所有线程达到指定状态
+            </summary>
+            <param name="threads"></param>
+            <param name="threadState">线程的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.WaitThreadComplete(System.Threading.Thread)">
+            <summary>
+            等待指定线程完成
+            </summary>
+            <param name="thread"></param>
+            <returns>等待任务</returns>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.WaitThreadComplete(System.Threading.Thread,System.Threading.ThreadState)">
+            <summary>
+            等待指定线程达到指定状态
+            </summary>
+            <param name="thread"></param>
+            <param name="threadState">线程的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.StartNewThread(System.Threading.ParameterizedThreadStart,System.Object)">
+            <summary>
+            新建一个线程并开始
+            </summary>
+            <param name="method">线程方法</param>
+            <param name="parameter">传递的参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.StartNewThread(System.Threading.ThreadStart)">
+            <summary>
+            新建一个线程并开始
+            </summary>
+            <param name="method">线程方法</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.StartNewThread(System.Threading.ParameterizedThreadStart,System.Object,System.Threading.ApartmentState)">
+            <summary>
+            新建一个线程并开始
+            </summary>
+            <param name="method">线程方法</param>
+            <param name="parameter">传递的参数</param>
+            <param name="apartmentState">线程的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.ThreadExtension.ThreadExtension.StartNewThread(System.Threading.ThreadStart,System.Threading.ApartmentState)">
+            <summary>
+            新建一个线程并开始
+            </summary>
+            <param name="method">线程方法</param>
+            <param name="apartmentState">线程的状态</param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.WebExtension.WebExtension">
+            <summary>
+            网络拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.WebExtension.WebExtension.GetFromURLAsync(System.String)">
+            <summary>
+            从URL获取字符串内容
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.WebExtension.WebExtension.GetFromURL(System.String)">
+            <summary>
+            从URL获取字符串内容
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.WebExtension.WebExtension.PostToURLAsync(System.String,System.String)">
+            <summary>
+            从URL获取字符串内容
+            </summary>
+            <param name="url"></param>
+            <param name="content">POST的内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.WebExtension.WebExtension.PostToURL(System.String,System.String)">
+            <summary>
+            从URL获取字符串内容
+            </summary>
+            <param name="url"></param>
+            <param name="content">POST的内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.WebExtension.WebExtension.PostToURLAsync(System.String,System.String,System.String)">
+            <summary>
+            从URL获取字符串内容
+            </summary>
+            <param name="url"></param>
+            <param name="content">POST的内容</param>
+            <param name="contentType">POST的类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.WebExtension.WebExtension.PostToURL(System.String,System.String,System.String)">
+            <summary>
+            从URL获取字符串内容
+            </summary>
+            <param name="url"></param>
+            <param name="content">POST的内容</param>
+            <param name="contentType">POST的类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.XEAEncryption.XEAEncryption">
+            <summary>
+            XEA加密算法
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XEAEncryption.XEAEncryption.XEAEncrypt(System.String,System.String)">
+            <summary>
+            进行XEA加密
+            </summary>
+            <param name="waitEncryptString">待加密文本</param>
+            <param name="secretKey">加密秘钥</param>
+            <returns>加密文本</returns>
+        </member>
+        <member name="M:XFE各类拓展.XEAEncryption.XEAEncryption.XEADecrypt(System.String,System.String)">
+            <summary>
+            进行XEA解密
+            </summary>
+            <param name="encryptedString">加密文本</param>
+            <param name="secretKey">解密秘钥</param>
+            <returns>解密文本</returns>
+        </member>
+        <member name="T:XFE各类拓展.XEAEncryption.XEAEncryptionExtension">
+            <summary>
+            XEA加密算法的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XEAEncryption.XEAEncryptionExtension.XEAEncrypt(System.String,System.String)">
+            <summary>
+            进行XEA加密
+            </summary>
+            <param name="waitEncryptString">待加密文本</param>
+            <param name="secretKey">加密秘钥</param>
+            <returns>加密文本</returns>
+        </member>
+        <member name="M:XFE各类拓展.XEAEncryption.XEAEncryptionExtension.XEADecrypt(System.String,System.String)">
+            <summary>
+            进行XEA解密
+            </summary>
+            <param name="encryptedString">加密文本</param>
+            <param name="key">解密秘钥</param>
+            <returns>解密文本</returns>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.ApiKeyCommand">
+            <summary>
+            APIKey命令
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ApiKeyCommand.GetApiKey">
+            <summary>
+            获取APIKey列表
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ApiKeyCommand.SetApiKey">
+            <summary>
+            设置APIKey列表
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEComProtocol">
+            <summary>
+            XFE通讯协议
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.XFEComProtocol.XFEFAST">
+            <summary>
+            响应速度快速，不安全的通讯协议
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.XFEComProtocol.XFEHARD">
+            <summary>
+            响应速度适中，安全的通讯协议
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.GenerateState">
+            <summary>
+            文本生成状态
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.GenerateState.Start">
+            <summary>
+            表示生成已经开始
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.GenerateState.Continue">
+            <summary>
+            表示生成正在进行中
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.GenerateState.End">
+            <summary>
+            表示生成已经结束
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.GenerateState.Error">
+            <summary>
+            表示生成出错
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.ChatGPTModel">
+            <summary>
+            ChatGPT的模型
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt4">
+            <summary>
+            比任何 GPT-3.5 型号都更强大，能够执行更复杂的任务，并针对聊天进行了优化。将在发布 2 周后使用我们最新的模型迭代进行更新。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt4turbo">
+            <summary>
+            最新的GPT-4模型，具有改进的指令跟随、JSON模式、可复制输出、并行函数调用等功能。最多返回4096个输出标记。此预览模型还不适合生产流量。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt4turbovision">
+            <summary>
+            能够理解图像，以及所有其他GPT-4 Turbo功能。最多返回4096个输出标记。这是一个预览模型版本，还不适合生产流量。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt40613">
+            <summary>
+            13 年 2023 月 3 日带有函数调用数据的快照。与gpt-4不同，此模型不会收到更新，并将在新版本发布3个月后弃用。基于gpt-4
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt432k">
+            <summary>
+            功能与gpt4基本模型相同，但上下文长度是其 4 倍。将使用最新的模型迭代进行更新。基于gpt-4
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt432k0613">
+            <summary>
+            13 年 2023 月 3 日的快照。与GPT-4-32K不同，此模型不会收到更新，并将在新版本发布 3 个月后弃用。基于gpt-4-32k
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt3point5turbo">
+            <summary>
+            功能最强大的 GPT-3.5 型号，针对聊天进行了优化，成本仅为 .将在发布 1 周后使用最新的模型迭代进行更新。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt3point5turbo16k">
+            <summary>
+            功能与标准模型相同，但上下文是其 4 倍。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt3point5turbo0613">
+            <summary>
+            13 年 2023 月 3 日的快照。与GPT-3.5-16K不同，此模型不会收到更新，并将在新版本发布 3 个月后弃用。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.gpt3point5turbo16k0613">
+            <summary>
+            13 年 2023 月 3 日的快照。与GPT-3.5-turbo-16k不同，此模型不会收到更新，并将在新版本发布 3 个月后弃用。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.textdavinci003">
+            <summary>
+            可以完成任何语言任务，质量更好，输出时间更长，并且遵循一致的指令，而不是居里，巴贝奇或ADA模型。还支持一些附加功能，例如插入文本。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.textdavinci002">
+            <summary>
+            与监督微调而不是强化学习类似的能力，但经过训练。
+            </summary>
+        </member>
+        <member name="F:XFE各类拓展.XFEChatGPT.ChatGPTModel.codedavinci002">
+            <summary>
+            针对代码完成任务进行优化的模型
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.ChatGPTModelExtension">
+            <summary>
+            ChatGPT模型的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.ChatGPTModelExtension.GetModelString(XFE各类拓展.XFEChatGPT.ChatGPTModel)">
+            <summary>
+            获取模型的字符串
+            </summary>
+            <param name="chatGPTModel"></param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException">意料之外的模型</exception>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.ChatGPTModelExtension.GetModel(System.String)">
+            <summary>
+            通过字符串获取模型
+            </summary>
+            <param name="chatGPTModel"></param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException">意料之外的模型</exception>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEChatGPTBase">
+            <summary>
+            XFEChatGPT的基类
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEChatGPT">
+            <summary>
+            基于gpt.api.xfegzs.com开放接口的ChatGPT问答类
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEChatGPT.SystemString">
+            <summary>
+            ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEChatGPT.AskContent">
+            <summary>
+            向ChatGPT提问的内容
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEChatGPT.GPTModel">
+            <summary>
+            ChatGPT的语言模型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEChatGPT.XFEComProtocol">
+            <summary>
+            XFE通信协议
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEChatGPT.IsSelfEditData">
+            <summary>
+            设置是否为自定义数据模式
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEChatGPT.StreamMode">
+            <summary>
+            流式输出（打字效果）还是一次性输出
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEChatGPT.EnvironmentGPTData">
+            <summary>
+            ChatGPT的环境数据
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.SendGPTMessage(System.String)">
+            <summary>
+            向ChatGPT发送消息
+            </summary>
+            <param name="messageId">提问的消息ID，用于标识回复</param>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException">远程服务器返回出错时抛出</exception>"
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.SendGPTMessage(System.String,System.String)">
+            <summary>
+            向ChatGPT发送指定消息
+            </summary>
+            <param name="messageId">提问的消息ID，用于标识回复</param>
+            <param name="askContent">提问的内容</param>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException">远程服务器返回出错时抛出</exception>"
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.SendAndGetGPTResponse(System.String)">
+            <summary>
+            发送消息并获取GPT回复
+            </summary>
+            <param name="message">待发送的消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.GPTAPIKeyCommand(System.String,XFE各类拓展.XFEChatGPT.ApiKeyCommand,System.String)">
+            <summary>
+            获取及更新APIKey秘钥
+            </summary>
+            <param name="password">APIKey服务器密码</param>
+            <param name="apiKeyCommand">APIKey指令</param>
+            <param name="commandString">待执行的指令</param>
+            <returns></returns>
+        </member>
+        <member name="E:XFE各类拓展.XFEChatGPT.XFEChatGPT.XFEChatGPTMessageReceived">
+            <summary>
+            当收到ChatGPT的消息时触发
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(XFE各类拓展.XFEChatGPT.EnvironmentGPTData)">
+            <summary>
+            从EnvironmentGPTData构造，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="EnvironmentGPTData">ChatGPT环境设置</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(XFE各类拓展.XFEChatGPT.EnvironmentGPTData,XFE各类拓展.XFEChatGPT.XFEComProtocol)">
+            <summary>
+            从EnvironmentGPTData构造，自定义通讯协议
+            </summary>
+            <param name="EnvironmentGPTData">ChatGPT环境设置</param>
+            <param name="comProtocol">通信协议</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.String)">
+            <summary>
+            使用系统和内容构造，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="askContent">向ChatGPT提问的内容</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            使用系统和内容构造，可设置流式输出（打字效果）还是一次性输出，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="askContent">向ChatGPT提问的内容</param>
+            <param name="stream">设置流式输出（打字效果）还是一次性输出</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String)">
+            <summary>
+            使用系统构造
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.Boolean)">
+            <summary>
+            使用系统构造，可设置流式输出（打字效果）还是一次性输出，自定义通讯协议
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="stream">设置流式输出（打字效果）还是一次性输出</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.Boolean,XFE各类拓展.XFEChatGPT.XFEComProtocol)">
+            <summary>
+            使用系统构造，可设置流式输出（打字效果）还是一次性输出，自定义通讯协议
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="stream">设置流式输出（打字效果）还是一次性输出</param>
+            <param name="comProtocol">通信协议</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.String,XFE各类拓展.XFEChatGPT.ChatGPTModel)">
+            <summary>
+            使用系统和内容构造，自定义模型，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="askContent">向ChatGPT提问的内容</param>
+            <param name="chatGPTModel">选用的GPT模型</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.String,System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel)">
+            <summary>
+            使用系统和内容构造，可设置流式输出（打字效果）还是一次性输出，自定义模型，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="askContent">向ChatGPT提问的内容</param>
+            <param name="stream">设置流式输出（打字效果）还是一次性输出</param>
+            <param name="chatGPTModel">选用的GPT模型</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,XFE各类拓展.XFEChatGPT.ChatGPTModel)">
+            <summary>
+            使用系统构造，自定义模型，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="chatGPTModel">选用的GPT模型</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel)">
+            <summary>
+            使用系统构造，可设置流式输出（打字效果）还是一次性输出，自定义模型，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="stream">设置流式输出（打字效果）还是一次性输出</param>
+            <param name="chatGPTModel">选用的GPT模型</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPT.#ctor(System.String,System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel,XFE各类拓展.XFEChatGPT.XFEComProtocol)">
+            <summary>
+            使用系统构造，可设置流式输出（打字效果）还是一次性输出，自定义模型，自定义通讯协议
+            </summary>
+            <param name="systemContent">ChatGPT的系统设置，即设置ChatGPT的背景故事（类比）</param>
+            <param name="stream">设置流式输出（打字效果）还是一次性输出</param>
+            <param name="chatGPTModel">选用的GPT模型</param>
+            <param name="comProtocol">通信协议</param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT">
+            <summary>
+            基于gpt.api.xfegzs.com开放接口的ChatGPT问答类（记忆模式）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.MemoryDialog">
+            <summary>
+            获取或设置对话记录
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.CreateDialog(System.String,System.String)">
+            <summary>
+            创建一个新的对话，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <param name="system">系统消息</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.CreateDialog(System.String,System.String,System.Boolean)">
+            <summary>
+            创建一个新的对话，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <param name="system">系统消息</param>
+            <param name="hasMemory">是否记录对话信息</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.CreateDialog(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            创建一个新的对话，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <param name="system">系统消息</param>
+            <param name="hasMemory">是否记录对话信息</param>
+            <param name="streamMode">是否为流式输出</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.CreateDialog(System.String,System.String,System.Boolean,System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel)">
+            <summary>
+            创建一个新的对话，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <param name="system">系统消息</param>
+            <param name="hasMemory">是否记录对话信息</param>
+            <param name="streamMode">是否为流式输出</param>
+            <param name="chatGPTModel">所用的ChatGPT模型</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.CreateDialog(System.String,System.String,System.Boolean,System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel,System.Double)">
+            <summary>
+            创建一个新的对话，使用默认通信协议（快速响应通讯协议）
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <param name="system">系统消息</param>
+            <param name="hasMemory">是否记录对话信息</param>
+            <param name="streamMode">是否为流式输出</param>
+            <param name="chatGPTModel">所用的ChatGPT模型</param>
+            <param name="temperature">系统的Temperature</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.CreateDialog(System.String,System.String,System.Boolean,System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel,XFE各类拓展.XFEChatGPT.XFEComProtocol)">
+            <summary>
+            创建一个新的对话，自定义通讯协议
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <param name="system">系统消息</param>
+            <param name="hasMemory">是否记录对话信息</param>
+            <param name="streamMode">是否为流式输出</param>
+            <param name="chatGPTModel">所用的ChatGPT模型</param>
+            <param name="comProtocol">通信协议</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.CreateDialog(System.String,System.String,System.Boolean,System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel,System.Double,XFE各类拓展.XFEChatGPT.XFEComProtocol)">
+            <summary>
+            创建一个新的对话，自定义通讯协议
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <param name="system">系统消息</param>
+            <param name="hasMemory">是否记录对话信息</param>
+            <param name="streamMode">是否为流式输出</param>
+            <param name="chatGPTModel">所用的ChatGPT模型</param>
+            <param name="temperature">系统的Temperature</param>
+            <param name="comProtocol">通信协议</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.InsertDialog(System.String,System.String,System.String)">
+            <summary>
+            插入对话
+            </summary>
+            <param name="dialogId">要插入的对话ID</param>
+            <param name="userMessage">用户对话内容</param>
+            <param name="assistantMessage">AI对话的内容</param>
+            <returns>插入的消息ID</returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.InsertDialog(System.String,System.String,System.String,System.String)">
+            <summary>
+            插入对话
+            </summary>
+            <param name="dialogId">要插入的对话ID</param>
+            <param name="messageId">插入的消息ID</param>
+            <param name="userMessage">用户对话内容</param>
+            <param name="assistantMessage">AI对话的内容</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.InsertDialog(System.String,System.String[0:,0:])">
+            <summary>
+            插入对话
+            </summary>
+            <param name="dialogId">要插入的对话ID</param>
+            <param name="dialogMessage">对话，以二维数组的形式</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.InsertDialog(System.String,System.String[])">
+            <summary>
+            插入对话
+            </summary>
+            <param name="dialogId">要插入的对话ID</param>
+            <param name="dialogMessage">对话</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.InsertDialog(System.String,System.String[],System.String[0:,0:])">
+            <summary>
+            插入对话
+            </summary>
+            <param name="dialogId">要插入的对话ID</param>
+            <param name="messageId">对话的消息ID，以数组的形式</param>
+            <param name="dialogMessage">对话，以二维数组的形式</param>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.InsertDialog(System.String,System.String[],System.String[])">
+            <summary>
+            插入对话
+            </summary>
+            <param name="dialogId">要插入的对话ID</param>
+            <param name="messageId">对话的消息ID，以数组的形式</param>
+            <param name="dialogMessage">对话，以一维数组的形式</param>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.InsertDialogAutoComplete(System.String,System.String[])">
+            <summary>
+            插入对话，自动补全对话
+            </summary>
+            <param name="dialogId">要插入的对话ID</param>
+            <param name="dialogMessage">对话</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.GetDialog(System.String)">
+            <summary>
+            获取对话
+            </summary>
+            <param name="dialogId">对话ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.GetDialogStrings(System.String)">
+            <summary>
+            以字符串数组的形式获取对话
+            </summary>
+            <param name="dialogId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.AskChatGPT(System.String,System.String,System.String)">
+            <summary>
+            开始对话
+            </summary>
+            <param name="dialogId">对话ID</param>
+            <param name="messageId">本消息ID</param>
+            <param name="askMessage">询问的内容</param>
+        </member>
+        <member name="E:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.XFEChatGPTMessageReceived">
+            <summary>
+            当收到ChatGPT的消息时触发
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableXFEChatGPT.#ctor">
+            <summary>
+            创建一个有记忆功能的XFEChatGPT对象
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEChatGPTExtension">
+            <summary>
+            XFEChatGPT的扩展方法
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEChatGPTExtension.CheckLegal(XFE各类拓展.XFEChatGPT.GPTMessage[])">
+            <summary>
+            检查是否合法（system在最前，接着是user，然后是Assistant，以此类推...，不能连着2个user或者Assistant）
+            </summary>
+            <returns>是否合法</returns>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage">
+            <summary>
+            接收到的GPT消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage.id">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage.Object">
+            <summary>
+            消息对象
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage.created">
+            <summary>
+            消息创建时间
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage.model">
+            <summary>
+            使用的GPT模型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage.usage">
+            <summary>
+            Token令牌的使用情况
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage.choices">
+            <summary>
+            GPT返回的具体数据（数组的形式）
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.ReceivedGPTMessage.#ctor(System.String,System.String,System.Int64,System.String,XFE各类拓展.XFEChatGPT.TokenUsage,XFE各类拓展.XFEChatGPT.MessageChoice[])">
+            <summary>
+            接收到的GPT消息
+            </summary>
+            <param name="id"></param>
+            <param name="object"></param>
+            <param name="created"></param>
+            <param name="model"></param>
+            <param name="usage"></param>
+            <param name="choices"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.MessageChoice">
+            <summary>
+            GPT消息链的组成单元
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.MessageChoice.delta">
+            <summary>
+            Delta消息（用于流式接收）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.MessageChoice.message">
+            <summary>
+            单个消息（用于单个接收）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.MessageChoice.finish_reason">
+            <summary>
+            结束原因
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.MessageChoice.index">
+            <summary>
+            消息索引
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MessageChoice.#ctor(XFE各类拓展.XFEChatGPT.GPTMessage,XFE各类拓展.XFEChatGPT.GPTMessage,System.String,System.Int32)">
+            <summary>
+            GPT消息链的组成单元
+            </summary>
+            <param name="delta"></param>
+            <param name="message"></param>
+            <param name="finish_reason"></param>
+            <param name="index"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MessageChoice.#ctor(XFE各类拓展.XFEChatGPT.GPTMessage,System.String,System.Int32)">
+            <summary>
+            GPT消息链的组成单元
+            </summary>
+            <param name="message">GPTMessage消息对象</param>
+            <param name="finish_reason">结束原因</param>
+            <param name="index">消息索引</param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.TokenUsage">
+            <summary>
+            Token令牌的使用情况
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.TokenUsage.prompt_tokens">
+            <summary>
+            用于提示的Token令牌
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.TokenUsage.completion_tokens">
+            <summary>
+            用于完成的Token令牌
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.TokenUsage.total_tokens">
+            <summary>
+            总共使用的Token令牌
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.TokenUsage.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Token令牌的使用情况
+            </summary>
+            <param name="prompt_tokens"></param>
+            <param name="completion_tokens"></param>
+            <param name="total_tokens"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.EnvironmentGPTData">
+            <summary>
+            GPT环境数据
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.EnvironmentGPTData.model">
+            <summary>
+            使用的GPT模型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.EnvironmentGPTData.stream">
+            <summary>
+            是否为流式接收
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.EnvironmentGPTData.temperature">
+            <summary>
+            温度，此处为GPT的创造性
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.EnvironmentGPTData.messages">
+            <summary>
+            发送给GPT的消息
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.EnvironmentGPTData.#ctor(System.String,System.Boolean,System.Double,XFE各类拓展.XFEChatGPT.GPTMessage[])">
+            <summary>
+            GPT环境数据
+            </summary>
+            <param name="model"></param>
+            <param name="stream"></param>
+            <param name="temperature"></param>
+            <param name="messages"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.GPTMessage">
+            <summary>
+            GPT消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.GPTMessage.Role">
+            <summary>
+            角色（目前已知有：System，User和Assistant）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.GPTMessage.Content">
+            <summary>
+            与角色对应的消息内容
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.GPTMessage.#ctor(System.String,System.String)">
+            <summary>
+            GPT消息
+            </summary>
+            <param name="role">角色</param>
+            <param name="content">内容</param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEGPTMessageReceivedEventArgs">
+            <summary>
+            从服务器接收到的GPT消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageReceivedEventArgs.message">
+            <summary>
+            消息内容
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageReceivedEventArgs.messageId">
+            <summary>
+            消息接收器ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageReceivedEventArgs.generateState">
+            <summary>
+            生成状态
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageReceivedEventArgs.#ctor(System.String,System.String,XFE各类拓展.XFEChatGPT.GenerateState)">
+            <summary>
+            从服务器接收到的GPT消息
+            </summary>
+            <param name="message"></param>
+            <param name="messageId"></param>
+            <param name="generateState"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.MemorableGPTMessageReceivedEventArgs">
+            <summary>
+            从服务器接收到的GPT消息（记忆模式）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.MemorableGPTMessageReceivedEventArgs.dialogId">
+            <summary>
+            对话ID
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.MemorableGPTMessageReceivedEventArgs.#ctor(System.String,System.String,XFE各类拓展.XFEChatGPT.GenerateState,System.String)">
+            <summary>
+            从服务器接收到的GPT消息（记忆模式）
+            </summary>
+            <param name="message"></param>
+            <param name="id"></param>
+            <param name="generateState"></param>
+            <param name="dialogId"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEGPTMessage">
+            <summary>
+            XFEGPT消息（具有消息ID）
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessage.messageId">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessage.gPTMessage">
+            <summary>
+            GPT消息
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessage.#ctor(System.String,XFE各类拓展.XFEChatGPT.GPTMessage)">
+            <summary>
+            XFEGPT消息（具有消息ID）
+            </summary>
+            <param name="messageId">消息ID</param>
+            <param name="gPTMessage">GPT消息</param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection">
+            <summary>
+            XFEGPT的对话
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.Count">
+            <summary>
+            消息数量
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.XFEComProtocol">
+            <summary>
+            XFE通讯协议
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.ChatGPTModel">
+            <summary>
+            使用的模型
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.StreamMode">
+            <summary>
+            是否为流式输出
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.MemorableMode">
+            <summary>
+            是否为记忆模式
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.System">
+            <summary>
+            对话的系统设置
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.Temperature">
+            <summary>
+            对话的Temperature
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.Add(XFE各类拓展.XFEChatGPT.XFEGPTMessage)">
+            <summary>
+            添加XFEGPT消息
+            </summary>
+            <param name="xFEGPTMessage"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.AddRange(XFE各类拓展.XFEChatGPT.XFEGPTMessage[])">
+            <summary>
+            添加XFEGPT消息
+            </summary>
+            <param name="xFEGPTMessages"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.RemoveAt(System.Int32)">
+            <summary>
+            根据指定的ID移除XFEGPT消息
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.Remove(XFE各类拓展.XFEChatGPT.XFEGPTMessage)">
+            <summary>
+            移除XFEGPT消息
+            </summary>
+            <param name="xFEGPTMessage"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.InsertByMessageId(System.String,XFE各类拓展.XFEChatGPT.XFEGPTMessage)">
+            <summary>
+            根据指定的ID在其后插入XFEGPT消息
+            </summary>
+            <param name="messageId"></param>
+            <param name="xFEGPTMessage"></param>
+            <exception cref="T:XFE各类拓展.XFEChatGPTException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.Clear">
+            <summary>
+            清除XFEGPT消息
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.GetXFEGPTMessageByMessageId(System.String)">
+            <summary>
+            通过消息ID获取XFEGPT消息
+            </summary>
+            <param name="messageId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.GetGPTMessages">
+            <summary>
+            获取本集合的GPTMessage数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.GetGPTMessageStrings">
+            <summary>
+            以字符串的形式获取本集合的GPTMessage数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.Item(System.Int32)">
+            <summary>
+            对本集合进行索引器操作
+            </summary>
+            <param name="index">索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.GetLastRole">
+            <summary>
+            获取最后一个角色
+            </summary>
+            <returns>最后一个角色</returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.GetEnumerator">
+            <summary>
+            获取迭代器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.#ctor(XFE各类拓展.XFEChatGPT.XFEGPTMessage[],System.Boolean,XFE各类拓展.XFEChatGPT.ChatGPTModel,XFE各类拓展.XFEChatGPT.XFEComProtocol,System.Boolean,System.Double)">
+            <summary>
+            XFEGPT的对话
+            </summary>
+            <param name="xFEGPTMessages"></param>
+            <param name="memorableMode"></param>
+            <param name="chatGPTModel"></param>
+            <param name="comProtocol"></param>
+            <param name="streamMode"></param>
+            <param name="temperature"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection.#ctor">
+            <summary>
+            XFEGPT的对话
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog">
+            <summary>
+            GPT对话记录
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.Item(System.String)">
+            <summary>
+            通过对话ID操作对话
+            </summary>
+            <param name="dialogId">对话的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.Add(System.String,XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection)">
+            <summary>
+            添加一个对话记录
+            </summary>
+            <param name="dialogId">对话ID</param>
+            <param name="xFEGPTMessages">XFEGPT的对话</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.AddRange(System.Collections.Generic.KeyValuePair{System.String,XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection}[])">
+            <summary>
+            添加多个对话记录
+            </summary>
+            <param name="messages">ID和XFEGPT的对话的键值对</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.Remove(System.String)">
+            <summary>
+            移除一个对话记录
+            </summary>
+            <param name="dialogId">对话ID</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.RemoveRange(System.String[])">
+            <summary>
+            移除多个对话记录
+            </summary>
+            <param name="ids">对话ID的数组</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.Clear">
+            <summary>
+            清空所有对话的对话记录
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.Update(System.String,XFE各类拓展.XFEChatGPT.XFEGPTMessageCollection)">
+            <summary>
+            更新指定对话ID的对话记录
+            </summary>
+            <param name="dialogId">对话ID</param>
+            <param name="messages">XFEGPT的对话</param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.InstanceUpdate(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            实时更新对话记录
+            </summary>
+            <param name="dialogId"></param>
+            <param name="messageId"></param>
+            <param name="nowMessage"></param>
+            <param name="clear"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.Contains(System.String)">
+            <summary>
+            判断是否包含某个对话
+            </summary>
+            <param name="dialogId">对话ID</param>
+            <returns>是否含有该对话</returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.GetXFEGPTMessages(System.String)">
+            <summary>
+            获取对话记录
+            </summary>
+            <param name="dialogId">对话ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.XFEGPTMemoryDialog.GetEnumerator">
+            <summary>
+            获取迭代器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPT.ApiKey">
+            <summary>
+            API密钥
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ApiKey.APIKey">
+            <summary>
+            APIKEY
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFEChatGPT.ApiKey.Description">
+            <summary>
+            APIKey的描述
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.ApiKey.ToString">
+            <summary>
+            转换为字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.ApiKey.ToApiKey(System.String)">
+            <summary>
+            将字符串转换为ApiKey的List
+            </summary>
+            <param name="keyString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPT.ApiKey.#ctor(System.String,System.String)">
+            <summary>
+            APIKey秘钥
+            </summary>
+            <param name="APIKey">秘钥</param>
+            <param name="Description">描述</param>
+        </member>
+        <member name="T:XFE各类拓展.XFEJsonTransform.XFEJsonTransformer">
+            <summary>
+            XFEJson转换器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEJsonTransform.XFEJsonTransformer.ConvertToJson(System.Object)">
+            <summary>
+            将对象转换为Json字符串
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEJsonTransformException">空对象异常</exception>
+        </member>
+        <member name="M:XFE各类拓展.XFEJsonTransform.XFEJsonTransformer.ConvertFromJson``1(System.String)">
+            <summary>
+            将Json字符串转换为对象
+            </summary>
+            <typeparam name="T">待转换的类型</typeparam>
+            <param name="jsonString"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.XFEExtensionException">
+            <summary>
+            XFE各类拓展的异常
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEExtensionException.#ctor(System.String)">
+            <summary>
+            XFE各类拓展的异常
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEExtensionException.#ctor(System.String,System.Exception)">
+            <summary>
+            XFE各类拓展的异常
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEJsonTransformException">
+            <summary>
+            XFEJson转换的异常
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEJsonTransformException.#ctor(System.String)">
+            <summary>
+            XFEJson转换的异常
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:XFE各类拓展.XFEJsonTransformException.#ctor(System.String,System.Exception)">
+            <summary>
+            XFEJson转换的异常
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEChatGPTException">
+            <summary>
+            XFEChatGPT的异常
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEChatGPTException.#ctor(System.String)">
+            <summary>
+            XFEChatGPT的异常
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFECyberCommException">
+            <summary>
+            XFE网络通信的异常
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFECyberCommException.#ctor(System.String)">
+            <summary>
+            XFE网络通信的异常
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEMailException">
+            <summary>
+            XFE邮件的异常
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFEDictionaryException">
+            <summary>
+            XFE字典的异常
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.XFECode">
+            <summary>
+            XFE各类拓展编写
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.Pause(System.Boolean)">
+            <summary>
+            暂停
+            </summary>
+            <param name="ShowText">是否显示提示</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.Pause(System.String)">
+            <summary>
+            暂停
+            </summary>
+            <param name="ShowText">显示的文字</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.Pause(System.ConsoleKey)">
+            <summary>
+            暂停，按下指定按键继续
+            </summary>
+            <param name="consoleKey">指定的按键</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.Pause(System.ConsoleKey,System.String)">
+            <summary>
+            暂停，按下指定按键继续
+            </summary>
+            <param name="consoleKey">指定的按键</param>
+            <param name="ShowText">显示的文字</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.Circle(System.Action,System.Int32,System.Boolean)">
+            <summary>
+            并行循环指定次数
+            </summary>
+            <param name="action">执行的操作</param>
+            <param name="count">循环次数</param>
+            <param name="autoWaitAll">自动等待所有线程执行完毕</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.CircleOrderly(System.Action,System.Int32)">
+            <summary>
+            并行循环指定次数
+            </summary>
+            <param name="action">执行的操作</param>
+            <param name="count">循环次数</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.CTime(System.Action,System.Boolean,System.String)">
+            <summary>
+            计算一段代码执行所需时间
+            </summary>
+            <param name="action"></param>
+            <param name="autoOutPut">自动输出</param>
+            <param name="timerName">该次计时标识名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.CTimeAsync(System.Func{System.Threading.Tasks.Task},System.Boolean,System.String)">
+            <summary>
+            计算一段代码执行所需时间
+            </summary>
+            <param name="action"></param>
+            <param name="autoOutPut">自动输出</param>
+            <param name="timerName">该次计时标识名</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.RunTest">
+            <summary>
+            计算一段代码执行所需时间
+            </summary>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.XFEExtensionException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.Assert(System.Boolean)">
+            <summary>
+            断言：判断条件为真
+            </summary>
+            <param name="condition">判断条件</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.Assert(System.Boolean,System.String)">
+            <summary>
+            断言：判断条件为真
+            </summary>
+            <param name="condition">判断条件</param>
+            <param name="message">消息</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.AssertF(System.Boolean)">
+            <summary>
+            断言：判断条件为假
+            </summary>
+            <param name="condition">判断条件</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.AssertF(System.Boolean,System.String)">
+            <summary>
+            断言：判断条件为假
+            </summary>
+            <param name="condition">判断条件</param>
+            <param name="message">消息</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.AssertE``1(``0,``0)">
+            <summary>
+            断言：判断两个值是否相等
+            </summary>
+            <typeparam name="T">值的类型</typeparam>
+            <param name="expected">期望值</param>
+            <param name="actual">实际值</param>
+        </member>
+        <member name="M:XFE各类拓展.XFECode.AssertE``1(``0,``0,System.String)">
+            <summary>
+            断言：判断两个值是否相等
+            </summary>
+            <typeparam name="T">值的类型</typeparam>
+            <param name="expected">期望值</param>
+            <param name="actual">实际值</param>
+            <param name="message">消息</param>
+        </member>
+        <member name="T:XFE各类拓展.TestThemeAttribute">
+            <summary>
+            测试颜色主题
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.MainColor">
+            <summary>
+            主色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.ClassColor">
+            <summary>
+            类颜色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.ClassBorderColor">
+            <summary>
+            类边框颜色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.MethodColor">
+            <summary>
+            方法颜色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.MethodBorderColor">
+            <summary>
+            方法边框颜色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.SuccessColor">
+            <summary>
+            成功颜色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.FailColor">
+            <summary>
+            失败颜色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.TimeColor">
+            <summary>
+            时间颜色
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.TestThemeAttribute.CounterColor">
+            <summary>
+            计数器颜色
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.TestThemeAttribute.#ctor(System.ConsoleColor,System.ConsoleColor,System.ConsoleColor,System.ConsoleColor,System.ConsoleColor,System.ConsoleColor,System.ConsoleColor,System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            测试颜色主题
+            </summary>
+            <param name="mainColor">主色</param>
+            <param name="classColor">类颜色</param>
+            <param name="classBorderColor">类边框颜色</param>
+            <param name="methodColor">方法颜色</param>
+            <param name="methodBorderColor">方法边框颜色</param>
+            <param name="successColor">成功颜色</param>
+            <param name="failColor">失败颜色</param>
+            <param name="timeColor">时间颜色</param>
+            <param name="counterColor">计数器颜色</param>
+        </member>
+        <member name="T:XFE各类拓展.XFETestAttributeBase">
+            <summary>
+            测试特性基类
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.XFETestAttributeBase.Params">
+            <summary>
+            参数
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.SMTestAttribute">
+            <summary>
+            用于计时的特性
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.SMTestAttribute.#ctor(System.Object[])">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+            <param name="values">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.SMTestAttribute.#ctor">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.SMNTestAttribute">
+            <summary>
+            用于计时的特性，可自定义名称
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.SMNTestAttribute.TimerName">
+            <summary>
+            该次计时标识名
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.SMNTestAttribute.#ctor(System.String,System.Object[])">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+            <param name="timerName">计时器名称</param>
+            <param name="values">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.SMNTestAttribute.#ctor(System.String)">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.SMRTestAttribute">
+            <summary>
+            用于计时的特性，可绑定返回值
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.SMRTestAttribute.ReturnValue">
+            <summary>
+            返回值
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.SMRTestAttribute.#ctor(System.Object[])">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+            <param name="valuesAndResult">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.SMRTestAttribute.#ctor">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.SMNRTestAttribute">
+            <summary>
+            用于计时的特性，可自定义名称和返回值
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.SMNRTestAttribute.TimerName">
+            <summary>
+            该次计时标识名
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.SMNRTestAttribute.#ctor(System.String,System.Object[])">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+            <param name="timerName">计时器名称</param>
+            <param name="valuesAndResult">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.SMNRTestAttribute.#ctor">
+            <summary>
+            计算执行一段代码所需时间
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.MTestAttribute">
+            <summary>
+            方法测试
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.MTestAttribute.#ctor(System.Object[])">
+            <summary>
+            方法测试
+            </summary>
+            <param name="values">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.MTestAttribute.#ctor">
+            <summary>
+            方法测试
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.MNTestAttribute">
+            <summary>
+            方法测试，可自定义名称
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.MNTestAttribute.MethodOtherName">
+            <summary>
+            方法别名
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.MNTestAttribute.#ctor(System.String,System.Object[])">
+            <summary>
+            方法测试
+            </summary>
+            <param name="methodOtherName">方法别名</param>
+            <param name="values">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.MNTestAttribute.#ctor(System.String)">
+            <summary>
+            方法测试
+            </summary>
+            <param name="methodOtherName">方法别名</param>
+        </member>
+        <member name="M:XFE各类拓展.MNTestAttribute.#ctor">
+            <summary>
+            方法测试
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.MRTestAttribute">
+            <summary>
+            方法测试，可自定义返回值
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.MRTestAttribute.ReturnValue">
+            <summary>
+            返回值
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.MRTestAttribute.#ctor(System.Object[])">
+            <summary>
+            方法测试
+            </summary>
+            <param name="valuesAndResult">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.MRTestAttribute.#ctor">
+            <summary>
+            方法测试
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.MNRTestAttribute">
+            <summary>
+            方法测试，可自定义名称和返回值
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.MNRTestAttribute.MethodOtherName">
+            <summary>
+            方法别名
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.MNRTestAttribute.#ctor(System.String,System.Object[])">
+            <summary>
+            方法测试
+            </summary>
+            <param name="methodOtherName">方法别名</param>
+            <param name="valuesAndResult">传参</param>
+        </member>
+        <member name="M:XFE各类拓展.MNRTestAttribute.#ctor">
+            <summary>
+            方法测试
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CTestAttribute">
+            <summary>
+            类测试
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CTestAttribute.#ctor(System.Object[])">
+            <summary>
+            类测试
+            </summary>
+            <param name="values">创建类时构造方法的传参</param>
+        </member>
+        <member name="M:XFE各类拓展.CTestAttribute.#ctor">
+            <summary>
+            类测试
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.CNTestAttribute">
+            <summary>
+            类测试
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.CNTestAttribute.ClassOtherName">
+            <summary>
+            类别名
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.CNTestAttribute.#ctor(System.String,System.Object[])">
+            <summary>
+            类测试
+            </summary>
+            <param name="values">创建类时构造方法的传参</param>
+            <param name="classOtherName">类别名</param>
+        </member>
+        <member name="T:XFE各类拓展.TSetUpAttribute">
+            <summary>
+            用于标记测试类初始函数的特性
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.TSetUpAttribute.#ctor(System.Object[])">
+            <summary>
+            用于标记测试类构造函数的特性
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="T:XFE各类拓展.XFEExtension">
+            <summary>
+            对代码整体书写习惯的拓展
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.XFEExtension.GetAwaiter(System.Int32)">
+            <summary>
+            使得计时器可以直接调用（单位：秒）
+            </summary>
+            <param name="waitTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.XFEExtension.GetAwaiter(System.Double)">
+            <summary>
+            使得计时器可以直接调用（单位：秒）
+            </summary>
+            <param name="waitTime"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
