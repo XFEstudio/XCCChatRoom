@@ -1,88 +1,104 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
              x:Class="XCCChatRoom.InnerPage.UserTelEditPage"
              Title="修改手机号">
     <VerticalStackLayout>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
+        <Label
+            Text="换绑手机号"
+            Margin="0,50,0,0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            FontSize="32"
+            FontAttributes="Bold"
+            TextColor="#512BD4"/>
+        <Label 
+            x:Name="UserTelLabel"
+            Text="新手机号"
+            HorizontalTextAlignment="Start"
+            TextColor="Gray"
+            FontSize="10"
+            MaximumWidthRequest="100"
+            VerticalOptions="Center" 
+            HorizontalOptions="Fill" />
+        <Border 
+            Padding="10,0"
+            x:Name="UserTelBorder"
+            Stroke="#444654"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 50"
+            MaximumWidthRequest="100"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center">
+            <Entry
+                x:Name="UserTelEditor"
+                Focused="UserTelEditor_Focused"
+                Unfocused="UserTelEditor_Unfocused"
+                TextChanged="UserTelEditor_TextChanged"
+                MaxLength="13"
+                IsSpellCheckEnabled="False"
+                Placeholder="请输入11/13位手机号"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"/>
+        </Border>
+        <Label
+            x:Name="TelVerifyCodeLabel"
+            Text="验证码"
+            HorizontalTextAlignment="Start"
+            TextColor="Gray"
+            FontSize="10"
+            VerticalOptions="Center" 
+            HorizontalOptions="Fill" />
+        <Grid
+            x:Name="TelVerifyCodeGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
-            <Label
-                Text="原手机号:"
-                FontSize="20"
-                HorizontalOptions="End"
-                VerticalOptions="Center" 
-                Grid.Row="1"/>
-
-            <Label
-                x:Name="OldTelLabel"
-                FontSize="20"
-                VerticalOptions="Fill" 
-                WidthRequest="130"
-                Grid.Row="1"
-                Grid.Column="1"/>
-
-            <Label
-                Text="新手机号:"
-                FontSize="20"
-                HorizontalOptions="End"
-                VerticalOptions="Center"
-                Grid.Row="2"/>
-
-            <Entry
-                x:Name="NewTelLabel"
-                Unfocused="NewTel_Unfocused"
-                WidthRequest="200"
-                FontSize="20"
-                Grid.Row="2"
-                Grid.Column="1"/>
-
-            <Label
-                Text="验证码:"
-                FontSize="20"
-                HorizontalOptions="End"
-                VerticalOptions="Center"
-                Grid.Row="3"/>
-
-            <Entry
-                x:Name="TelEditCaptchaEntry"
-                FontSize="20"
-                VerticalOptions="Center"
-                TextChanged="TelEditCaptchaEntry_TextChange"
-                Grid.Row="3"
-                Grid.Column="1"
-                WidthRequest="200"/>
-
             <Button
-                x:Name="GetTelCodeButton"
+                Margin="5,0,0,0"
+                x:Name="TelVerifyCodeButton"
                 Text="获取验证码"
-                FontSize="15"
-                Clicked="GetTelCodeButton_Clicked"
-                WidthRequest="60"
-                Grid.Row="3"
-                Grid.Column="2"
-                CornerRadius="8"/>
-
-            <Button
-                Text="确认"
-                x:Name="ConfirmButton"
-                WidthRequest="80"
-                Margin="0,10"
-                FontSize="24"
-                Clicked="ConfirmButton_Clicked"
-                Grid.Row="4"
-                Grid.ColumnSpan="3"
-                CornerRadius="10"/>
+                Clicked="TelVerifyCodeButton_Clicked"
+                CornerRadius="30"
+                ImageSource="send"
+                IsEnabled="False"
+                TextColor="White"
+                Grid.Column="1"
+                BackgroundColor="#A491E8"
+                FontSize="12"
+                HorizontalOptions="End"
+                VerticalOptions="Center"/>
+            <Border 
+                Padding="10,0"
+                x:Name="TelVerifyCodeBorder"
+                Stroke="#444654"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 50"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center">
+                <Entry
+                    x:Name="TelVerifyCodeEditor"
+                    Focused="TelVerifyCodeEditor_Focused"
+                    Unfocused="TelVerifyCodeEditor_Unfocused"
+                    TextChanged="TelVerifyCodeEditor_TextChanged"
+                    MaxLength="6"
+                    IsSpellCheckEnabled="False"
+                    Placeholder="请输入6位验证码"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"/>
+            </Border>
         </Grid>
+        <ctr:WaitableButton
+            x:Name="SaveAndBackButton"
+            Text="保存并返回"
+            CornerRadius="30"
+            TextColor="White"
+            BackgroundColor="#A491E8"
+            IsEnabled="False"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center"
+            Clicked="SaveAndBackButton_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

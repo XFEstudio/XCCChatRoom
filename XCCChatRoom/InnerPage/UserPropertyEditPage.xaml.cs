@@ -1,4 +1,5 @@
 using XCCChatRoom.AllImpl;
+using XFE各类拓展.StringExtension;
 
 namespace XCCChatRoom.InnerPage;
 
@@ -59,7 +60,7 @@ public partial class UserPropertyEditPage : ContentPage
     private async void MailEditor()
     {
         var newUserProperty = await DisplayPromptAsync("修改", "请输入您要修改的邮箱", "确定", "取消");
-        bool flag = XFE各类拓展.StringExtension.StringExtension.IsValidEmail(newUserProperty);
+        bool flag = newUserProperty.IsValidEmail();
         if (flag)
         {
             UserInfo.EditUserProperty(UserPropertyToEdit.Mail, newUserProperty, this);
@@ -95,10 +96,10 @@ public partial class UserPropertyEditPage : ContentPage
                     ModifyAuthentication();
                 break;
             case "重新绑定电话号码":
-                if (modifyAuthentication)
+                //if (modifyAuthentication)
                     await Shell.Current.GoToAsync(nameof(UserTelEditPage));
-                else
-                    ModifyAuthentication();
+                //else
+                    //ModifyAuthentication();
                 break;
         }
     }

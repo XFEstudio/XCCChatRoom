@@ -1,97 +1,169 @@
 using XCCChatRoom.AllImpl;
-using XFE各类拓展.NetCore.XFEDataBase;
 using XFE各类拓展.StringExtension;
-using Timer = System.Timers.Timer;
+using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.InnerPage;
 
 public partial class UserTelEditPage : ContentPage
 {
-    private bool telNumberUniqueBindingCheck = false;
-    private bool captchaSendCheck = false;
-    private bool captchaVerifyCheck = false;/*确认按钮允许点击的条件*/
-    private string telCaptcha = null;
-    private string newTelNumber = null;
+    private bool isTelChanged = false, isTelEditorEmpty = true;
+    private bool isCoolDown = false;
+    private string currentPhoneNum = string.Empty;
+    private string randomCode = string.Empty;
     public UserTelEditPage()
     {
         InitializeComponent();
-        OldTelLabel.Text = UserInfo.CurrentUser.Atel;
-    }
-
-    private async void NewTel_Unfocused(object sender, FocusEventArgs e)
-    {
-        if (NewTelLabel is not null)
+        new Action(() =>
         {
-            if (NewTelLabel.Text.IsMobPhoneNumber())
+            Thread.Sleep(500);
+            while (!UserTelEditor.IsFocused)
             {
-                var xFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
-                var result = await xFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == NewTelLabel.Text);
-                if (result is null)
-                {
-                    telNumberUniqueBindingCheck = true;
-                }
-                else 
-                { 
-                    telNumberUniqueBindingCheck = false;
-                    await DisplayAlert("失败", "该手机号已有绑定账号", "确定"); 
-                }
+                UserTelEditor.Dispatcher.Dispatch(() => UserTelEditor.Focus());
+                Thread.Sleep(100);
             }
-            else 
+        }).StartNewTask();
+    }
+    protected override void OnHandlerChanged()
+    {
+        base.OnHandlerChanged();
+#if ANDROID
+        (UserTelEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
+        (TelVerifyCodeEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
+#endif
+    }
+    private void TelVerifyCodeEditor_Focused(object sender, FocusEventArgs e)
+    {
+        TelVerifyCodeLabel.FadeTo(1, 300, Easing.CubicOut);
+        TelVerifyCodeLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        TelVerifyCodeBorder.FadeTo(1, 300, Easing.CubicOut);
+        TelVerifyCodeBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        TelVerifyCodeButton.ScaleTo(0.8, 300, Easing.CubicOut);
+    }
+
+    private void TelVerifyCodeEditor_Unfocused(object sender, FocusEventArgs e)
+    {
+        TelVerifyCodeLabel.FadeTo(0.5, 300, Easing.CubicOut);
+        TelVerifyCodeLabel.ScaleTo(1, 300, Easing.CubicOut);
+        TelVerifyCodeBorder.FadeTo(0.5, 300, Easing.CubicOut);
+        TelVerifyCodeBorder.ScaleTo(1, 300, Easing.CubicOut);
+        TelVerifyCodeButton.ScaleTo(1, 300, Easing.CubicOut);
+    }
+    private void UserTelEditor_Focused(object sender, FocusEventArgs e)
+    {
+        if (!isTelChanged)
+        {
+            var animation = new Animation(v => UserTelBorder.MaximumWidthRequest = v, 100, 300);
+            var animation2 = new Animation(v => UserTelLabel.MaximumWidthRequest = v, 100, 300);
+            animation.Commit(this, "UserAccountBorderWidthAnimation", 16, 300, Easing.CubicOut);
+            animation2.Commit(this, "UserAccountLabelWidthAnimation", 16, 300, Easing.CubicOut);
+            UserTelLabel.FadeTo(1, 300, Easing.CubicOut);
+            UserTelBorder.FadeTo(1, 300, Easing.CubicOut);
+            isTelChanged = true;
+        }
+    }
+
+    private void UserTelEditor_Unfocused(object sender, FocusEventArgs e)
+    {
+        if (UserTelEditor.Text is null || UserTelEditor.Text == string.Empty)
+        {
+            if (isTelChanged)
             {
-                telNumberUniqueBindingCheck = false;
-                await DisplayAlert("出错了捏", "输入手机号不合规哦", "知道啦");
+                var animation = new Animation(v => UserTelBorder.MaximumWidthRequest = v, 300, 100);
+                var animation2 = new Animation(v => UserTelLabel.MaximumWidthRequest = v, 300, 100);
+                animation.Commit(this, "UserAccountBorderWidthAnimation", 16, 200, Easing.CubicOut);
+                animation2.Commit(this, "UserAccountLabelWidthAnimation", 16, 200, Easing.CubicOut);
+                UserTelLabel.FadeTo(0.5, 300, Easing.CubicOut);
+                UserTelBorder.FadeTo(0.5, 200, Easing.CubicOut);
+                isTelChanged = false;
             }
         }
-        else {  telNumberUniqueBindingCheck = false;}
     }
 
-    private async void GetTelCodeButton_Clicked(object sender, EventArgs e)
+    private void TelVerifyCodeEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (telNumberUniqueBindingCheck)
+        if (!isTelEditorEmpty && TelVerifyCodeEditor.Text.Length == 6)
         {
-            GetTelCodeButton.IsEnabled = false;
-            int countDown = 60;
-            Timer timer = new Timer(1000);
-            timer.Elapsed += (sender, e) =>
+            if (!SaveAndBackButton.IsWaiting)
             {
-                countDown--;
-                if (countDown <= 0)
-                {
-                    GetTelCodeButton.IsEnabled = true;
-                    timer.Dispose();
-                    return;
-                }
-                GetTelCodeButton.Text = countDown.ToString();
-            };
-            var randomCode = new Random().Next(100000, 999999).ToString();
-            this.telCaptcha = randomCode;
-            await TencentSms.SendVerifyCode("1922760", "+86" + NewTelLabel.Text, [randomCode]);
-            newTelNumber = NewTelLabel.Text;
-            captchaSendCheck = true;
+                SaveAndBackButton.BackgroundColor = Color.Parse("#512BD4");
+                SaveAndBackButton.IsEnabled = true;
+            }
+            TelVerifyCodeEditor_Unfocused(null, null);
         }
-        else { await DisplayAlert("错误", "请先输入手机号", "确定"); }
-    }
-    private void TelEditCaptchaEntry_TextChange(object sender, TextChangedEventArgs e)
-    {
-        if (captchaSendCheck)
+        else
         {
-            if (TelEditCaptchaEntry.Text == this.telCaptcha) { captchaVerifyCheck = true; }
-            else { captchaVerifyCheck = false; }
+            if (!SaveAndBackButton.IsWaiting)
+            {
+                SaveAndBackButton.BackgroundColor = Color.Parse("#A491E8");
+                SaveAndBackButton.IsEnabled = false;
+            }
         }
     }
 
-    private async void ConfirmButton_Clicked(object sender, EventArgs e)
+    private void SaveAndBackButton_Clicked(object sender, EventArgs e)
     {
-        if (telNumberUniqueBindingCheck && captchaVerifyCheck) 
+
+    }
+
+    private void UserTelEditor_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (UserTelEditor.Text.IsMobPhoneNumber())
         {
-            UserInfo.EditUserProperty(UserPropertyToEdit.PhoneNum, newTelNumber, this);
-            OldTelLabel.Text = UserInfo.CurrentUser.Atel;
-            await DisplayAlert("修改成功", "您的手机号已修改成功", "确定");
-            Shell.Current.SendBackButtonPressed();
+            isTelEditorEmpty = false;
+            UserTelLabel.Text = "手机号";
+            UserTelLabel.TextColor = Color.Parse("Black");
+            UserTelBorder.Stroke = Color.FromArgb("#444654");
+            if (!isCoolDown)
+            {
+                TelVerifyCodeButton.IsEnabled = true;
+                TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
+            }
         }
-        else {
-            if (telNumberUniqueBindingCheck)  await DisplayAlert("验证码错误", "验证码不匹配", "确定"); 
-            else await DisplayAlert("手机号错误", "请输入正确的手机号", "确定");
+        else
+        {
+            isTelEditorEmpty = true;
+            UserTelLabel.Text = "手机号格式不正确";
+            UserTelLabel.TextColor = Color.Parse("Red");
+            TelVerifyCodeButton.IsEnabled = false;
+            TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
+        }
+    }
+    private async void TelVerifyCodeButton_Clicked(object sender, EventArgs e)
+    {
+        currentPhoneNum = UserTelEditor.Text;
+        randomCode = IDGenerator.SummonRandomID(6);
+        TelVerifyCodeButton.IsEnabled = false;
+        TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
+        TelVerifyCodeButton.Text = "发送中...";
+        isCoolDown = true;
+        var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, [randomCode, "2"]);
+        if (resp == null || resp.SendStatusSet.First().Code != "Ok")
+        {
+            await DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
+            TelVerifyCodeButton.IsEnabled = true;
+            TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
+            TelVerifyCodeButton.Text = "重新发送";
+        }
+        else
+        {
+            TelVerifyCodeButton.Text = "重新发送 60";
+            await new Action(() =>
+            {
+                int timer = 60;
+                TelVerifyCodeButton.Dispatcher.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    TelVerifyCodeButton.Text = $"重新发送 {--timer}";
+                    if (timer == 0)
+                    {
+                        TelVerifyCodeButton.Text = "重新发送";
+                        TelVerifyCodeButton.IsEnabled = true;
+                        isCoolDown = false;
+                        TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
+                        return false;
+                    }
+                    return true;
+                });
+            }).StartNewTask();
         }
     }
 }
