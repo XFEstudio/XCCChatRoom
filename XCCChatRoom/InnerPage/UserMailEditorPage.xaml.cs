@@ -58,13 +58,8 @@ public partial class UserMailEditorPage : ContentPage
                 }
                 GetMailCode.Text = countDown.ToString();
             };
-            var randomCode = new Random().Next(0, 999999).ToString();
+            var randomCode = new Random().Next(100000, 999999).ToString();
             this.MailCaptcha = randomCode;
-            if (randomCode.Length < 6)
-            {
-                for (int i = 6 - randomCode.Length; i > 0; i--)
-                    randomCode = $"0{randomCode}";
-            }
             XFEMail xFEMail = new XFEMail();
             try
             {
@@ -75,7 +70,7 @@ public partial class UserMailEditorPage : ContentPage
             }
             catch (Exception ex)
             {
-                await DisplayAlert("无法发送邮件", "失败了失败了", "退出");
+                await DisplayAlert("无法发送邮件", "失败了", "退出");
             }
         }
     }

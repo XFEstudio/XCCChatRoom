@@ -5,21 +5,119 @@
              x:Class="XCCChatRoom.InnerPage.UserPropertyEditPage"
              Title="修改用户信息">
     <VerticalStackLayout>
-		<Button
-			Margin="50,170,50,10"
-			Text="修改用户名"
-			Clicked="UserPropertyEditorButton_Click"/>
-		<Button
-			Margin="50,30,50,10"
-			Text="重置密码"
-			Clicked="UserPropertyEditorButton_Click"/>
-		<Button
-			Margin="50,30,50,10"
-			Text="重新绑定邮箱"
-			Clicked="UserPropertyEditorButton_Click"/>
-		<Button
-			Margin="50,30,50,10"
-			Text="重新绑定电话号码"
-			Clicked="UserPropertyEditorButton_Click"/>
+        <Grid RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label 
+                Text="用户名:"
+                FontSize="20"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="0,0,0,5"/>
+            <Entry 
+                x:Name="CurrentUserName"
+                HorizontalTextAlignment="Center"
+                FontSize="20"
+                VerticalOptions="End"
+                Grid.Column="1"/>
+            <Button
+                HeightRequest="50"
+                Padding="10"
+                FontSize="18"
+	            Text="保存"
+                ClassId="UserNameEditor"
+                WidthRequest="200"
+                VerticalOptions="End"
+	            Clicked="UserPropertyEditorButton_Click"
+                Grid.Row="4"
+                Grid.Column="1"/>
+            <Label
+                Text="手机号:"
+                FontSize="20"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Grid.Row="1"/>  
+            <Label
+                x:Name="CurrentUserTel"
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.Column="1"/>
+            <Button
+	            HeightRequest="36"
+                Padding="2"
+                FontSize="16"
+                Text="修改"
+                ClassId="TelEditor"
+                WidthRequest="60"
+                VerticalOptions="Center"
+	            Clicked="UserPropertyEditorButton_Click"
+                Grid.Row="1"
+                Grid.Column="2"/>
+            <Label 
+                Text="邮箱:"
+                FontSize="20"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Grid.Row="2"/>
+            <Label 
+                x:Name="CurrentUserMail"
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="Center"
+                Grid.Row="2"
+                Grid.Column="1"/>
+            <Button
+			    HeightRequest="36"
+                Padding="2"
+                FontSize="16"
+                ClassId="MailEditor"
+                Text="修改"
+                WidthRequest="60"
+                VerticalOptions="Center"
+			    Clicked="UserPropertyEditorButton_Click"
+                Grid.Row="2"
+                Grid.Column="2"
+                />
+            <Label 
+                Text="密码:"
+                FontSize="20"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Grid.Row="3"/>
+            <Label
+                Text="******"
+                HorizontalTextAlignment="Center"
+                FontSize="20"
+                VerticalOptions="Center"
+                Grid.Row="3"
+                Grid.Column="1"/>
+            <Button
+			    HeightRequest="36"
+                Padding="2"
+                FontSize="16"
+                ClassId="PasswordEditor"
+                Text="修改"
+                WidthRequest="60"
+                VerticalOptions="Center"
+			    Clicked="UserPropertyEditorButton_Click"
+                Grid.Row="3"
+                Grid.Column="2"/>
+        </Grid>
+		
+
+
+		
     </VerticalStackLayout>
 </ContentPage>
