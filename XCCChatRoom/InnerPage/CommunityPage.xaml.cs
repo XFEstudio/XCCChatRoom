@@ -66,12 +66,12 @@ public partial class CommunityPage : ContentPage
                         if (firstRefresh)
                             post = new PostCardView(postData, false)
                             {
-                                Margin = new Thickness(0, 5, 0, 5)
+                                Margin = new Thickness(0, 3, 0, 3)
                             };
                         else
                             post = new PostCardView(postData)
                             {
-                                Margin = new Thickness(0, 5, 0, 5)
+                                Margin = new Thickness(0, 3, 0, 3)
                             };
                         post.LikeClick += Post_LikeClick;
                         post.Click += Post_Click;

@@ -88,6 +88,15 @@
                         Grid.Column="1"
                         WidthRequest="30"
                         Clicked="ShowImageButton_Clicked"/>
+                    <ImageButton
+                        x:Name="CameraButton"
+                        Source="uncamera"
+                        ClassId="uncamera"
+                        HorizontalOptions="Center"
+                        HeightRequest="30"
+                        Grid.Column="2"
+                        WidthRequest="30"
+                        Clicked="CameraButton_Clicked"/>
                 </Grid>
                 <ScrollView
                     x:Name="ToolViewScrollView"
