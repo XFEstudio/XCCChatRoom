@@ -1,7 +1,7 @@
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
-using XFE各类拓展.FileExtension;
-using XFE各类拓展.FormatExtension;
+using XFE各类拓展.NetCore.FileExtension;
+using XFE各类拓展.NetCore.FormatExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.InnerPage;
