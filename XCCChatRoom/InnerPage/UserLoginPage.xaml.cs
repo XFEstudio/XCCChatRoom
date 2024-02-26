@@ -1,7 +1,7 @@
 using XCCChatRoom.AllImpl;
+using XFE各类拓展.NetCore.StringExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.StringExtension;
-using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.InnerPage;
 
@@ -398,7 +398,7 @@ public partial class UserLoginPage : ContentPage
             UserInfo.CurrentPage.UUID = userInfo.ID;
             UserInfo.CurrentUser = userInfo;
             UserInfo.CurrentPage.SwitchToLoginStyle();
-            CommunityPage.Current?.postRefreshView_Refreshing(null, null);
+            CommunityPage.Current?.PostRefreshView_Refreshing(null, null);
         }
         GroupContactPage.Current.groupRefreshView.IsRefreshing = true;
         await Task.Delay(600);

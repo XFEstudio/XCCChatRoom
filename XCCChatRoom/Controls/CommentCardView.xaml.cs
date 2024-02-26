@@ -1,5 +1,5 @@
+using XFE各类拓展.NetCore.ObjectExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.ObjectExtension;
 
 namespace XCCChatRoom.Controls;
 
@@ -117,19 +117,11 @@ public partial class CommentCardView : ContentView
         CommentCardTapped?.Invoke(this, EventArgs.Empty);
     }
 }
-public class CommentCardLikeClickEventArgs : EventArgs
+public class CommentCardLikeClickEventArgs(XFEChatRoom_CommunityComment currentCommentEntity) : EventArgs
 {
-    public XFEChatRoom_CommunityComment CurrentCommentEntity { get; set; }
-    public CommentCardLikeClickEventArgs(XFEChatRoom_CommunityComment currentCommentEntity)
-    {
-        CurrentCommentEntity = currentCommentEntity;
-    }
+    public XFEChatRoom_CommunityComment CurrentCommentEntity { get; set; } = currentCommentEntity;
 }
-public class CommentCardQuoteClickEventArgs : EventArgs
+public class CommentCardQuoteClickEventArgs(string commentID) : EventArgs
 {
-    public string CommentID { get; set; }
-    public CommentCardQuoteClickEventArgs(string commentID)
-    {
-        CommentID = commentID;
-    }
+    public string CommentID { get; set; } = commentID;
 }

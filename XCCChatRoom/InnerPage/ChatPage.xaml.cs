@@ -3,13 +3,14 @@
 using Android.Media;
 using Plugin.LocalNotification;
 #endif
-using XFE各类拓展.CyberComm.XCCNetWork;
-using XFE各类拓展.TaskExtension;
+using XFE各类拓展.NetCore.CyberComm.XCCNetWork;
+using XFE各类拓展.NetCore.TaskExtension;
 using Image = Microsoft.Maui.Controls.Image;
 using XCCChatRoom.AllImpl;
-using XFE各类拓展.StringExtension;
+using XFE各类拓展.NetCore.StringExtension;
 using MauiPopup;
 using XCCChatRoom.Controls;
+using XFE各类拓展.NetCore;
 
 namespace XCCChatRoom.InnerPage;
 [QueryProperty(nameof(GroupName), nameof(GroupName))]
@@ -64,7 +65,6 @@ public partial class ChatPage : ContentPage
     private bool isPlaying = false;
     private bool connected = false;
     private bool firstConnect = true;
-    private bool isScrolled = false;
     private bool phoneCallEnabled = false;
     private string lastSender = string.Empty;
     private int MessageCount = 0;
@@ -223,7 +223,7 @@ public partial class ChatPage : ContentPage
         #endregion
     }
 
-    private async void MessageReceiveHelper_ExceptionOccurred(XFE各类拓展.XFECyberCommException sender)
+    private async void MessageReceiveHelper_ExceptionOccurred(XFECyberCommException sender)
     {
         connected = false;
         ChatStack.Dispatcher.Dispatch(() =>
@@ -1051,7 +1051,7 @@ public partial class ChatPage : ContentPage
 
     private void ChatScrollView_Scrolled(object sender, ScrolledEventArgs e)
     {
-        isScrolled = true;
+        //TODO:
     }
 
     private bool SwitchToolBarButton(ImageButton sender)

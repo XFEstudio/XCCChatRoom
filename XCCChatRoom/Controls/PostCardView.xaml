@@ -87,7 +87,7 @@
                 HorizontalOptions="Center">
                 <ctr:LikeButton
                     x:Name="btnLike"
-                    Clicked="btnLike_Clicked"/>
+                    Clicked="BtnLike_Clicked"/>
                 <Label
                     x:Name="lblLikeCount"
                     Text="{Binding LikeCount}"

@@ -1,15 +1,15 @@
 using MauiPopup;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
+using XFE各类拓展.NetCore.StringExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.StringExtension;
-using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.InnerPage;
 
 public partial class UserRegisterPage : ContentPage
 {
-    private XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
+    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     private bool IsTelEditor = false, IsMailEditor = false, IsNameEditor = false, IsPasswordEditor = false, IsPasswordEnsureEditor = false;
     private string randomCode = string.Empty;
     private string currentPhoneNum = string.Empty;
@@ -190,7 +190,7 @@ public partial class UserRegisterPage : ContentPage
         TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
         TelVerifyCodeButton.Text = "发送中...";
         IsCoolDown = true;
-        var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, new string[] { randomCode, "2" });
+        var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, [randomCode, "2"]);
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
             await DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
