@@ -8,9 +8,9 @@ namespace XCCChatRoom.InnerPage;
 public partial class UserLoginPage : ContentPage
 {
     private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
-    private bool IsAccountChanged = false, IsPasswordChanged = false, IsTelChanged = false;
-    private bool IsPasswordEditorEmpty = true, IsAccountEditorEmpty = true, IsTelEditorEmpty = true;
-    private bool IsCoolDown = false;
+    private bool isAccountChanged = false, isPasswordChanged = false, isTelChanged = false;
+    private bool isPasswordEditorEmpty = true, isAccountEditorEmpty = true, isTelEditorEmpty = true;
+    private bool isCoolDown = false;
     private string currentPhoneNum = string.Empty;
     private string randomCode = string.Empty;
     public UserLoginPage()
@@ -18,13 +18,26 @@ public partial class UserLoginPage : ContentPage
         try
         {
             InitializeComponent();
-            new Action(() =>
+            new Action(async () =>
             {
-                Thread.Sleep(500);
-                while (!UserAccountEditor.IsFocused)
+                if (AppSystemProfile.LoginMethod == LoginMethod.VerifyCodeLogin)
                 {
-                    UserAccountBorder.Dispatcher.Dispatch(() => UserAccountEditor.Focus());
-                    Thread.Sleep(100);
+                    await this.Dispatcher.DispatchAsync(async () => await SwitchToTelVerifyCodeLoginStyle());
+                    Thread.Sleep(500);
+                    while (!UserTelEditor.IsFocused)
+                    {
+                        UserTelEditor.Dispatcher.Dispatch(() => UserTelEditor.Focus());
+                        Thread.Sleep(100);
+                    }
+                }
+                else
+                {
+                    Thread.Sleep(500);
+                    while (!UserAccountEditor.IsFocused)
+                    {
+                        UserAccountBorder.Dispatcher.Dispatch(() => UserAccountEditor.Focus());
+                        Thread.Sleep(100);
+                    }
                 }
             }).StartNewTask();
         }
@@ -47,7 +60,7 @@ public partial class UserLoginPage : ContentPage
     #region 焦点事件
     private void UserAccountEditor_Focused(object sender, FocusEventArgs e)
     {
-        if (!IsAccountChanged)
+        if (!isAccountChanged)
         {
             var animation = new Animation(v => UserAccountBorder.MaximumWidthRequest = v, 100, 300);
             var animation2 = new Animation(v => UserAccountLabel.MaximumWidthRequest = v, 100, 300);
@@ -55,7 +68,7 @@ public partial class UserLoginPage : ContentPage
             animation2.Commit(this, "UserAccountLabelWidthAnimation", 16, 300, Easing.CubicOut);
             UserAccountLabel.FadeTo(1, 300, Easing.CubicOut);
             UserAccountBorder.FadeTo(1, 300, Easing.CubicOut);
-            IsAccountChanged = true;
+            isAccountChanged = true;
         }
     }
 
@@ -63,7 +76,7 @@ public partial class UserLoginPage : ContentPage
     {
         if (UserAccountEditor.Text is null || UserAccountEditor.Text == string.Empty)
         {
-            if (IsAccountChanged)
+            if (isAccountChanged)
             {
                 var animation = new Animation(v => UserAccountBorder.MaximumWidthRequest = v, 300, 100);
                 var animation2 = new Animation(v => UserAccountLabel.MaximumWidthRequest = v, 300, 100);
@@ -71,14 +84,14 @@ public partial class UserLoginPage : ContentPage
                 animation2.Commit(this, "UserAccountLabelWidthAnimation", 16, 200, Easing.CubicOut);
                 UserAccountLabel.FadeTo(0.5, 300, Easing.CubicOut);
                 UserAccountBorder.FadeTo(0.5, 200, Easing.CubicOut);
-                IsAccountChanged = false;
+                isAccountChanged = false;
             }
         }
     }
 
     private void UserPasswordEditor_Focused(object sender, FocusEventArgs e)
     {
-        if (!IsPasswordChanged)
+        if (!isPasswordChanged)
         {
             var animation = new Animation(v => UserPasswordBorder.MaximumWidthRequest = v, 100, 300);
             var animation2 = new Animation(v => UserPasswordLabel.MaximumWidthRequest = v, 100, 300);
@@ -86,7 +99,7 @@ public partial class UserLoginPage : ContentPage
             animation2.Commit(this, "UserPasswordLabelWidthAnimation", 16, 300, Easing.CubicOut);
             UserPasswordLabel.FadeTo(1, 300, Easing.CubicOut);
             UserPasswordBorder.FadeTo(1, 300, Easing.CubicOut);
-            IsPasswordChanged = true;
+            isPasswordChanged = true;
         }
     }
 
@@ -94,7 +107,7 @@ public partial class UserLoginPage : ContentPage
     {
         if (UserPasswordEditor.Text is null || UserPasswordEditor.Text == string.Empty)
         {
-            if (IsPasswordChanged)
+            if (isPasswordChanged)
             {
                 var animation = new Animation(v => UserPasswordBorder.MaximumWidthRequest = v, 300, 100);
                 var animation2 = new Animation(v => UserPasswordLabel.MaximumWidthRequest = v, 300, 100);
@@ -102,7 +115,7 @@ public partial class UserLoginPage : ContentPage
                 animation2.Commit(this, "UserPasswordLabelWidthAnimation", 16, 200, Easing.CubicOut);
                 UserPasswordLabel.FadeTo(0.5, 300, Easing.CubicOut);
                 UserPasswordBorder.FadeTo(0.5, 200, Easing.CubicOut);
-                IsPasswordChanged = false;
+                isPasswordChanged = false;
             }
         }
     }
@@ -126,7 +139,7 @@ public partial class UserLoginPage : ContentPage
     }
     private void UserTelEditor_Focused(object sender, FocusEventArgs e)
     {
-        if (!IsTelChanged)
+        if (!isTelChanged)
         {
             var animation = new Animation(v => UserTelBorder.MaximumWidthRequest = v, 100, 300);
             var animation2 = new Animation(v => UserTelLabel.MaximumWidthRequest = v, 100, 300);
@@ -134,7 +147,7 @@ public partial class UserLoginPage : ContentPage
             animation2.Commit(this, "UserAccountLabelWidthAnimation", 16, 300, Easing.CubicOut);
             UserTelLabel.FadeTo(1, 300, Easing.CubicOut);
             UserTelBorder.FadeTo(1, 300, Easing.CubicOut);
-            IsTelChanged = true;
+            isTelChanged = true;
         }
     }
 
@@ -142,7 +155,7 @@ public partial class UserLoginPage : ContentPage
     {
         if (UserTelEditor.Text is null || UserTelEditor.Text == string.Empty)
         {
-            if (IsTelChanged)
+            if (isTelChanged)
             {
                 var animation = new Animation(v => UserTelBorder.MaximumWidthRequest = v, 300, 100);
                 var animation2 = new Animation(v => UserTelLabel.MaximumWidthRequest = v, 300, 100);
@@ -150,7 +163,7 @@ public partial class UserLoginPage : ContentPage
                 animation2.Commit(this, "UserAccountLabelWidthAnimation", 16, 200, Easing.CubicOut);
                 UserTelLabel.FadeTo(0.5, 300, Easing.CubicOut);
                 UserTelBorder.FadeTo(0.5, 200, Easing.CubicOut);
-                IsTelChanged = false;
+                isTelChanged = false;
             }
         }
     }
@@ -163,17 +176,17 @@ public partial class UserLoginPage : ContentPage
             UserLoginButton.BackgroundColor = Color.FromArgb("#A491E8");
             if (!UserLoginButton.IsWaiting)
                 UserLoginButton.IsEnabled = false;
-            IsAccountEditorEmpty = true;
+            isAccountEditorEmpty = true;
         }
         else
         {
-            if (IsAccountEditorEmpty && !IsPasswordEditorEmpty)
+            if (isAccountEditorEmpty && !isPasswordEditorEmpty)
             {
                 UserLoginButton.BackgroundColor = Color.FromArgb("#512BD4");
                 if (!UserLoginButton.IsWaiting)
                     UserLoginButton.IsEnabled = true;
             }
-            IsAccountEditorEmpty = false;
+            isAccountEditorEmpty = false;
         }
     }
 
@@ -184,23 +197,23 @@ public partial class UserLoginPage : ContentPage
             UserLoginButton.BackgroundColor = Color.FromArgb("#A491E8");
             if (!UserLoginButton.IsWaiting)
                 UserLoginButton.IsEnabled = false;
-            IsPasswordEditorEmpty = true;
+            isPasswordEditorEmpty = true;
         }
         else
         {
-            if (IsPasswordEditorEmpty && !IsAccountEditorEmpty)
+            if (isPasswordEditorEmpty && !isAccountEditorEmpty)
             {
                 UserLoginButton.BackgroundColor = Color.FromArgb("#512BD4");
                 if (!UserLoginButton.IsWaiting)
                     UserLoginButton.IsEnabled = true;
             }
-            IsPasswordEditorEmpty = false;
+            isPasswordEditorEmpty = false;
         }
     }
 
     private void TelVerifyCodeEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (!IsTelEditorEmpty && TelVerifyCodeEditor.Text.Length == 6)
+        if (!isTelEditorEmpty && TelVerifyCodeEditor.Text.Length == 6)
         {
             if (!UserLoginButton.IsWaiting)
             {
@@ -222,11 +235,11 @@ public partial class UserLoginPage : ContentPage
     {
         if (UserTelEditor.Text.IsMobPhoneNumber())
         {
-            IsTelEditorEmpty = false;
+            isTelEditorEmpty = false;
             UserTelLabel.Text = "手机号";
             UserTelLabel.TextColor = Color.Parse("Black");
             UserTelBorder.Stroke = Color.FromArgb("#444654");
-            if (!IsCoolDown)
+            if (!isCoolDown)
             {
                 TelVerifyCodeButton.IsEnabled = true;
                 TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
@@ -234,7 +247,7 @@ public partial class UserLoginPage : ContentPage
         }
         else
         {
-            IsTelEditorEmpty = true;
+            isTelEditorEmpty = true;
             UserTelLabel.Text = "手机号格式不正确";
             UserTelLabel.TextColor = Color.Parse("Red");
             TelVerifyCodeButton.IsEnabled = false;
@@ -408,13 +421,18 @@ public partial class UserLoginPage : ContentPage
         await UserInfo.CurrentPage.FadeTo(1, 300, Easing.CubicOut);
     }
 
-    private async void SwitchToRegisterPageButton_WaitClick(object sender, Controls.WaitButtonClickedEventArgs e)
+    private async void SwitchToRegisterPageButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(UserRegisterPage));
         e.Continue();
     }
 
-    private async void SwitchToTelVerifyCodeLoginButton_WaitClick(object sender, Controls.WaitButtonClickedEventArgs e)
+    private async void SwitchToTelVerifyCodeLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+    {
+        await SwitchToTelVerifyCodeLoginStyle();
+        e.Continue();
+    }
+    private async Task SwitchToTelVerifyCodeLoginStyle()
     {
         AppSystemProfile.LoginMethod = LoginMethod.VerifyCodeLogin;
         AppSystemProfile.SaveSystemProfile();
@@ -510,12 +528,11 @@ public partial class UserLoginPage : ContentPage
             Thread.Sleep(200);
         }).StartNewTask();
         UserTelEditor.Focus();
-        e.Continue();
         #endregion
 #pragma warning restore CS4014
     }
 
-    private async void SwitchToPasswordLoginButton_WaitClick(object sender, Controls.WaitButtonClickedEventArgs e)
+    private async void SwitchToPasswordLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         AppSystemProfile.LoginMethod = LoginMethod.PasswordLogin;
         AppSystemProfile.SaveSystemProfile();
@@ -621,7 +638,7 @@ public partial class UserLoginPage : ContentPage
         TelVerifyCodeButton.IsEnabled = false;
         TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
         TelVerifyCodeButton.Text = "发送中...";
-        IsCoolDown = true;
+        isCoolDown = true;
         var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, [randomCode, "2"]);
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
@@ -643,7 +660,7 @@ public partial class UserLoginPage : ContentPage
                     {
                         TelVerifyCodeButton.Text = "重新发送";
                         TelVerifyCodeButton.IsEnabled = true;
-                        IsCoolDown = false;
+                        isCoolDown = false;
                         TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
                         return false;
                     }
@@ -655,7 +672,7 @@ public partial class UserLoginPage : ContentPage
 
     private void ForgotPasswordButton_Click(object sender, TappedEventArgs e)
     {
-        DisplayAlert("功能尚未开发", "我知道你很急但是你先别急，让我先急", "急急急");
+        Shell.Current.GoToAsync(nameof(ForgetPasswordPage));
     }
     #endregion
 }

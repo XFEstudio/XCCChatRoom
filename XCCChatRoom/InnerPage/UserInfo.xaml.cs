@@ -1,3 +1,4 @@
+using MauiPopup;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
 using XFE各类拓展.NetCore.FileExtension;
@@ -264,12 +265,12 @@ public partial class UserInfo : ContentPage
             await CurrentPage.DisplayAlert("登录错误", ex.ToString(), "确认");
         }
     }
-    private async void LoginButton_WaitClick(object sender, Controls.WaitButtonClickedEventArgs e)
+    private async void LoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(UserLoginPage));
         e.Continue();
     }
-    private async void UnLoginButton_WaitClick(object sender, Controls.WaitButtonClickedEventArgs e)
+    private async void UnLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         if (await DisplayAlert("退出登录", "确定退出登录吗？", "确认", "取消"))
         {
@@ -278,5 +279,18 @@ public partial class UserInfo : ContentPage
             LoginButton.WaitClick += LoginButton_WaitClick;
         }
         e.Continue();
+    }
+
+    private void WhiteChoiceButton_Click(object sender, TappedEventArgs e)
+    {
+        Shell.Current.GoToAsync(nameof(UserPrivacyListPage));
+    }
+
+    private void WhiteChoiceUserPropertyEditorButton_Click(object sender, TappedEventArgs e)
+    {
+        if (IsLoginSuccessful)
+            Shell.Current.GoToAsync(nameof(UserPropertyEditPage));
+        else
+            PopupAction.DisplayPopup(new TipPopup("请先登录"));
     }
 }

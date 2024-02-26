@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XFE各类拓展.NetCore.XFEDataBase</name>
+    </assembly>
+    <members>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase">
+            <summary>
+            XFE数据库
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.DataBase">
+            <summary>
+            数据库
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.User">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.Password">
+            <summary>
+            数据库密码
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.ConnectionString">
+            <summary>
+            数据库连接字符串
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.XFEDbContextBuilder">
+            <summary>
+            数据表创建器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.CreateExecuter">
+            <summary>
+            执行器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.#ctor(System.String)">
+            <summary>
+            创建数据库
+            </summary>
+            <param name="ConnectionString">连接字符串</param>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEDataBase.#ctor(System.String,System.String,System.String)">
+            <summary>
+            创建数据库
+            </summary>
+            <param name="DataBase">数据库名称</param>
+            <param name="UID">用户名</param>
+            <param name="Password">密码</param>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter">
+            <summary>
+            执行器
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.XFEDataBase">
+            <summary>
+            所属数据库
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.RefreshExecuter">
+            <summary>
+            刷新执行器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteGet``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            执行获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="findFunc">条件判断方法</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteGetByKeyID``1(System.String)">
+            <summary>
+            通过主键ID执行获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Id">主键ID</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteGetFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            执行获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="findFunc">条件判断方法</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteGet``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean)">
+            <summary>
+            执行获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="findFunc">条件判断方法</param>
+            <param name="sortFunc">排序方法</param>
+            <param name="descending">是否降序</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteAdd``1(``0)">
+            <summary>
+            执行添加数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="addData">要添加的条目</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteDelete``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            执行删除数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="deleteFunc"></param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteDelete``1(``0)">
+            <summary>
+            执行删除数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">待删除实体</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteUpdate``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            执行更新数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="updateFunc"></param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.ExecuteUpdate``1(``0)">
+            <summary>
+            执行更新数据，可跨线程
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="updateData"></param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.SaveChanges">
+            <summary>
+            执行更新数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.Dispose">
+            <summary>
+            释放执行器
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEExecuter.DisposeAsync">
+            <summary>
+            释放执行器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseExtension">
+            <summary>
+            数据库扩展类
+            </summary>
+        </member>
+        <member name="M:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseExtension.ExecuteUpdate``1(``0,XFE各类拓展.NetCore.XFEDataBase.XFEExecuter)">
+            <summary>
+            执行更新数据，可跨线程
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="updateData"></param>
+            <param name="xFEExecuter">执行器</param>
+            <returns></returns>
+            <exception cref="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException"></exception>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEFormBase">
+            <summary>
+            数据库基类
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.UserInfoForm">
+            <summary>
+            用户信息表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.UserInfoForm.Id">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.UserInfoForm.Aname">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.UserInfoForm.Apassword">
+            <summary>
+            用户密码
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.UserInfoForm.Atel">
+            <summary>
+            用户电话
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.UserInfoForm.Amail">
+            <summary>
+            用户邮箱
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.UserInfoForm.Agroup">
+            <summary>
+            用户组
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm">
+            <summary>
+            XFE聊天室用户信息表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.ID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.Aname">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.Apassword">
+            <summary>
+            用户密码
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.Atel">
+            <summary>
+            用户电话
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.Amail">
+            <summary>
+            用户邮箱
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.Agroups">
+            <summary>
+            用户组
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.LikedPostID">
+            <summary>
+            点赞的帖子ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.StarredPostID">
+            <summary>
+            收藏的帖子ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.LatestMessage">
+            <summary>
+            最新消息
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.LikedCommentID">
+            <summary>
+            点赞的评论ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.NormalGPTUsage">
+            <summary>
+            GPT3.5今日使用次数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.AdvancedGPTUsage">
+            <summary>
+            GPT4.0今日使用次数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.AIDrawUsage">
+            <summary>
+            AI画图今日使用次数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.TotalNormalGPTUsage">
+            <summary>
+            GPT3.5总使用次数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.TotalAdvancedGPTUsage">
+            <summary>
+            GPT4.0总使用次数
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_UserInfoForm.TotalAIDrawUsage">
+            <summary>
+            AI画图总使用次数
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost">
+            <summary>
+            XFE聊天室社区帖子信息表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.PostID">
+            <summary>
+            帖子ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.UID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.PostContent">
+            <summary>
+            帖子内容
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.UName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.PostTime">
+            <summary>
+            发帖时间
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.PostTitle">
+            <summary>
+            帖子标题
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.PostLike">
+            <summary>
+            帖子点赞数量
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.PostTag">
+            <summary>
+            帖子标签
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityPost.PostStar">
+            <summary>
+            帖子收藏数量
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment">
+            <summary>
+            XFE聊天室社区评论信息表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.PostID">
+            <summary>
+            回复的帖子ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.CommentID">
+            <summary>
+            评论ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.QuoteID">
+            <summary>
+            引用的评论ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.FloorCount">
+            <summary>
+            评论楼层
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.UID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.UName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.CommentContent">
+            <summary>
+            评论内容
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.CommentLike">
+            <summary>
+            评论点赞数量
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEChatRoom_CommunityComment.CommentTime">
+            <summary>
+            评论时间
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseContext">
+            <summary>
+            XFE数据库
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseContext.userinfo">
+            <summary>
+            用户信息表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseContext.xfechatroom_userinfo">
+            <summary>
+            XCC聊天室用户信息表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseContext.xfechatroom_communitypost">
+            <summary>
+            XCC聊天室社区帖子信息表
+            </summary>
+        </member>
+        <member name="P:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseContext.xfechatroom_communitycomment">
+            <summary>
+            XCC聊天室社区评论信息表
+            </summary>
+        </member>
+        <member name="T:XFE各类拓展.NetCore.XFEDataBase.XFEDataBaseException">
+            <summary>
+            数据库异常
+            </summary>
+        </member>
+    </members>
+</doc>
