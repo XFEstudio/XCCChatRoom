@@ -2,9 +2,9 @@ using MauiPopup;
 using MauiPopup.Views;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.InnerPage;
+using XFE各类拓展.NetCore.StringExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.StringExtension;
-using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.Controls;
 

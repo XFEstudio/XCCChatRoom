@@ -1,5 +1,5 @@
-using XFE各类拓展.MailExtension;
-using XFE各类拓展.StringExtension;
+using XFE各类拓展.NetCore.MailExtension;
+using XFE各类拓展.NetCore.StringExtension;
 using Timer = System.Timers.Timer;
 
 namespace XCCChatRoom.InnerPage;
@@ -60,7 +60,7 @@ public partial class UserMailEditPage : ContentPage
             };
             var randomCode = new Random().Next(100000, 999999).ToString();
             this.MailCaptcha = randomCode;
-            XFEMail xFEMail = new XFEMail();
+            var xFEMail = new XFEMail();
             try
             {
                 /*xFEMail.SendEmail("验证邮箱", $"您正在修改XCG聊天室的绑定邮箱\n验证码为:{randomCode}\n"

@@ -1,7 +1,7 @@
 using MauiPopup;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
-using XFE各类拓展.StringExtension;
+using XFE各类拓展.NetCore.StringExtension;
 
 namespace XCCChatRoom.InnerPage;
 
