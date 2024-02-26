@@ -164,6 +164,9 @@
 	  <Compile Update="Controls\ErrorPopup.xaml.cs">
 	    <DependentUpon>ErrorPopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Controls\UserTelEditPopup.xaml.cs">
+	    <DependentUpon>UserTelEditPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Controls\ImagePopup.xaml.cs">
 	    <DependentUpon>ImagePopup.xaml</DependentUpon>
 	  </Compile>
@@ -176,8 +179,20 @@
 	  <Compile Update="InnerPage\ChatPage.xaml.cs">
 	    <DependentUpon>ChatPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="InnerPage\UserMailEditPage.xaml.cs">
+	    <DependentUpon>UserMailEditPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="InnerPage\UserPasswordEditorPage.xaml.cs">
+	    <DependentUpon>UserPasswordEditorPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="InnerPage\UserPrivacyListPage.xaml.cs">
+	    <DependentUpon>UserPrivacyListPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="InnerPage\UserLoginPage.xaml.cs">
 	    <DependentUpon>UserLoginPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="InnerPage\UserPropertyEditPage.xaml.cs">
+	    <DependentUpon>UserPropertyEditPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="InnerPage\UserRegisterPage.xaml.cs">
 	    <DependentUpon>UserRegisterPage.xaml</DependentUpon>
@@ -195,6 +210,9 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\GPTSettingPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\UserTelEditPopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\StarButton.xaml">
@@ -224,10 +242,22 @@
 		<MauiXaml Update="InnerPage\CommunityPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="InnerPage\ForgetPasswordPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="InnerPage\GPTAIChatPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\IntroductionPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserMailEditPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserPasswordEditorPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="InnerPage\UserPrivacyListPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="InnerPage\PostEditPage.xaml">
@@ -236,7 +266,7 @@
 		<MauiXaml Update="InnerPage\PostViewPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserPropertyEditor.xaml">
+		<MauiXaml Update="InnerPage\UserPropertyEditPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\GroupCardView.xaml">
@@ -339,7 +369,7 @@
 
 	<ItemGroup>
 	  <Reference Include="XFE各类拓展.NetCore.XFEDataBase">
-	    <HintPath>..\..\..\..\OtherProject\XFE各类拓展.NetCore.XFEDataBase\XFE各类拓展.NetCore.XFEDataBase\bin\Release\net7.0\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>
+	    <HintPath>DLLImport\XFEDataBase\XFE各类拓展.NetCore.XFEDataBase.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 
