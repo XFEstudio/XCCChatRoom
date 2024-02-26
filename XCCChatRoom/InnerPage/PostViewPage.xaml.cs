@@ -1,9 +1,9 @@
 using MauiPopup;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
-using XFE各类拓展.ArrayExtension;
+using XFE各类拓展.NetCore.ArrayExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.InnerPage;
 
@@ -38,8 +38,8 @@ public partial class PostViewPage : ContentPage
     }
     public XFEChatRoom_CommunityPost CurrentPostData { get; set; }
     public static PostViewPage Current { get; private set; }
-    private List<string> CommentIDList = new List<string>();
-    private List<CommentCardView> CommentCardList = new List<CommentCardView>();
+    private readonly List<string> CommentIDList = [];
+    private readonly List<CommentCardView> CommentCardList = [];
     private bool Editing = false;
     private bool Initialized = false;
     private bool RefreshingIsBusy = false;
@@ -152,7 +152,7 @@ public partial class PostViewPage : ContentPage
         {
             using (var Executer = XCCDataBase.XFEDataBase.CreateExecuter())
             {
-                List<XFEChatRoom_CommunityComment> commentDataList = new List<XFEChatRoom_CommunityComment>();
+                List<XFEChatRoom_CommunityComment> commentDataList = [];
                 while (getCommentRetryTime < 30)
                 {
                     try
@@ -211,8 +211,10 @@ public partial class PostViewPage : ContentPage
                             }
                             else
                             {
-                                var commentCard = new CommentCardView(commentData, quoteCommentData);
-                                commentCard.Margin = new Thickness(0, 5);
+                                var commentCard = new CommentCardView(commentData, quoteCommentData)
+                                {
+                                    Margin = new Thickness(0, 5)
+                                };
                                 commentCard.LikeClick += CommentCard_LikeClick;
                                 commentCard.QuoteClick += CommentCard_QuoteClick;
                                 commentCard.CommentCardTapped += CommentCard_CommentCardTapped;

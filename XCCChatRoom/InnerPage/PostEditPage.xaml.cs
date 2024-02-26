@@ -1,18 +1,18 @@
 using MauiPopup;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
-using XFE各类拓展.ArrayExtension;
-using XFE各类拓展.ListExtension;
+using XFE各类拓展.NetCore.ArrayExtension;
+using XFE各类拓展.NetCore.ListExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.InnerPage;
 
 public partial class PostEditPage : ContentPage
 {
     public XFEChatRoom_CommunityPost CurrentPostData { get; set; }
-    private XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
-    private List<string> tags = new List<string>();
+    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
+    private readonly List<string> tags = [];
     private bool BackTrigger = false;
     private bool SecTrigger = false;
     private bool Posting = false;
@@ -87,7 +87,7 @@ public partial class PostEditPage : ContentPage
                             PostViewPage.Current.CurrentPostData = null;
                             await Shell.Current.GoToAsync("../..");
                             CommunityPage.Current.RemovePostByID(CurrentPostData?.PostID);
-                            CommunityPage.Current.postRefreshView_Refreshing(null, null);
+                            CommunityPage.Current.PostRefreshView_Refreshing(null, null);
                             BackTrigger = false;
                             Deleting = false;
                         }
@@ -211,7 +211,7 @@ public partial class PostEditPage : ContentPage
                 await successfulLabel.FadeTo(1, 300, Easing.CubicInOut);
                 await Task.Delay(1000);
                 await successfulLabel.FadeTo(0, 300, Easing.CubicInOut);
-                CommunityPage.Current.postRefreshView_Refreshing(null, null);
+                CommunityPage.Current.PostRefreshView_Refreshing(null, null);
                 if (CurrentPostData is not null)
                 {
                     PostViewPage.Current?.Refresh();

@@ -1,8 +1,8 @@
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
-using XFE各类拓展.ArrayExtension;
+using XFE各类拓展.NetCore.ArrayExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.InnerPage;
 
@@ -39,7 +39,7 @@ public partial class CommunityPage : ContentPage
         postRefreshView.IsRefreshing = true;
     }
 
-    public async void postRefreshView_Refreshing(object sender, EventArgs e)
+    public async void PostRefreshView_Refreshing(object sender, EventArgs e)
     {
         await new Action(async () =>
         {
@@ -234,7 +234,7 @@ public partial class CommunityPage : ContentPage
         }
         return totalHeight;
     }
-    private void postScrollView_Scrolled(object sender, ScrolledEventArgs e)
+    private void PostScrollView_Scrolled(object sender, ScrolledEventArgs e)
     {
         if (RefreshingIsBusy)
             return;

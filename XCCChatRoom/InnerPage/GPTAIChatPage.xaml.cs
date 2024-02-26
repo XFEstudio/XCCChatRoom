@@ -2,9 +2,10 @@ using MauiPopup;
 using Microsoft.Maui.Controls.Shapes;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
-using XFE各类拓展.ArrayExtension;
-using XFE各类拓展.TaskExtension;
-using XFE各类拓展.XFEChatGPT;
+using XFE各类拓展.NetCore.ArrayExtension;
+using XFE各类拓展.NetCore.TaskExtension;
+using XFE各类拓展.NetCore.XFEChatGPT;
+using XFE各类拓展.NetCore.XFEChatGPT.ChatGPTInnerClass.HelperClass;
 
 namespace XCCChatRoom.InnerPage;
 
@@ -382,10 +383,10 @@ public partial class GPTAIChatPage : ContentPage
 
     private void ReceiveGPTResponse(object sender, XFEGPTMessageReceivedEventArgs e)
     {
-        var labelAndMessage = labelAndMessageIdList.Find(x => x.messageId == e.messageId);
+        var labelAndMessage = labelAndMessageIdList.Find(x => x.messageId == e.MessageId);
         if (labelAndMessage is not null)
         {
-            switch (e.generateState)
+            switch (e.GenerateState)
             {
                 case GenerateState.Start:
                     break;
@@ -397,7 +398,7 @@ public partial class GPTAIChatPage : ContentPage
                             ChatStack.Dispatcher.Dispatch(() =>
                             {
                                 var label = labelAndMessage.label;
-                                label.Text = label.Text.Insert(label.Text.Length - 1, e.message);
+                                label.Text = label.Text.Insert(label.Text.Length - 1, e.Message);
                             });
                             ChatScrollView.Dispatcher.Dispatch(() =>
                             {
@@ -420,8 +421,8 @@ public partial class GPTAIChatPage : ContentPage
                         {
                             labelAndMessage.completeState = true;
                             labelAndMessage.label.TextColor = Color.FromArgb("#F87171");
-                            labelAndMessage.label.Text = labelAndMessage.label.Text.Insert(labelAndMessage.label.Text.Length - 1, $"发生错误：\n{e.message}");
-                            Console.Write(e.message);
+                            labelAndMessage.label.Text = labelAndMessage.label.Text.Insert(labelAndMessage.label.Text.Length - 1, $"发生错误：\n{e.Message}");
+                            Console.Write(e.Message);
                         });
                     }
                     break;

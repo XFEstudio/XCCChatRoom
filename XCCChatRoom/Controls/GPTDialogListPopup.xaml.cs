@@ -2,7 +2,7 @@ using MauiPopup.Views;
 using Microsoft.Maui.Controls.Shapes;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.InnerPage;
-using XFE各类拓展.FormatExtension;
+using XFE各类拓展.NetCore.FormatExtension;
 
 namespace XCCChatRoom.Controls;
 

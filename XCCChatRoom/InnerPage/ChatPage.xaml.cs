@@ -65,7 +65,6 @@ public partial class ChatPage : ContentPage
     private bool isPlaying = false;
     private bool connected = false;
     private bool firstConnect = true;
-    private bool isScrolled = false;
     private bool phoneCallEnabled = false;
     private string lastSender = string.Empty;
     private int MessageCount = 0;
@@ -1052,7 +1051,7 @@ public partial class ChatPage : ContentPage
 
     private void ChatScrollView_Scrolled(object sender, ScrolledEventArgs e)
     {
-        isScrolled = true;
+        //TODO:
     }
 
     private bool SwitchToolBarButton(ImageButton sender)

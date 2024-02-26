@@ -1,7 +1,7 @@
-using XFE各类拓展.ArrayExtension;
+using XFE各类拓展.NetCore.ArrayExtension;
+using XFE各类拓展.NetCore.ObjectExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.ObjectExtension;
-using XFE各类拓展.TaskExtension;
 
 namespace XCCChatRoom.Controls;
 
@@ -143,7 +143,7 @@ public partial class PostCardView : ContentView
         Click?.Invoke(this, new PostCardViewClickEventArgs(PostEntity, e));
     }
 
-    private void btnLike_Clicked(object sender, EventArgs e)
+    private void BtnLike_Clicked(object sender, EventArgs e)
     {
         if (IsLike)
         {
@@ -160,34 +160,19 @@ public partial class PostCardView : ContentView
     }
 }
 
-public class PostCardViewTagClickEventArgs
+public class PostCardViewTagClickEventArgs(XFEChatRoom_CommunityPost postEntity, string tagString)
 {
-    public XFEChatRoom_CommunityPost PostEntity { get; init; }
-    public string TagString { get; init; }
-    public PostCardViewTagClickEventArgs(XFEChatRoom_CommunityPost postEntity, string tagString)
-    {
-        PostEntity = postEntity;
-        TagString = tagString;
-    }
+    public XFEChatRoom_CommunityPost PostEntity { get; init; } = postEntity;
+    public string TagString { get; init; } = tagString;
 }
 
-public class PostCardViewClickEventArgs : EventArgs
+public class PostCardViewClickEventArgs(XFEChatRoom_CommunityPost postEntity, TappedEventArgs tappedEventArgs) : EventArgs
 {
-    public XFEChatRoom_CommunityPost PostEntity { get; init; }
-    public TappedEventArgs TappedEventArgs { get; init; }
-    public PostCardViewClickEventArgs(XFEChatRoom_CommunityPost postEntity, TappedEventArgs tappedEventArgs)
-    {
-        PostEntity = postEntity;
-        TappedEventArgs = tappedEventArgs;
-    }
+    public XFEChatRoom_CommunityPost PostEntity { get; init; } = postEntity;
+    public TappedEventArgs TappedEventArgs { get; init; } = tappedEventArgs;
 }
-public class PostCardViewLikeClickEventArgs : EventArgs
+public class PostCardViewLikeClickEventArgs(XFEChatRoom_CommunityPost postEntity, bool isLike) : EventArgs
 {
-    public bool IsLike { get; init; }
-    public XFEChatRoom_CommunityPost PostEntity { get; init; }
-    public PostCardViewLikeClickEventArgs(XFEChatRoom_CommunityPost postEntity, bool isLike)
-    {
-        IsLike = isLike;
-        PostEntity = postEntity;
-    }
+    public bool IsLike { get; init; } = isLike;
+    public XFEChatRoom_CommunityPost PostEntity { get; init; } = postEntity;
 }

@@ -1,6 +1,6 @@
-﻿using XFE各类拓展.NetCore.XFEDataBase;
-using XFE各类拓展.WebExtension;
-using XFE各类拓展.XEAEncryption;
+﻿using XFE各类拓展.NetCore.WebExtension;
+using XFE各类拓展.NetCore.XEAEncryption;
+using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.AllImpl
 {

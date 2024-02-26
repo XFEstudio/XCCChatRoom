@@ -1,6 +1,6 @@
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
-using XFE各类拓展.FormatExtension;
+using XFE各类拓展.NetCore.FormatExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.InnerPage;
@@ -18,7 +18,7 @@ public partial class GroupContactPage : ContentPage
         }
     }
     private XFEDictionary groups = new XFEDictionary();
-    private XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
+    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     private string userName;
     public GroupContactPage()
     {

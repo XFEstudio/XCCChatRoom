@@ -1,7 +1,8 @@
-﻿using XFE各类拓展.ArrayExtension;
-using XFE各类拓展.FileExtension;
-using XFE各类拓展.FormatExtension;
-using XFE各类拓展.XFEChatGPT;
+﻿using XFE各类拓展.NetCore.ArrayExtension;
+using XFE各类拓展.NetCore.FileExtension;
+using XFE各类拓展.NetCore.FormatExtension;
+using XFE各类拓展.NetCore.XFEChatGPT;
+using XFE各类拓展.NetCore.XFEChatGPT.ChatGPTInnerClass.HelperClass;
 
 namespace XCCChatRoom.AllImpl
 {
@@ -47,7 +48,7 @@ namespace XCCChatRoom.AllImpl
                     //PopupAction.DisplayPopup(new ErrorPopup("加载失败", $"加载对话时发生错误：\n{ex.Message}", 10));
                     Console.WriteLine($"发生错误：{ex}");
                     Clipboard.SetTextAsync($"报错信息：{ex}\n\n报错时读取的内容：{dialogsString}");
-                    XFEEntries = new XFEMultiDictionary();
+                    XFEEntries = [];
                 }
             }
         }
@@ -62,18 +63,18 @@ namespace XCCChatRoom.AllImpl
         }
         private static void MemorableXFEChatGPT_XFEChatGPTMessageReceived(object sender, MemorableGPTMessageReceivedEventArgs e)
         {
-            switch (e.generateState)
+            switch (e.GenerateState)
             {
                 case GenerateState.Start:
                     break;
                 case GenerateState.Continue:
-                    SuggestionsReceived?.Invoke(null, e.message);
-                    Suggestion += e.message;
+                    SuggestionsReceived?.Invoke(null, e.Message);
+                    Suggestion += e.Message;
                     break;
                 case GenerateState.End:
                     break;
                 case GenerateState.Error:
-                    Console.WriteLine(e.message);
+                    Console.WriteLine(e.Message);
                     break;
                 default:
                     ProcessException.ShowEnumException();

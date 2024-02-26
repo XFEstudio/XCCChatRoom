@@ -1,9 +1,9 @@
 ﻿using TencentCloud.Common;
 using TencentCloud.Sms.V20210111;
 using TencentCloud.Sms.V20210111.Models;
-using XFE各类拓展.TaskExtension;
-using XFE各类拓展.WebExtension;
-using XFE各类拓展.XEAEncryption;
+using XFE各类拓展.NetCore.TaskExtension;
+using XFE各类拓展.NetCore.WebExtension;
+using XFE各类拓展.NetCore.XEAEncryption;
 
 namespace XCCChatRoom.AllImpl
 {

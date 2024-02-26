@@ -1,7 +1,7 @@
 ﻿using MauiPopup;
+using System.Diagnostics;
 using XCCChatRoom.Controls;
-using XFE各类拓展.StringExtension;
-using XFE各类拓展.TaskExtension;
+using XFE各类拓展.NetCore.TaskExtension;
 
 namespace XCCChatRoom.AllImpl
 {
@@ -18,14 +18,14 @@ namespace XCCChatRoom.AllImpl
                 {
                     try
                     {
-                        using HttpClient httpClient = new HttpClient();
+                        using var httpClient = new HttpClient();
                         HttpResponseMessage response = await httpClient.GetAsync("https://www.xfegzs.com/XFElts/XCCVersion.xfe");
 
                         if (response.IsSuccessStatusCode)
                         {
                             IsCheckUpdate = true;
                             string content = await response.Content.ReadAsStringAsync();
-                            content.CW();
+                            Trace.WriteLine(content);
                             string[] versionInfo = content.Split('|');
                             if (versionInfo.Length == 3 && versionInfo[0] != VersionTracking.CurrentVersion && versionInfo[0] != AppSystemProfile.IgnoreVersion)
                             {
