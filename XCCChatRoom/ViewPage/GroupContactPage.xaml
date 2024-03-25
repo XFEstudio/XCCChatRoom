@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XCCChatRoom.Controls"
+             x:Class="XCCChatRoom.ViewPage.GroupContactPage"
+             Title="XFE聊天室"
+             BackgroundColor="#f0f0f0">
+    <RefreshView
+        x:Name="groupRefreshView"
+        x:FieldModifier="public"
+        RefreshColor="Orange"
+        Refreshing="groupRefreshView_Refreshing">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image
+                Source="newsletter"
+                Opacity="0.1"/>
+            <Label
+                Margin="0,0,0,50"
+                Text="左滑删除群聊"
+                Opacity="0.06"
+                TextColor="#512BD4"
+                FontSize="24"
+                x:Name="DeleteLabel"
+                HorizontalOptions="Center"
+                VerticalOptions="End"/>
+            <ScrollView
+                VerticalScrollBarVisibility="Never">
+                <StackLayout
+                    Padding="5,5"
+                    x:Name="GroupStackLayout"
+                    x:FieldModifier="public">
+                    <controls:GroupCardView 
+                        x:Name="OfficalGroupCardView"
+                        GroupName="XFE聊天室[官方]"
+                        Margin="0,3,0,3"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

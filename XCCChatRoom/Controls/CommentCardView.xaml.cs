@@ -1,4 +1,4 @@
-using XFE各类拓展.NetCore.ObjectExtension;
+using XFEExtension.NetCore.ObjectExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.Controls;

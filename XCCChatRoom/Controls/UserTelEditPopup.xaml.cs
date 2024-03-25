@@ -1,9 +1,9 @@
 using MauiPopup;
 using MauiPopup.Views;
 using XCCChatRoom.AllImpl;
-using XCCChatRoom.InnerPage;
-using XFE各类拓展.NetCore.StringExtension;
-using XFE各类拓展.NetCore.TaskExtension;
+using XCCChatRoom.ViewPage;
+using XFEExtension.NetCore.StringExtension;
+using XFEExtension.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.Controls;
@@ -152,8 +152,8 @@ public partial class UserTelEditPopup : BasePopupPage
             {
                 if (await XFEExecuter.ExecuteGetFirst<XFEChatRoom_UserInfoForm>(x => x.Atel == currentNewPhoneNum) == null)
                 {
-                    UserInfo.CurrentUser.Atel = currentNewPhoneNum;
-                    if (await UserInfo.UpLoadUserInfo() > 0)
+                    UserInfoPage.CurrentUser.Atel = currentNewPhoneNum;
+                    if (await UserInfoPage.UpLoadUserInfo() > 0)
                     {
                         userPropertyEditPage.CurrentPhoneNumLabelText = currentNewPhoneNum;
                         SendBackButtonPressed();
@@ -207,7 +207,7 @@ public partial class UserTelEditPopup : BasePopupPage
         var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, [randomCode, "2"]);
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
-            await DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
+            await Shell.Current?.DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
             TelVerifyCodeButton.IsEnabled = true;
             TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
             TelVerifyCodeButton.Text = "重新发送";

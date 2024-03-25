@@ -1,8 +1,8 @@
 using MauiPopup.Views;
 using Microsoft.Maui.Controls.Shapes;
 using XCCChatRoom.AllImpl;
-using XCCChatRoom.InnerPage;
-using XFE各类拓展.NetCore.FormatExtension;
+using XCCChatRoom.ViewPage;
+using XFEExtension.NetCore.FormatExtension;
 
 namespace XCCChatRoom.Controls;
 
@@ -116,7 +116,7 @@ public partial class GPTDialogListPopup : BasePopupPage
                 CommandParameter = new { Id = entry.Header, Border = entryBorder },
                 Command = new Command(async sender =>
                 {
-                    if (await DisplayAlert("删除", "是否删除该对话？", "删除", "取消"))
+                    if (await Shell.Current?.DisplayAlert("删除", "是否删除该对话？", "删除", "取消"))
                     {
                         var border = ((dynamic)sender).Border as Border;
                         var id = ((dynamic)sender).Id as string;

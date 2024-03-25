@@ -1,5 +1,5 @@
-﻿using XFE各类拓展.NetCore.FileExtension;
-using XFE各类拓展.NetCore.FormatExtension;
+﻿using XFEExtension.NetCore.FileExtension;
+using XFEExtension.NetCore.FormatExtension;
 
 namespace XCCChatRoom.AllImpl
 {

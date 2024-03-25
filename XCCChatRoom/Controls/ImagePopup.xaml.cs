@@ -22,13 +22,13 @@ public partial class ImagePopup : BasePopupPage
         switch (result)
         {
             case PermissionStatus.Unknown:
-                await DisplayAlert("储存失败", "未知请求状态", "啊？");
+                await Shell.Current?.DisplayAlert("储存失败", "未知请求状态", "啊？");
                 break;
             case PermissionStatus.Denied:
-                await DisplayAlert("储存失败", "请求被拒绝", "确认");
+                await Shell.Current?.DisplayAlert("储存失败", "请求被拒绝", "确认");
                 break;
             case PermissionStatus.Disabled:
-                await DisplayAlert("储存失败", "储存不了了捏，得去手动赋予权限", "OK");
+                await Shell.Current?.DisplayAlert("储存失败", "储存不了了捏，得去手动赋予权限", "OK");
                 break;
             case PermissionStatus.Granted:
                 if (!Directory.Exists(AppPath.ChatImageSavePath))
@@ -45,10 +45,10 @@ public partial class ImagePopup : BasePopupPage
                 }
                 break;
             case PermissionStatus.Restricted:
-                await DisplayAlert("储存失败", "被Restricted了", "我测");
+                await Shell.Current?.DisplayAlert("储存失败", "被Restricted了", "我测");
                 break;
             case PermissionStatus.Limited:
-                await DisplayAlert("储存失败", "请求被限制了", "啊？");
+                await Shell.Current?.DisplayAlert("储存失败", "请求被限制了", "啊？");
                 break;
             default:
                 break;

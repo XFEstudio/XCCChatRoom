@@ -1,6 +1,6 @@
 using MauiPopup;
 using MauiPopup.Views;
-using XCCChatRoom.InnerPage;
+using XCCChatRoom.ViewPage;
 
 namespace XCCChatRoom.Controls;
 

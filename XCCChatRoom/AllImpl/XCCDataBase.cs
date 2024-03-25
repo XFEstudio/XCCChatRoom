@@ -1,5 +1,5 @@
-﻿using XFE各类拓展.NetCore.WebExtension;
-using XFE各类拓展.NetCore.XEAEncryption;
+﻿using XFEExtension.NetCore.WebExtension;
+using XFEExtension.NetCore.XEAEncryption;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.AllImpl

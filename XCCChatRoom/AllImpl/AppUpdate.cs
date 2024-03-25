@@ -1,7 +1,7 @@
 ﻿using MauiPopup;
 using System.Diagnostics;
 using XCCChatRoom.Controls;
-using XFE各类拓展.NetCore.TaskExtension;
+using XFEExtension.NetCore.TaskExtension;
 
 namespace XCCChatRoom.AllImpl
 {

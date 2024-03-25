@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XCCChatRoom.ViewPage.UserMailEditPage"
+             Title="修改邮箱">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="原邮箱:"
+               FontSize="20"
+               HorizontalOptions="End"
+               VerticalOptions="Center" 
+               Grid.Row="1"/>
+
+            <Label x:Name="OldMail"
+               FontSize="18"
+               VerticalOptions="End" 
+               WidthRequest="160"
+               Grid.Row="1"
+               Grid.Column="1"/>
+
+            <Label Text="新邮箱:"
+               FontSize="20"
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Grid.Row="2"/>
+
+            <Entry x:Name="NewMail"
+               Unfocused="NewMail_Unfocused"
+               HorizontalOptions="Fill"
+               WidthRequest="200"
+               FontSize="18"
+               Grid.Row="2"
+               Grid.Column="1"/>
+
+            <Label Text="验证码:"
+               FontSize="20"
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Grid.Row="3"/>
+
+            <Entry x:Name="MailEditorCaptcha"
+               FontSize="20"
+               VerticalOptions="Center"
+               TextChanged="MailEditorCaptcha_TextChanged"
+               Grid.Row="3"
+               Grid.Column="1"
+               WidthRequest="200"/>
+
+            <Button x:Name="GetMailCode"
+               Text="获取验证码"
+               FontSize="15"
+               Clicked="GetMailCode_Clicked"
+               WidthRequest="60"
+               Grid.Row="3"
+               Grid.Column="2"
+               CornerRadius="8"/>
+
+            <Button Text="确认"
+               WidthRequest="80"
+               Margin="0,10"
+               FontSize="24"
+               Clicked="Button_Clicked"
+               Grid.Row="4"
+               Grid.ColumnSpan="3"
+               CornerRadius="10"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

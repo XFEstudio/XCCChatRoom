@@ -1,8 +1,8 @@
-﻿using XFE各类拓展.NetCore.ArrayExtension;
-using XFE各类拓展.NetCore.FileExtension;
-using XFE各类拓展.NetCore.FormatExtension;
-using XFE各类拓展.NetCore.XFEChatGPT;
-using XFE各类拓展.NetCore.XFEChatGPT.ChatGPTInnerClass.HelperClass;
+﻿using XFEExtension.NetCore.ArrayExtension;
+using XFEExtension.NetCore.FileExtension;
+using XFEExtension.NetCore.FormatExtension;
+using XFEExtension.NetCore.XFEChatGPT;
+using XFEExtension.NetCore.XFEChatGPT.ChatGPTInnerClass.HelperClass;
 
 namespace XCCChatRoom.AllImpl
 {
