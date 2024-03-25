@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using XCCChatRoom.Profiles;
 using XCCChatRoom.ViewPage;
 
 namespace XCCChatRoom.ViewModel;
@@ -11,7 +12,7 @@ public partial class AICenterPageViewModel(AICenterPage viewPage) : ObservableOb
     [RelayCommand]
     static async Task ChatToNormalGPTClick()
     {
-        if (UserInfoPage.IsLoginSuccessful)
+        if (UserInfoProfile.LoginSuccessful)
         {
             await Shell.Current?.GoToAsync(nameof(GPTAIChatPage));
         }

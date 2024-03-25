@@ -20,10 +20,10 @@ public partial class UserInfoPageViewModel : ObservableObject
     public UserInfoPageViewModel(UserInfoPage viewPage)
     {
         ViewPage = viewPage;
-        if (SystemProfile.IsLoginSuccessful)
+        if (UserInfoProfile.LoginSuccessful)
         {
-            UserName = SystemProfile.UserName;
-            UUID = SystemProfile.UserUID;
+            UserName = UserInfoProfile.Name;
+            UUID = UserInfoProfile.UUID;
             SwitchToLoginStyle();
         }
         else
@@ -31,10 +31,10 @@ public partial class UserInfoPageViewModel : ObservableObject
             UserNameFirstLatter = "?";
             UserName = "未登录";
             UUID = "暂无UID";
-            SystemProfile.UserName = string.Empty;
-            SystemProfile.UserUID = string.Empty;
-            SystemProfile.UserPassword = string.Empty;
-            SystemProfile.UserPhoneNum = string.Empty;
+            UserInfoProfile.Name = string.Empty;
+            UserInfoProfile.UUID = string.Empty;
+            UserInfoProfile.Password = string.Empty;
+            UserInfoProfile.Phone = string.Empty;
         }
     }
 
@@ -51,14 +51,14 @@ public partial class UserInfoPageViewModel : ObservableObject
 
     public async Task SwitchToUnLoginStyle()
     {
-        SystemProfile.IsLoginSuccessful = false;
+        UserInfoProfile.LoginSuccessful = false;
         UserNameFirstLatter = "?";
         UserName = "未登录";
         UUID = "暂无UID";
-        SystemProfile.UserName = string.Empty;
-        SystemProfile.UserUID = string.Empty;
-        SystemProfile.UserPassword = string.Empty;
-        SystemProfile.UserPhoneNum = string.Empty;
+        UserInfoProfile.Name = string.Empty;
+        UserInfoProfile.UUID = string.Empty;
+        UserInfoProfile.Password = string.Empty;
+        UserInfoProfile.Phone = string.Empty;
         ViewPage.loginButton.BackgroundColor = Color.FromArgb("#512BD4");
         ViewPage.loginButton.Text = "登录";
         ViewPage.loginButton.BorderColor = null;

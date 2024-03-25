@@ -32,6 +32,7 @@ public partial class ChatPageViewModel : ObservableObject
             StartGroupComm(GroupName, value);
         }
     }
+
     #region 字段
     private readonly List<ImageButton> emotionImageButtonList = [];
     private readonly List<Image> emotionImageList = [];
@@ -165,10 +166,7 @@ public partial class ChatPageViewModel : ObservableObject
     }
 
     #region 事件方法
-    private void XCCNetWork_Connected(object sender, XCCConnectedEventArgs e)
-    {
-        Trace.WriteLine($"连接到服务器：{e.XCCClientType}");
-    }
+    private void XCCNetWork_Connected(object sender, XCCConnectedEventArgs e) => Trace.WriteLine($"连接到服务器：{e.XCCClientType}");
 
     private async void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
     {
@@ -428,8 +426,8 @@ public partial class ChatPageViewModel : ObservableObject
             return true;
         }
     }
-
     #region 显示消息
+
     public async Task ShowStandardImage(bool isHistory, XCCFile xCCFile)
     {
         Trace.WriteLine($"发送者：{xCCFile.Sender}，是否加载：{xCCFile.Loaded}，是否为历史：{isHistory}");
