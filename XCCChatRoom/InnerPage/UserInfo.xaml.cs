@@ -136,7 +136,7 @@ public partial class UserInfo : ContentPage
     {
         try
         {
-            string Locality = new XFEDictionary(new string[]
+            string locality = new XFEDictionary(new string[]
             {
                 "UUID", StaticUUID,
                 "UserName", StaticUserName,
@@ -144,7 +144,7 @@ public partial class UserInfo : ContentPage
                 "Password", StaticPassword,
                 "PhoneNum", StaticPhoneNum
             }).ToString();
-            Locality.WriteIn(AppPath.UserInfoPath);
+            locality.WriteIn(AppPath.UserInfoPath);
         }
         catch (Exception ex)
         {
