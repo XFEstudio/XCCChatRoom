@@ -14,10 +14,13 @@ public partial class CommunityPageViewModel(CommunityPage viewPage) : Observable
 {
     private readonly List<PostCardView> postCardList = [];
     private readonly List<string> postIdList = [];
-    private long totalHeight = 0;
+    internal long totalHeight = 0;
     private bool firstRefresh = true;
+    private bool tapped = false;
+    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
+
     private bool refreshingIsBusy = false;
-    private bool RefreshingIsBusy
+    internal bool RefreshingIsBusy
     {
         get => refreshingIsBusy;
         set
@@ -33,8 +36,6 @@ public partial class CommunityPageViewModel(CommunityPage viewPage) : Observable
             }
         }
     }
-    private bool tapped = false;
-    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
 
     public CommunityPage ViewPage { get; init; } = viewPage;
 
@@ -80,26 +81,25 @@ public partial class CommunityPageViewModel(CommunityPage viewPage) : Observable
                     }
                     postCardList.Add(post);
                     postIdList.Add(post.PostId);
-                    postRefreshView.Dispatcher.Dispatch(() =>
+                    ViewPage.postRefreshView.Dispatcher.Dispatch(() =>
                     {
-                        postStackLayout.Children.Insert(0, post);
-                        //postListView.chi
+                        ViewPage.postStackLayout.Children.Insert(0, post);
                     });
                     totalHeight = GetTotalHeight();
-                    Trace.WriteLine($"滚动：{postScrollView.Height}\t当前：{totalHeight}");
-                    if (totalHeight > postScrollView.Height && firstRefresh)
+                    Trace.WriteLine($"滚动：{ViewPage.postScrollView.Height}\t当前：{totalHeight}");
+                    if (totalHeight > ViewPage.postScrollView.Height && firstRefresh)
                         break;
                 }
             }
         ViewPage.postRefreshView.Dispatcher.Dispatch(() =>
         {
-            postRefreshView.IsRefreshing = false;
+            ViewPage.postRefreshView.IsRefreshing = false;
         });
         totalHeight = GetTotalHeight();
         firstRefresh = false;
     }
 
-    private async void GetDownPost()
+    internal async void GetDownPost()
     {
         var postDataList = await AppAlgorithm.GetElderPost(3, postIdList);
         if (postDataList is not null)
@@ -117,12 +117,13 @@ public partial class CommunityPageViewModel(CommunityPage viewPage) : Observable
                 postIdList.Add(postData.PostID);
                 ViewPage.postRefreshView.Dispatcher.Dispatch(() =>
                 {
-                    postStackLayout.Children.Add(post);
+                    ViewPage.postStackLayout.Children.Add(post);
                 });
             }
         totalHeight = GetTotalHeight();
         RefreshingIsBusy = false;
     }
+
     public void RemovePostByID(string postId)
     {
         ViewPage.postStackLayout.Children.Remove(postCardList.Find(x => x.PostId == postId));
@@ -187,6 +188,7 @@ public partial class CommunityPageViewModel(CommunityPage viewPage) : Observable
             }
         }
     }
+
     public void ChangeToUnLoginStyle()
     {
         foreach (var post in postCardList)
@@ -194,30 +196,34 @@ public partial class CommunityPageViewModel(CommunityPage viewPage) : Observable
             post.IsLike = false;
         }
     }
-    private async void ImageButton_Clicked(object sender, EventArgs e)
+
+    [RelayCommand]
+    async Task PostEdit()
     {
         if (tapped)
         {
             return;
         }
-        await ellipse.ScaleTo(0.8, 100, Easing.CubicOut);
+        await ViewPage.ellipse.ScaleTo(0.8, 100, Easing.CubicOut);
         var task = Shell.Current.GoToAsync(nameof(PostEditPage));
-        await ellipse.ScaleTo(1, 100, Easing.CubicOut);
+        await ViewPage.ellipse.ScaleTo(1, 100, Easing.CubicOut);
         tapped = false;
     }
 
-    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    [RelayCommand]
+    async Task AddPost()
     {
         if (tapped)
         {
             return;
         }
         tapped = true;
-        await ellipse.ScaleTo(0.8, 100, Easing.CubicOut);
+        await ViewPage.ellipse.ScaleTo(0.8, 100, Easing.CubicOut);
         var task = Shell.Current.GoToAsync(nameof(PostEditPage));
-        await ellipse.ScaleTo(1, 100, Easing.CubicOut);
+        await ViewPage.ellipse.ScaleTo(1, 100, Easing.CubicOut);
         tapped = false;
     }
+
     private long GetTotalHeight()
     {
         long totalHeight = 0;

@@ -1,7 +1,5 @@
 using System.Diagnostics;
-using XCCChatRoom.AllImpl;
 using XCCChatRoom.ViewModel;
-using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.ViewPage;
 
@@ -12,18 +10,20 @@ public partial class CommunityPage : ContentPage
     public CommunityPage()
     {
         InitializeComponent();
+        ViewModel = new(this);
+        BindingContext = ViewModel;
         Current = this;
         postRefreshView.IsRefreshing = true;
     }
 
     private void PostScrollView_Scrolled(object sender, ScrolledEventArgs e)
     {
-        if (RefreshingIsBusy)
+        if (ViewModel.RefreshingIsBusy)
             return;
-        if (totalHeight - e.ScrollY - postScrollView.Height <= 0)
+        if (ViewModel.totalHeight - e.ScrollY - postScrollView.Height <= 0)
         {
-            RefreshingIsBusy = true;
-            GetDownPost();
+            ViewModel.RefreshingIsBusy = true;
+            ViewModel.GetDownPost();
             Trace.WriteLine("加载更多");
         }
     }
