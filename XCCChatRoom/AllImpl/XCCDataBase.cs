@@ -13,7 +13,7 @@ namespace XCCChatRoom.AllImpl
             set
             {
                 dataBasePassword = value.XEADecrypt("早期测试版数据库密码")[..^2];
-                Console.WriteLine(dataBasePassword);
+                Trace.WriteLine(dataBasePassword);
             }
         }
         public static XFEDataBase XFEDataBase { get; set; }

@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using XCCChatRoom.AllImpl;
+using XCCChatRoom.Controls;
+using XCCChatRoom.Profiles;
 using XCCChatRoom.ViewPage;
-using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.ViewModel;
 
 public partial class UserInfoPageViewModel : ObservableObject
 {
-    private static XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     [ObservableProperty]
     private string userName;
     [ObservableProperty]
@@ -20,10 +20,10 @@ public partial class UserInfoPageViewModel : ObservableObject
     public UserInfoPageViewModel(UserInfoPage viewPage)
     {
         ViewPage = viewPage;
-        if (UserInfoPage.IsLoginSuccessful)
+        if (SystemProfile.IsLoginSuccessful)
         {
-            UserName = UserInfoPage.StaticUserName;
-            UUID = UserInfoPage.StaticUUID;
+            UserName = SystemProfile.UserName;
+            UUID = SystemProfile.UserUID;
             SwitchToLoginStyle();
         }
         else
@@ -31,10 +31,50 @@ public partial class UserInfoPageViewModel : ObservableObject
             UserNameFirstLatter = "?";
             UserName = "未登录";
             UUID = "暂无UID";
-            UserInfoPage.StaticUserName = string.Empty;
-            UserInfoPage.StaticUUID = string.Empty;
-            UserInfoPage.StaticPassword = string.Empty;
-            UserInfoPage.StaticPhoneNum = string.Empty;
+            SystemProfile.UserName = string.Empty;
+            SystemProfile.UserUID = string.Empty;
+            SystemProfile.UserPassword = string.Empty;
+            SystemProfile.UserPhoneNum = string.Empty;
+        }
+    }
+
+    public void SwitchToLoginStyle()
+    {
+        ViewPage.loginButton.BackgroundColor = Color.Parse("White");
+        ViewPage.loginButton.Text = "退出登录";
+        ViewPage.loginButton.BorderColor = Color.Parse("Red");
+        ViewPage.loginButton.BorderWidth = 1;
+        ViewPage.loginButton.TextColor = Color.Parse("Red");
+        ViewPage.loginButton.WaitClick -= ViewPage.LoginButton_WaitClick;
+        ViewPage.loginButton.WaitClick += ViewPage.UnLoginButton_WaitClick;
+    }
+
+    public async Task SwitchToUnLoginStyle()
+    {
+        SystemProfile.IsLoginSuccessful = false;
+        UserNameFirstLatter = "?";
+        UserName = "未登录";
+        UUID = "暂无UID";
+        SystemProfile.UserName = string.Empty;
+        SystemProfile.UserUID = string.Empty;
+        SystemProfile.UserPassword = string.Empty;
+        SystemProfile.UserPhoneNum = string.Empty;
+        ViewPage.loginButton.BackgroundColor = Color.FromArgb("#512BD4");
+        ViewPage.loginButton.Text = "登录";
+        ViewPage.loginButton.BorderColor = null;
+        ViewPage.loginButton.BorderWidth = 0;
+        ViewPage.loginButton.TextColor = Color.Parse("White");
+        GroupContactPage.Current.RemoveOtherGroup();
+        GroupContactPage.Current.UserName = string.Empty;
+        (GroupContactPage.Current.GroupStackLayout.Children.First() as GroupCardView).IsVisible = false;
+        CommunityPage.Current?.ChangeToUnLoginStyle();
+        try
+        {
+            File.Delete(AppPath.UserInfoPath);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current?.DisplayAlert("错误", ex.Message, "确认");
         }
     }
 }

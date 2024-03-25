@@ -88,7 +88,7 @@ public partial class CommunityPage : ContentPage
                             //postListView.chi
                         });
                         totalHeight = GetTotalHeight();
-                        await Console.Out.WriteLineAsync($"滚动：{postScrollView.Height}\t当前：{totalHeight}");
+                        Trace.WriteLine($"滚动：{postScrollView.Height}\t当前：{totalHeight}");
                         if (totalHeight > postScrollView.Height && firstRefresh)
                             break;
                     }
@@ -242,7 +242,7 @@ public partial class CommunityPage : ContentPage
         {
             RefreshingIsBusy = true;
             GetDownPost();
-            Console.WriteLine("加载更多");
+            Trace.WriteLine("加载更多");
         }
     }
 }

@@ -274,14 +274,14 @@ public partial class UserRegisterPage : ContentPage
             catch (Exception) { }
             if (await Shell.Current?.DisplayAlert("注册出错啦！", $"注册失败：{ex.Message}", "重试", "返回"))
             {
-                await Console.Out.WriteLineAsync($"手机号：{UserTelEditor.Text}");
-                await Console.Out.WriteLineAsync($"邮箱：{UserMailEditor.Text}");
-                await Console.Out.WriteLineAsync($"密码：{UserPasswordEditor.Text}");
-                await Console.Out.WriteLineAsync($"确认密码：{UserPasswordEnsureEditor.Text}");
-                await Console.Out.WriteLineAsync($"验证码：{TelVerifyCodeEditor.Text}");
-                await Console.Out.WriteLineAsync($"随机码：{randomCode}");
-                await Console.Out.WriteLineAsync($"用户名：{UserNameEditor.Text}");
-                await Console.Out.WriteLineAsync(ex.ToString());
+                Trace.WriteLine($"手机号：{UserTelEditor.Text}");
+                Trace.WriteLine($"邮箱：{UserMailEditor.Text}");
+                Trace.WriteLine($"密码：{UserPasswordEditor.Text}");
+                Trace.WriteLine($"确认密码：{UserPasswordEnsureEditor.Text}");
+                Trace.WriteLine($"验证码：{TelVerifyCodeEditor.Text}");
+                Trace.WriteLine($"随机码：{randomCode}");
+                Trace.WriteLine($"用户名：{UserNameEditor.Text}");
+                Trace.WriteLine(ex.ToString());
                 e.Continue();
             }
             else

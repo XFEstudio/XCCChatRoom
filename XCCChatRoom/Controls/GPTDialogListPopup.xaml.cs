@@ -14,7 +14,7 @@ public partial class GPTDialogListPopup : BasePopupPage
         InitializeComponent();
         foreach (var entry in GPTAIDialogManager.XFEEntries)
         {
-            Console.WriteLine(entry.ToString());
+            Trace.WriteLine(entry.ToString());
             if (noneDialogLabel.IsVisible)
                 noneDialogLabel.IsVisible = false;
             var contentEntry = new XFEDictionary(entry.Content);

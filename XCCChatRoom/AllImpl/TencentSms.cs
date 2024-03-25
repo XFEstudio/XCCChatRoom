@@ -51,7 +51,7 @@ namespace XCCChatRoom.AllImpl
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.ToString());
+                Trace.WriteLine(ex.ToString());
                 return null;
             }
         }

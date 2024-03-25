@@ -1,7 +1,9 @@
 using MauiPopup;
+using System.Diagnostics;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
 using XCCChatRoom.Model;
+using XCCChatRoom.Profiles;
 using XCCChatRoom.ViewModel;
 using XFEExtension.NetCore.FileExtension;
 using XFEExtension.NetCore.FormatExtension;
@@ -11,31 +13,8 @@ namespace XCCChatRoom.ViewPage;
 public partial class UserInfoPage : ContentPage
 {
     public UserInfoPageViewModel ViewModel { get; set; }
-    public static bool IsLoginSuccessful { get; set; } = false;
-    public static string StaticUUID { get; set; }
-    public static string StaticUserName { get; set; }
-    public static string StaticMail { get; set; }
-    public static string StaticPassword { get; set; }
-    public static string StaticPhoneNum { get; set; }
-
-    private static XFEChatRoom_UserInfoForm currentUser;
-    public static XFEChatRoom_UserInfoForm CurrentUser
-    {
-        get
-        {
-            currentUser.Agroups ??= string.Empty;
-            currentUser.LikedPostID ??= string.Empty;
-            currentUser.LikedCommentID ??= string.Empty;
-            currentUser.LatestMessage ??= string.Empty;
-            currentUser.StarredPostID ??= string.Empty;
-            return currentUser;
-        }
-        set
-        {
-            currentUser = value;
-        }
-    }
     public static UserInfoPage Current { get; private set; }
+    private static XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     public UserInfoPage()
     {
         InitializeComponent();
@@ -43,82 +22,37 @@ public partial class UserInfoPage : ContentPage
         BindingContext = ViewModel;
         Current = this;
     }
+
     public async static Task<int> UpLoadUserInfo()
     {
         try
         {
-            return await CurrentUser.ExecuteUpdate(XFEExecuter);
+            return await UserInfoProfile.CurrentUser.ExecuteUpdate(XFEExecuter);
         }
         catch (Exception ex)
         {
-            await Console.Out.WriteLineAsync(ex.ToString());
+            Trace.WriteLine(ex.ToString());
             return 0;
         }
     }
+
     public void SwitchToLoginStyle()
     {
-        LoginButton.BackgroundColor = Color.Parse("White");
-        LoginButton.Text = "退出登录";
-        LoginButton.BorderColor = Color.Parse("Red");
-        LoginButton.BorderWidth = 1;
-        LoginButton.TextColor = Color.Parse("Red");
-        LoginButton.WaitClick -= LoginButton_WaitClick;
-        LoginButton.WaitClick += UnLoginButton_WaitClick;
+        ViewModel.SwitchToLoginStyle();
     }
-    public void SwitchToUnLoginStyle()
+
+    public async Task SwitchToUnLoginStyle()
     {
-        IsLoginSuccessful = false;
-        charLabel.Text = "?";
-        nameLabel.Text = "未登录";
-        uuidLabel.Text = "暂无UID";
-        StaticUserName = string.Empty;
-        StaticUUID = string.Empty;
-        StaticPassword = string.Empty;
-        StaticPhoneNum = string.Empty;
-        LoginButton.BackgroundColor = Color.FromArgb("#512BD4");
-        LoginButton.Text = "登录";
-        LoginButton.BorderColor = null;
-        LoginButton.BorderWidth = 0;
-        LoginButton.TextColor = Color.Parse("White");
-        GroupContactPage.Current.RemoveOtherGroup();
-        GroupContactPage.Current.UserName = string.Empty;
-        (GroupContactPage.Current.GroupStackLayout.Children.First() as GroupCardView).IsVisible = false;
-        CommunityPage.Current?.ChangeToUnLoginStyle();
-        try
-        {
-            File.Delete(AppPath.UserInfoPath);
-        }
-        catch (Exception ex)
-        {
-            DisplayAlert("错误", ex.Message, "确认");
-        }
+        await ViewModel.SwitchToUnLoginStyle();
     }
-    public static void SaveUserData(Page CurrentPage)
-    {
-        try
-        {
-            string Locality = new XFEDictionary(new string[]
-            {
-                "UUID", StaticUUID,
-                "UserName", StaticUserName,
-                "Mail", StaticMail,
-                "Password", StaticPassword,
-                "PhoneNum", StaticPhoneNum
-            }).ToString();
-            Locality.WriteIn(AppPath.UserInfoPath);
-        }
-        catch (Exception ex)
-        {
-            CurrentPage.DisplayAlert("错误", ex.Message, "确认");
-        }
-    }
+
     public static void EditUserProperty(UserPropertyToEdit userPropertyToEdit, string newProperty, Page page)
     {
         switch (userPropertyToEdit)
         {
             case UserPropertyToEdit.UserName:
-                StaticUserName = newProperty;
-                Current.UserName = newProperty;
+                UserInfoProfile.Name = newProperty;
+                Current.ViewModel.UserName = newProperty;
                 CurrentUser.Aname = newProperty;
                 break;
 
@@ -142,7 +76,8 @@ public partial class UserInfoPage : ContentPage
         }
         CurrentUser.ExecuteUpdate(XFEExecuter);
     }
-    public static async Task ReadUserData(Page CurrentPage)
+
+    public static async Task ReadUserData(Page currentPage)
     {
         try
         {
@@ -153,7 +88,7 @@ public partial class UserInfoPage : ContentPage
                 var userProperties = new XFEDictionary(userInfo);
                 if (userProperties is null || userProperties.Count == 0)
                 {
-                    IsLoginSuccessful = false;
+                    SystemProfile.IsLoginSuccessful = false;
                 }
                 else
                 {
@@ -186,58 +121,60 @@ public partial class UserInfoPage : ContentPage
                         }
                         catch (Exception)
                         {
-                            await CurrentPage.DisplayAlert("配置文件错误", "读取用户文件时发生错误\n用户配置文件损坏，请重新登录", "确认");
+                            await currentPage.DisplayAlert("配置文件错误", "读取用户文件时发生错误\n用户配置文件损坏，请重新登录", "确认");
                             File.Delete(AppPath.UserInfoPath);
                             return;
                         }
                     }
-                    var user = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == StaticPhoneNum);
+                    var user = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == UserInfoProfile.PhoneNum);
                     if (user is null || user.Count == 0 || user.First() is null)
                     {
-                        await CurrentPage.DisplayAlert("登录", "用户信息错误，请重新登录", "确认");
+                        await currentPage.DisplayAlert("登录", "用户信息错误，请重新登录", "确认");
                         File.Delete(AppPath.UserInfoPath);
                         return;
                     }
                     else
                     {
-                        if (user.First().Apassword != StaticPassword)
+                        if (user.First().Apassword != UserInfoProfile.Password)
                         {
-                            await CurrentPage.DisplayAlert("登录", "用户密码错误\n密码可能已被修改，账号或存在风险\n请重新登录", "确认");
+                            await currentPage.DisplayAlert("登录", "用户密码错误\n密码可能已被修改，账号或存在风险\n请重新登录", "确认");
                             File.Delete(AppPath.UserInfoPath);
                             return;
                         }
                         else
                         {
                             CurrentUser = user.First();
-                            StaticMail = CurrentUser.Amail;
-                            StaticUserName = CurrentUser.Aname;
-                            StaticUUID = CurrentUser.ID;
-                            StaticPhoneNum = CurrentUser.Atel;
-                            StaticPassword = CurrentUser.Apassword;
+                            UserInfoProfile.Email = CurrentUser.Amail;
+                            UserInfoProfile.Name = CurrentUser.Aname;
+                            UserInfoProfile.UUID = CurrentUser.ID;
+                            UserInfoProfile.PhoneNum = CurrentUser.Atel;
+                            UserInfoProfile.Password = CurrentUser.Apassword;
                             GroupContactPage.Current.UserName = CurrentUser.Aname;
                         }
                     }
-                    IsLoginSuccessful = true;
+                    UserInfoProfile.LoginSuccessful = true;
                 }
             }
         }
         catch (Exception ex)
         {
-            await CurrentPage.DisplayAlert("登录错误", ex.ToString(), "确认");
+            await currentPage.DisplayAlert("登录错误", ex.ToString(), "确认");
         }
     }
-    private async void LoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+
+    internal async void LoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(UserLoginPage));
         e.Continue();
     }
-    private async void UnLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+
+    internal async void UnLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         if (await Shell.Current?.DisplayAlert("退出登录", "确定退出登录吗？", "确认", "取消"))
         {
-            SwitchToUnLoginStyle();
-            LoginButton.WaitClick -= UnLoginButton_WaitClick;
-            LoginButton.WaitClick += LoginButton_WaitClick;
+            await SwitchToUnLoginStyle();
+            loginButton.WaitClick -= UnLoginButton_WaitClick;
+            loginButton.WaitClick += LoginButton_WaitClick;
         }
         e.Continue();
     }
@@ -249,7 +186,7 @@ public partial class UserInfoPage : ContentPage
 
     private void WhiteChoiceUserPropertyEditorButton_Click(object sender, TappedEventArgs e)
     {
-        if (IsLoginSuccessful)
+        if (UserInfoProfile.LoginSuccessful)
             Shell.Current.GoToAsync(nameof(UserPropertyEditPage));
         else
             PopupAction.DisplayPopup(new TipPopup("请先登录"));

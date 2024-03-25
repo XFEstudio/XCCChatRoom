@@ -405,7 +405,7 @@ public partial class PostViewPage : ContentPage
             InputEditor.IsEnabled = true;
             SendButton.IsEnabled = true;
             await PopupAction.DisplayPopup(new ErrorPopup("ÆÀÂÛÊ§°Ü", $"Çë¼ì²éÍøÂçÉèÖÃ\n{ex.Message}"));
-            await Console.Out.WriteLineAsync(ex.ToString());
+            Trace.WriteLine(ex.ToString());
             return;
         }
     }

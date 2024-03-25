@@ -35,7 +35,7 @@ namespace XCCChatRoom.AllImpl
             {
                 try
                 {
-                    Console.WriteLine(dialogsString);
+                    Trace.WriteLine(dialogsString);
                     XFEEntries = new XFEMultiDictionary(dialogsString);
                     foreach (var entry in XFEEntries)
                     {
@@ -46,7 +46,7 @@ namespace XCCChatRoom.AllImpl
                 catch (Exception ex)
                 {
                     //PopupAction.DisplayPopup(new ErrorPopup("加载失败", $"加载对话时发生错误：\n{ex.Message}", 10));
-                    Console.WriteLine($"发生错误：{ex}");
+                    Trace.WriteLine($"发生错误：{ex}");
                     Clipboard.SetTextAsync($"报错信息：{ex}\n\n报错时读取的内容：{dialogsString}");
                     XFEEntries = [];
                 }
@@ -74,7 +74,7 @@ namespace XCCChatRoom.AllImpl
                 case GenerateState.End:
                     break;
                 case GenerateState.Error:
-                    Console.WriteLine(e.Message);
+                    Trace.WriteLine(e.Message);
                     break;
                 default:
                     ProcessException.ShowEnumException();

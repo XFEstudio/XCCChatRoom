@@ -44,7 +44,7 @@ public partial class UserLoginPage : ContentPage
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Trace.WriteLine(ex);
         }
     }
     protected override void OnHandlerChanged()

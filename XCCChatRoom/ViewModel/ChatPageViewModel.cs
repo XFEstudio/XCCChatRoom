@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPopup;
 using Microsoft.Maui.Controls.Shapes;
 using Plugin.LocalNotification;
+using System.Diagnostics;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
 using XCCChatRoom.ViewPage;
@@ -166,7 +167,7 @@ public partial class ChatPageViewModel : ObservableObject
     #region 事件方法
     private void XCCNetWork_Connected(object sender, XCCConnectedEventArgs e)
     {
-        Console.WriteLine($"连接到服务器：{e.XCCClientType}");
+        Trace.WriteLine($"连接到服务器：{e.XCCClientType}");
     }
 
     private async void XCCNetWork_ConnectionClosed(object sender, XCCConnectionClosedEventArgs e)
@@ -227,7 +228,7 @@ public partial class ChatPageViewModel : ObservableObject
                 };
                 ViewPage.chatStack.Children.Add(messageGrid);
             });
-            Console.WriteLine(sender);
+            Trace.WriteLine(sender);
         });
         await PopupAction.DisplayPopup(new ErrorPopup("出现错误", sender.Message));
     }
@@ -431,7 +432,7 @@ public partial class ChatPageViewModel : ObservableObject
     #region 显示消息
     public async Task ShowStandardImage(bool isHistory, XCCFile xCCFile)
     {
-        await Console.Out.WriteLineAsync($"发送者：{xCCFile.Sender}，是否加载：{xCCFile.Loaded}，是否为历史：{isHistory}");
+        Trace.WriteLine($"发送者：{xCCFile.Sender}，是否加载：{xCCFile.Loaded}，是否为历史：{isHistory}");
         if (xCCFile.Loaded)
         {
             await ShowImage(xCCFile.Sender, xCCFile.FileBuffer, xCCFile.MessageId, !isHistory);
