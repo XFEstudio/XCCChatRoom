@@ -11,6 +11,7 @@ using XFE各类拓展.NetCore.StringExtension;
 using MauiPopup;
 using XCCChatRoom.Controls;
 using XFE各类拓展.NetCore;
+using System.Diagnostics;
 
 namespace XCCChatRoom.InnerPage;
 [QueryProperty(nameof(GroupName), nameof(GroupName))]
@@ -20,11 +21,13 @@ public partial class ChatPage : ContentPage
     #region 公共属性
     public readonly BindableProperty GroupNameProperty = BindableProperty.Create(nameof(GroupName), typeof(string), typeof(ChatPage), string.Empty);
     public readonly BindableProperty DisplayGroupNameProperty = BindableProperty.Create(nameof(DisplayGroupName), typeof(string), typeof(ChatPage), string.Empty);
+
     public string DisplayGroupName
     {
         get => (string)GetValue(DisplayGroupNameProperty);
         set => SetValue(DisplayGroupNameProperty, value);
     }
+
     public string GroupName
     {
         get => (string)GetValue(GroupNameProperty);
@@ -34,7 +37,9 @@ public partial class ChatPage : ContentPage
             DisplayGroupName = $"群组|{value}";
         }
     }
+
     public static ChatPage CurrentInstance { get; private set; }
+
     private string currentName;
     public string CurrentName
     {
@@ -247,8 +252,8 @@ public partial class ChatPage : ContentPage
                 };
                 ChatStack.Children.Add(messageGrid);
             });
-            Console.WriteLine(sender);
         });
+        Trace.WriteLine(sender);
         await PopupAction.DisplayPopup(new ErrorPopup("出现错误", sender.Message));
     }
 
@@ -288,8 +293,10 @@ public partial class ChatPage : ContentPage
                 else
                 {
 #if ANDROID
-                    var iconImg = new NotificationImage();
-                    iconImg.ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png";
+                    var iconImg = new NotificationImage
+                    {
+                        ResourceName = @"C:\Users\XFEstudio\Desktop\work\C#\OtherProject\XCCChatRoom\XCCChatRoom\Resources\AppIcon\logoicon.png"
+                    };
                     var request = new NotificationRequest
                     {
                         Title = DisplayGroupName,

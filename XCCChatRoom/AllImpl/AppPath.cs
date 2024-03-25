@@ -8,7 +8,7 @@
         public static string ChatDialogHistoryPath { get; } = $"{FileSystem.Current.CacheDirectory}/ChatDialogHistory";
         public static string CheckInitializePath { get; } = $"{FileSystem.Current.AppDataDirectory}/Initialize.xfe";
         public static string AndroidExternalPath { get; } = "/storage/emulated/0";
-        public static string AppExternalPath { get; } = $"{AndroidExternalPath}/XFEChatRoom";
+        public static string AppExternalPath { get; } = $"{AndroidExternalPath}/Android/data/com.xfegzs.xccchatroom";
         public static string ChatImageSavePath { get; } = $"{AppExternalPath}/ChatImage";
     }
 }
