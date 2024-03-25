@@ -59,7 +59,7 @@ public partial class ChatPage : ContentPage
 
     private void InputEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(inputEditor.Text))
+        if (string.IsNullOrWhiteSpace(ViewModel.CurrentEditorText))
         {
             sendButton.BackgroundColor = Color.FromArgb("#A491E8");
             sendButton.IsEnabled = false;

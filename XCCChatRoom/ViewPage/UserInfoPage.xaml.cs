@@ -53,106 +53,58 @@ public partial class UserInfoPage : ContentPage
             case UserPropertyToEdit.UserName:
                 UserInfoProfile.Name = newProperty;
                 Current.ViewModel.UserName = newProperty;
-                CurrentUser.Aname = newProperty;
+                UserInfoProfile.CurrentUser.Aname = newProperty;
                 break;
 
             case UserPropertyToEdit.Password:
-                StaticPassword = newProperty;
-                CurrentUser.Apassword = newProperty;
+                UserInfoProfile.Password = newProperty;
+                UserInfoProfile.CurrentUser.Apassword = newProperty;
                 break;
 
             case UserPropertyToEdit.PhoneNum:
-                StaticMail = newProperty;
-                CurrentUser.Atel = newProperty;
+                UserInfoProfile.Email = newProperty;
+                UserInfoProfile.CurrentUser.Atel = newProperty;
                 break;
 
             case UserPropertyToEdit.Mail:
-                StaticMail = newProperty;
-                CurrentUser.Amail = newProperty;
+                UserInfoProfile.Email = newProperty;
+                UserInfoProfile.CurrentUser.Amail = newProperty;
                 break;
             default:
                 ProcessException.ShowEnumException();
                 break;
         }
-        CurrentUser.ExecuteUpdate(XFEExecuter);
+        UserInfoProfile.CurrentUser.ExecuteUpdate(XFEExecuter);
     }
 
     public static async Task ReadUserData(Page currentPage)
     {
         try
         {
-            if (AppPath.UserInfoPath.ReadOut(out string userInfo))
+            var user = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == UserInfoProfile.Phone);
+            if (user is null || user.Count == 0 || user.First() is null)
             {
-                if (userInfo is null)
-                    return;
-                var userProperties = new XFEDictionary(userInfo);
-                if (userProperties is null || userProperties.Count == 0)
+                await currentPage.DisplayAlert("登录", "用户信息错误，请重新登录", "确认");
+                File.Delete(AppPath.ProfilesPath);
+                return;
+            }
+            else
+            {
+                if (user.First().Apassword != UserInfoProfile.Password)
                 {
-                    SystemProfile.IsLoginSuccessful = false;
+                    await currentPage.DisplayAlert("登录", "用户密码错误\n密码可能已被修改，账号或存在风险\n请重新登录", "确认");
+                    File.Delete(AppPath.ProfilesPath);
+                    return;
                 }
                 else
                 {
-                    foreach (var property in userProperties)
-                    {
-                        try
-                        {
-                            switch (property.Header)
-                            {
-                                case "UserName":
-                                    StaticUserName = property.Content;
-                                    break;
-                                case "UUID":
-                                    StaticUUID = property.Content;
-                                    break;
-                                case "Password":
-                                    StaticPassword = property.Content;
-                                    break;
-                                case "PhoneNum":
-                                    StaticPhoneNum = property.Content;
-                                    break;
-                                case "Mail":
-                                    StaticMail = property.Content;
-                                    break;
-                                default:
-                                    ProcessException.ShowEnumException();
-                                    File.Delete(AppPath.UserInfoPath);
-                                    return;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            await currentPage.DisplayAlert("配置文件错误", "读取用户文件时发生错误\n用户配置文件损坏，请重新登录", "确认");
-                            File.Delete(AppPath.UserInfoPath);
-                            return;
-                        }
-                    }
-                    var user = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == UserInfoProfile.PhoneNum);
-                    if (user is null || user.Count == 0 || user.First() is null)
-                    {
-                        await currentPage.DisplayAlert("登录", "用户信息错误，请重新登录", "确认");
-                        File.Delete(AppPath.UserInfoPath);
-                        return;
-                    }
-                    else
-                    {
-                        if (user.First().Apassword != UserInfoProfile.Password)
-                        {
-                            await currentPage.DisplayAlert("登录", "用户密码错误\n密码可能已被修改，账号或存在风险\n请重新登录", "确认");
-                            File.Delete(AppPath.UserInfoPath);
-                            return;
-                        }
-                        else
-                        {
-                            CurrentUser = user.First();
-                            UserInfoProfile.Email = CurrentUser.Amail;
-                            UserInfoProfile.Name = CurrentUser.Aname;
-                            UserInfoProfile.UUID = CurrentUser.ID;
-                            UserInfoProfile.PhoneNum = CurrentUser.Atel;
-                            UserInfoProfile.Password = CurrentUser.Apassword;
-                            GroupContactPage.Current.UserName = CurrentUser.Aname;
-                        }
-                    }
-                    UserInfoProfile.LoginSuccessful = true;
+                    UserInfoProfile.CurrentUser = user.First();
+                    UserInfoProfile.Email = UserInfoProfile.CurrentUser.Amail;
+                    UserInfoProfile.Name = UserInfoProfile.CurrentUser.Aname;
+                    UserInfoProfile.UUID = UserInfoProfile.CurrentUser.ID;
+                    UserInfoProfile.Phone = UserInfoProfile.CurrentUser.Atel;
+                    UserInfoProfile.Password = UserInfoProfile.CurrentUser.Apassword;
+                    GroupContactPage.Current.UserName = UserInfoProfile.CurrentUser.Aname;
                 }
             }
         }

@@ -66,20 +66,19 @@ public partial class UserRegisterPage : ContentPage
                     }
                     else
                     {
-#pragma warning disable CS4014
                         #region FadeAnimation
-                        UserTelLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        UserTelBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        NextStepButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        TelVerifyCodeButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        TelVerifyCodeLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        TelVerifyCodeBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        UserTelLabel.FadeTo(0, 800, Easing.SpringOut);
-                        UserTelBorder.FadeTo(0, 800, Easing.SpringOut);
-                        TelVerifyCodeLabel.FadeTo(0, 800, Easing.SpringOut);
-                        TelVerifyCodeBorder.FadeTo(0, 800, Easing.SpringOut);
-                        NextStepButton.FadeTo(0, 800, Easing.SpringOut);
-                        SwtichToLoginPageButton.FadeTo(0, 800, Easing.SpringOut);
+                        _ = UserTelLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = UserTelBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = NextStepButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = TelVerifyCodeButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = TelVerifyCodeLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = TelVerifyCodeBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = UserTelLabel.FadeTo(0, 800, Easing.SpringOut);
+                        _ = UserTelBorder.FadeTo(0, 800, Easing.SpringOut);
+                        _ = TelVerifyCodeLabel.FadeTo(0, 800, Easing.SpringOut);
+                        _ = TelVerifyCodeBorder.FadeTo(0, 800, Easing.SpringOut);
+                        _ = NextStepButton.FadeTo(0, 800, Easing.SpringOut);
+                        _ = SwtichToLoginPageButton.FadeTo(0, 800, Easing.SpringOut);
                         await TelVerifyCodeButton.FadeTo(0, 800, Easing.SpringOut);
                         #endregion
                         #region SetInvisible
@@ -152,7 +151,6 @@ public partial class UserRegisterPage : ContentPage
                             Thread.Sleep(200);
                         }).StartNewTask();
                         #endregion
-#pragma warning restore CS4014
                         UserNameEditor.Focus();
                         e.Continue();
                     }

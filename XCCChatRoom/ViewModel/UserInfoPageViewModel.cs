@@ -70,7 +70,7 @@ public partial class UserInfoPageViewModel : ObservableObject
         CommunityPage.Current?.ChangeToUnLoginStyle();
         try
         {
-            File.Delete(AppPath.UserInfoPath);
+            File.Delete(AppPath.ProfilesPath);
         }
         catch (Exception ex)
         {

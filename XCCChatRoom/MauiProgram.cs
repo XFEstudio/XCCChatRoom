@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui;
-using Microsoft.Extensions.Logging;
 using Plugin.LocalNotification;
 using XCCChatRoom.AllImpl;
+using XFEExtension.NetCore.ProfileExtension;
 
 namespace XCCChatRoom;
 public static class MauiProgram
@@ -9,6 +9,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+        XFEProfile.ProfilesRootPath = AppPath.ProfilesPath;
         AppSystemProfile.LoadSystemProfile();
         XCCDataBase.Initialize();
         TencentSms.Initialize();

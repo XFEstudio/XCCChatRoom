@@ -437,19 +437,18 @@ public partial class UserLoginPage : ContentPage
     {
         AppSystemProfile.LoginMethod = LoginMethod.VerifyCodeLogin;
         AppSystemProfile.SaveSystemProfile();
-#pragma warning disable CS4014
         #region FadeAnimation
-        UserAccountLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        UserAccountBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        UserPasswordLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        UserPasswordBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        UserAccountLabel.FadeTo(0, 800, Easing.SpringOut);
-        UserAccountBorder.FadeTo(0, 800, Easing.SpringOut);
-        UserPasswordLabel.FadeTo(0, 800, Easing.SpringOut);
-        UserPasswordBorder.FadeTo(0, 800, Easing.SpringOut);
-        SwitchToTelVerifyCodeLoginButton.FadeTo(0, 800, Easing.SpringOut);
-        UserLoginButton.FadeTo(0, 800, Easing.SpringOut);
-        ForgotPasswordButton.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserAccountLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = UserAccountBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = UserPasswordLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = UserPasswordBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = UserAccountLabel.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserAccountBorder.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserPasswordLabel.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserPasswordBorder.FadeTo(0, 800, Easing.SpringOut);
+        _ = SwitchToTelVerifyCodeLoginButton.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserLoginButton.FadeTo(0, 800, Easing.SpringOut);
+        _ = ForgotPasswordButton.FadeTo(0, 800, Easing.SpringOut);
         await SwitchToRegisterPageButton.FadeTo(0, 800, Easing.SpringOut);
         #endregion
         #region SetInvisible
@@ -530,26 +529,24 @@ public partial class UserLoginPage : ContentPage
         }).StartNewTask();
         UserTelEditor.Focus();
         #endregion
-#pragma warning restore CS4014
     }
 
     private async void SwitchToPasswordLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         AppSystemProfile.LoginMethod = LoginMethod.PasswordLogin;
         AppSystemProfile.SaveSystemProfile();
-#pragma warning disable CS4014
         #region FadeAnimation
-        UserTelLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        UserTelBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        TelVerifyCodeLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        TelVerifyCodeGrid.TranslateTo(-100, 0, 800, Easing.SpringOut);
-        UserTelLabel.FadeTo(0, 800, Easing.SpringOut);
-        UserTelBorder.FadeTo(0, 800, Easing.SpringOut);
-        TelVerifyCodeLabel.FadeTo(0, 800, Easing.SpringOut);
-        TelVerifyCodeGrid.FadeTo(0, 800, Easing.SpringOut);
-        SwitchToPasswordLoginButton.FadeTo(0, 800, Easing.SpringOut);
-        UserLoginButton.FadeTo(0, 800, Easing.SpringOut);
-        ForgotPasswordButton.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserTelLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = UserTelBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = TelVerifyCodeLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = TelVerifyCodeGrid.TranslateTo(-100, 0, 800, Easing.SpringOut);
+        _ = UserTelLabel.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserTelBorder.FadeTo(0, 800, Easing.SpringOut);
+        _ = TelVerifyCodeLabel.FadeTo(0, 800, Easing.SpringOut);
+        _ = TelVerifyCodeGrid.FadeTo(0, 800, Easing.SpringOut);
+        _ = SwitchToPasswordLoginButton.FadeTo(0, 800, Easing.SpringOut);
+        _ = UserLoginButton.FadeTo(0, 800, Easing.SpringOut);
+        _ = ForgotPasswordButton.FadeTo(0, 800, Easing.SpringOut);
         await SwitchToRegisterPageButton.FadeTo(0, 800, Easing.SpringOut);
         #endregion
         #region SetInvisible
@@ -629,7 +626,6 @@ public partial class UserLoginPage : ContentPage
         UserAccountEditor.Focus();
         e.Continue();
         #endregion
-#pragma warning restore CS4014
     }
 
     private async void TelVerifyCodeButton_Clicked(object sender, EventArgs e)

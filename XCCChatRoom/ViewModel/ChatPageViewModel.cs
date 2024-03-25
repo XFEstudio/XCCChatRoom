@@ -59,6 +59,8 @@ public partial class ChatPageViewModel : ObservableObject
     private string displayGroupName;
     [ObservableProperty]
     private string groupName;
+    [ObservableProperty]
+    private string currentEditorText;
 
     public ChatPage ViewPage { get; init; }
 
@@ -1015,8 +1017,8 @@ public partial class ChatPageViewModel : ObservableObject
             {
                 try
                 {
-                    string message = ViewPage.inputEditor.Text;
-                    ViewPage.inputEditor.Text = string.Empty;
+                    string message = CurrentEditorText;
+                    CurrentEditorText = string.Empty;
                     var task = ShowTextMessage(CurrentName, message);
                     if (!string.IsNullOrWhiteSpace(message))
                         await xCCGroup.SendTextMessage(message);

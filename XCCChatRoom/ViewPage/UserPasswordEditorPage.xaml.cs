@@ -23,7 +23,7 @@ public partial class UserPasswordEditorPage : ContentPage
 
     private void NewPassword_Unfocused(object sender, FocusEventArgs e)
     {
-        if (NewPasswordEntry.Text.PasswordEditor()) { flag2 = true; }
+        if (NewPasswordEntry.Text.IsValidPassword()) { flag2 = true; }
         else { flag2 = false; }
     }
 

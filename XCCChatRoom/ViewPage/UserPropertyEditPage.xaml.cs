@@ -83,7 +83,7 @@ public partial class UserPropertyEditPage : ContentPage
     {
         if (CurrentUserNameEntry.Text is not null && CurrentUserNameEntry.Text != string.Empty)
         {
-            bool flag = CurrentUserNameEntry.Text.UserNameEditor();
+            bool flag = CurrentUserNameEntry.Text.IsValidUserName();
             if (flag)
             {
                 UserInfoPage.EditUserProperty(UserPropertyToEdit.UserName, CurrentUserNameEntry.Text, this);

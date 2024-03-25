@@ -1,5 +1,6 @@
 using MauiPopup.Views;
 using Microsoft.Maui.Controls.Shapes;
+using System.Diagnostics;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.ViewPage;
 using XFEExtension.NetCore.FormatExtension;
@@ -102,7 +103,7 @@ public partial class GPTDialogListPopup : BasePopupPage
                             currentChoseBorder = border;
                         }
                     }
-                    GPTAIChatPage.Current.LoadDialog(((dynamic)sender).Id);
+                    GPTAIChatPage.Current.ViewModel.LoadDialog(((dynamic)sender).Id);
                 })
             });
             var deleteButton = new ImageButton
@@ -128,7 +129,7 @@ public partial class GPTDialogListPopup : BasePopupPage
                         if (currentDialogID == id)
                         {
                             currentDialogID = string.Empty;
-                            GPTAIChatPage.Current.CreateNewDialog();
+                            GPTAIChatPage.Current.ViewModel.CreateNewDialog();
                         }
                     }
                 })
