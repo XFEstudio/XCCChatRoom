@@ -4,7 +4,7 @@ namespace XCCChatRoom.ViewPage;
 
 public partial class AIDrawPage : ContentPage
 {
-	public AIDrawPageViewModel ViewModel { get; init; }
+	internal AIDrawPageViewModel ViewModel { get; init; }
 	public AIDrawPage()
 	{
 		InitializeComponent();

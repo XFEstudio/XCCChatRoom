@@ -32,10 +32,6 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
     private string inputText;
     [ObservableProperty]
     private string quoteText;
-    [ObservableProperty]
-    private bool isLike;
-    [ObservableProperty]
-    private bool isStar;
     public PostViewPage ViewPage { get; init; } = viewPage;
     public XFEChatRoom_CommunityPost CurrentPostData { get; set; }
     private readonly List<string> commentIDList = [];
@@ -98,8 +94,8 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
             StarCount = CurrentPostData.PostStar;
             if (UserInfoProfile.LoginSuccessful)
             {
-                IsLike = UserInfoProfile.CurrentUser.LikedPostID.Contains(CurrentPostData.PostID);
-                IsStar = UserInfoProfile.CurrentUser.StarredPostID.Contains(CurrentPostData.PostID);
+                ViewPage.likeButton.IsLike = UserInfoProfile.CurrentUser.LikedPostID.Contains(CurrentPostData.PostID);
+                ViewPage.starButton.IsStar = UserInfoProfile.CurrentUser.StarredPostID.Contains(CurrentPostData.PostID);
             }
             ViewPage.tagStackLayout.Clear();
             foreach (var tag in CurrentPostData.PostTag.ToXFEArray<string>())
@@ -344,7 +340,7 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
             }
             return;
         }
-        if (IsLike)
+        if (ViewPage.likeButton.IsLike)
         {
             try
             {
@@ -355,14 +351,14 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
                 if (await CurrentPostData.ExecuteUpdate(XFEExecuter) == 0)
                 {
                     CurrentPostData.PostLike--;
-                    IsLike = false;
+                    ViewPage.likeButton.IsLike = false;
                     await Shell.Current?.DisplayAlert("点赞失败", "请检查网络设置", "确定");
                 }
             }
             catch (Exception ex)
             {
                 CurrentPostData.PostLike--;
-                IsLike = false;
+                ViewPage.likeButton.IsLike = false;
                 await Shell.Current?.DisplayAlert("点赞失败", "请检查网络设置" + ex.Message, "确定");
             }
         }
@@ -381,7 +377,7 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
                 {
                     CurrentPostData.PostLike++;
                     LikeCount++;
-                    IsLike = true;
+                    ViewPage.likeButton.IsLike = true;
                     await Shell.Current?.DisplayAlert("取消点赞失败", "请检查网络设置", "确定");
                 }
             }
@@ -389,7 +385,7 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
             {
                 CurrentPostData.PostLike++;
                 LikeCount++;
-                IsLike = true;
+                ViewPage.likeButton.IsLike = true;
                 await Shell.Current?.DisplayAlert("取消点赞失败", "请检查网络设置" + ex.Message, "确定");
             }
         }
@@ -405,7 +401,7 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
             }
             return;
         }
-        if (IsStar)
+        if (ViewPage.starButton.IsStar)
         {
             try
             {
@@ -416,14 +412,14 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
                 if (await CurrentPostData.ExecuteUpdate(XFEExecuter) == 0)
                 {
                     CurrentPostData.PostStar--;
-                    IsStar = false;
+                    ViewPage.starButton.IsStar = false;
                     await Shell.Current?.DisplayAlert("收藏失败", "请检查网络设置", "确定");
                 }
             }
             catch (Exception ex)
             {
                 CurrentPostData.PostStar--;
-                IsStar = false;
+                ViewPage.starButton.IsStar = false;
                 await Shell.Current?.DisplayAlert("收藏失败", "请检查网络设置" + ex.Message, "确定");
             }
         }
@@ -442,7 +438,7 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
                 {
                     CurrentPostData.PostStar++;
                     StarCount++;
-                    IsStar = true;
+                    ViewPage.starButton.IsStar = true;
                     await Shell.Current?.DisplayAlert("取消收藏失败", "请检查网络设置", "确定");
                 }
             }
@@ -450,7 +446,7 @@ internal partial class PostViewPageViewModel(PostViewPage viewPage) : Observable
             {
                 CurrentPostData.PostStar++;
                 StarCount++;
-                IsStar = true;
+                ViewPage.starButton.IsStar = true;
                 await Shell.Current?.DisplayAlert("取消收藏失败", "请检查网络设置" + ex.Message, "确定");
             }
         }

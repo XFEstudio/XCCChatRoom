@@ -1,6 +1,7 @@
 using MauiPopup;
 using MauiPopup.Views;
 using XCCChatRoom.AllImpl;
+using XCCChatRoom.Profiles;
 using XCCChatRoom.ViewPage;
 using XFEExtension.NetCore.StringExtension;
 using XFEExtension.NetCore.TaskExtension;
@@ -113,7 +114,7 @@ public partial class UserTelEditPopup : BasePopupPage
     {
         if (UserTelEditor.Text.IsMobPhoneNumber())
         {
-            if (UserTelEditor.Text != userPropertyEditPage.PhoneNum)
+            if (UserTelEditor.Text != userPropertyEditPage.ViewModel.PhoneNum)
             {
                 isTelEditorEmpty = false;
                 UserTelLabel.Text = "手机号";
@@ -152,10 +153,10 @@ public partial class UserTelEditPopup : BasePopupPage
             {
                 if (await XFEExecuter.ExecuteGetFirst<XFEChatRoom_UserInfoForm>(x => x.Atel == currentNewPhoneNum) == null)
                 {
-                    UserInfoPage.CurrentUser.Atel = currentNewPhoneNum;
+                    UserInfoProfile.CurrentUser.Atel = currentNewPhoneNum;
                     if (await UserInfoPage.UpLoadUserInfo() > 0)
                     {
-                        userPropertyEditPage.PhoneNum = currentNewPhoneNum;
+                        userPropertyEditPage.ViewModel.PhoneNum = currentNewPhoneNum;
                         SendBackButtonPressed();
                         await PopupAction.DisplayPopup(new TipPopup("手机号修改成功"));
                     }

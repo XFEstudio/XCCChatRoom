@@ -633,6 +633,8 @@ internal partial class UserLoginPageViewModel : ObservableObject
         #endregion
     }
 
+    internal void ForgotPasswordButton_Click(object sender, TappedEventArgs e) => Shell.Current.GoToAsync(nameof(ForgetPasswordPage));
+
     [RelayCommand]
     private async Task SendVerifyCode()
     {
@@ -672,8 +674,5 @@ internal partial class UserLoginPageViewModel : ObservableObject
             }).StartNewTask();
         }
     }
-
-    [RelayCommand]
-    private void ForgotPassword() => Shell.Current.GoToAsync(nameof(ForgetPasswordPage));
     #endregion
 }

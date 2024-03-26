@@ -5,7 +5,7 @@ namespace XCCChatRoom.ViewPage;
 
 public partial class GPTAIChatPage : ContentPage
 {
-    public GPTAIChatPageViewModel ViewModel { get; init; }
+    internal GPTAIChatPageViewModel ViewModel { get; init; }
     public static GPTAIChatPage Current { get; private set; }
     public GPTAIChatPage()
     {

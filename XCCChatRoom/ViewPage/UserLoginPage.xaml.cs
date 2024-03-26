@@ -36,6 +36,7 @@ public partial class UserLoginPage : ContentPage
     private void TelVerifyCodeEditor_Focused(object sender, FocusEventArgs e) => ViewModel.TelVerifyCodeEditor_Focused(sender, e);
 
     private void TelVerifyCodeEditor_Unfocused(object sender, FocusEventArgs e) => ViewModel.TelVerifyCodeEditor_Unfocused(sender, e);
+
     private void UserTelEditor_Focused(object sender, FocusEventArgs e) => ViewModel.UserTelEditor_Focused(sender, e);
 
     private void UserTelEditor_Unfocused(object sender, FocusEventArgs e) => ViewModel.UserTelEditor_Unfocused(sender, e);
@@ -51,8 +52,13 @@ public partial class UserLoginPage : ContentPage
     #endregion
     #region µã»÷ÊÂ¼þ
     private void SwitchToPasswordLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e) => ViewModel.SwitchToPasswordLoginButton_WaitClick(sender, e);
-    private void SwitchToTelVerifyCodeLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e) => ViewModel.SwitchToTelVerifyCodeLoginButton_WaitClick(sender, e);
+
+    private void SwitchToTelVerifyCodeLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e) => ViewModel.SwitchToTelVerifyCodeLoginButton_WaitClick
+(sender, e);
     private void SwitchToRegisterPageButton_WaitClick(object sender, WaitButtonClickedEventArgs e) => ViewModel.SwitchToRegisterPageButton_WaitClick(sender, e);
+
     private void UserLoginButton_WaitClick(object sender, WaitButtonClickedEventArgs e) => ViewModel.UserLoginButton_WaitClick(sender, e);
+
+    private void ForgotPasswordButton_Click(object sender, TappedEventArgs e) => ViewModel.ForgotPasswordButton_Click(sender, e);
     #endregion
 }

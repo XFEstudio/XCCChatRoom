@@ -4,7 +4,7 @@ namespace XCCChatRoom.ViewPage;
 
 public partial class AICenterPage : ContentPage
 {
-    public AICenterPageViewModel ViewModel { get; init; }
+    internal AICenterPageViewModel ViewModel { get; init; }
     public AICenterPage()
     {
         InitializeComponent();

@@ -24,7 +24,7 @@ public partial class ChatPage : ContentPage
             ViewModel.CurrentName = value;
         }
     }
-    public ChatPageViewModel ViewModel { get; init; }
+    internal ChatPageViewModel ViewModel { get; init; }
     #endregion
     public ChatPage()
     {

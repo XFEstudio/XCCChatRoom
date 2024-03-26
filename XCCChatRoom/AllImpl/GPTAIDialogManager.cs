@@ -1,4 +1,5 @@
-﻿using XFEExtension.NetCore.ArrayExtension;
+﻿using System.Diagnostics;
+using XFEExtension.NetCore.ArrayExtension;
 using XFEExtension.NetCore.FileExtension;
 using XFEExtension.NetCore.FormatExtension;
 using XFEExtension.NetCore.XFEChatGPT;

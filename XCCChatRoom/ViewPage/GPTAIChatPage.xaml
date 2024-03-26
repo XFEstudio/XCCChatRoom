@@ -18,10 +18,10 @@
                 </StackLayout>
             </ScrollView>
             <Border x:Name="stopGenerateBorder" x:FieldModifier="internal" Stroke="#D7D7D7" StrokeThickness="1" StrokeShape="RoundRectangle 10" IsVisible="False" AbsoluteLayout.LayoutBounds="0.5, 0.95" AbsoluteLayout.LayoutFlags="PositionProportional" Background="#565865" VerticalOptions="Center">
-                <Button x:Name="stopGenerateButton" x:FieldModifier="internal" Grid.ColumnSpan="2" ImageSource="stop" BackgroundColor="#565865" TextColor="White" Text="停止生成" Clicked="StopGenerateButton_Clicked"/>
+                <Button x:Name="stopGenerateButton" x:FieldModifier="internal" Grid.ColumnSpan="2" ImageSource="stop" BackgroundColor="#565865" TextColor="White" Text="停止生成" Command="{Binding StopGenerateCommand}"/>
             </Border>
             <Border x:Name="regenerateBorder" x:FieldModifier="internal" Stroke="#D7D7D7" StrokeThickness="1" StrokeShape="RoundRectangle 10" IsVisible="False" AbsoluteLayout.LayoutBounds="0.5, 0.95" AbsoluteLayout.LayoutFlags="PositionProportional" Background="#565865" VerticalOptions="Center">
-                <Button x:Name="regenerateButton" x:FieldModifier="internal" Grid.ColumnSpan="2" ImageSource="refresh" BackgroundColor="#565865" TextColor="White" Text="重新生成" Clicked="RegenerateButton_Clicked"/>
+                <Button x:Name="regenerateButton" x:FieldModifier="internal" Grid.ColumnSpan="2" ImageSource="refresh" BackgroundColor="#565865" TextColor="White" Text="重新生成" Command="{Binding RegenerateCommand}"/>
             </Border>
         </AbsoluteLayout>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="End" Padding="5,5,5,10">
@@ -35,7 +35,7 @@
             <Border Stroke="#444654" StrokeThickness="2" StrokeShape="RoundRectangle 10" Background="#D7D7D7" Margin="0,0,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
                 <Editor x:Name="inputEditor" x:FieldModifier="internal" Text="{Binding AskText}" Placeholder="输入询问内容" HorizontalOptions="FillAndExpand" TextChanged="InputEditor_TextChanged" AutoSize="TextChanges" IsSpellCheckEnabled="False" MaximumHeightRequest="300" VerticalOptions="Center"/>
             </Border>
-            <ImageButton x:Name="sendButton" x:FieldModifier="internal" Source="send" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#A491E8" Clicked="SendButton_Clicked" Grid.Column="1" CornerRadius="4" Aspect="Center"/>
+            <ImageButton x:Name="sendButton" x:FieldModifier="internal" Source="send" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#A491E8" Command="{Binding SendButtonClickCommand}" Grid.Column="1" CornerRadius="4" Aspect="Center"/>
         </Grid>
     </StackLayout>
 </ContentPage>

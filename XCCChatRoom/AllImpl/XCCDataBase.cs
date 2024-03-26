@@ -1,4 +1,5 @@
-﻿using XFEExtension.NetCore.WebExtension;
+﻿using System.Diagnostics;
+using XFEExtension.NetCore.WebExtension;
 using XFEExtension.NetCore.XEAEncryption;
 using XFE各类拓展.NetCore.XFEDataBase;
 

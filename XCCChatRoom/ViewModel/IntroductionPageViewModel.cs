@@ -67,6 +67,12 @@ internal partial class IntroductionPageViewModel : ObservableObject
         await ViewPage.indexLabel.FadeTo(0.5, 800, Easing.SpringOut);
     }
 
+    internal async void SkipPage(object sender, TappedEventArgs e)
+    {
+        PageCount = 7;
+        await NextPage();
+    }
+
     [RelayCommand]
     private async Task NextPage()
     {
@@ -110,12 +116,5 @@ internal partial class IntroductionPageViewModel : ObservableObject
             default:
                 throw new Exception("页面超出范围");
         }
-    }
-
-    [RelayCommand]
-    private async Task SkipPage()
-    {
-        PageCount = 7;
-        await NextPage();
     }
 }

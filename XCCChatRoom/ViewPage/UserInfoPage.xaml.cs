@@ -102,7 +102,7 @@ public partial class UserInfoPage : ContentPage
                     UserInfoProfile.UUID = UserInfoProfile.CurrentUser.ID;
                     UserInfoProfile.Phone = UserInfoProfile.CurrentUser.Atel;
                     UserInfoProfile.Password = UserInfoProfile.CurrentUser.Apassword;
-                    GroupContactPage.Current.UserName = UserInfoProfile.CurrentUser.Aname;
+                    GroupContactPage.Current.ViewModel.UserName = UserInfoProfile.CurrentUser.Aname;
                 }
             }
         }

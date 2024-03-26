@@ -37,11 +37,11 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <VerticalStackLayout Grid.Column="0">
-                                <ctr:LikeButton x:Name="likeButton" IsLike="{Binding IsLike}" Clicked="LikeButton_Clicked"/>
+                                <ctr:LikeButton x:Name="likeButton" x:FieldModifier="internal" Clicked="LikeButton_Clicked"/>
                                 <Label x:Name="likeCountLabel" Text="{Binding LikeCount}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1">
-                                <ctr:StarButton x:Name="starButton" IsStar="{Binding IsStar}" Clicked="StarButton_Clicked"/>
+                                <ctr:StarButton x:Name="starButton" x:FieldModifier="internal" Clicked="StarButton_Clicked"/>
                                 <Label x:Name="starCountLabel" Text="{Binding StarCount}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Grid>

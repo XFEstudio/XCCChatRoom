@@ -31,7 +31,7 @@ internal partial class PostEditPageViewModel : ObservableObject
     {
         ViewPage = viewModel;
 
-        CurrentPostData = PostViewPage.Current?.CurrentPostData;
+        CurrentPostData = PostViewPage.Current?.ViewModel.CurrentPostData;
         if (CurrentPostData is not null)
         {
             TitleText = CurrentPostData.PostTitle;
@@ -114,7 +114,7 @@ internal partial class PostEditPageViewModel : ObservableObject
                 await successfulLabel.FadeTo(1, 300, Easing.CubicInOut);
                 await Task.Delay(1000);
                 await successfulLabel.FadeTo(0, 300, Easing.CubicInOut);
-                PostViewPage.Current.CurrentPostData = null;
+                PostViewPage.Current.ViewModel.CurrentPostData = null;
                 await Shell.Current.GoToAsync("../..");
                 CommunityPage.Current.ViewModel.RemovePostByID(CurrentPostData?.PostID);
                 await CommunityPage.Current.ViewModel.PostRefresh();
@@ -208,7 +208,7 @@ internal partial class PostEditPageViewModel : ObservableObject
                         await PopupAction.DisplayPopup(new ErrorPopup("发布编辑失败", "请检查网络设置并尝试重新发布"));
                         return;
                     }
-                    await PostViewPage.Current.Refresh();
+                    await PostViewPage.Current.ViewModel.Refresh();
                 }
                 catch (Exception ex)
                 {
@@ -241,7 +241,7 @@ internal partial class PostEditPageViewModel : ObservableObject
         CommunityPage.Current?.ViewModel.PostRefresh();
         if (CurrentPostData is not null)
         {
-            PostViewPage.Current?.Refresh();
+            PostViewPage.Current?.ViewModel.Refresh();
         }
         Shell.Current.SendBackButtonPressed();
         posting = false;

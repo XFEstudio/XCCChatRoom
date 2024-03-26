@@ -23,6 +23,7 @@ internal partial class UserInfoPageViewModel : ObservableObject
         if (UserInfoProfile.LoginSuccessful)
         {
             UserName = UserInfoProfile.Name;
+            userNameFirstLatter = UserInfoProfile.Name[0].ToString();
             UUID = UserInfoProfile.UUID;
             SwitchToLoginStyle();
         }

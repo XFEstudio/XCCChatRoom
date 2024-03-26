@@ -5,33 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:XCCChatRoom.ViewPage">
     <TabBar>
-        <Tab
-            Title="聊天室"
-            Icon="message">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:GroupContactPage}"
-                Route="GroupContactPage" />
+        <Tab Title="聊天室" Icon="message">
+            <ShellContent ContentTemplate="{DataTemplate local:GroupContactPage}" Route="GroupContactPage" />
         </Tab>
-        <Tab
-            Title="AI聊天"
-            Icon="ai">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:AICenterPage}"
-                Route="AICenterPage"/>
+        <Tab Title="AI聊天" Icon="ai">
+            <ShellContent ContentTemplate="{DataTemplate local:AICenterPage}" Route="AICenterPage"/>
         </Tab>
-        <Tab
-            Title="社区"
-            Icon="home">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:CommunityPage}"
-                Route="CommunityPage"/>
+        <Tab Title="社区" Icon="home">
+            <ShellContent ContentTemplate="{DataTemplate local:CommunityPage}" Route="CommunityPage"/>
         </Tab>
-        <Tab
-            Title="个人"
-            Icon="user">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:UserInfo}"
-                Route="UserInfo" />
+        <Tab Title="个人" Icon="user">
+            <ShellContent ContentTemplate="{DataTemplate local:UserInfoPage}" Route="UserInfo" />
         </Tab>
     </TabBar>
 </Shell>

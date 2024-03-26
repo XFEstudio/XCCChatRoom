@@ -4,7 +4,7 @@ namespace XCCChatRoom.ViewPage;
 
 public partial class IntroductionPage : ContentPage
 {
-    public IntroductionPageViewModel ViewModel { get; init; }
+    internal IntroductionPageViewModel ViewModel { get; init; }
 
     public IntroductionPage()
     {
@@ -12,4 +12,6 @@ public partial class IntroductionPage : ContentPage
         ViewModel = new(this);
         BindingContext = ViewModel;
     }
+
+    private void SkipButton_Click(object sender, TappedEventArgs e) => ViewModel.SkipPage(sender, e);
 }
