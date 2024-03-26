@@ -41,7 +41,8 @@
                     VerticalOptions="Center" 
                     HorizontalOptions="Center" />
                 <Label 
-                    x:Name="UserAccountLabel"
+                    x:Name="userAccountLabel"
+                    x:FieldModifier="internal"
                     Text="手机号/邮箱"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -52,7 +53,8 @@
                     HorizontalOptions="Fill" />
                 <Border 
                     Padding="10,0"
-                    x:Name="UserAccountBorder"
+                    x:Name="userAccountBorder"
+                    x:FieldModifier="internal"
                     Stroke="#444654"
                     MaximumWidthRequest="100"
                     StrokeThickness="2"
@@ -61,7 +63,8 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                     <Entry
-                        x:Name="UserAccountEditor"
+                        x:Name="userAccountEditor"
+                        x:FieldModifier="internal"
                         Text="{Binding UserAccountText}"
                         Focused="UserAccountEditor_Focused"
                         Unfocused="UserAccountEditor_Unfocused"
@@ -72,7 +75,8 @@
                         VerticalOptions="Center"/>
                 </Border>
                 <Label 
-                    x:Name="UserPasswordLabel"
+                    x:Name="userPasswordLabel"
+                    x:FieldModifier="internal"
                     Text="用户密码"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -83,7 +87,8 @@
                     HorizontalOptions="Fill" />
                 <Border
                     Padding="10,0"
-                    x:Name="UserPasswordBorder"
+                    x:Name="userPasswordBorder"
+                    x:FieldModifier="internal"
                     Stroke="#444654"
                     MaximumWidthRequest="100"
                     StrokeThickness="2"
@@ -92,7 +97,8 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                     <Entry
-                        x:Name="UserPasswordEditor"
+                        x:Name="userPasswordEditor"
+                        x:FieldModifier="internal"
                         Text="{Binding UserPasswordText}"
                         Placeholder="用户密码"
                         Focused="UserPasswordEditor_Focused"
@@ -104,7 +110,8 @@
                         VerticalOptions="Center"/>
                 </Border>
                 <Label 
-                    x:Name="UserTelLabel"
+                    x:Name="userTelLabel"
+                    x:FieldModifier="internal"
                     Text="手机号"
                     IsVisible="False"
                     HorizontalTextAlignment="Start"
@@ -116,7 +123,8 @@
                     HorizontalOptions="Fill" />
                 <Border 
                     Padding="10,0"
-                    x:Name="UserTelBorder"
+                    x:Name="userTelBorder"
+                    x:FieldModifier="internal"
                     IsVisible="False"
                     Stroke="#444654"
                     StrokeThickness="2"
@@ -126,7 +134,8 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                     <Entry
-                        x:Name="UserTelEditor"
+                        x:Name="userTelEditor"
+                        x:FieldModifier="internal"
                         Text="{Binding UserTelNum}"
                         Focused="UserTelEditor_Focused"
                         Unfocused="UserTelEditor_Unfocused"
@@ -138,7 +147,8 @@
                         VerticalOptions="Center"/>
                 </Border>
                 <Label
-                    x:Name="TelVerifyCodeLabel"
+                    x:Name="telVerifyCodeLabel"
+                    x:FieldModifier="internal"
                     Text="验证码"
                     IsVisible="False"
                     HorizontalTextAlignment="Start"
@@ -149,7 +159,8 @@
                     HorizontalOptions="Fill" />
                 <Grid
                     IsVisible="False"
-                    x:Name="TelVerifyCodeGrid"
+                    x:Name="telVerifyCodeGrid"
+                    x:FieldModifier="internal"
                     Opacity="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -157,7 +168,8 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Margin="5,0,0,0"
-                        x:Name="TelVerifyCodeButton"
+                        x:Name="telVerifyCodeButton"
+                        x:FieldModifier="internal"
                         Text="获取验证码"
                         Clicked="TelVerifyCodeButton_Clicked"
                         CornerRadius="30"
@@ -171,14 +183,16 @@
                         VerticalOptions="Center"/>
                     <Border 
                         Padding="10,0"
-                        x:Name="TelVerifyCodeBorder"
+                        x:Name="telVerifyCodeBorder"
+                        x:FieldModifier="internal"
                         Stroke="#444654"
                         StrokeThickness="2"
                         StrokeShape="RoundRectangle 50"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="Center">
                         <Entry
-                            x:Name="TelVerifyCodeEditor"
+                            x:Name="telVerifyCodeEditor"
+                            x:FieldModifier="internal"
                             Text="{Binding TelVerifyCode}"
                             Focused="TelVerifyCodeEditor_Focused"
                             Unfocused="TelVerifyCodeEditor_Unfocused"
@@ -191,7 +205,8 @@
                     </Border>
                 </Grid>
                 <ctr:SuperLinkLabel
-                    x:Name="ForgotPasswordButton"
+                    x:Name="forgotPasswordButton"
+                    x:FieldModifier="internal"
                     Margin="0,10,0,0"
                     Text="忘记密码"
                     TextColor="#512BD4"
@@ -200,7 +215,8 @@
                     Click="ForgotPasswordButton_Click"/>
                 <ctr:WaitableButton
                     Margin="0,10,0,10"
-                    x:Name="UserLoginButton"
+                    x:Name="userLoginButton"
+                    x:FieldModifier="internal"
                     Text="登录"
                     TextColor="White"
                     BackgroundColor="#A491E8"
@@ -210,7 +226,8 @@
                     VerticalOptions="Center"
                     WaitClick="UserLoginButton_WaitClick"/>
                 <ctr:WaitableButton
-                    x:Name="SwitchToTelVerifyCodeLoginButton"
+                    x:Name="switchToTelVerifyCodeLoginButton"
+                    x:FieldModifier="internal"
                     Text="手机号验证码登录"
                     TextColor="#444654"
                     FontAttributes="Bold"
@@ -223,7 +240,8 @@
                     VerticalOptions="Center"
                     WaitClick="SwitchToTelVerifyCodeLoginButton_WaitClick"/>
                 <ctr:WaitableButton
-                    x:Name="SwitchToPasswordLoginButton"
+                    x:Name="switchToPasswordLoginButton"
+                    x:FieldModifier="internal"
                     Text="切换为账号密码登录"
                     Opacity="0"
                     IsVisible="False"
@@ -239,7 +257,8 @@
                     WaitClick="SwitchToPasswordLoginButton_WaitClick"/>
                 <ctr:WaitableButton
                     Margin="0,20"
-                    x:Name="SwitchToRegisterPageButton"
+                    x:Name="switchToRegisterPageButton"
+                    x:FieldModifier="internal"
                     Text="未拥有账户？前往注册"
                     TextColor="#444654"
                     FontAttributes="Bold"

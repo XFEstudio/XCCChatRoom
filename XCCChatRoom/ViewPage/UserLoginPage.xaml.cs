@@ -1,10 +1,5 @@
-using System.Diagnostics;
-using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
 using XCCChatRoom.ViewModel;
-using XFEExtension.NetCore.StringExtension;
-using XFEExtension.NetCore.TaskExtension;
-using XFE∏˜¿‡Õÿ’π.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.ViewPage;
 
@@ -22,10 +17,10 @@ public partial class UserLoginPage : ContentPage
     {
         base.OnHandlerChanged();
 #if ANDROID
-        (UserAccountEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (UserPasswordEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (UserTelEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (TelVerifyCodeEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
+        (userAccountEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
+        (userPasswordEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
+        (userTelEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
+        (telVerifyCodeEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
 #endif
     }
 
