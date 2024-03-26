@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
              x:Class="XCCChatRoom.ViewPage.UserRegisterPage"
+             x:DataType="viewmodel:UserRegisterPageViewModel"
              Title="注册"
              Background="#512BD4">
     <StackLayout>
@@ -39,7 +41,7 @@
                     VerticalOptions="Center" 
                     HorizontalOptions="Center" />
                 <Label 
-                    x:Name="UserTelLabel"
+                    x:Name="userTelLabel"
                     Text="手机号"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -49,7 +51,7 @@
                     HorizontalOptions="Fill" />
                 <Border 
                     Padding="10,0"
-                    x:Name="UserTelBorder"
+                    x:Name="userTelBorder"
                     Stroke="#444654"
                     StrokeThickness="2"
                     Opacity="0.5"
@@ -57,7 +59,8 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                     <Entry
-                        x:Name="UserTelEditor"
+                        x:Name="userTelEditor"
+                        Text="{Binding PhoneNum}"
                         Focused="UserTelEditor_Focused"
                         Unfocused="UserTelEditor_Unfocused"
                         TextChanged="UserTelEditor_TextChanged"
@@ -68,7 +71,7 @@
                         VerticalOptions="Center"/>
                 </Border>
                 <Label
-                    x:Name="TelVerifyCodeLabel"
+                    x:Name="telVerifyCodeLabel"
                     Text="验证码"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -82,7 +85,7 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Margin="5,0,0,0"
-                        x:Name="TelVerifyCodeButton"
+                        x:Name="telVerifyCodeButton"
                         Text="获取验证码"
                         Clicked="TelVerifyCodeButton_Clicked"
                         CornerRadius="30"
@@ -96,7 +99,7 @@
                         VerticalOptions="Center"/>
                     <Border 
                         Padding="10,0"
-                        x:Name="TelVerifyCodeBorder"
+                        x:Name="telVerifyCodeBorder"
                         Stroke="#444654"
                         StrokeThickness="2"
                         Opacity="0.5"
@@ -104,7 +107,8 @@
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="Center">
                         <Entry
-                            x:Name="TelVerifyCodeEditor"
+                            x:Name="telVerifyCodeEditor"
+                            Text="{Binding VerifyCode}"
                             Focused="TelVerifyCodeEditor_Focused"
                             Unfocused="TelVerifyCodeEditor_Unfocused"
                             TextChanged="TelVerifyCodeEditor_TextChanged"
@@ -116,7 +120,7 @@
                     </Border>
                 </Grid>
                 <Label 
-                    x:Name="UserNameLabel"
+                    x:Name="userNameLabel"
                     Text="昵称"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -128,7 +132,7 @@
                     HorizontalOptions="Fill" />
                 <Border 
                     Padding="10,0"
-                    x:Name="UserNameBorder"
+                    x:Name="userNameBorder"
                     TranslationY="150"
                     IsVisible="False"
                     Stroke="#444654"
@@ -138,7 +142,8 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                     <Entry
-                        x:Name="UserNameEditor"
+                        x:Name="userNameEditor"
+                        Text="{Binding Name}"
                         Focused="UserNameEditor_Focused"
                         Unfocused="UserNameEditor_Unfocused"
                         TextChanged="UserNameEditor_TextChanged"
@@ -150,7 +155,7 @@
                         VerticalOptions="Center"/>
                 </Border>
                 <Label 
-                    x:Name="UserMailLabel"
+                    x:Name="userMailLabel"
                     Text="邮箱"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -162,7 +167,7 @@
                     HorizontalOptions="Fill" />
                 <Border 
                     Padding="10,0"
-                    x:Name="UserMailBorder"
+                    x:Name="userMailBorder"
                     TranslationY="110"
                     IsVisible="False"
                     Stroke="#444654"
@@ -172,7 +177,8 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                     <Entry
-                        x:Name="UserMailEditor"
+                        x:Name="userMailEditor"
+                        Text="{Binding Mail}"
                         Focused="UserMailEditor_Focused"
                         Unfocused="UserMailEditor_Unfocused"
                         TextChanged="UserMailEditor_TextChanged"
@@ -182,7 +188,7 @@
                         VerticalOptions="Center"/>
                 </Border>
                 <Label 
-                    x:Name="UserPasswordLabel"
+                    x:Name="userPasswordLabel"
                     Text="密码"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -194,7 +200,7 @@
                     HorizontalOptions="Fill" />
                 <Border
                     Padding="10,0"
-                    x:Name="UserPasswordBorder"
+                    x:Name="userPasswordBorder"
                     TranslationY="80"
                     IsVisible="False"
                     Stroke="#444654"
@@ -204,7 +210,8 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                     <Entry
-                        x:Name="UserPasswordEditor"
+                        x:Name="userPasswordEditor"
+                        Text="{Binding Password}"
                         Placeholder="最大长度20"
                         Focused="UserPasswordEditor_Focused"
                         Unfocused="UserPasswordEditor_Unfocused"
@@ -216,7 +223,7 @@
                         VerticalOptions="Center"/>
                 </Border>
                 <Label 
-                    x:Name="UserPasswordEnsureLabel"
+                    x:Name="userPasswordEnsureLabel"
                     Text="确认密码"
                     HorizontalTextAlignment="Start"
                     TextColor="Gray"
@@ -228,7 +235,7 @@
                     HorizontalOptions="Fill" />
                 <Border
                     Padding="10,0"
-                    x:Name="UserPasswordEnsureBorder"
+                    x:Name="userPasswordEnsureBorder"
                     TranslationY="60"
                     IsVisible="False"
                     Stroke="#444654"

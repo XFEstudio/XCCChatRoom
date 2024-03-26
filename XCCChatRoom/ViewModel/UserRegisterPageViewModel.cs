@@ -1,34 +1,41 @@
-using MauiPopup;
+ï»¿using CommunityToolkit.Mvvm.ComponentModel;
 using XCCChatRoom.AllImpl;
-using XCCChatRoom.Controls;
-using XCCChatRoom.ViewModel;
-using XFEExtension.NetCore.StringExtension;
-using XFEExtension.NetCore.TaskExtension;
-using XFE¸÷ÀàÍØÕ¹.NetCore.XFEDataBase;
+using XCCChatRoom.ViewPage;
+using XFEå„ç±»æ‹“å±•.NetCore.XFEDataBase;
 
-namespace XCCChatRoom.ViewPage;
+namespace XCCChatRoom.ViewModel;
 
-public partial class UserRegisterPage : ContentPage
+internal partial class UserRegisterPageViewModel:ObservableObject
 {
-    internal UserRegisterPageViewModel ViewModel { get; init; }
-    public UserRegisterPage()
-    {
-        InitializeComponent();
-        ViewModel = new(this);
-        BindingContext = ViewModel;
-    }
+    [ObservableProperty]
+    private string phoneNum;
+    [ObservableProperty]
+    private string verifyCode;
+    [ObservableProperty]
+    private string name;
+    [ObservableProperty]
+    private string mail;
+    [ObservableProperty]
+    private string password;
+    public UserRegisterPage ViewPage { get; init; }
+    private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
+    private bool isTelEditor = false, isMailEditor = false, isNameEditor = false, isPasswordEditor = false, isPasswordEnsureEditor = false;
+    private string randomCode = string.Empty;
+    private string currentPhoneNum = string.Empty;
+    private bool isCoolDown = false;
 
-    protected override void OnHandlerChanged()
+    public UserRegisterPageViewModel(UserRegisterPage viewPage)
     {
-        base.OnHandlerChanged();
-#if ANDROID
-        (UserNameEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (UserPasswordEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (UserTelEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (UserMailEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (UserPasswordEnsureEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-        (TelVerifyCodeEditor.Handler.PlatformView as Android.Widget.EditText).Background = null;
-#endif
+        ViewPage = viewPage;
+        new Action(() =>
+        {
+            Thread.Sleep(500);
+            while (!UserTelEditor.IsFocused)
+            {
+                UserTelEditor.Focus();
+                Thread.Sleep(100);
+            }
+        }).StartNewTask();
     }
 
     private async void NextStepButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
@@ -37,10 +44,10 @@ public partial class UserRegisterPage : ContentPage
         {
             TelVerifyCodeBorder.Stroke = Color.FromArgb("#444654");
             TelVerifyCodeLabel.TextColor = Color.Parse("Gray");
-            TelVerifyCodeLabel.Text = "ÑéÖ¤Âë";
+            TelVerifyCodeLabel.Text = "éªŒè¯ç ";
             UserTelBorder.Stroke = Color.FromArgb("#444654");
             UserTelLabel.TextColor = Color.Parse("Gray");
-            UserTelLabel.Text = "ÊÖ»úºÅ";
+            UserTelLabel.Text = "æ‰‹æœºå·";
             if (TelVerifyCodeEditor.Text == randomCode)
             {
                 if (UserTelEditor.Text == currentPhoneNum)
@@ -48,7 +55,7 @@ public partial class UserRegisterPage : ContentPage
                     var telResult = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == UserTelEditor.Text);
                     if (telResult.Count > 0)
                     {
-                        UserTelLabel.Text = "ÊÖ»úºÅÒÑ´æÔÚ";
+                        UserTelLabel.Text = "æ‰‹æœºå·å·²å­˜åœ¨";
                         UserTelLabel.TextColor = Color.Parse("Red");
                         UserTelBorder.Stroke = Color.Parse("Red");
                         ControlExtension.BorderShake(UserTelBorder);
@@ -151,7 +158,7 @@ public partial class UserRegisterPage : ContentPage
                 {
                     UserTelLabel.TextColor = Color.Parse("Red");
                     UserTelBorder.Stroke = Color.Parse("Red");
-                    UserTelLabel.Text = "ÊÖ»úºÅÓëÑéÖ¤Âë·¢ËÍÊ±µÄ²»Ò»ÖÂ";
+                    UserTelLabel.Text = "æ‰‹æœºå·ä¸éªŒè¯ç å‘é€æ—¶çš„ä¸ä¸€è‡´";
                     UserTelEditor.Focus();
                     e.Continue();
                     ControlExtension.BorderShake(UserTelBorder);
@@ -161,7 +168,7 @@ public partial class UserRegisterPage : ContentPage
             {
                 TelVerifyCodeLabel.TextColor = Color.Parse("Red");
                 TelVerifyCodeBorder.Stroke = Color.Parse("Red");
-                TelVerifyCodeLabel.Text = "ÑéÖ¤Âë´íÎó";
+                TelVerifyCodeLabel.Text = "éªŒè¯ç é”™è¯¯";
                 TelVerifyCodeEditor.Focus();
                 e.Continue();
                 ControlExtension.BorderShake(TelVerifyCodeBorder);
@@ -169,7 +176,7 @@ public partial class UserRegisterPage : ContentPage
         }
         catch (Exception ex)
         {
-            await Shell.Current?.DisplayAlert("×¢²áÊ±³öÏÖ´íÎó", ex.Message, "È·¶¨");
+            await Shell.Current?.DisplayAlert("æ³¨å†Œæ—¶å‡ºç°é”™è¯¯", ex.Message, "ç¡®å®š");
         }
     }
 
@@ -179,28 +186,28 @@ public partial class UserRegisterPage : ContentPage
         currentPhoneNum = UserTelEditor.Text;
         TelVerifyCodeButton.IsEnabled = false;
         TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
-        TelVerifyCodeButton.Text = "·¢ËÍÖĞ...";
+        TelVerifyCodeButton.Text = "å‘é€ä¸­...";
         isCoolDown = true;
         var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, [randomCode, "2"]);
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
-            await Shell.Current?.DisplayAlert("³ö´íÀ²£¡", $"ÑéÖ¤Âë·¢ËÍÊ§°Ü£º{resp?.SendStatusSet.First().Message}\nÊÖ»úºÅ£º{UserTelEditor.Text}", "°¡£¿");
+            await Shell.Current?.DisplayAlert("å‡ºé”™å•¦ï¼", $"éªŒè¯ç å‘é€å¤±è´¥ï¼š{resp?.SendStatusSet.First().Message}\næ‰‹æœºå·ï¼š{UserTelEditor.Text}", "å•Šï¼Ÿ");
             TelVerifyCodeButton.IsEnabled = true;
             TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
-            TelVerifyCodeButton.Text = "ÖØĞÂ·¢ËÍ";
+            TelVerifyCodeButton.Text = "é‡æ–°å‘é€";
         }
         else
         {
-            TelVerifyCodeButton.Text = "ÖØĞÂ·¢ËÍ 60";
+            TelVerifyCodeButton.Text = "é‡æ–°å‘é€ 60";
             await new Action(() =>
             {
                 int timer = 60;
                 TelVerifyCodeButton.Dispatcher.StartTimer(TimeSpan.FromSeconds(1), () =>
                 {
-                    TelVerifyCodeButton.Text = $"ÖØĞÂ·¢ËÍ {--timer}";
+                    TelVerifyCodeButton.Text = $"é‡æ–°å‘é€ {--timer}";
                     if (timer == 0)
                     {
-                        TelVerifyCodeButton.Text = "ÖØĞÂ·¢ËÍ";
+                        TelVerifyCodeButton.Text = "é‡æ–°å‘é€";
                         TelVerifyCodeButton.IsEnabled = true;
                         isCoolDown = false;
                         TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
@@ -220,7 +227,7 @@ public partial class UserRegisterPage : ContentPage
             var mailResult = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Amail == UserMailEditor.Text);
             if (mailResult.Count > 0)
             {
-                UserMailLabel.Text = "ÓÊÏäÒÑ´æÔÚ";
+                UserMailLabel.Text = "é‚®ç®±å·²å­˜åœ¨";
                 UserMailLabel.TextColor = Color.Parse("Red");
                 UserMailBorder.Stroke = Color.Parse("Red");
                 ControlExtension.BorderShake(UserMailBorder);
@@ -237,13 +244,13 @@ public partial class UserRegisterPage : ContentPage
             });
             if (result == 0)
             {
-                await PopupAction.DisplayPopup(new ErrorPopup("×¢²áÊ§°Ü", "Î´ÄÜ³É¹¦×¢²á£¬ÇëÖØÊÔ"));
+                await PopupAction.DisplayPopup(new ErrorPopup("æ³¨å†Œå¤±è´¥", "æœªèƒ½æˆåŠŸæ³¨å†Œï¼Œè¯·é‡è¯•"));
                 e.Continue();
                 return;
             }
             var successfulLabel = new Label
             {
-                Text = "×¢²á³É¹¦",
+                Text = "æ³¨å†ŒæˆåŠŸ",
                 Opacity = 0,
                 TextColor = Color.Parse("White"),
                 FontSize = 40,
@@ -264,15 +271,15 @@ public partial class UserRegisterPage : ContentPage
                 await XFEExecuter.ExecuteDelete<XFEChatRoom_UserInfoForm>(x => x.ID == UUID);
             }
             catch (Exception) { }
-            if (await Shell.Current?.DisplayAlert("×¢²á³ö´íÀ²£¡", $"×¢²áÊ§°Ü£º{ex.Message}", "ÖØÊÔ", "·µ»Ø"))
+            if (await Shell.Current?.DisplayAlert("æ³¨å†Œå‡ºé”™å•¦ï¼", $"æ³¨å†Œå¤±è´¥ï¼š{ex.Message}", "é‡è¯•", "è¿”å›"))
             {
-                Trace.WriteLine($"ÊÖ»úºÅ£º{UserTelEditor.Text}");
-                Trace.WriteLine($"ÓÊÏä£º{UserMailEditor.Text}");
-                Trace.WriteLine($"ÃÜÂë£º{UserPasswordEditor.Text}");
-                Trace.WriteLine($"È·ÈÏÃÜÂë£º{UserPasswordEnsureEditor.Text}");
-                Trace.WriteLine($"ÑéÖ¤Âë£º{TelVerifyCodeEditor.Text}");
-                Trace.WriteLine($"Ëæ»úÂë£º{randomCode}");
-                Trace.WriteLine($"ÓÃ»§Ãû£º{UserNameEditor.Text}");
+                Trace.WriteLine($"æ‰‹æœºå·ï¼š{UserTelEditor.Text}");
+                Trace.WriteLine($"é‚®ç®±ï¼š{UserMailEditor.Text}");
+                Trace.WriteLine($"å¯†ç ï¼š{UserPasswordEditor.Text}");
+                Trace.WriteLine($"ç¡®è®¤å¯†ç ï¼š{UserPasswordEnsureEditor.Text}");
+                Trace.WriteLine($"éªŒè¯ç ï¼š{TelVerifyCodeEditor.Text}");
+                Trace.WriteLine($"éšæœºç ï¼š{randomCode}");
+                Trace.WriteLine($"ç”¨æˆ·åï¼š{UserNameEditor.Text}");
                 Trace.WriteLine(ex.ToString());
                 e.Continue();
             }
@@ -289,13 +296,13 @@ public partial class UserRegisterPage : ContentPage
         await Shell.Current.GoToAsync("..");
         e.Continue();
     }
-    #region ±à¼­¿òÄÚÈİ¼ì²â
+    #region ç¼–è¾‘æ¡†å†…å®¹æ£€æµ‹
     private void UserTelEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (UserTelEditor.Text.IsMobPhoneNumber())
         {
             isTelEditor = true;
-            UserTelLabel.Text = "ÊÖ»úºÅ";
+            UserTelLabel.Text = "æ‰‹æœºå·";
             UserTelLabel.TextColor = Color.Parse("Black");
             UserTelBorder.Stroke = Color.FromArgb("#444654");
             if (!isCoolDown)
@@ -307,7 +314,7 @@ public partial class UserRegisterPage : ContentPage
         else
         {
             isTelEditor = false;
-            UserTelLabel.Text = "ÊÖ»úºÅ¸ñÊ½²»ÕıÈ·";
+            UserTelLabel.Text = "æ‰‹æœºå·æ ¼å¼ä¸æ­£ç¡®";
             UserTelLabel.TextColor = Color.Parse("Red");
             TelVerifyCodeButton.IsEnabled = false;
             TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
@@ -319,14 +326,14 @@ public partial class UserRegisterPage : ContentPage
         if (UserMailEditor.Text.IsValidEmail())
         {
             isMailEditor = true;
-            UserMailLabel.Text = "ÓÊÏä";
+            UserMailLabel.Text = "é‚®ç®±";
             UserMailLabel.TextColor = Color.Parse("Black");
             UserMailBorder.Stroke = Color.FromArgb("#444654");
         }
         else
         {
             isMailEditor = false;
-            UserMailLabel.Text = "ÓÊÏä¸ñÊ½²»ÕıÈ·";
+            UserMailLabel.Text = "é‚®ç®±æ ¼å¼ä¸æ­£ç¡®";
             UserMailLabel.TextColor = Color.Parse("Red");
         }
         CheckCorrect();
@@ -339,19 +346,19 @@ public partial class UserRegisterPage : ContentPage
             if (!UserNameEditor.Text.Contains(' '))
             {
                 isNameEditor = true;
-                UserNameLabel.Text = "êÇ³Æ";
+                UserNameLabel.Text = "æ˜µç§°";
                 UserNameLabel.TextColor = Color.Parse("Black");
             }
             else
             {
-                UserNameLabel.Text = "êÇ³Æ²»¿É°üº¬¿Õ¸ñ";
+                UserNameLabel.Text = "æ˜µç§°ä¸å¯åŒ…å«ç©ºæ ¼";
                 UserNameLabel.TextColor = Color.Parse("Red");
                 isNameEditor = false;
             }
         }
         else
         {
-            UserNameLabel.Text = "êÇ³Æ²»¿ÉÎª¿Õ";
+            UserNameLabel.Text = "æ˜µç§°ä¸å¯ä¸ºç©º";
             UserNameLabel.TextColor = Color.Parse("Red");
             isNameEditor = false;
         }
@@ -365,19 +372,19 @@ public partial class UserRegisterPage : ContentPage
             if (!UserPasswordEditor.Text.Contains(' '))
             {
                 isPasswordEditor = true;
-                UserPasswordLabel.Text = "ÃÜÂë";
+                UserPasswordLabel.Text = "å¯†ç ";
                 UserPasswordLabel.TextColor = Color.Parse("Black");
             }
             else
             {
-                UserPasswordLabel.Text = "ÃÜÂë²»¿É°üº¬¿Õ¸ñ";
+                UserPasswordLabel.Text = "å¯†ç ä¸å¯åŒ…å«ç©ºæ ¼";
                 UserPasswordLabel.TextColor = Color.Parse("Red");
                 isPasswordEditor = false;
             }
         }
         else
         {
-            UserPasswordLabel.Text = "ÃÜÂë²»¿ÉÎª¿Õ";
+            UserPasswordLabel.Text = "å¯†ç ä¸å¯ä¸ºç©º";
             UserPasswordLabel.TextColor = Color.Parse("Red");
             isPasswordEditor = false;
         }
@@ -389,13 +396,13 @@ public partial class UserRegisterPage : ContentPage
         if (UserPasswordEnsureEditor.Text == UserPasswordEditor.Text)
         {
             isPasswordEnsureEditor = true;
-            UserPasswordEnsureLabel.Text = "È·ÈÏÃÜÂë";
+            UserPasswordEnsureLabel.Text = "ç¡®è®¤å¯†ç ";
             UserPasswordEnsureLabel.TextColor = Color.Parse("Black");
         }
         else
         {
             isPasswordEnsureEditor = false;
-            UserPasswordEnsureLabel.Text = "Á½´ÎÃÜÂë²»Ò»ÖÂ";
+            UserPasswordEnsureLabel.Text = "ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´";
             UserPasswordEnsureLabel.TextColor = Color.Parse("Red");
         }
         CheckCorrect();
@@ -438,7 +445,7 @@ public partial class UserRegisterPage : ContentPage
         }
     }
     #endregion
-    #region ±à¼­¿ò½¹µãÊÂ¼ş
+    #region ç¼–è¾‘æ¡†ç„¦ç‚¹äº‹ä»¶
     private void UserTelEditor_Focused(object sender, FocusEventArgs e)
     {
         UserTelLabel.FadeTo(1, 300, Easing.CubicOut);
