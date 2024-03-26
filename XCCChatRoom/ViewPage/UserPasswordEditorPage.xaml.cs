@@ -1,5 +1,6 @@
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Model;
+using XCCChatRoom.Profiles;
 
 namespace XCCChatRoom.ViewPage;
 
@@ -16,7 +17,7 @@ public partial class UserPasswordEditorPage : ContentPage
 
     private void OldPassword_Unfocused(object sender, FocusEventArgs e)
     {
-        if (UserInfoPage.CurrentUser.Apassword == OldPasswordEntry.Text) { flag1 = true; }
+        if (UserInfoProfile.CurrentUser.Apassword == OldPasswordEntry.Text) { flag1 = true; }
         else { flag1 = false; }
     }
 
