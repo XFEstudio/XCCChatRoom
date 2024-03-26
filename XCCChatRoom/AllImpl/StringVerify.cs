@@ -2,7 +2,7 @@
 {
     public static class StringVerify
     {
-        public static string[] ContrabandVocabulary = new string[] {  };
+        public static string[] ContrabandVocabulary { get; } = [];
         public static bool VerifyString(this string verifyString)
         {
             int i = 1;
@@ -20,13 +20,13 @@
                 return false;
         }
 
-        public static bool UserNameEditor(this string NewUserName)
+        public static bool IsValidUserName(this string NewUserName)
         {
                 if (!NewUserName.Contains(' ') && NewUserName.VerifyString()) { return true; }
                 else { return false; }
         }
 
-        public static bool PasswordEditor(this string NewPassword)
+        public static bool IsValidPassword(this string NewPassword)
         {
             if (NewPassword is not null && NewPassword != string.Empty)
             {

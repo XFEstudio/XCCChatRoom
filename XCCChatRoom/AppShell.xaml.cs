@@ -1,4 +1,4 @@
-﻿using XCCChatRoom.InnerPage;
+﻿using XCCChatRoom.ViewPage;
 
 namespace XCCChatRoom;
 

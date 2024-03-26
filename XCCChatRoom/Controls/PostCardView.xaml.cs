@@ -1,6 +1,6 @@
-using XFE各类拓展.NetCore.ArrayExtension;
-using XFE各类拓展.NetCore.ObjectExtension;
-using XFE各类拓展.NetCore.TaskExtension;
+using XFEExtension.NetCore.ArrayExtension;
+using XFEExtension.NetCore.ObjectExtension;
+using XFEExtension.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.Controls;

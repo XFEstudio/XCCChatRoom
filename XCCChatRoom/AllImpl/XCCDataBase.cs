@@ -1,5 +1,6 @@
-﻿using XFE各类拓展.NetCore.WebExtension;
-using XFE各类拓展.NetCore.XEAEncryption;
+﻿using System.Diagnostics;
+using XFEExtension.NetCore.WebExtension;
+using XFEExtension.NetCore.XEAEncryption;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.AllImpl
@@ -13,7 +14,7 @@ namespace XCCChatRoom.AllImpl
             set
             {
                 dataBasePassword = value.XEADecrypt("早期测试版数据库密码")[..^2];
-                Console.WriteLine(dataBasePassword);
+                Trace.WriteLine(dataBasePassword);
             }
         }
         public static XFEDataBase XFEDataBase { get; set; }
