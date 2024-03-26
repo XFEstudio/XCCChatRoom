@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.PostViewPage"
+             x:DataType="viewmodel:PostViewPageViewModel"
+             Title="小窝帖子详情"
+             BackgroundColor="#f0f0f0">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior x:Name="backButton" IsEnabled="True"/>
+    </Shell.BackButtonBehavior>
+    <StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand" x:Name="commentScrollView" x:FieldModifier="internal">
+            <StackLayout VerticalOptions="StartAndExpand">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 0,0,10,10" BackgroundColor="White" >
+                    <StackLayout Margin="0,0,0,40">
+                        <Label Margin="10,10,10,0" x:Name="titleLabel" Text="{Binding TitleText}" FontSize="Title" TextColor="#3e3192" VerticalOptions="Start" HorizontalOptions="Fill"/>
+                        <BoxView Margin="5,5" HeightRequest="2" CornerRadius="30" Opacity="0.5" Color="#512BD4"/>
+                        <Grid Margin="10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Stroke="#512BD4" Fill="#F0ECFE" x:Name="ellipse" StrokeThickness="2" WidthRequest="30" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label x:Name="charLabel" Text="{Binding AuthorNameFirstLetter}" TextColor="#512BD4" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Margin="5,0" Grid.Column="1" x:Name="authorLabel" Text="{Binding AuthorName}" FontSize="20" TextColor="#512BD4"/>
+                        </Grid>
+                        <Label Margin="10,0,10,10" x:Name="contentLabel" Text="{Binding ContentText}" FontSize="Subtitle" TextColor="Black" Opacity="0.85" HorizontalOptions="Fill" VerticalOptions="Start"/>
+                        <Label Margin="10,0,10,10" x:Name="timeLabel" Text="{Binding PostTime}" FontSize="Caption" TextColor="Black" Opacity="0.85" HorizontalOptions="End" VerticalOptions="End"/>
+                        <FlexLayout Wrap="Wrap" x:Name="tagStackLayout" x:FieldModifier="internal" Margin="5,20,10,20">
+                        </FlexLayout>
+                        <BoxView Margin="10,0" HeightRequest="5" CornerRadius="30" Opacity="0.5" Color="#512BD4"/>
+                        <Grid Margin="0,20,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <VerticalStackLayout Grid.Column="0">
+                                <ctr:LikeButton x:Name="likeButton" x:FieldModifier="internal" Clicked="LikeButton_Clicked"/>
+                                <Label x:Name="likeCountLabel" Text="{Binding LikeCount}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1">
+                                <ctr:StarButton x:Name="starButton" x:FieldModifier="internal" Clicked="StarButton_Clicked"/>
+                                <Label x:Name="starCountLabel" Text="{Binding StarCount}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </StackLayout>
+                </Border>
+                <Label Margin="0,40,0,0" Text="期待你的第一题评论哦~" IsVisible="False" Opacity="0.2" FontSize="24" x:Name="noneCommentLabel" x:FieldModifier="internal" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <StackLayout Margin="0,30,0,0" Padding="5,0" x:Name="commentStack" x:FieldModifier="internal" VerticalOptions="StartAndExpand">
+                </StackLayout>
+                <Label x:Name="loadingLabel" Text="正在加载中..." IsVisible="False" HorizontalTextAlignment="Center" HorizontalOptions="Fill" VerticalOptions="End" FontSize="18" TextColor="#512BD4" BackgroundColor="#F0ECFE"/>
+            </StackLayout>
+        </ScrollView>
+        <StackLayout x:Name="inputStack">
+            <Grid BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="End" Padding="5,5,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout>
+                    <Border x:Name="quoteBorder" x:FieldModifier="internal" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#F0ECFE" IsVisible="False" Margin="0,0,5,10" HorizontalOptions="Start" VerticalOptions="Center">
+                        <HorizontalStackLayout>
+                            <Label x:Name="quoteLabel" Text="{Binding QuoteText}" Margin="10,3" FontSize="Caption" TextColor="#512BD4" MaxLines="3" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                            <ImageButton x:Name="quoteCloseButton" Margin="0,0,5,0" Source="close" WidthRequest="15" HeightRequest="15" HorizontalOptions="End" VerticalOptions="Center" Command="{Binding QuoteCloseCommand}"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#F0ECFE" Margin="0,0,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                        <Editor x:Name="inputEditor" x:FieldModifier="internal" Text="{Binding InputText}" Placeholder="你的评论会让小窝更温馨哦~" HorizontalOptions="FillAndExpand" TextChanged="InputEditor_TextChanged" AutoSize="TextChanges" IsSpellCheckEnabled="False" MaximumHeightRequest="300" VerticalOptions="Center">
+                        </Editor>
+                    </Border>
+                </StackLayout>
+                <ImageButton x:Name="sendButton" x:FieldModifier="internal" Source="send" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="#A491E8" Grid.Column="1" Command="{Binding SendClickCommand}" CornerRadius="4" Aspect="Center"/>
+                <BoxView Grid.Row="1" Grid.ColumnSpan="2" Margin="0,5" HeightRequest="2" CornerRadius="30" Opacity="0.5" Color="#512BD4"/>
+            </Grid>
+            <StackLayout.Shadow>
+                <Shadow Brush="#512BD4" Opacity="0.5" Radius="10" Offset="0,-10"/>
+            </StackLayout.Shadow>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

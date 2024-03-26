@@ -7,7 +7,7 @@ namespace XCCChatRoom.AllImpl
         public event EventHandler<CommunityMessage> CommunityMessageReceived;
         public AppCommunityMessageCenter()
         {
-            Timer messageRefreshTimer = new(30000);
+            var messageRefreshTimer = new Timer(30000);
             messageRefreshTimer.Elapsed += MessageRefreshTimer_Elapsed;
         }
 

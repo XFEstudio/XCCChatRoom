@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.ChatPage"
+             x:DataType="viewmodel:ChatPageViewModel"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding DisplayGroupName}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="phoneCallItem" x:FieldModifier="internal" Text="开启语音" IconImageSource="phone" Command="{Binding PhoneCallItemClickCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand" x:Name="chatScrollView" x:FieldModifier="internal" BackgroundColor="#343541" Scrolled="ChatScrollView_Scrolled">
+            <StackLayout x:Name="chatStack" x:FieldModifier="internal" VerticalOptions="StartAndExpand"/>
+        </ScrollView>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="End" Padding="5,5,5,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="45"/>
+            </Grid.ColumnDefinitions>
+            <Border Stroke="#444654" StrokeThickness="2" StrokeShape="RoundRectangle 10" Background="#D7D7D7" Margin="0,0,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Editor x:Name="inputEditor" x:FieldModifier="internal" Placeholder="输入消息" Text="{Binding CurrentEditorText}" HorizontalOptions="FillAndExpand" TextChanged="InputEditor_TextChanged" AutoSize="TextChanges" Focused="InputEditor_Focused" IsSpellCheckEnabled="False" MaximumHeightRequest="300" VerticalOptions="Center"/>
+            </Border>
+            <ImageButton x:Name="sendButton" x:FieldModifier="internal" Source="send" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#A491E8" Grid.Column="1" CornerRadius="4" Aspect="Center" Command="{Binding SendButtonClickCommand}"/>
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid Margin="0,5,0,0" x:Name="toolBarStackLayout">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton x:Name="showEmotionButton" x:FieldModifier="internal" Source="unsmile" ClassId="unsmile" HorizontalOptions="Center" HeightRequest="30" WidthRequest="30" Command="{Binding ShowEmotionClickCommand}"/>
+                    <ImageButton x:Name="showImageButton" x:FieldModifier="internal" Source="unimage" ClassId="unimage" HorizontalOptions="Center" HeightRequest="30" Grid.Column="1" WidthRequest="30" Command="{Binding ShowImageClickCommand}"/>
+                    <ImageButton x:Name="cameraButton" x:FieldModifier="internal" Source="uncamera" ClassId="uncamera" HorizontalOptions="Center" HeightRequest="30" Grid.Column="2" WidthRequest="30" Command="{Binding OpenCameraClickCommand}"/>
+                </Grid>
+                <ScrollView x:Name="toolViewScrollView" x:FieldModifier="internal" MaximumHeightRequest="200" IsVisible="False" Opacity="0" VerticalOptions="Center" HorizontalOptions="Center">
+                    <FlexLayout x:Name="toolViewStackLayout" x:FieldModifier="internal" Wrap="Wrap" VerticalOptions="Center" HorizontalOptions="Center">
+                    </FlexLayout>
+                </ScrollView>
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+</ContentPage>

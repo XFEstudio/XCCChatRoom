@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.PostEditPage"
+             x:DataType="viewmodel:PostEditPageViewModel"
+             Title="发布小窝帖子">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="发布" Command="{Binding PublishPostCommand}"/>
+        <ToolbarItem Text="删除" IconImageSource="trash" Command="{Binding DeletePostCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ScrollView VerticalScrollBarVisibility="Never" Orientation="Vertical">
+        <StackLayout>
+            <Editor x:Name="titleEditor" Text="{Binding TitleText}" Placeholder="请输入标题" FontSize="Title" TextColor="#3e3192" AutoSize="TextChanges" VerticalOptions="Start" MaxLength="32" HorizontalOptions="Fill" />
+            <BoxView Margin="5,0" HeightRequest="2" CornerRadius="30" Opacity="0.5" Color="#512BD4" />
+            <Editor x:Name="contentEditor" Text="{Binding ContentText}" Placeholder="请输入内容" FontSize="Subtitle" AutoSize="TextChanges" TextColor="Black" Opacity="0.85" TextChanged="ContentEditor_TextChanged" IsSpellCheckEnabled="False" IsTextPredictionEnabled="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal" Margin="10,0,0,30" VerticalOptions="End">
+                <HorizontalStackLayout x:Name="tagStackLayout" x:FieldModifier="internal">
+                    <Button x:Name="AddTagButton" Text="#添加标签" TextColor="#F0ECFE" FontAttributes="Bold" BackgroundColor="#512BD4" CornerRadius="30" Command="{Binding AddTagCommand}"/>
+                </HorizontalStackLayout>
+            </ScrollView>
+            <BoxView Margin="5,0" HeightRequest="2" CornerRadius="30" Opacity="0.5" Color="#512BD4" />
+            <Label Margin="0,10,0,0" x:Name="wordCountLabel" x:FieldModifier="internal" Text="{Binding TitleText.Length,StringFormat='字数：{0}/3000'}" FontSize="Micro" Opacity="0.5" TextColor="Black" HorizontalOptions="End" />
+            <Label Text="更多功能开发中" TextColor="#e0e0e0" FontSize="Title" HorizontalOptions="Center" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

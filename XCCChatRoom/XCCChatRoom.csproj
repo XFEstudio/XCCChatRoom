@@ -150,14 +150,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
-		<PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
+		<PackageReference Include="Plugin.LocalNotification" Version="11.1.1" />
 		<PackageReference Include="Plugin.Maui.Popup" Version="1.0.5" />
-		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
-		<PackageReference Include="TencentCloudSDK" Version="3.0.952" />
-		<PackageReference Include="XFE各类拓展.NetCore" Version="1.6.2" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+		<PackageReference Include="TencentCloudSDK" Version="3.0.971" />
+		<PackageReference Include="XFEExtension.NetCore" Version="2.4.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -176,25 +178,28 @@
 	  <Compile Update="Controls\StarButton.xaml.cs">
 	    <DependentUpon>StarButton.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="InnerPage\ChatPage.xaml.cs">
+	  <Compile Update="ViewPage\ChatPage.xaml.cs">
 	    <DependentUpon>ChatPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="InnerPage\UserMailEditPage.xaml.cs">
+	  <Compile Update="ViewPage\UserInfoPage.xaml.cs">
+	    <DependentUpon>UserInfoPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="ViewPage\UserMailEditPage.xaml.cs">
 	    <DependentUpon>UserMailEditPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="InnerPage\UserPasswordEditorPage.xaml.cs">
+	  <Compile Update="ViewPage\UserPasswordEditorPage.xaml.cs">
 	    <DependentUpon>UserPasswordEditorPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="InnerPage\UserPrivacyListPage.xaml.cs">
+	  <Compile Update="ViewPage\UserPrivacyListPage.xaml.cs">
 	    <DependentUpon>UserPrivacyListPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="InnerPage\UserLoginPage.xaml.cs">
+	  <Compile Update="ViewPage\UserLoginPage.xaml.cs">
 	    <DependentUpon>UserLoginPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="InnerPage\UserPropertyEditPage.xaml.cs">
+	  <Compile Update="ViewPage\UserPropertyEditPage.xaml.cs">
 	    <DependentUpon>UserPropertyEditPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="InnerPage\UserRegisterPage.xaml.cs">
+	  <Compile Update="ViewPage\UserRegisterPage.xaml.cs">
 	    <DependentUpon>UserRegisterPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
@@ -233,40 +238,40 @@
 		<MauiXaml Update="Controls\UpdatePopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\AICenterPage.xaml">
+		<MauiXaml Update="ViewPage\AICenterPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\AIDrawPage.xaml">
+		<MauiXaml Update="ViewPage\AIDrawPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\CommunityPage.xaml">
+		<MauiXaml Update="ViewPage\CommunityPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\ForgetPasswordPage.xaml">
+		<MauiXaml Update="ViewPage\ForgetPasswordPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\GPTAIChatPage.xaml">
+		<MauiXaml Update="ViewPage\GPTAIChatPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\IntroductionPage.xaml">
+		<MauiXaml Update="ViewPage\IntroductionPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserMailEditPage.xaml">
+		<MauiXaml Update="ViewPage\UserMailEditPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserPasswordEditorPage.xaml">
+		<MauiXaml Update="ViewPage\UserPasswordEditorPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserPrivacyListPage.xaml">
+		<MauiXaml Update="ViewPage\UserPrivacyListPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\PostEditPage.xaml">
+		<MauiXaml Update="ViewPage\PostEditPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\PostViewPage.xaml">
+		<MauiXaml Update="ViewPage\PostViewPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserPropertyEditPage.xaml">
+		<MauiXaml Update="ViewPage\UserPropertyEditPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Controls\GroupCardView.xaml">
@@ -275,19 +280,19 @@
 		<MauiXaml Update="Controls\WhiteChoiceButton.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\GroupContactPage.xaml">
+		<MauiXaml Update="ViewPage\GroupContactPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserInfo.xaml">
+		<MauiXaml Update="ViewPage\UserInfoPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserLoginPage.xaml">
+		<MauiXaml Update="ViewPage\UserLoginPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\UserRegisterPage.xaml">
+		<MauiXaml Update="ViewPage\UserRegisterPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="InnerPage\XEAEncryptPage.xaml">
+		<MauiXaml Update="ViewPage\XEAEncryptPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
