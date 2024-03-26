@@ -113,7 +113,7 @@ public partial class UserTelEditPopup : BasePopupPage
     {
         if (UserTelEditor.Text.IsMobPhoneNumber())
         {
-            if (UserTelEditor.Text != userPropertyEditPage.CurrentPhoneNumLabelText)
+            if (UserTelEditor.Text != userPropertyEditPage.PhoneNum)
             {
                 isTelEditorEmpty = false;
                 UserTelLabel.Text = "手机号";
@@ -155,7 +155,7 @@ public partial class UserTelEditPopup : BasePopupPage
                     UserInfoPage.CurrentUser.Atel = currentNewPhoneNum;
                     if (await UserInfoPage.UpLoadUserInfo() > 0)
                     {
-                        userPropertyEditPage.CurrentPhoneNumLabelText = currentNewPhoneNum;
+                        userPropertyEditPage.PhoneNum = currentNewPhoneNum;
                         SendBackButtonPressed();
                         await PopupAction.DisplayPopup(new TipPopup("手机号修改成功"));
                     }

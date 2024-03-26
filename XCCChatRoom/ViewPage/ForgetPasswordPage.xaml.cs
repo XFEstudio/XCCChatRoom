@@ -3,7 +3,7 @@ namespace XCCChatRoom.ViewPage;
 
 public partial class ForgetPasswordPage : ContentPage
 {
-	public ForgetPasswordPageViewModel ViewModel { get; init; }
+	internal ForgetPasswordPageViewModel ViewModel { get; init; }
 
     public ForgetPasswordPage()
 	{
