@@ -5,14 +5,12 @@ using XCCChatRoom.Controls;
 using XCCChatRoom.Model;
 using XCCChatRoom.Profiles;
 using XCCChatRoom.ViewModel;
-using XFEExtension.NetCore.FileExtension;
-using XFEExtension.NetCore.FormatExtension;
 using XFE∏˜¿‡Õÿ’π.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.ViewPage;
 public partial class UserInfoPage : ContentPage
 {
-    public UserInfoPageViewModel ViewModel { get; set; }
+    internal UserInfoPageViewModel ViewModel { get; set; }
     public static UserInfoPage Current { get; private set; }
     private static XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     public UserInfoPage()
