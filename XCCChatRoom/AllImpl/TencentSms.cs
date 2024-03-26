@@ -1,9 +1,10 @@
-﻿using TencentCloud.Common;
+﻿using System.Diagnostics;
+using TencentCloud.Common;
 using TencentCloud.Sms.V20210111;
 using TencentCloud.Sms.V20210111.Models;
-using XFE各类拓展.NetCore.TaskExtension;
-using XFE各类拓展.NetCore.WebExtension;
-using XFE各类拓展.NetCore.XEAEncryption;
+using XFEExtension.NetCore.TaskExtension;
+using XFEExtension.NetCore.WebExtension;
+using XFEExtension.NetCore.XEAEncryption;
 
 namespace XCCChatRoom.AllImpl
 {
@@ -35,23 +36,25 @@ namespace XCCChatRoom.AllImpl
             }).StartNewTask();
             try
             {
-                Credential cred = new Credential
+                var cred = new Credential
                 {
                     SecretId = DecodeID,
                     SecretKey = DecodeKey
                 };
-                SmsClient client = new SmsClient(cred, "ap-guangzhou");
-                SendSmsRequest req = new SendSmsRequest();
-                req.SmsSdkAppId = "1400854601";
-                req.SignName = "武汉寰宇朽力网络科技";
-                req.TemplateId = templateId;
-                req.TemplateParamSet = args;
-                req.PhoneNumberSet = [phoneNum];
+                var client = new SmsClient(cred, "ap-guangzhou");
+                var req = new SendSmsRequest
+                {
+                    SmsSdkAppId = "1400854601",
+                    SignName = "武汉寰宇朽力网络科技",
+                    TemplateId = templateId,
+                    TemplateParamSet = args,
+                    PhoneNumberSet = [phoneNum]
+                };
                 return await client.SendSms(req);
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.ToString());
+                Trace.WriteLine(ex.ToString());
                 return null;
             }
         }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls;assembly=XCCChatRoom"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.UserPropertyEditPage"
+             x:DataType="viewmodel:UserPropertyEditPageViewModel"
+             Title="修改用户信息">
+    <VerticalStackLayout>
+        <Grid RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="用户名:" FontSize="20" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,0,5"/>
+            <Entry Text="{Binding Name}" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="End" Grid.Column="1"/>
+            <Button HeightRequest="50" Padding="10" FontSize="18" Text="保存" ClassId="UserNameEditor" WidthRequest="200" VerticalOptions="End" Command="{Binding EditNameCommand}" Grid.Row="4" Grid.Column="1"/>
+            <Label Text="手机号:" FontSize="20" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="1"/>
+            <Label Text="{Binding PhoneNum}" FontSize="20" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"/>
+            <Button HeightRequest="36" Padding="2" FontSize="16" Text="修改" ClassId="TelEditor" WidthRequest="60" VerticalOptions="Center" Command="{Binding EditPhoneNumCommand}" Grid.Row="1" Grid.Column="2"/>
+            <Label Text="邮箱:" FontSize="20" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="2"/>
+            <Label Text="{Binding Mail}" FontSize="20" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Row="2" Grid.Column="1"/>
+            <Button HeightRequest="36" Padding="2" FontSize="16" ClassId="MailEditor" Text="修改" WidthRequest="60" VerticalOptions="Center" Command="{Binding EditMailCommand}" Grid.Row="2" Grid.Column="2"/>
+            <Label Text="密码:" FontSize="20" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="3"/>
+            <Label Text="{Binding Password}" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="Center" Grid.Row="3" Grid.Column="1"/>
+            <Button HeightRequest="36" Padding="2" FontSize="16" ClassId="PasswordEditor" Text="修改" WidthRequest="60" VerticalOptions="Center" Command="{Binding EditPasswordCommand}" Grid.Row="3" Grid.Column="2"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

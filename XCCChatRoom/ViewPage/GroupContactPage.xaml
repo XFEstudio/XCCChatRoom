@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XCCChatRoom.Controls"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.GroupContactPage"
+             x:DataType="viewmodel:GroupContactPageViewModel"
+             Title="XFE聊天室"
+             BackgroundColor="#f0f0f0">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="添加群组" IconImageSource="plus" Command="{Binding AddGroupCommand}"/>
+    </ContentPage.ToolbarItems>
+    <RefreshView x:Name="groupRefreshView" x:FieldModifier="internal" RefreshColor="Orange" Command="{Binding RefreshCommand}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Source="newsletter" Opacity="0.1"/>
+            <Label x:Name="deleteLabel" x:FieldModifier="internal" Margin="0,0,0,50" Text="左滑删除群聊" Opacity="0.06" TextColor="#512BD4" FontSize="24" HorizontalOptions="Center" VerticalOptions="End"/>
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <StackLayout Padding="5,5" x:Name="groupStackLayout" x:FieldModifier="internal">
+                    <controls:GroupCardView x:Name="officalGroupCardView" x:FieldModifier="internal" GroupName="XFE聊天室[官方]" Margin="0,3,0,3"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

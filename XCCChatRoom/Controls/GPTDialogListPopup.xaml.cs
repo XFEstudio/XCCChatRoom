@@ -1,8 +1,9 @@
 using MauiPopup.Views;
 using Microsoft.Maui.Controls.Shapes;
+using System.Diagnostics;
 using XCCChatRoom.AllImpl;
-using XCCChatRoom.InnerPage;
-using XFE各类拓展.NetCore.FormatExtension;
+using XCCChatRoom.ViewPage;
+using XFEExtension.NetCore.FormatExtension;
 
 namespace XCCChatRoom.Controls;
 
@@ -14,7 +15,7 @@ public partial class GPTDialogListPopup : BasePopupPage
         InitializeComponent();
         foreach (var entry in GPTAIDialogManager.XFEEntries)
         {
-            Console.WriteLine(entry.ToString());
+            Trace.WriteLine(entry.ToString());
             if (noneDialogLabel.IsVisible)
                 noneDialogLabel.IsVisible = false;
             var contentEntry = new XFEDictionary(entry.Content);
@@ -102,7 +103,7 @@ public partial class GPTDialogListPopup : BasePopupPage
                             currentChoseBorder = border;
                         }
                     }
-                    GPTAIChatPage.Current.LoadDialog(((dynamic)sender).Id);
+                    GPTAIChatPage.Current.ViewModel.LoadDialog(((dynamic)sender).Id);
                 })
             });
             var deleteButton = new ImageButton
@@ -116,7 +117,7 @@ public partial class GPTDialogListPopup : BasePopupPage
                 CommandParameter = new { Id = entry.Header, Border = entryBorder },
                 Command = new Command(async sender =>
                 {
-                    if (await DisplayAlert("删除", "是否删除该对话？", "删除", "取消"))
+                    if (await Shell.Current?.DisplayAlert("删除", "是否删除该对话？", "删除", "取消"))
                     {
                         var border = ((dynamic)sender).Border as Border;
                         var id = ((dynamic)sender).Id as string;
@@ -128,7 +129,7 @@ public partial class GPTDialogListPopup : BasePopupPage
                         if (currentDialogID == id)
                         {
                             currentDialogID = string.Empty;
-                            GPTAIChatPage.Current.CreateNewDialog();
+                            GPTAIChatPage.Current.ViewModel.CreateNewDialog();
                         }
                     }
                 })

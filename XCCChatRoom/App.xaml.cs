@@ -1,6 +1,6 @@
 ﻿using XCCChatRoom.AllImpl;
-using XCCChatRoom.InnerPage;
-using XFE各类拓展.NetCore.FileExtension;
+using XCCChatRoom.ViewPage;
+using XFEExtension.NetCore.FileExtension;
 
 namespace XCCChatRoom;
 
