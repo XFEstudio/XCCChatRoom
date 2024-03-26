@@ -1,6 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MauiPopup;
+using System.Diagnostics;
 using XCCChatRoom.AllImpl;
+using XCCChatRoom.Controls;
 using XCCChatRoom.ViewPage;
+using XFEExtension.NetCore.StringExtension;
+using XFEExtension.NetCore.TaskExtension;
 using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.ViewModel;
@@ -17,6 +22,8 @@ internal partial class UserRegisterPageViewModel:ObservableObject
     private string mail;
     [ObservableProperty]
     private string password;
+    [ObservableProperty]
+    private string confirmPassword;
     public UserRegisterPage ViewPage { get; init; }
     private readonly XFEExecuter XFEExecuter = XCCDataBase.XFEDataBase.CreateExecuter();
     private bool isTelEditor = false, isMailEditor = false, isNameEditor = false, isPasswordEditor = false, isPasswordEnsureEditor = false;
@@ -30,148 +37,148 @@ internal partial class UserRegisterPageViewModel:ObservableObject
         new Action(() =>
         {
             Thread.Sleep(500);
-            while (!UserTelEditor.IsFocused)
+            while (!ViewPage.userTelEditor.IsFocused)
             {
-                UserTelEditor.Focus();
+                ViewPage.userTelEditor.Focus();
                 Thread.Sleep(100);
             }
         }).StartNewTask();
     }
 
-    private async void NextStepButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+    internal async void NextStepButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         try
         {
-            TelVerifyCodeBorder.Stroke = Color.FromArgb("#444654");
-            TelVerifyCodeLabel.TextColor = Color.Parse("Gray");
-            TelVerifyCodeLabel.Text = "验证码";
-            UserTelBorder.Stroke = Color.FromArgb("#444654");
-            UserTelLabel.TextColor = Color.Parse("Gray");
-            UserTelLabel.Text = "手机号";
-            if (TelVerifyCodeEditor.Text == randomCode)
+            ViewPage.telVerifyCodeBorder.Stroke = Color.FromArgb("#444654");
+            ViewPage.telVerifyCodeLabel.TextColor = Color.Parse("Gray");
+            ViewPage.telVerifyCodeLabel.Text = "验证码";
+            ViewPage.userTelBorder.Stroke = Color.FromArgb("#444654");
+            ViewPage.userTelLabel.TextColor = Color.Parse("Gray");
+            ViewPage.userTelLabel.Text = "手机号";
+            if (VerifyCode == randomCode)
             {
-                if (UserTelEditor.Text == currentPhoneNum)
+                if (PhoneNum == currentPhoneNum)
                 {
-                    var telResult = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == UserTelEditor.Text);
+                    var telResult = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Atel == PhoneNum);
                     if (telResult.Count > 0)
                     {
-                        UserTelLabel.Text = "手机号已存在";
-                        UserTelLabel.TextColor = Color.Parse("Red");
-                        UserTelBorder.Stroke = Color.Parse("Red");
-                        ControlExtension.BorderShake(UserTelBorder);
-                        UserTelEditor.Focus();
+                        ViewPage.userTelLabel.Text = "手机号已存在";
+                        ViewPage.userTelLabel.TextColor = Color.Parse("Red");
+                        ViewPage.userTelBorder.Stroke = Color.Parse("Red");
+                        ControlExtension.BorderShake(ViewPage.userTelBorder);
+                        ViewPage.userTelEditor.Focus();
                         e.Continue();
                         return;
                     }
                     else
                     {
                         #region FadeAnimation
-                        _ = UserTelLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        _ = UserTelBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        _ = NextStepButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        _ = TelVerifyCodeButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        _ = TelVerifyCodeLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        _ = TelVerifyCodeBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
-                        _ = UserTelLabel.FadeTo(0, 800, Easing.SpringOut);
-                        _ = UserTelBorder.FadeTo(0, 800, Easing.SpringOut);
-                        _ = TelVerifyCodeLabel.FadeTo(0, 800, Easing.SpringOut);
-                        _ = TelVerifyCodeBorder.FadeTo(0, 800, Easing.SpringOut);
-                        _ = NextStepButton.FadeTo(0, 800, Easing.SpringOut);
-                        _ = SwtichToLoginPageButton.FadeTo(0, 800, Easing.SpringOut);
-                        await TelVerifyCodeButton.FadeTo(0, 800, Easing.SpringOut);
+                        _ = ViewPage.userTelLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = ViewPage.userTelBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = ViewPage.nextStepButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = ViewPage.telVerifyCodeButton.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = ViewPage.telVerifyCodeLabel.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = ViewPage.telVerifyCodeBorder.TranslateTo(-100, 0, 800, Easing.SpringOut);
+                        _ = ViewPage.userTelLabel.FadeTo(0, 800, Easing.SpringOut);
+                        _ = ViewPage.userTelBorder.FadeTo(0, 800, Easing.SpringOut);
+                        _ = ViewPage.telVerifyCodeLabel.FadeTo(0, 800, Easing.SpringOut);
+                        _ = ViewPage.telVerifyCodeBorder.FadeTo(0, 800, Easing.SpringOut);
+                        _ = ViewPage.nextStepButton.FadeTo(0, 800, Easing.SpringOut);
+                        _ = ViewPage.swtichToLoginPageButton.FadeTo(0, 800, Easing.SpringOut);
+                        await ViewPage.telVerifyCodeButton.FadeTo(0, 800, Easing.SpringOut);
                         #endregion
                         #region SetInvisible
-                        UserTelLabel.IsVisible = false;
-                        UserTelEditor.IsEnabled = false;
-                        UserTelBorder.IsVisible = false;
-                        TelVerifyCodeLabel.IsVisible = false;
-                        TelVerifyCodeEditor.IsEnabled = false;
-                        TelVerifyCodeBorder.IsVisible = false;
-                        NextStepButton.IsVisible = false;
-                        NextStepButton.IsEnabled = false;
-                        TelVerifyCodeButton.IsVisible = false;
+                        ViewPage.userTelLabel.IsVisible = false;
+                        ViewPage.userTelEditor.IsEnabled = false;
+                        ViewPage.userTelBorder.IsVisible = false;
+                        ViewPage.telVerifyCodeLabel.IsVisible = false;
+                        ViewPage.telVerifyCodeEditor.IsEnabled = false;
+                        ViewPage.telVerifyCodeBorder.IsVisible = false;
+                        ViewPage.nextStepButton.IsVisible = false;
+                        ViewPage.nextStepButton.IsEnabled = false;
+                        ViewPage.telVerifyCodeButton.IsVisible = false;
                         #endregion
                         #region SetVisible
-                        UserNameLabel.IsVisible = true;
-                        UserNameBorder.IsVisible = true;
-                        UserPasswordLabel.IsVisible = true;
-                        UserPasswordBorder.IsVisible = true;
-                        UserPasswordEnsureLabel.IsVisible = true;
-                        UserPasswordEnsureBorder.IsVisible = true;
-                        UserMailLabel.IsVisible = true;
-                        UserMailBorder.IsVisible = true;
-                        UserRegisterButton.IsVisible = true;
+                        ViewPage.userNameLabel.IsVisible = true;
+                        ViewPage.userNameBorder.IsVisible = true;
+                        ViewPage.userPasswordLabel.IsVisible = true;
+                        ViewPage.userPasswordBorder.IsVisible = true;
+                        ViewPage.userPasswordEnsureLabel.IsVisible = true;
+                        ViewPage.userPasswordEnsureBorder.IsVisible = true;
+                        ViewPage.userMailLabel.IsVisible = true;
+                        ViewPage.userMailBorder.IsVisible = true;
+                        ViewPage.userRegisterButton.IsVisible = true;
                         #endregion
                         #region ShowAnimation
                         await new Action(() =>
                         {
-                            this.Dispatcher.Dispatch(() =>
+                            ViewPage.Dispatcher.Dispatch(() =>
                             {
-                                UserNameLabel.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserNameLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
-                                UserNameBorder.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserNameBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userNameLabel.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userNameLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userNameBorder.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userNameBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
                             });
                             Thread.Sleep(200);
-                            this.Dispatcher.Dispatch(() =>
+                            ViewPage.Dispatcher.Dispatch(() =>
                             {
-                                UserMailLabel.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserMailLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
-                                UserMailBorder.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserMailBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userMailLabel.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userMailLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userMailBorder.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userMailBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
                             });
                             Thread.Sleep(200);
-                            this.Dispatcher.Dispatch(() =>
+                            ViewPage.Dispatcher.Dispatch(() =>
                             {
-                                UserPasswordLabel.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserPasswordLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
-                                UserPasswordBorder.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserPasswordBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordLabel.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordBorder.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
                             });
                             Thread.Sleep(200);
-                            this.Dispatcher.Dispatch(() =>
+                            ViewPage.Dispatcher.Dispatch(() =>
                             {
-                                UserPasswordEnsureLabel.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserPasswordEnsureLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
-                                UserPasswordEnsureBorder.FadeTo(0.5, 1000, Easing.CubicOut);
-                                UserPasswordEnsureBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordEnsureLabel.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordEnsureLabel.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordEnsureBorder.FadeTo(0.5, 1000, Easing.CubicOut);
+                                ViewPage.userPasswordEnsureBorder.TranslateTo(0, 0, 1000, Easing.CubicOut);
                             });
                             Thread.Sleep(200);
-                            this.Dispatcher.Dispatch(() =>
+                            ViewPage.Dispatcher.Dispatch(() =>
                             {
-                                UserRegisterButton.FadeTo(1, 1000, Easing.CubicOut);
-                                UserRegisterButton.TranslateTo(0, 0, 1000, Easing.CubicOut);
+                                ViewPage.userRegisterButton.FadeTo(1, 1000, Easing.CubicOut);
+                                ViewPage.userRegisterButton.TranslateTo(0, 0, 1000, Easing.CubicOut);
                             });
                             Thread.Sleep(200);
-                            this.Dispatcher.Dispatch(() =>
+                            ViewPage.Dispatcher.Dispatch(() =>
                             {
-                                SwtichToLoginPageButton.FadeTo(1, 1000, Easing.CubicOut);
+                                ViewPage.swtichToLoginPageButton.FadeTo(1, 1000, Easing.CubicOut);
                             });
                             Thread.Sleep(200);
                         }).StartNewTask();
                         #endregion
-                        UserNameEditor.Focus();
+                        ViewPage.userNameEditor.Focus();
                         e.Continue();
                     }
                 }
                 else
                 {
-                    UserTelLabel.TextColor = Color.Parse("Red");
-                    UserTelBorder.Stroke = Color.Parse("Red");
-                    UserTelLabel.Text = "手机号与验证码发送时的不一致";
-                    UserTelEditor.Focus();
+                    ViewPage.userTelLabel.TextColor = Color.Parse("Red");
+                    ViewPage.userTelBorder.Stroke = Color.Parse("Red");
+                    ViewPage.userTelLabel.Text = "手机号与验证码发送时的不一致";
+                    ViewPage.userTelEditor.Focus();
                     e.Continue();
-                    ControlExtension.BorderShake(UserTelBorder);
+                    ControlExtension.BorderShake(ViewPage.userTelBorder);
                 }
             }
             else
             {
-                TelVerifyCodeLabel.TextColor = Color.Parse("Red");
-                TelVerifyCodeBorder.Stroke = Color.Parse("Red");
-                TelVerifyCodeLabel.Text = "验证码错误";
-                TelVerifyCodeEditor.Focus();
+                ViewPage.telVerifyCodeLabel.TextColor = Color.Parse("Red");
+                ViewPage.telVerifyCodeBorder.Stroke = Color.Parse("Red");
+                ViewPage.telVerifyCodeLabel.Text = "验证码错误";
+                ViewPage.telVerifyCodeEditor.Focus();
                 e.Continue();
-                ControlExtension.BorderShake(TelVerifyCodeBorder);
+                ControlExtension.BorderShake(ViewPage.telVerifyCodeBorder);
             }
         }
         catch (Exception ex)
@@ -180,37 +187,37 @@ internal partial class UserRegisterPageViewModel:ObservableObject
         }
     }
 
-    private async void TelVerifyCodeButton_Clicked(object sender, EventArgs e)
+    internal async void TelVerifyCodeButton_Clicked(object sender, EventArgs e)
     {
         randomCode = IDGenerator.SummonRandomID(6);
-        currentPhoneNum = UserTelEditor.Text;
-        TelVerifyCodeButton.IsEnabled = false;
-        TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
-        TelVerifyCodeButton.Text = "发送中...";
+        currentPhoneNum = PhoneNum;
+        ViewPage.telVerifyCodeButton.IsEnabled = false;
+        ViewPage.telVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
+        ViewPage.telVerifyCodeButton.Text = "发送中...";
         isCoolDown = true;
-        var resp = await TencentSms.SendVerifyCode("1922756", "+86" + UserTelEditor.Text, [randomCode, "2"]);
+        var resp = await TencentSms.SendVerifyCode("1922756", "+86" + PhoneNum, [randomCode, "2"]);
         if (resp == null || resp.SendStatusSet.First().Code != "Ok")
         {
-            await Shell.Current?.DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{UserTelEditor.Text}", "啊？");
-            TelVerifyCodeButton.IsEnabled = true;
-            TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
-            TelVerifyCodeButton.Text = "重新发送";
+            await Shell.Current?.DisplayAlert("出错啦！", $"验证码发送失败：{resp?.SendStatusSet.First().Message}\n手机号：{PhoneNum}", "啊？");
+            ViewPage.telVerifyCodeButton.IsEnabled = true;
+            ViewPage.telVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
+            ViewPage.telVerifyCodeButton.Text = "重新发送";
         }
         else
         {
-            TelVerifyCodeButton.Text = "重新发送 60";
+            ViewPage.telVerifyCodeButton.Text = "重新发送 60";
             await new Action(() =>
             {
                 int timer = 60;
-                TelVerifyCodeButton.Dispatcher.StartTimer(TimeSpan.FromSeconds(1), () =>
+                ViewPage.telVerifyCodeButton.Dispatcher.StartTimer(TimeSpan.FromSeconds(1), () =>
                 {
-                    TelVerifyCodeButton.Text = $"重新发送 {--timer}";
+                    ViewPage.telVerifyCodeButton.Text = $"重新发送 {--timer}";
                     if (timer == 0)
                     {
-                        TelVerifyCodeButton.Text = "重新发送";
-                        TelVerifyCodeButton.IsEnabled = true;
+                        ViewPage.telVerifyCodeButton.Text = "重新发送";
+                        ViewPage.telVerifyCodeButton.IsEnabled = true;
                         isCoolDown = false;
-                        TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
+                        ViewPage.telVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
                         return false;
                     }
                     return true;
@@ -219,28 +226,28 @@ internal partial class UserRegisterPageViewModel:ObservableObject
         }
     }
 
-    private async void UserRegisterButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+    internal async void UserRegisterButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         string UUID = await IDGenerator.GetCorrectUserUID(XCCDataBase.XFEDataBase.CreateExecuter());
         try
         {
-            var mailResult = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Amail == UserMailEditor.Text);
+            var mailResult = await XFEExecuter.ExecuteGet<XFEChatRoom_UserInfoForm>(x => x.Amail == Mail);
             if (mailResult.Count > 0)
             {
-                UserMailLabel.Text = "邮箱已存在";
-                UserMailLabel.TextColor = Color.Parse("Red");
-                UserMailBorder.Stroke = Color.Parse("Red");
-                ControlExtension.BorderShake(UserMailBorder);
-                UserMailEditor.Focus();
+                ViewPage.userMailLabel.Text = "邮箱已存在";
+                ViewPage.userMailLabel.TextColor = Color.Parse("Red");
+                ViewPage.userMailBorder.Stroke = Color.Parse("Red");
+                ControlExtension.BorderShake(ViewPage.userMailBorder);
+                ViewPage.userMailEditor.Focus();
                 return;
             }
             var result = await XFEExecuter.ExecuteAdd(new XFEChatRoom_UserInfoForm()
             {
                 ID = UUID,
-                Aname = UserNameEditor.Text,
-                Atel = UserTelEditor.Text,
-                Amail = UserMailEditor.Text,
-                Apassword = UserPasswordEditor.Text,
+                Aname = Name,
+                Atel = PhoneNum,
+                Amail = Mail,
+                Apassword = Password,
             });
             if (result == 0)
             {
@@ -257,7 +264,7 @@ internal partial class UserRegisterPageViewModel:ObservableObject
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
             };
-            this.Content = successfulLabel;
+            ViewPage.Content = successfulLabel;
             await successfulLabel.FadeTo(1, 800, Easing.CubicOut);
             await Task.Delay(500);
             await successfulLabel.FadeTo(0, 800, Easing.CubicOut);
@@ -273,13 +280,13 @@ internal partial class UserRegisterPageViewModel:ObservableObject
             catch (Exception) { }
             if (await Shell.Current?.DisplayAlert("注册出错啦！", $"注册失败：{ex.Message}", "重试", "返回"))
             {
-                Trace.WriteLine($"手机号：{UserTelEditor.Text}");
-                Trace.WriteLine($"邮箱：{UserMailEditor.Text}");
-                Trace.WriteLine($"密码：{UserPasswordEditor.Text}");
-                Trace.WriteLine($"确认密码：{UserPasswordEnsureEditor.Text}");
-                Trace.WriteLine($"验证码：{TelVerifyCodeEditor.Text}");
+                Trace.WriteLine($"手机号：{PhoneNum}");
+                Trace.WriteLine($"邮箱：{Mail}");
+                Trace.WriteLine($"密码：{Password}");
+                Trace.WriteLine($"确认密码：{ConfirmPassword}");
+                Trace.WriteLine($"验证码：{VerifyCode}");
                 Trace.WriteLine($"随机码：{randomCode}");
-                Trace.WriteLine($"用户名：{UserNameEditor.Text}");
+                Trace.WriteLine($"用户名：{Name}");
                 Trace.WriteLine(ex.ToString());
                 e.Continue();
             }
@@ -291,257 +298,257 @@ internal partial class UserRegisterPageViewModel:ObservableObject
         }
     }
 
-    private async void SwitchToLoginPageButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
+    internal async void SwitchToLoginPageButton_WaitClick(object sender, WaitButtonClickedEventArgs e)
     {
         await Shell.Current.GoToAsync("..");
         e.Continue();
     }
     #region 编辑框内容检测
-    private void UserTelEditor_TextChanged(object sender, TextChangedEventArgs e)
+    internal void UserTelEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (UserTelEditor.Text.IsMobPhoneNumber())
+        if (PhoneNum.IsMobPhoneNumber())
         {
             isTelEditor = true;
-            UserTelLabel.Text = "手机号";
-            UserTelLabel.TextColor = Color.Parse("Black");
-            UserTelBorder.Stroke = Color.FromArgb("#444654");
+            ViewPage.userTelLabel.Text = "手机号";
+            ViewPage.userTelLabel.TextColor = Color.Parse("Black");
+            ViewPage.userTelBorder.Stroke = Color.FromArgb("#444654");
             if (!isCoolDown)
             {
-                TelVerifyCodeButton.IsEnabled = true;
-                TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
+                ViewPage.telVerifyCodeButton.IsEnabled = true;
+                ViewPage.telVerifyCodeButton.BackgroundColor = Color.FromArgb("#512BD4");
             }
         }
         else
         {
             isTelEditor = false;
-            UserTelLabel.Text = "手机号格式不正确";
-            UserTelLabel.TextColor = Color.Parse("Red");
-            TelVerifyCodeButton.IsEnabled = false;
-            TelVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
+            ViewPage.userTelLabel.Text = "手机号格式不正确";
+            ViewPage.userTelLabel.TextColor = Color.Parse("Red");
+            ViewPage.telVerifyCodeButton.IsEnabled = false;
+            ViewPage.telVerifyCodeButton.BackgroundColor = Color.FromArgb("#A491E8");
         }
     }
 
-    private void UserMailEditor_TextChanged(object sender, TextChangedEventArgs e)
+    internal void UserMailEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (UserMailEditor.Text.IsValidEmail())
+        if (Mail.IsValidEmail())
         {
             isMailEditor = true;
-            UserMailLabel.Text = "邮箱";
-            UserMailLabel.TextColor = Color.Parse("Black");
-            UserMailBorder.Stroke = Color.FromArgb("#444654");
+            ViewPage.userMailLabel.Text = "邮箱";
+            ViewPage.userMailLabel.TextColor = Color.Parse("Black");
+            ViewPage.userMailBorder.Stroke = Color.FromArgb("#444654");
         }
         else
         {
             isMailEditor = false;
-            UserMailLabel.Text = "邮箱格式不正确";
-            UserMailLabel.TextColor = Color.Parse("Red");
+            ViewPage.userMailLabel.Text = "邮箱格式不正确";
+            ViewPage.userMailLabel.TextColor = Color.Parse("Red");
         }
         CheckCorrect();
     }
 
-    private void UserNameEditor_TextChanged(object sender, TextChangedEventArgs e)
+    internal void UserNameEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (!string.IsNullOrEmpty(UserNameEditor.Text))
+        if (!string.IsNullOrEmpty(Name))
         {
-            if (!UserNameEditor.Text.Contains(' '))
+            if (!Name.Contains(' '))
             {
                 isNameEditor = true;
-                UserNameLabel.Text = "昵称";
-                UserNameLabel.TextColor = Color.Parse("Black");
+                ViewPage.userNameLabel.Text = "昵称";
+                ViewPage.userNameLabel.TextColor = Color.Parse("Black");
             }
             else
             {
-                UserNameLabel.Text = "昵称不可包含空格";
-                UserNameLabel.TextColor = Color.Parse("Red");
+                ViewPage.userNameLabel.Text = "昵称不可包含空格";
+                ViewPage.userNameLabel.TextColor = Color.Parse("Red");
                 isNameEditor = false;
             }
         }
         else
         {
-            UserNameLabel.Text = "昵称不可为空";
-            UserNameLabel.TextColor = Color.Parse("Red");
+            ViewPage.userNameLabel.Text = "昵称不可为空";
+            ViewPage.userNameLabel.TextColor = Color.Parse("Red");
             isNameEditor = false;
         }
         CheckCorrect();
     }
 
-    private void UserPasswordEditor_TextChanged(object sender, TextChangedEventArgs e)
+    internal void UserPasswordEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (!string.IsNullOrEmpty(UserPasswordEditor.Text))
+        if (!string.IsNullOrEmpty(Password))
         {
-            if (!UserPasswordEditor.Text.Contains(' '))
+            if (!Password.Contains(' '))
             {
                 isPasswordEditor = true;
-                UserPasswordLabel.Text = "密码";
-                UserPasswordLabel.TextColor = Color.Parse("Black");
+                ViewPage.userPasswordLabel.Text = "密码";
+                ViewPage.userPasswordLabel.TextColor = Color.Parse("Black");
             }
             else
             {
-                UserPasswordLabel.Text = "密码不可包含空格";
-                UserPasswordLabel.TextColor = Color.Parse("Red");
+                ViewPage.userPasswordLabel.Text = "密码不可包含空格";
+                ViewPage.userPasswordLabel.TextColor = Color.Parse("Red");
                 isPasswordEditor = false;
             }
         }
         else
         {
-            UserPasswordLabel.Text = "密码不可为空";
-            UserPasswordLabel.TextColor = Color.Parse("Red");
+            ViewPage.userPasswordLabel.Text = "密码不可为空";
+            ViewPage.userPasswordLabel.TextColor = Color.Parse("Red");
             isPasswordEditor = false;
         }
         CheckCorrect();
     }
 
-    private void UserPasswordEnsureEditor_TextChanged(object sender, TextChangedEventArgs e)
+    internal void UserPasswordEnsureEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (UserPasswordEnsureEditor.Text == UserPasswordEditor.Text)
+        if (ConfirmPassword == Password)
         {
             isPasswordEnsureEditor = true;
-            UserPasswordEnsureLabel.Text = "确认密码";
-            UserPasswordEnsureLabel.TextColor = Color.Parse("Black");
+            ViewPage.userPasswordEnsureLabel.Text = "确认密码";
+            ViewPage.userPasswordEnsureLabel.TextColor = Color.Parse("Black");
         }
         else
         {
             isPasswordEnsureEditor = false;
-            UserPasswordEnsureLabel.Text = "两次密码不一致";
-            UserPasswordEnsureLabel.TextColor = Color.Parse("Red");
+            ViewPage.userPasswordEnsureLabel.Text = "两次密码不一致";
+            ViewPage.userPasswordEnsureLabel.TextColor = Color.Parse("Red");
         }
         CheckCorrect();
     }
 
-    private void TelVerifyCodeEditor_TextChanged(object sender, TextChangedEventArgs e)
+    internal void TelVerifyCodeEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (isTelEditor && TelVerifyCodeEditor.Text.Length == 6)
+        if (isTelEditor && VerifyCode.Length == 6)
         {
-            if (!NextStepButton.IsWaiting)
+            if (!ViewPage.nextStepButton.IsWaiting)
             {
-                NextStepButton.BackgroundColor = Color.Parse("#512BD4");
-                NextStepButton.IsEnabled = true;
+                ViewPage.nextStepButton.BackgroundColor = Color.Parse("#512BD4");
+                ViewPage.nextStepButton.IsEnabled = true;
             }
             TelVerifyCodeEditor_Unfocused(null, null);
         }
         else
         {
-            if (!NextStepButton.IsWaiting)
+            if (!ViewPage.nextStepButton.IsWaiting)
             {
-                NextStepButton.BackgroundColor = Color.Parse("#A491E8");
-                NextStepButton.IsEnabled = false;
+                ViewPage.nextStepButton.BackgroundColor = Color.Parse("#A491E8");
+                ViewPage.nextStepButton.IsEnabled = false;
             }
         }
     }
 
-    private void CheckCorrect()
+    internal void CheckCorrect()
     {
         if (isTelEditor && isMailEditor && isNameEditor && isPasswordEditor && isPasswordEnsureEditor)
         {
-            UserRegisterButton.BackgroundColor = Color.Parse("#512BD4");
-            if (!UserRegisterButton.IsWaiting)
-                UserRegisterButton.IsEnabled = true;
+            ViewPage.userRegisterButton.BackgroundColor = Color.Parse("#512BD4");
+            if (!ViewPage.userRegisterButton.IsWaiting)
+                ViewPage.userRegisterButton.IsEnabled = true;
         }
         else
         {
-            UserRegisterButton.BackgroundColor = Color.Parse("#A491E8");
-            if (!UserRegisterButton.IsWaiting)
-                UserRegisterButton.IsEnabled = false;
+            ViewPage.userRegisterButton.BackgroundColor = Color.Parse("#A491E8");
+            if (!ViewPage.userRegisterButton.IsWaiting)
+                ViewPage.userRegisterButton.IsEnabled = false;
         }
     }
     #endregion
     #region 编辑框焦点事件
-    private void UserTelEditor_Focused(object sender, FocusEventArgs e)
+    internal void UserTelEditor_Focused(object sender, FocusEventArgs e)
     {
-        UserTelLabel.FadeTo(1, 300, Easing.CubicOut);
-        UserTelLabel.ScaleTo(1.2, 300, Easing.CubicOut);
-        UserTelBorder.FadeTo(1, 300, Easing.CubicOut);
-        UserTelBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userTelLabel.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userTelLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userTelBorder.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userTelBorder.ScaleTo(1.2, 300, Easing.CubicOut);
     }
 
-    private void UserTelEditor_Unfocused(object sender, FocusEventArgs e)
+    internal void UserTelEditor_Unfocused(object sender, FocusEventArgs e)
     {
-        UserTelLabel.FadeTo(0.5, 300, Easing.CubicOut);
-        UserTelLabel.ScaleTo(1, 300, Easing.CubicOut);
-        UserTelBorder.FadeTo(0.5, 300, Easing.CubicOut);
-        UserTelBorder.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userTelLabel.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userTelLabel.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userTelBorder.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userTelBorder.ScaleTo(1, 300, Easing.CubicOut);
     }
 
-    private void UserMailEditor_Focused(object sender, FocusEventArgs e)
+    internal void UserMailEditor_Focused(object sender, FocusEventArgs e)
     {
-        UserMailLabel.FadeTo(1, 300, Easing.CubicOut);
-        UserMailLabel.ScaleTo(1.2, 300, Easing.CubicOut);
-        UserMailBorder.FadeTo(1, 300, Easing.CubicOut);
-        UserMailBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userMailLabel.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userMailLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userMailBorder.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userMailBorder.ScaleTo(1.2, 300, Easing.CubicOut);
     }
 
-    private void UserMailEditor_Unfocused(object sender, FocusEventArgs e)
+    internal void UserMailEditor_Unfocused(object sender, FocusEventArgs e)
     {
-        UserMailLabel.FadeTo(0.5, 300, Easing.CubicOut);
-        UserMailLabel.ScaleTo(1, 300, Easing.CubicOut);
-        UserMailBorder.FadeTo(0.5, 300, Easing.CubicOut);
-        UserMailBorder.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userMailLabel.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userMailLabel.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userMailBorder.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userMailBorder.ScaleTo(1, 300, Easing.CubicOut);
     }
 
-    private void UserNameEditor_Focused(object sender, FocusEventArgs e)
+    internal void UserNameEditor_Focused(object sender, FocusEventArgs e)
     {
-        UserNameLabel.FadeTo(1, 300, Easing.CubicOut);
-        UserNameLabel.ScaleTo(1.2, 300, Easing.CubicOut);
-        UserNameBorder.FadeTo(1, 300, Easing.CubicOut);
-        UserNameBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userNameLabel.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userNameLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userNameBorder.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userNameBorder.ScaleTo(1.2, 300, Easing.CubicOut);
     }
 
-    private void UserNameEditor_Unfocused(object sender, FocusEventArgs e)
+    internal void UserNameEditor_Unfocused(object sender, FocusEventArgs e)
     {
-        UserNameLabel.FadeTo(0.5, 300, Easing.CubicOut);
-        UserNameLabel.ScaleTo(1, 300, Easing.CubicOut);
-        UserNameBorder.FadeTo(0.5, 300, Easing.CubicOut);
-        UserNameBorder.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userNameLabel.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userNameLabel.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userNameBorder.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userNameBorder.ScaleTo(1, 300, Easing.CubicOut);
     }
 
-    private void TelVerifyCodeEditor_Focused(object sender, FocusEventArgs e)
+    internal void TelVerifyCodeEditor_Focused(object sender, FocusEventArgs e)
     {
-        TelVerifyCodeLabel.FadeTo(1, 300, Easing.CubicOut);
-        TelVerifyCodeLabel.ScaleTo(1.2, 300, Easing.CubicOut);
-        TelVerifyCodeBorder.FadeTo(1, 300, Easing.CubicOut);
-        TelVerifyCodeBorder.ScaleTo(1.2, 300, Easing.CubicOut);
-        TelVerifyCodeButton.ScaleTo(0.8, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeLabel.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeBorder.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeButton.ScaleTo(0.8, 300, Easing.CubicOut);
     }
 
-    private void TelVerifyCodeEditor_Unfocused(object sender, FocusEventArgs e)
+    internal void TelVerifyCodeEditor_Unfocused(object sender, FocusEventArgs e)
     {
-        TelVerifyCodeLabel.FadeTo(0.5, 300, Easing.CubicOut);
-        TelVerifyCodeLabel.ScaleTo(1, 300, Easing.CubicOut);
-        TelVerifyCodeBorder.FadeTo(0.5, 300, Easing.CubicOut);
-        TelVerifyCodeBorder.ScaleTo(1, 300, Easing.CubicOut);
-        TelVerifyCodeButton.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeLabel.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeLabel.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeBorder.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeBorder.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.telVerifyCodeButton.ScaleTo(1, 300, Easing.CubicOut);
     }
 
-    private void UserPasswordEditor_Focused(object sender, FocusEventArgs e)
+    internal void UserPasswordEditor_Focused(object sender, FocusEventArgs e)
     {
-        UserPasswordLabel.FadeTo(1, 300, Easing.CubicOut);
-        UserPasswordLabel.ScaleTo(1.2, 300, Easing.CubicOut);
-        UserPasswordBorder.FadeTo(1, 300, Easing.CubicOut);
-        UserPasswordBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userPasswordLabel.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userPasswordBorder.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordBorder.ScaleTo(1.2, 300, Easing.CubicOut);
     }
 
-    private void UserPasswordEditor_Unfocused(object sender, FocusEventArgs e)
+    internal void UserPasswordEditor_Unfocused(object sender, FocusEventArgs e)
     {
-        UserPasswordLabel.FadeTo(0.5, 300, Easing.CubicOut);
-        UserPasswordLabel.ScaleTo(1, 300, Easing.CubicOut);
-        UserPasswordBorder.FadeTo(0.5, 300, Easing.CubicOut);
-        UserPasswordBorder.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordLabel.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userPasswordLabel.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordBorder.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userPasswordBorder.ScaleTo(1, 300, Easing.CubicOut);
     }
 
-    private void UserPasswordEnsureEditor_Focused(object sender, FocusEventArgs e)
+    internal void UserPasswordEnsureEditor_Focused(object sender, FocusEventArgs e)
     {
-        UserPasswordEnsureLabel.FadeTo(1, 300, Easing.CubicOut);
-        UserPasswordEnsureLabel.ScaleTo(1.2, 300, Easing.CubicOut);
-        UserPasswordEnsureBorder.FadeTo(1, 300, Easing.CubicOut);
-        UserPasswordEnsureBorder.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureLabel.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureLabel.ScaleTo(1.2, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureBorder.FadeTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureBorder.ScaleTo(1.2, 300, Easing.CubicOut);
     }
 
-    private void UserPasswordEnsureEditor_Unfocused(object sender, FocusEventArgs e)
+    internal void UserPasswordEnsureEditor_Unfocused(object sender, FocusEventArgs e)
     {
-        UserPasswordEnsureLabel.FadeTo(0.5, 300, Easing.CubicOut);
-        UserPasswordEnsureLabel.ScaleTo(1, 300, Easing.CubicOut);
-        UserPasswordEnsureBorder.FadeTo(0.5, 300, Easing.CubicOut);
-        UserPasswordEnsureBorder.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureLabel.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureLabel.ScaleTo(1, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureBorder.FadeTo(0.5, 300, Easing.CubicOut);
+        ViewPage.userPasswordEnsureBorder.ScaleTo(1, 300, Easing.CubicOut);
     }
     #endregion
 }
