@@ -5,7 +5,7 @@ using XCCChatRoom.ViewPage;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class AICenterPageViewModel(AICenterPage viewPage) : ObservableObject
+internal partial class AICenterPageViewModel(AICenterPage viewPage) : ObservableObject
 {
     public AICenterPage ViewPage { get; init; } = viewPage;
 

@@ -6,7 +6,7 @@ using XCCChatRoom.ViewPage;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class UserInfoPageViewModel : ObservableObject
+internal partial class UserInfoPageViewModel : ObservableObject
 {
     [ObservableProperty]
     private string userName;
@@ -64,10 +64,10 @@ public partial class UserInfoPageViewModel : ObservableObject
         ViewPage.loginButton.BorderColor = null;
         ViewPage.loginButton.BorderWidth = 0;
         ViewPage.loginButton.TextColor = Color.Parse("White");
-        GroupContactPage.Current.RemoveOtherGroup();
-        GroupContactPage.Current.UserName = string.Empty;
-        (GroupContactPage.Current.GroupStackLayout.Children.First() as GroupCardView).IsVisible = false;
-        CommunityPage.Current?.ChangeToUnLoginStyle();
+        GroupContactPage.Current.ViewModel.RemoveOtherGroup();
+        GroupContactPage.Current.ViewModel.UserName = string.Empty;
+        (GroupContactPage.Current?.groupStackLayout.Children.First() as GroupCardView).IsVisible = false;
+        CommunityPage.Current?.ViewModel.ChangeToUnLoginStyle();
         try
         {
             File.Delete(AppPath.ProfilesPath);

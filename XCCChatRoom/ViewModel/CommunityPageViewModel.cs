@@ -40,7 +40,7 @@ public partial class CommunityPageViewModel(CommunityPage viewPage) : Observable
     public CommunityPage ViewPage { get; init; } = viewPage;
 
     [RelayCommand]
-    async Task PostRefresh()
+    internal async Task PostRefresh()
     {
         var postDataList = await AppAlgorithm.GetLatestPost(20);
         if (postDataList is not null)

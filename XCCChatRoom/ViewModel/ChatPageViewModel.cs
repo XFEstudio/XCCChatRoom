@@ -18,7 +18,7 @@ using Image = Microsoft.Maui.Controls.Image;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class ChatPageViewModel : ObservableObject
+internal partial class ChatPageViewModel : ObservableObject
 {
     public bool PhoneCallEnabled { get; set; }
 

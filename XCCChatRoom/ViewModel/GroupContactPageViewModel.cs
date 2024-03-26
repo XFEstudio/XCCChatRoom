@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using TencentCloud.Ame.V20190916.Models;
 using XCCChatRoom.AllImpl;
 using XCCChatRoom.Controls;
 using XCCChatRoom.Profiles;
@@ -10,7 +9,7 @@ using XFE各类拓展.NetCore.XFEDataBase;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class GroupContactPageViewModel : ObservableObject
+internal partial class GroupContactPageViewModel : ObservableObject
 {
     public GroupContactPage ViewPage { get; init; }
     private string userName;

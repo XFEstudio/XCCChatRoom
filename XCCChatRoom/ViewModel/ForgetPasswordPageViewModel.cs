@@ -8,7 +8,7 @@ using Timer = System.Timers.Timer;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class ForgetPasswordPageViewModel(ForgetPasswordPage viewPage) : ObservableObject
+internal partial class ForgetPasswordPageViewModel(ForgetPasswordPage viewPage) : ObservableObject
 {
     private bool telIsValid = false;
     private bool passwordIsValid = false;

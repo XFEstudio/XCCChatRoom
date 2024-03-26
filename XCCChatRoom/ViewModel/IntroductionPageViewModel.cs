@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui;
 using XCCChatRoom.ViewPage;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class IntroductionPageViewModel : ObservableObject
+internal partial class IntroductionPageViewModel : ObservableObject
 {
     [ObservableProperty]
     private int pageCount;

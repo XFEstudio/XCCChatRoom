@@ -3,7 +3,7 @@ using XCCChatRoom.ViewPage;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class AIDrawPageViewModel(AIDrawPage viewPage) : ObservableObject
+internal partial class AIDrawPageViewModel(AIDrawPage viewPage) : ObservableObject
 {
     public AIDrawPage ViewPage { get; init; } = viewPage;
 }

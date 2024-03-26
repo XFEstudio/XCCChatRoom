@@ -4,7 +4,7 @@ namespace XCCChatRoom.ViewPage;
 
 public partial class GroupContactPage : ContentPage
 {
-    public GroupContactPageViewModel ViewModel { get; init; }
+    internal GroupContactPageViewModel ViewModel { get; init; }
     public static GroupContactPage Current { get; set; }
 
     public GroupContactPage()

@@ -13,7 +13,7 @@ using XFEExtension.NetCore.XFEChatGPT.ChatGPTInnerClass.HelperClass;
 
 namespace XCCChatRoom.ViewModel;
 
-public partial class GPTAIChatPageViewModel : ObservableObject
+internal partial class GPTAIChatPageViewModel : ObservableObject
 {
     [ObservableProperty]
     private string askText;
