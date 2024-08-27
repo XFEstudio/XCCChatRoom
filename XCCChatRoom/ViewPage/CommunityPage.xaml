@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls;assembly=XCCChatRoom"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:DataType="viewmodel:CommunityPageViewModel"
+             x:Class="XCCChatRoom.ViewPage.CommunityPage"
+             Title="XCC社区小窝"
+             BackgroundColor="{DynamicResource SecondBackGroundColor}">
+    <RefreshView x:Name="postRefreshView" x:FieldModifier="internal" Command="{Binding PostRefreshCommand}" RefreshColor="#414aff" BackgroundColor="{DynamicResource BackGroundColor}">
+        <AbsoluteLayout>
+            <ScrollView x:Name="postScrollView" x:FieldModifier="internal" VerticalScrollBarVisibility="Never" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" Scrolled="PostScrollView_Scrolled">
+                <StackLayout>
+                    <StackLayout x:Name="postStackLayout" x:FieldModifier="internal" Padding="3,0">
+                    </StackLayout>
+                    <Label x:Name="loadingLabel" x:FieldModifier="internal" Text="正在加载中..." IsVisible="False" HorizontalTextAlignment="Center" HorizontalOptions="Fill" VerticalOptions="End" FontSize="18" TextColor="{DynamicResource MainColor}" BackgroundColor="{DynamicResource LightMainColor}"/>
+                </StackLayout>
+            </ScrollView>
+            <Grid x:Name="addPostGrid" x:FieldModifier="internal" AbsoluteLayout.LayoutBounds="0.9, 0.9, 60, 60" AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PostEditCommand}"/>
+                </Grid.GestureRecognizers>
+                <Ellipse x:Name="outerEllipse" x:FieldModifier="internal" Fill="{DynamicResource PostTitleTextColor}" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Ellipse x:Name="innerEllipse" x:FieldModifier="internal" Fill="{AppThemeBinding Light={DynamicResource LightMainColor}, Dark={DynamicResource SecondBackGroundColor}, Default={DynamicResource LightMainColor}}" WidthRequest="55" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <ImageButton Background="Transparent" Source="{AppThemeBinding Light=edit_light.png, Dark=edit_dark.png, Default=edit_light.png}" WidthRequest="30" HeightRequest="30" Command="{Binding PostEditCommand}"/>
+                <ImageButton Background="Transparent" WidthRequest="55" HeightRequest="55" Command="{Binding PostEditCommand}"/>
+            </Grid>
+        </AbsoluteLayout>
+    </RefreshView>
+</ContentPage>

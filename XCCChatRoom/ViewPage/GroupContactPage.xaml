@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XCCChatRoom.Controls"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.GroupContactPage"
+             x:DataType="viewmodel:GroupContactPageViewModel"
+             Title="XFE聊天室"
+             BackgroundColor="{DynamicResource SecondBackGroundColor}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="添加群组" IconImageSource="plus.png" Command="{Binding AddGroupCommand}"/>
+    </ContentPage.ToolbarItems>
+    <AbsoluteLayout>
+        <RefreshView x:Name="groupRefreshView" x:FieldModifier="internal" RefreshColor="Orange" Command="{Binding RefreshCommand}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Source="newsletter.png" Opacity="0.1"/>
+                <Label x:Name="deleteLabel" x:FieldModifier="internal" Margin="0,0,0,50" Text="左滑删除群聊" Opacity="0.06" TextColor="{DynamicResource MainColor}" FontSize="24" HorizontalOptions="Center" VerticalOptions="End"/>
+                <ScrollView VerticalScrollBarVisibility="Never">
+                    <StackLayout Padding="5,5" x:Name="groupStackLayout" x:FieldModifier="internal">
+                        <controls:GroupCardView x:Name="officalGroupCardView" x:FieldModifier="internal" GroupName="XFE聊天室[官方]" Margin="0,3,0,3"/>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </RefreshView>
+        <Grid x:Name="gotoXAPPGrid" x:FieldModifier="internal" AbsoluteLayout.LayoutBounds="0.9, 0.9, 60, 60" AbsoluteLayout.LayoutFlags="PositionProportional">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GotoXAPPCommand}"/>
+            </Grid.GestureRecognizers>
+            <Ellipse x:Name="outerEllipse" x:FieldModifier="internal" Fill="{DynamicResource PostTitleTextColor}" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Ellipse x:Name="innerEllipse" x:FieldModifier="internal" Fill="{AppThemeBinding Light={DynamicResource LightMainColor}, Dark={DynamicResource SecondBackGroundColor}, Default={DynamicResource LightMainColor}}" WidthRequest="55" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ImageButton Background="Transparent" Source="{AppThemeBinding Light=xapp_light.png, Dark=xapp_dark.png, Default=xapp_light.png}" WidthRequest="30" HeightRequest="30" Command="{Binding GotoXAPPCommand}"/>
+            <ImageButton Background="Transparent" WidthRequest="55" HeightRequest="55" Command="{Binding GotoXAPPCommand}"/>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

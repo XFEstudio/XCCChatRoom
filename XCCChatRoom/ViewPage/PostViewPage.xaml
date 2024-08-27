@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.PostViewPage"
+             x:DataType="viewmodel:PostViewPageViewModel"
+             Title="小窝帖子详情"
+             BackgroundColor="{DynamicResource SecondBackGroundColor}">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior x:Name="backButton" IsEnabled="True"/>
+    </Shell.BackButtonBehavior>
+    <StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand" x:Name="commentScrollView" x:FieldModifier="internal">
+            <StackLayout VerticalOptions="StartAndExpand">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 0,0,10,10" BackgroundColor="{DynamicResource BackGroundColor}" >
+                    <StackLayout Margin="0,0,0,40">
+                        <Label Margin="10,10,10,0" x:Name="titleLabel" Text="{Binding TitleText}" FontSize="Title" TextColor="{DynamicResource PostTitleTextColor}" VerticalOptions="Start" HorizontalOptions="Fill"/>
+                        <BoxView Margin="5,5" HeightRequest="2" CornerRadius="30" Opacity="0.5" Color="{DynamicResource MainColor}"/>
+                        <Grid Margin="10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Stroke="{DynamicResource MainColor}" Fill="{DynamicResource LightMainColor}" x:Name="ellipse" StrokeThickness="2" WidthRequest="30" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label x:Name="charLabel" Text="{Binding AuthorNameFirstLetter}" TextColor="{DynamicResource MainColor}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Margin="5,0" Grid.Column="1" x:Name="authorLabel" Text="{Binding AuthorName}" FontSize="20" TextColor="{DynamicResource MainColor}"/>
+                        </Grid>
+                        <Label Margin="10,0,10,10" x:Name="contentLabel" Text="{Binding ContentText}" FontSize="Subtitle" TextColor="{DynamicResource NormalTextColor}" Opacity="0.85" HorizontalOptions="Fill" VerticalOptions="Start"/>
+                        <Label Margin="10,0,10,10" x:Name="timeLabel" Text="{Binding PostTime}" FontSize="Caption" TextColor="{DynamicResource NormalTextColor}" Opacity="0.85" HorizontalOptions="End" VerticalOptions="End"/>
+                        <FlexLayout Wrap="Wrap" x:Name="tagStackLayout" x:FieldModifier="internal" Margin="5,20,10,20">
+                        </FlexLayout>
+                        <BoxView Margin="10,0" HeightRequest="5" CornerRadius="30" Opacity="0.5" Color="{DynamicResource MainColor}"/>
+                        <Grid Margin="0,20,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <VerticalStackLayout Grid.Column="0">
+                                <ctr:LikeButton x:Name="likeButton" x:FieldModifier="internal" Clicked="LikeButton_Clicked"/>
+                                <Label x:Name="likeCountLabel" Text="{Binding LikeCount}" TextColor="{DynamicResource NormalTextColor}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1">
+                                <ctr:StarButton x:Name="starButton" x:FieldModifier="internal" Clicked="StarButton_Clicked"/>
+                                <Label x:Name="starCountLabel" Text="{Binding StarCount}" TextColor="{DynamicResource NormalTextColor}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </StackLayout>
+                </Border>
+                <Label Margin="0,40,0,0" Text="期待你的第一题评论哦~" IsVisible="False" Opacity="0.2" FontSize="24" x:Name="noneCommentLabel" x:FieldModifier="internal" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <StackLayout Margin="0,30,0,0" Padding="5,0" x:Name="commentStack" x:FieldModifier="internal" VerticalOptions="StartAndExpand">
+                </StackLayout>
+                <Label x:Name="loadingLabel" Text="正在加载中..." IsVisible="False" HorizontalTextAlignment="Center" HorizontalOptions="Fill" VerticalOptions="End" FontSize="18" TextColor="{DynamicResource MainColor}" BackgroundColor="{DynamicResource LightMainColor}"/>
+            </StackLayout>
+        </ScrollView>
+        <StackLayout x:Name="inputStack">
+            <Grid BackgroundColor="{DynamicResource BackGroundColor}" HorizontalOptions="FillAndExpand" VerticalOptions="End" Padding="5,5,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout>
+                    <Border x:Name="quoteBorder" x:FieldModifier="internal" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="{DynamicResource LightMainColor}" IsVisible="False" Margin="0,0,5,10" HorizontalOptions="Start" VerticalOptions="Center">
+                        <HorizontalStackLayout>
+                            <Label x:Name="quoteLabel" Text="{Binding QuoteText}" Margin="10,3" FontSize="Caption" TextColor="{DynamicResource MainColor}" MaxLines="3" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                            <ImageButton x:Name="quoteCloseButton" Margin="0,0,5,0" Source="close.png" WidthRequest="15" HeightRequest="15" HorizontalOptions="Fill" VerticalOptions="Fill" Command="{Binding QuoteCloseCommand}"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="{DynamicResource LightMainColor}" Margin="0,0,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                        <Editor x:Name="inputEditor" x:FieldModifier="internal" Text="{Binding InputText}" TextColor="{DynamicResource NormalTextColor}" Placeholder="你的评论会让小窝更温馨哦~" PlaceholderColor="{DynamicResource DeepDarkGrayColor}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" TextChanged="InputEditor_TextChanged" AutoSize="TextChanges" IsSpellCheckEnabled="False" MaximumHeightRequest="300">
+                        </Editor>
+                    </Border>
+                </StackLayout>
+                <ImageButton x:Name="sendButton" x:FieldModifier="internal" Source="send.png" HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="{DynamicResource DisabledMainColor}" Grid.Column="1" Command="{Binding SendClickCommand}" CornerRadius="4" Aspect="Center" WidthRequest="40" HeightRequest="40"/>
+                <BoxView Grid.Row="1" Grid.ColumnSpan="2" Margin="0,5" HeightRequest="2" CornerRadius="30" Opacity="0.5" Color="{DynamicResource MainColor}"/>
+            </Grid>
+            <StackLayout.Shadow>
+                <Shadow Brush="{DynamicResource MainColor}" Opacity="0.5" Radius="10" Offset="0,-10"/>
+            </StackLayout.Shadow>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

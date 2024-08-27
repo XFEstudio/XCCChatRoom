@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.GPTAIChatPage"
+             x:DataType="viewmodel:GPTAIChatPageViewModel"
+             Title="AI对话"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="编辑设定" IconImageSource="edit_dark.png" Command="{Binding EditSettingCommand}"/>
+        <ToolbarItem Text="历史对话" IconImageSource="history.png" Command="{Binding ShowHistoryCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <AbsoluteLayout VerticalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand" x:Name="chatScrollView" x:FieldModifier="internal" Scrolled="ChatScrollView_Scrolled" BackgroundColor="#343541" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout x:Name="chatStack" x:FieldModifier="internal" VerticalOptions="StartAndExpand">
+                    <FlexLayout x:Name="suggestionFlexLayout" x:FieldModifier="internal" Direction="Row" Padding="0,10" Wrap="Wrap" VerticalOptions="Start" HorizontalOptions="Center"/>
+                </StackLayout>
+            </ScrollView>
+            <Border x:Name="stopGenerateBorder" x:FieldModifier="internal" Stroke="#D7D7D7" StrokeThickness="1.2" StrokeShape="RoundRectangle 10" IsVisible="False" AbsoluteLayout.LayoutBounds="0.5, 0.95" AbsoluteLayout.LayoutFlags="PositionProportional" Background="#565865" VerticalOptions="Center">
+                <Button x:Name="stopGenerateButton" x:FieldModifier="internal" Grid.ColumnSpan="2" ImageSource="stop.png" BackgroundColor="#565865" TextColor="{DynamicResource BackGroundColor}" Text="停止生成" Command="{Binding StopGenerateCommand}" CornerRadius="10"/>
+            </Border>
+            <Border x:Name="regenerateBorder" x:FieldModifier="internal" Stroke="#D7D7D7" StrokeThickness="1.2" StrokeShape="RoundRectangle 10" IsVisible="False" AbsoluteLayout.LayoutBounds="0.5, 0.95" AbsoluteLayout.LayoutFlags="PositionProportional" Background="#565865" VerticalOptions="Center">
+                <Button x:Name="regenerateButton" x:FieldModifier="internal" Grid.ColumnSpan="2" ImageSource="refresh.png" BackgroundColor="#565865" TextColor="{DynamicResource BackGroundColor}" Text="重新生成" Command="{Binding RegenerateCommand}" CornerRadius="10"/>
+            </Border>
+        </AbsoluteLayout>
+        <StackLayout>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="End" Padding="5,5,5,15" BackgroundColor="{DynamicResource BackGroundColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+                <Border Stroke="{DynamicResource DeepDarkGrayColor}" BackgroundColor="{DynamicResource LightMainColor}" StrokeThickness="2" StrokeShape="RoundRectangle 10" Margin="0,0,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Editor x:Name="inputEditor" x:FieldModifier="internal" Text="{Binding AskText}" TextColor="{DynamicResource NormalTextColor}" Placeholder="输入询问内容" PlaceholderColor="{DynamicResource DeepDarkGrayColor}" HorizontalOptions="FillAndExpand" TextChanged="InputEditor_TextChanged" AutoSize="TextChanges" IsSpellCheckEnabled="False" MaximumHeightRequest="300" VerticalOptions="Center" BackgroundColor="{DynamicResource LightMainColor}"/>
+                </Border>
+                <ImageButton x:Name="sendButton" x:FieldModifier="internal" Source="send.png" HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="{DynamicResource DisabledMainColor}" Command="{Binding SendButtonClickCommand}" Grid.Column="1" CornerRadius="4" Aspect="Center" WidthRequest="40" HeightRequest="40"/>
+            </Grid>
+            <StackLayout.Shadow>
+                <Shadow Brush="{DynamicResource MainColor}" Opacity="0.5" Radius="10" Offset="0,-10"/>
+            </StackLayout.Shadow>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

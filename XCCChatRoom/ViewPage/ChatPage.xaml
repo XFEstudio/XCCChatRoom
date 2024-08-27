@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.ChatPage"
+             x:DataType="viewmodel:ChatPageViewModel"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding DisplayGroupName}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="phoneCallItem" x:FieldModifier="internal" Text="开启语音" IconImageSource="phone.png" Command="{Binding PhoneCallItemClickCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand" x:Name="chatScrollView" x:FieldModifier="internal" BackgroundColor="{DynamicResource ChatDarkBackGroundColor}" Scrolled="ChatScrollView_Scrolled">
+            <StackLayout x:Name="chatStack" x:FieldModifier="internal" VerticalOptions="StartAndExpand"/>
+        </ScrollView>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="End" Padding="5,5,5,10" BackgroundColor="{DynamicResource BackGroundColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="45"/>
+            </Grid.ColumnDefinitions>
+            <Border Stroke="{DynamicResource DeepDarkGrayColor}" StrokeThickness="2" StrokeShape="RoundRectangle 10" Background="{DynamicResource LightMainColor}" Margin="0,0,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Editor x:Name="inputEditor" x:FieldModifier="internal" Placeholder="输入消息" PlaceholderColor="{DynamicResource DeepDarkGrayColor}" Text="{Binding CurrentEditorText}" TextColor="{DynamicResource NormalTextColor}" HorizontalOptions="FillAndExpand" TextChanged="InputEditor_TextChanged" AutoSize="TextChanges" Focused="InputEditor_Focused" IsSpellCheckEnabled="False" MaximumHeightRequest="300" VerticalOptions="Center"/>
+            </Border>
+            <ImageButton x:Name="sendButton" x:FieldModifier="internal" Source="send.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="{DynamicResource DisabledMainColor}" Grid.Column="1" CornerRadius="4" Aspect="Center" Command="{Binding SendButtonClickCommand}"/>
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid Margin="0,5,0,0" x:Name="toolBarStackLayout">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton x:Name="showEmotionButton" x:FieldModifier="internal" Source="{AppThemeBinding Light=unsmile_light, Dark=unsmile_dark, Default=unsmile_light}" ClassId="unsmile_light.png" HorizontalOptions="Center" HeightRequest="30" WidthRequest="30" Command="{Binding ShowEmotionClickCommand}"/>
+                    <ImageButton x:Name="showImageButton" x:FieldModifier="internal" Source="{AppThemeBinding Light=unimage_light, Dark=unimage_dark, Default=unimage_light}" ClassId="unimage_light.png" HorizontalOptions="Center" HeightRequest="30" Grid.Column="1" WidthRequest="30" Command="{Binding ShowImageClickCommand}"/>
+                    <ImageButton x:Name="cameraButton" x:FieldModifier="internal" Source="{AppThemeBinding Light=uncamera_light,Dark=uncamera_dark, Default=uncamera_light}" ClassId="uncamera_light.png" HorizontalOptions="Center" HeightRequest="30" Grid.Column="2" WidthRequest="30" Command="{Binding OpenCameraClickCommand}"/>
+                </Grid>
+                <ScrollView x:Name="toolViewScrollView" x:FieldModifier="internal" MaximumHeightRequest="200" IsVisible="False" Opacity="0" VerticalOptions="Center" HorizontalOptions="Center">
+                    <FlexLayout x:Name="toolViewStackLayout" x:FieldModifier="internal" Wrap="Wrap" VerticalOptions="Center" HorizontalOptions="Center">
+                    </FlexLayout>
+                </ScrollView>
+            </StackLayout>
+            <Grid.Shadow>
+                <Shadow Brush="{DynamicResource MainColor}" Opacity="0.5" Radius="10" Offset="0,-10"/>
+            </Grid.Shadow>
+        </Grid>
+    </StackLayout>
+</ContentPage>

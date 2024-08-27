@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             x:Class="XCCChatRoom.ViewPage.XAppLoadPage"
+             x:DataType="viewmodel:XAppLoadPageViewModel"
+             BackgroundColor="{DynamicResource SecondBackGroundColor}"
+             Title="加载中...">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <Ellipse Fill="{DynamicResource MainColor}" WidthRequest="120" HeightRequest="120">
+            <Ellipse.Shadow>
+                <Shadow Brush="{DynamicResource MainColor}" Offset="0,10"/>
+            </Ellipse.Shadow>
+        </Ellipse>
+        <Path x:Name="loadCircle" x:FieldModifier="internal" Fill="#F0F0F0" HorizontalOptions="Center" VerticalOptions="Center">
+            <Path.Data>
+                <GeometryGroup>
+                    <EllipseGeometry RadiusX="60" RadiusY="60" Center="60,60" />
+                    <EllipseGeometry RadiusX="5" RadiusY="5" Center="60,10" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Ellipse Stroke="{DynamicResource LightMainColor}" StrokeThickness="5" WidthRequest="85" HeightRequest="85"/>
+        <Image Source="{Binding AppInfo.AppIcon}" WidthRequest="80" HeightRequest="80" Aspect="AspectFill">
+            <Image.Clip>
+                <EllipseGeometry RadiusX="40" RadiusY="40" Center="40,40" />
+            </Image.Clip>
+        </Image>
+    </Grid>
+</ContentPage>

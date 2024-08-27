@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mauiPopup:BasePopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+         xmlns:mauiPopup="clr-namespace:MauiPopup.Views;assembly=MauiPopup"
+         xmlns:viewmodel="clr-namespace:XCCChatRoom.Controls.ViewModel"
+         xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
+         x:Class="XCCChatRoom.Controls.UpdatePopup"
+         x:DataType="viewmodel:UpdatePopupViewModel"
+         IsCloseOnBackgroundClick="True"
+         HorizontalOptions="Center"
+         VerticalOptions="Center"
+         Title="UpdatePopup"
+         Margin="10,0"
+         ForegroundColor="Transparent"
+         BackgroundColor="Transparent">
+    <Border StrokeThickness="3" Padding="15" Stroke="{DynamicResource MainColor}" StrokeShape="RoundRectangle 20" BackgroundColor="{DynamicResource LightMainColor}">
+        <Border.Shadow>
+            <Shadow Offset="10,10" Opacity="0.5" Radius="10"/>
+        </Border.Shadow>
+        <StackLayout>
+            <Label Margin="10" x:Name="displayTitleLabel" Text="{Binding TitleText}" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" TextColor="{DynamicResource MainColor}"/>
+            <Label Margin="10" x:Name="displayVersionLabel" Text="{Binding VersionText}" FontSize="18" CharacterSpacing="3" FontAttributes="Bold" VerticalOptions="Center"  HorizontalOptions="Center"  TextColor="CornflowerBlue"/>
+            <Label Margin="10" x:Name="displayContentLabel" Text="{Binding ContentText}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Center" TextColor="{DynamicResource MainColor}"/>
+            <Button Margin="10" x:Name="updateButton" x:FieldModifier="internal" Text="下载更新" FontSize="16" TextColor="{DynamicResource BackGroundColor}" BackgroundColor="{DynamicResource MainColor}" CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Fill" Command="{Binding UpgradeCommand}"/>
+            <Grid x:Name="downloadGrid" x:FieldModifier="internal" IsVisible="Collapse" ColumnDefinitions="20,*" RowDefinitions="*,*" ColumnSpacing="10" HorizontalOptions="Fill" Margin="10">
+                <ImageButton x:Name="pauseAndContinueButton" x:FieldModifier="internal" ClassId="pause_light" Source="pause_light.png" Command="{Binding PauseOrContinueCommand}" WidthRequest="20" HeightRequest="20"/>
+                <ProgressBar x:Name="progressBar" x:FieldModifier="internal" Progress="{Binding DownloadProgress}" ProgressColor="{DynamicResource MainColor}" Grid.Column="1"/>
+                <Label Text="{Binding DownloadProcessText}" TextColor="{DynamicResource MainColor}" HorizontalOptions="Center" Grid.ColumnSpan="2" Grid.Row="1"/>
+            </Grid>
+            <Button Margin="10" x:Name="installButton" x:FieldModifier="internal" Text="安装" FontSize="16" TextColor="{DynamicResource BackGroundColor}" BackgroundColor="{DynamicResource MainColor}" CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Fill" Command="{Binding InstallCommand}" IsVisible="Collapse"/>
+            <Button Margin="10" x:Name="cancelButton" x:FieldModifier="internal" Text="取消" FontSize="16" TextColor="{DynamicResource DeepDarkGrayColor}" BorderColor="{DynamicResource DeepDarkGrayColor}" BackgroundColor="{DynamicResource BackGroundColor}" CornerRadius="30" VerticalOptions="Center"  HorizontalOptions="Fill" Command="{Binding CancelCommand}"/>
+            <ctr:SuperLinkLabel Text="跳过此版本" Margin="10" x:Name="skipButton" x:FieldModifier="internal" FontSize="16" TextColor="{DynamicResource DeepDarkGrayColor}" VerticalOptions="Center" HorizontalOptions="Center" Click="SkipButton_Click"/>
+        </StackLayout>
+    </Border>
+</mauiPopup:BasePopupPage>

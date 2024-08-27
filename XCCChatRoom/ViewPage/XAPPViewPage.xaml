@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:XCCChatRoom.ViewModel"
+             xmlns:model="clr-namespace:XCCChatRoom.Model"
+             xmlns:ctr="clr-namespace:XCCChatRoom.Controls"
+             x:Class="XCCChatRoom.ViewPage.XAPPViewPage"
+             x:DataType="viewmodel:XAPPViewPageViewModel"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{DynamicResource SecondBackGroundColor}"
+             Title="X·App 小程序">
+    <StackLayout Padding="3">
+        <ListView x:Name="listView" x:FieldModifier="internal" ItemsSource="{Binding XAPPInformationList}" HasUnevenRows="True" ItemTapped="ListView_ItemTapped" RefreshCommand="{Binding RefreshListCommand}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:XAppInformationView">
+                    <ViewCell>
+                        <Border StrokeThickness="0" Padding="5" BackgroundColor="{DynamicResource PureBackGroundColor}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+                                <Grid ColumnDefinitions="60,Auto">
+                                    <Ellipse Stroke="{DynamicResource LightMainColor}" StrokeThickness="3" WidthRequest="63" HeightRequest="63"/>
+                                    <Image Source="{Binding AppIcon}" WidthRequest="60" HeightRequest="60" Aspect="AspectFill">
+                                        <Image.Clip>
+                                            <EllipseGeometry RadiusX="30" RadiusY="30" Center="30,30" />
+                                        </Image.Clip>
+                                    </Image>
+                                    <Label Text="{Binding AppName}" Grid.Column="1" FontSize="18" VerticalOptions="Center" Margin="20,0,0,0" TextColor="{DynamicResource PostTitleTextColor}"/>
+                                </Grid>
+                                <Label Text="{Binding Author,StringFormat='作者：{0}',FallbackValue={Binding Company,StringFormat='公司：{0}'}}" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{DynamicResource NormalTextColor}" LineBreakMode="WordWrap" Margin="0,5"/>
+                                <Label Text="{Binding AppDescription,StringFormat='简介：{0}',FallbackValue='无'}" Grid.Row="2" Grid.ColumnSpan="2" TextColor="{DynamicResource NormalTextColor}" LineBreakMode="WordWrap" Margin="0,5"/>
+                                <Label Text="{Binding AppVersion,StringFormat='版本：{0}',FallbackValue='无'}" Grid.Row="3" Grid.ColumnSpan="2" TextColor="{DynamicResource NormalTextColor}" Margin="0,5"/>
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

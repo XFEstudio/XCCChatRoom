@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="XCCChatRoom.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:XCCChatRoom.ViewPage"
+    TitleColor="{DynamicResource WhiteInLightAndMainColorInDarkColor}"
+    FlyoutBackgroundColor="{DynamicResource SecondBackGroundColor}"
+    BackgroundColor="{DynamicResource MainColorInLightAndBlackInDarkColor}"
+    UnselectedColor="{DynamicResource NormalTextColor}"
+    TabBarTitleColor="{DynamicResource MainColor}"
+    TabBarUnselectedColor="{DynamicResource NormalTextColor}"
+    TabBarForegroundColor="{DynamicResource MainColor}"
+    TabBarBackgroundColor="{DynamicResource PureBackGroundColor}">
+    <TabBar>
+        <Tab Title="聊天室" Icon="message.png">
+            <ShellContent ContentTemplate="{DataTemplate local:GroupContactPage}" Route="GroupContactPage" />
+        </Tab>
+        <Tab Title="AI聊天" Icon="ai.png">
+            <ShellContent ContentTemplate="{DataTemplate local:AICenterPage}" Route="AICenterPage"/>
+        </Tab>
+        <Tab Title="社区" Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate local:CommunityPage}" Route="CommunityPage"/>
+        </Tab>
+        <Tab Title="个人" Icon="user.png">
+            <ShellContent ContentTemplate="{DataTemplate local:UserInfoPage}" Route="UserInfo" />
+        </Tab>
+    </TabBar>
+</Shell>
